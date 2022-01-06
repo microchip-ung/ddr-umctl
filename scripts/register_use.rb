@@ -40,6 +40,7 @@ dx2dqtr dx2dqstr dx3dllcr dx3dqtr dx3dqstr),
 
 comments = {
     'dramtmg9' => "Only used when x16 width",
+    'dramtmg12' => "Only used with PDA_EN",
 }
 
 def read_trace(file)
@@ -70,8 +71,8 @@ hwlpctl rfshctl0 rfshctl3 crcparctl0 zqctl0 dfitmg0 dfitmg1 dfilpcfg0
 dfiupd0 dfiupd1 dfiupd2 dfiphymstr odtmap dbg0 dbg1 dbgcmd poisoncfg
 pccfg
 rfshtmg dramtmg0 dramtmg1 dramtmg2 dramtmg3 dramtmg4 dramtmg5
-dramtmg8 dramtmg9 odtcfg
-addrmap0 addrmap1 addrmap2 addrmap3 addrmap4 addrmap5 addrmap6 addrmap7 addrmap8
+dramtmg6 dramtmg7 dramtmg8 dramtmg14 odtcfg
+addrmap1 addrmap2 addrmap3 addrmap4 addrmap5 addrmap6 addrmap9 addrmap10 addrmap11
 sched sched1 perfhpr1 perflpr1 perfwr1 pcfgr_0 pcfgw_0 pcfgqos0_0
 pcfgqos1_0 pcfgwqos0_0 pcfgwqos1_0 pcfgr_1 pcfgw_1 pcfgqos0_1
 pcfgqos1_1 pcfgwqos0_1 pcfgwqos1_1

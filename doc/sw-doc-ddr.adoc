@@ -367,7 +367,7 @@ as required/desired.
 | yes
 | -
 | yes
-| yes
+| -
 | Only used when x16 width
 | odtcfg
 | yes
@@ -387,7 +387,7 @@ as required/desired.
 | yes
 | yes
 | yes
-| yes
+| -
 | 
 | addrmap1
 | yes
@@ -429,13 +429,13 @@ as required/desired.
 | yes
 | yes
 | yes
-| yes
+| -
 | 
 | addrmap8
 | yes
 | yes
 | yes
-| yes
+| -
 | 
 |===
 
@@ -777,6 +777,24 @@ as required/desired.
 |===
 | register | ddr tcl | fa ddr3 | fa ddr4 | stm32mp1 | comments
 
+| addrmap10
+| -
+| -
+| -
+| yes
+| 
+| addrmap11
+| -
+| -
+| -
+| yes
+| 
+| addrmap9
+| -
+| -
+| -
+| yes
+| 
 | bistar0
 | -
 | -
@@ -824,6 +842,24 @@ as required/desired.
 | -
 | -
 | -
+| Only used with PDA_EN
+| dramtmg14
+| -
+| -
+| -
+| yes
+| 
+| dramtmg6
+| -
+| -
+| -
+| yes
+| 
+| dramtmg7
+| -
+| -
+| -
+| yes
 | 
 | dtcr0
 | yes
