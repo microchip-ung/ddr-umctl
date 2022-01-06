@@ -1,0 +1,269 @@
+= DDR configuration and initilaization for Synopsis UMCTL-based platforms
+
+== TERMS and ABBREVIATIONS
+
+----
+PUB		PHY utility block
+SoC		System on a Chip
+----
+
+<<<
+
+== Introduction
+
+Purpose of this document is to specify and document the design and
+requirements of the DDR customization for Synopsis UMCTL-based
+SoC's. This currently implies Fireant, Maserati and Laguna.
+
+Configuring DDR for these platforms is a delicate process including a
+lot of configuration parameters. It is furthermore complicated by the
+needs for customer customization, sourcing changes and system tuning.
+
+As we wish to provide a better method for enabling customers, many
+different boards and current/future SoC's, this document outlines
+a possible solution for this.
+
+Primary target audience is:
+
+- *SW Engineers:* This is the group of people who will do the software
+  implementation of the proposed solution. Implementation and
+  specification must be in alignment.
+- *SW-Application:* Parts of this implementation will be directly
+  exposed to customers, mainly the configuration tool and associated
+  documentation. This group must be consulted to ensure catering for
+  customer needs and being able to support the system solution as a
+  whole.
+- *Chip design:* This group will be consulted to ensure all relevant
+  parameters are exposed to customization, and that the driver follow
+  the necessary hardware initialization steps.
+
+== Requirements
+
+The system must support the following high-level requirements:
+
+- The system must be able to support the current set of SoC's and
+  boards using the UMCTL controller. This imply all Fireant boards,
+  Maserati boards and Laguna boards.
+
+- The system must be able to support new SoC's and their boards
+  without imposing changes to exposed parameters.
+
+- A set of high-level DDR configuration parameters must be exposed
+  for customization of the 'common-case' changes a customer is
+  expected to make.
+
+- It should be possible to extend the configuration tool with
+  profiles/parameter-sets to support new DDR chip types as required by
+  sourcing needs.
+
+- It should be possible to customize DDR parameters for a board
+  without necessarily recompiling the firmware for the target system.
+
+- The run-time parts of the system initialization should be as compact
+  as possible, and require no floating-point support.
+
+== System design
+
+To implement a system which feature the listed requirements, the
+following solution is proposed:
+
+- A host configuration tool is created. This tool will take the actual
+  values of the exposed parameters, the applicable DDR parameter sets
+  and will produce a 'ready-to-use' DDR controller output configuration
+  'snippet'. All necessary calculations will be done in the
+  configuration tool.
+
+- The host configuration tool will be able to produce the output
+  configuration snippets in different formats to support different
+  platforms - binary, "C", YAML and device-tree (DT) format.
+
+- The host configuration tool will operate on input data specified in
+  YAML format, and DDR profiles/parameter-sets will be in the same
+  format.
+
+- A system-agnostic driver will be created. The driver will accept the
+  DDR configuration 'snippet' in *binary* form, along with
+  platform-defined DDR register access functions. Using this, the
+  driver will be able to perform the full DDR initialization according
+  to the UMCTL programmers guide.
+
+- A system-specific 'glue' component will be created to extract the
+  DDR configuration 'snippet' and convert it to binary form. It is the
+  responsibility of this component to call the base driver, alongside
+  with the register access functions. This component could optionally
+  provide built-in fallback configuration profiles if initialization
+  with the dynamically provided data fails.
+
+The system architecture is outlined in the following diagram:
+
+image::ddr_config.svg[DDR Configuration,align="center",width=80%]
+
+== Configuration parameters
+
+=== User-level configuration parameters
+
+At the top level, the following user-level parameters are
+identified.
+
+* Title: _text_ (This text is accompanying the configuration for identification purposes)
+
+* DDR type: `DDR3`, `DDR4`
+
+* DDR speed: _integer_ (KHz)
+
+* DDR geometry:
+
+  - Column bits
+  - Row bits
+  - Bank bits
+  - Bank group bits
+  - Active ranks 1 or 2
+  - DQ bits: _x8/x16_
+  - DQ bits used: _x16/x32/x40_
+  - Density: _4G/8G_
+
+* 2T mode (???): _enabled/disabled_
+
+* ECC mode: _enabled/disabled_
+
+NOTE: Some platforms may not support all parameters.
+
+=== DDR chip parameters
+
+All DDR chip parameters are derived by the user-level parameters,
+primarily the DDR mode and speed (grade).
+
+== Output DDR configuration
+
+The DDR output configuration data is as follows.
+
+NOTE: The following data/registers set is taken from
+https://bitbucket.microchip.com/projects/UNGE/repos/sw-arm-trusted-firmware/browse/drivers/st/ddr/stm32mp1_ddr.c?at=refs%2Fheads%2Flaguna-v1[drivers/st/ddr/stm32mp1_ddr.c]
+and the associated header file
+https://bitbucket.microchip.com/projects/UNGE/repos/sw-arm-trusted-firmware/browse/include/drivers/st/stm32mp1_ddr.h?at=refs%2Fheads%2Flaguna-v1[include/drivers/st/stm32mp1_ddr.h].
+The driver is going to be used as a reference to implement the
+Microchip equivalent, and it is expected to change the register set
+as required/desired.
+
+=== Info
+
+* Title: _text_ (from input)
+* Speed
+* Memory size
+
+=== Main control registers
+
+* mstr
+* mrctrl0
+* mrctrl1
+* derateen
+* derateint
+* pwrctl
+* pwrtmg
+* hwlpctl
+* rfshctl0
+* rfshctl3
+* crcparctl0
+* zqctl0
+* dfitmg0
+* dfitmg1
+* dfilpcfg0
+* dfiupd0
+* dfiupd1
+* dfiupd2
+* dfiphymstr
+* odtmap
+* dbg0
+* dbg1
+* dbgcmd
+* poisoncfg
+* pccfg;
+
+=== Timing configuration registers
+
+* rfshtmg
+* dramtmg0
+* dramtmg1
+* dramtmg2
+* dramtmg3
+* dramtmg4
+* dramtmg5
+* dramtmg6
+* dramtmg7
+* dramtmg8
+* dramtmg14
+* odtcfg
+
+=== Address map configuration registers
+
+* addrmap1
+* addrmap2
+* addrmap3
+* addrmap4
+* addrmap5
+* addrmap6
+* addrmap9
+* addrmap10
+* addrmap11
+
+=== Performance configuration registers
+
+* sched
+* sched1
+* perfhpr1
+* perflpr1
+* perfwr1
+* pcfgr_0
+* pcfgw_0
+* pcfgqos0_0
+* pcfgqos1_0
+* pcfgwqos0_0
+* pcfgwqos1_0
+* pcfgr_1
+* pcfgw_1
+* pcfgqos0_1
+* pcfgqos1_1
+* pcfgwqos0_1
+* pcfgwqos1_1
+
+=== DDR PHY registers
+
+* pgcr
+* aciocr
+* dxccr
+* dsgcr
+* dcr
+* odtcr
+* zq0cr1
+* dx0gcr
+* dx1gcr
+* dx2gcr
+* dx3gcr
+
+=== DDR PHY timing registers
+
+* ptr0
+* ptr1
+* ptr2
+* dtpr0
+* dtpr1
+* dtpr2
+* mr0
+* mr1
+* mr2
+* mr3
+
+=== DDR PHY calibration registers
+
+* dx0dllcr
+* dx0dqtr
+* dx0dqstr
+* dx1dllcr
+* dx1dqtr
+* dx1dqstr
+* dx2dllcr
+* dx2dqtr
+* dx2dqstr
+* dx3dllcr
+* dx3dqtr
+* dx3dqstr
