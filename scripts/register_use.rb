@@ -50,6 +50,7 @@ def read_trace(file)
 end
 
 reguse = Hash.new
+reguse["fa ddr3"] = read_trace("trace/fireant_ddr3.txt")
 reguse["fa ddr4"] = read_trace("trace/fireant_ddr4.txt")
 
 platforms = reguse.keys.sort
@@ -57,7 +58,7 @@ regs.each do |rg|
     puts "=== #{rg[:grp]}"
     puts
 
-    puts "[cols=\"1,1\"]"
+    puts "[cols=\"1,1,1\"]"
     puts "|==="
     puts "| " + ["stm32mp1"].concat(platforms).join(" | ")
     puts
@@ -75,7 +76,7 @@ totused = platforms.map{|p| reguse[p].keys}.flatten.sort
 refregs = regs.map{|rg| rg[:regs]}.flatten
 puts "=== DDR registers not mapped to configuration registers"
 puts
-puts "[cols=\"1,1\"]"
+puts "[cols=\"1,1,1\"]"
 puts "|==="
 puts "| " + ["register"].concat(platforms).join(" | ")
 puts

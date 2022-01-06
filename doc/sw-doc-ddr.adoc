@@ -153,413 +153,768 @@ as required/desired.
 
 === Main control registers
 
-[cols="1,1"]
+[cols="1,1,1"]
 |===
-| stm32mp1 | fa ddr4
+| stm32mp1 | fa ddr3 | fa ddr4
 
 | mstr
 | yes
+| yes
 | mrctrl0
+| -
 | -
 | mrctrl1
 | -
+| -
 | derateen
+| -
 | -
 | derateint
 | -
+| -
 | pwrctl
+| yes
 | yes
 | pwrtmg
 | -
+| -
 | hwlpctl
+| -
 | -
 | rfshctl0
 | yes
+| yes
 | rfshctl3
+| yes
 | yes
 | crcparctl0
 | -
+| -
 | zqctl0
+| -
 | -
 | dfitmg0
 | yes
+| yes
 | dfitmg1
+| yes
 | yes
 | dfilpcfg0
 | -
+| -
 | dfiupd0
+| yes
 | yes
 | dfiupd1
 | yes
+| yes
 | dfiupd2
+| -
 | -
 | dfiphymstr
 | -
+| -
 | odtmap
+| -
 | -
 | dbg0
 | -
+| -
 | dbg1
+| -
 | -
 | dbgcmd
 | -
+| -
 | poisoncfg
 | -
+| -
 | pccfg
+| -
 | -
 |===
 
 === Timing configuration registers
 
-[cols="1,1"]
+[cols="1,1,1"]
 |===
-| stm32mp1 | fa ddr4
+| stm32mp1 | fa ddr3 | fa ddr4
 
 | rfshtmg
 | yes
+| yes
 | dramtmg0
+| yes
 | yes
 | dramtmg1
 | yes
+| yes
 | dramtmg2
+| yes
 | yes
 | dramtmg3
 | yes
+| yes
 | dramtmg4
+| yes
 | yes
 | dramtmg5
 | yes
+| yes
 | dramtmg6
+| -
 | -
 | dramtmg7
 | -
+| -
 | dramtmg8
+| yes
 | yes
 | dramtmg14
 | -
+| -
 | odtcfg
+| yes
 | yes
 |===
 
 === Address map configuration registers
 
-[cols="1,1"]
+[cols="1,1,1"]
 |===
-| stm32mp1 | fa ddr4
+| stm32mp1 | fa ddr3 | fa ddr4
 
 | addrmap1
 | yes
+| yes
 | addrmap2
+| yes
 | yes
 | addrmap3
 | yes
+| yes
 | addrmap4
+| yes
 | yes
 | addrmap5
 | yes
+| yes
 | addrmap6
+| yes
 | yes
 | addrmap9
 | -
+| -
 | addrmap10
 | -
+| -
 | addrmap11
+| -
 | -
 |===
 
 === Performance configuration registers
 
-[cols="1,1"]
+[cols="1,1,1"]
 |===
-| stm32mp1 | fa ddr4
+| stm32mp1 | fa ddr3 | fa ddr4
 
 | sched
 | -
+| -
 | sched1
+| -
 | -
 | perfhpr1
 | -
+| -
 | perflpr1
+| -
 | -
 | perfwr1
 | -
+| -
 | pcfgr_0
+| -
 | -
 | pcfgw_0
 | -
+| -
 | pcfgqos0_0
+| -
 | -
 | pcfgqos1_0
 | -
+| -
 | pcfgwqos0_0
+| -
 | -
 | pcfgwqos1_0
 | -
+| -
 | pcfgr_1
+| -
 | -
 | pcfgw_1
 | -
+| -
 | pcfgqos0_1
+| -
 | -
 | pcfgqos1_1
 | -
+| -
 | pcfgwqos0_1
 | -
+| -
 | pcfgwqos1_1
+| -
 | -
 |===
 
 === DDR PHY registers
 
-[cols="1,1"]
+[cols="1,1,1"]
 |===
-| stm32mp1 | fa ddr4
+| stm32mp1 | fa ddr3 | fa ddr4
 
 | pgcr
 | -
+| -
 | aciocr
+| -
 | -
 | dxccr
 | yes
+| yes
 | dsgcr
+| yes
 | yes
 | dcr
 | yes
+| yes
 | odtcr
+| -
 | -
 | zq0cr1
 | -
+| -
 | dx0gcr
+| -
 | -
 | dx1gcr
 | -
+| -
 | dx2gcr
 | -
+| -
 | dx3gcr
+| -
 | -
 |===
 
 === DDR PHY timing registers
 
-[cols="1,1"]
+[cols="1,1,1"]
 |===
-| stm32mp1 | fa ddr4
+| stm32mp1 | fa ddr3 | fa ddr4
 
 | ptr0
 | yes
+| yes
 | ptr1
+| yes
 | yes
 | ptr2
 | -
+| -
 | dtpr0
+| yes
 | yes
 | dtpr1
 | yes
+| yes
 | dtpr2
+| yes
 | yes
 | mr0
 | -
+| -
 | mr1
+| -
 | -
 | mr2
 | -
+| -
 | mr3
+| -
 | -
 |===
 
 === DDR PHY calibration registers
 
-[cols="1,1"]
+[cols="1,1,1"]
 |===
-| stm32mp1 | fa ddr4
+| stm32mp1 | fa ddr3 | fa ddr4
 
 | dx0dllcr
 | -
+| -
 | dx0dqtr
+| -
 | -
 | dx0dqstr
 | -
+| -
 | dx1dllcr
+| -
 | -
 | dx1dqtr
 | -
+| -
 | dx1dqstr
+| -
 | -
 | dx2dllcr
 | -
+| -
 | dx2dqtr
+| -
 | -
 | dx2dqstr
 | -
+| -
 | dx3dllcr
+| -
 | -
 | dx3dqtr
 | -
+| -
 | dx3dqstr
+| -
 | -
 |===
 
 === DDR registers not mapped to configuration registers
 
-[cols="1,1"]
+[cols="1,1,1"]
 |===
-| register | fa ddr4
+| register | fa ddr3 | fa ddr4
 
 | addrmap0
 | yes
+| yes
+| addrmap0
+| yes
+| yes
 | addrmap7
+| yes
+| yes
+| addrmap7
+| yes
 | yes
 | addrmap8
 | yes
+| yes
+| addrmap8
+| yes
+| yes
 | bistar0
+| -
 | yes
 | bistar1
+| -
 | yes
 | bistar3
+| -
 | yes
 | bistudpr
+| -
 | yes
 | crcparctl1
+| -
 | yes
 | dbictl
+| -
 | yes
 | dfimisc
 | yes
+| yes
+| dfimisc
+| yes
+| yes
 | dramtmg9
+| -
 | yes
 | dtcr0
 | yes
+| yes
+| dtcr0
+| yes
+| yes
 | dtcr1
+| yes
+| yes
+| dtcr1
+| yes
 | yes
 | dtpr3
 | yes
+| yes
+| dtpr3
+| yes
+| yes
 | dtpr4
+| yes
+| yes
+| dtpr4
+| yes
 | yes
 | dtpr5
 | yes
+| yes
+| dtpr5
+| yes
+| yes
 | dx0bdlr0
+| yes
+| yes
+| dx0bdlr0
+| yes
 | yes
 | dx0bdlr1
 | yes
+| yes
+| dx0bdlr1
+| yes
+| yes
 | dx0bdlr2
 | yes
+| yes
+| dx0bdlr2
+| yes
+| yes
 | dx0gcr5
+| -
 | yes
 | dx0gtr0
 | yes
+| yes
+| dx0gtr0
+| yes
+| yes
 | dx1bdlr0
+| yes
+| yes
+| dx1bdlr0
+| yes
 | yes
 | dx1bdlr1
 | yes
+| yes
+| dx1bdlr1
+| yes
+| yes
 | dx1bdlr2
 | yes
+| yes
+| dx1bdlr2
+| yes
+| yes
 | dx1gcr5
+| -
 | yes
 | dx1gtr0
 | yes
+| yes
+| dx1gtr0
+| yes
+| yes
 | dx2bdlr0
+| yes
+| yes
+| dx2bdlr0
+| yes
 | yes
 | dx2bdlr1
 | yes
+| yes
+| dx2bdlr1
+| yes
+| yes
 | dx2bdlr2
 | yes
+| yes
+| dx2bdlr2
+| yes
+| yes
 | dx2gcr5
+| -
 | yes
 | dx2gtr0
 | yes
+| yes
+| dx2gtr0
+| yes
+| yes
 | dx3bdlr0
+| yes
+| yes
+| dx3bdlr0
+| yes
 | yes
 | dx3bdlr1
 | yes
+| yes
+| dx3bdlr1
+| yes
+| yes
 | dx3bdlr2
 | yes
+| yes
+| dx3bdlr2
+| yes
+| yes
 | dx3gcr5
+| -
 | yes
 | dx3gtr0
 | yes
+| yes
+| dx3gtr0
+| yes
+| yes
 | dx4bdlr0
+| yes
+| yes
+| dx4bdlr0
+| yes
 | yes
 | dx4bdlr1
 | yes
+| yes
+| dx4bdlr1
+| yes
+| yes
 | dx4bdlr2
 | yes
+| yes
+| dx4bdlr2
+| yes
+| yes
 | dx4gcr5
+| -
 | yes
 | dx4gtr0
 | yes
+| yes
+| dx4gtr0
+| yes
+| yes
 | ecccfg0
+| yes
+| yes
+| ecccfg0
+| yes
 | yes
 | init0
 | yes
+| yes
+| init0
+| yes
+| yes
 | init1
+| yes
+| yes
+| init1
+| yes
 | yes
 | init3
 | yes
+| yes
+| init3
+| yes
+| yes
 | init4
+| yes
+| yes
+| init4
+| yes
 | yes
 | init5
 | yes
+| yes
+| init5
+| yes
+| yes
 | init6
+| -
 | yes
 | init7
+| -
 | yes
 | iovcr0
 | yes
+| yes
+| iovcr0
+| yes
+| yes
 | iovcr1
+| yes
+| yes
+| iovcr1
+| yes
 | yes
 | mr0_lpddr3
 | yes
+| yes
+| mr0_lpddr3
+| yes
+| yes
 | mr1_lpddr3
+| yes
+| yes
+| mr1_lpddr3
+| yes
 | yes
 | mr2_lpddr3
 | yes
+| yes
+| mr2_lpddr3
+| yes
+| yes
 | mr3_lpddr3
 | yes
+| yes
+| mr3_lpddr3
+| yes
+| yes
 | mr4_lpddr3
+| -
 | yes
 | mr5_lpddr3
+| -
 | yes
 | mr6_lpddr3
+| -
 | yes
 | pctrl_0
 | yes
+| yes
+| pctrl_0
+| yes
+| yes
 | pgcr0
+| yes
+| yes
+| pgcr0
+| yes
 | yes
 | pgcr1
 | yes
+| yes
+| pgcr1
+| yes
+| yes
 | pgcr2
+| yes
+| yes
+| pgcr2
+| yes
 | yes
 | pgcr3
 | yes
+| yes
+| pgcr3
+| yes
+| yes
 | pgcr7
+| yes
+| yes
+| pgcr7
+| yes
 | yes
 | pir
 | yes
+| yes
+| pir
+| yes
+| yes
 | ptr3
+| yes
+| yes
+| ptr3
+| yes
 | yes
 | ptr4
 | yes
+| yes
+| ptr4
+| yes
+| yes
 | rankctl
+| yes
+| yes
+| rankctl
+| yes
 | yes
 | rankidr
 | yes
+| yes
+| rankidr
+| yes
+| yes
 | rfshctl1
+| yes
+| yes
+| rfshctl1
+| yes
 | yes
 | sbrctl
 | yes
+| yes
+| sbrctl
+| yes
+| yes
 | sbrwdata0
+| yes
+| yes
+| sbrwdata0
+| yes
 | yes
 | swctl
 | yes
+| yes
+| swctl
+| yes
+| yes
 | vtcr0
+| -
 | yes
 | vtcr1
+| -
 | yes
 | zq0pr
 | yes
+| yes
+| zq0pr
+| yes
+| yes
 | zq1pr
+| yes
+| yes
+| zq1pr
+| yes
 | yes
 | zq2pr
 | yes
+| yes
+| zq2pr
+| yes
+| yes
 | zqcr
+| yes
+| yes
+| zqcr
+| yes
 | yes
