@@ -210,7 +210,7 @@ as required/desired.
 | -
 | -
 | yes
-| 
+| Only used when x16 width
 |===
 
 === Timing configuration registers
@@ -272,7 +272,7 @@ as required/desired.
 | -
 | yes
 | -
-| Only used when x16 width
+| Should be configured even for DDR3
 | odtcfg
 | yes
 | yes
@@ -349,18 +349,6 @@ as required/desired.
 |===
 | registers | ddr tcl | fa ddr3 | fa ddr4 | stm32mp1 | comments
 
-| pgcr
-| -
-| -
-| -
-| yes
-| 
-| aciocr
-| -
-| -
-| -
-| yes
-| 
 | dxccr
 | yes
 | yes
@@ -377,42 +365,6 @@ as required/desired.
 | yes
 | yes
 | yes
-| yes
-| 
-| odtcr
-| -
-| -
-| -
-| yes
-| 
-| zq0cr1
-| -
-| -
-| -
-| yes
-| 
-| dx0gcr
-| -
-| -
-| -
-| yes
-| 
-| dx1gcr
-| -
-| -
-| -
-| yes
-| 
-| dx2gcr
-| -
-| -
-| -
-| yes
-| 
-| dx3gcr
-| -
-| -
-| -
 | yes
 | 
 |===
@@ -440,7 +392,7 @@ as required/desired.
 | -
 | -
 | yes
-| 
+| Should this be used?
 | dtpr0
 | yes
 | yes
@@ -491,6 +443,12 @@ as required/desired.
 |===
 | register | ddr tcl | fa ddr3 | fa ddr4 | stm32mp1 | comments
 
+| aciocr
+| -
+| -
+| -
+| yes
+| 
 | addrmap10
 | -
 | -
@@ -695,6 +653,12 @@ as required/desired.
 | -
 | yes
 | 
+| dx0gcr
+| -
+| -
+| -
+| yes
+| 
 | dx0gcr5
 | -
 | -
@@ -743,6 +707,12 @@ as required/desired.
 | -
 | yes
 | 
+| dx1gcr
+| -
+| -
+| -
+| yes
+| 
 | dx1gcr5
 | -
 | -
@@ -786,6 +756,12 @@ as required/desired.
 | yes
 | 
 | dx2dqtr
+| -
+| -
+| -
+| yes
+| 
+| dx2gcr
 | -
 | -
 | -
@@ -840,6 +816,12 @@ as required/desired.
 | yes
 | 
 | dx3dqtr
+| -
+| -
+| -
+| yes
+| 
+| dx3gcr
 | -
 | -
 | -
@@ -1073,6 +1055,12 @@ as required/desired.
 | -
 | yes
 | 
+| odtcr
+| -
+| -
+| -
+| yes
+| 
 | odtmap
 | -
 | -
@@ -1170,6 +1158,12 @@ as required/desired.
 | yes
 | 
 | perfwr1
+| -
+| -
+| -
+| yes
+| 
+| pgcr
 | -
 | -
 | -
@@ -1300,6 +1294,12 @@ as required/desired.
 | -
 | yes
 | -
+| 
+| zq0cr1
+| -
+| -
+| -
+| yes
 | 
 | zq0pr
 | -

@@ -17,7 +17,7 @@ dramtmg8 dramtmg9 odtcfg),
     },
     
     { :grp => "DDR PHY registers",
-      :regs => %w(pgcr aciocr dxccr dsgcr dcr odtcr zq0cr1 dx0gcr dx1gcr dx2gcr dx3gcr),
+      :regs => %w(dxccr dsgcr dcr),
     },
 
     { :grp => "DDR PHY timing registers",
@@ -27,8 +27,10 @@ dramtmg8 dramtmg9 odtcfg),
 ]
 
 comments = {
-    'dramtmg9' => "Only used when x16 width",
+    'dramtmg9' => "Should be configured even for DDR3",
+    'pccfg' => "Only used when x16 width",
     'dramtmg12' => "Only used with PDA_EN",
+    'ptr2' => "Should this be used?", 
 }
 
 def read_trace(file)
