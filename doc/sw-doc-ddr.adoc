@@ -163,46 +163,10 @@ as required/desired.
 | yes
 | yes
 | 
-| mrctrl0
-| -
-| -
-| -
-| yes
-| 
-| mrctrl1
-| -
-| -
-| -
-| yes
-| 
-| derateen
-| -
-| -
-| -
-| yes
-| 
-| derateint
-| -
-| -
-| -
-| yes
-| 
 | pwrctl
 | yes
 | yes
 | yes
-| yes
-| 
-| pwrtmg
-| -
-| -
-| -
-| yes
-| 
-| hwlpctl
-| -
-| -
-| -
 | yes
 | 
 | rfshctl0
@@ -217,18 +181,6 @@ as required/desired.
 | yes
 | yes
 | 
-| crcparctl0
-| -
-| -
-| -
-| yes
-| 
-| zqctl0
-| -
-| -
-| -
-| yes
-| 
 | dfitmg0
 | yes
 | yes
@@ -241,12 +193,6 @@ as required/desired.
 | yes
 | yes
 | 
-| dfilpcfg0
-| -
-| -
-| -
-| yes
-| 
 | dfiupd0
 | yes
 | yes
@@ -257,48 +203,6 @@ as required/desired.
 | yes
 | yes
 | yes
-| yes
-| 
-| dfiupd2
-| -
-| -
-| -
-| yes
-| 
-| dfiphymstr
-| -
-| -
-| -
-| yes
-| 
-| odtmap
-| -
-| -
-| -
-| yes
-| 
-| dbg0
-| -
-| -
-| -
-| yes
-| 
-| dbg1
-| -
-| -
-| -
-| yes
-| 
-| dbgcmd
-| -
-| -
-| -
-| yes
-| 
-| poisoncfg
-| -
-| -
-| -
 | yes
 | 
 | pccfg
@@ -436,116 +340,6 @@ as required/desired.
 | yes
 | yes
 | -
-| 
-|===
-
-=== Performance configuration registers
-
-[cols="1,5*^"]
-|===
-| registers | ddr tcl | fa ddr3 | fa ddr4 | stm32mp1 | comments
-
-| sched
-| -
-| -
-| -
-| yes
-| 
-| sched1
-| -
-| -
-| -
-| yes
-| 
-| perfhpr1
-| -
-| -
-| -
-| yes
-| 
-| perflpr1
-| -
-| -
-| -
-| yes
-| 
-| perfwr1
-| -
-| -
-| -
-| yes
-| 
-| pcfgr_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgw_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgqos0_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgqos1_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgwqos0_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgwqos1_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgr_1
-| -
-| -
-| -
-| yes
-| 
-| pcfgw_1
-| -
-| -
-| -
-| yes
-| 
-| pcfgqos0_1
-| -
-| -
-| -
-| yes
-| 
-| pcfgqos1_1
-| -
-| -
-| -
-| yes
-| 
-| pcfgwqos0_1
-| -
-| -
-| -
-| yes
-| 
-| pcfgwqos1_1
-| -
-| -
-| -
-| yes
 | 
 |===
 
@@ -691,86 +485,6 @@ as required/desired.
 | 
 |===
 
-=== DDR PHY calibration registers
-
-[cols="1,5*^"]
-|===
-| registers | ddr tcl | fa ddr3 | fa ddr4 | stm32mp1 | comments
-
-| dx0dllcr
-| -
-| -
-| -
-| yes
-| 
-| dx0dqtr
-| -
-| -
-| -
-| yes
-| 
-| dx0dqstr
-| -
-| -
-| -
-| yes
-| 
-| dx1dllcr
-| -
-| -
-| -
-| yes
-| 
-| dx1dqtr
-| -
-| -
-| -
-| yes
-| 
-| dx1dqstr
-| -
-| -
-| -
-| yes
-| 
-| dx2dllcr
-| -
-| -
-| -
-| yes
-| 
-| dx2dqtr
-| -
-| -
-| -
-| yes
-| 
-| dx2dqstr
-| -
-| -
-| -
-| yes
-| 
-| dx3dllcr
-| -
-| -
-| -
-| yes
-| 
-| dx3dqtr
-| -
-| -
-| -
-| yes
-| 
-| dx3dqstr
-| -
-| -
-| -
-| yes
-| 
-|===
-
 === DDR registers not mapped to configuration registers
 
 [cols="1,5*^"]
@@ -819,11 +533,35 @@ as required/desired.
 | yes
 | -
 | 
+| crcparctl0
+| -
+| -
+| -
+| yes
+| 
 | crcparctl1
 | yes
 | -
 | yes
 | -
+| 
+| dbg0
+| -
+| -
+| -
+| yes
+| 
+| dbg1
+| -
+| -
+| -
+| yes
+| 
+| dbgcmd
+| -
+| -
+| -
+| yes
 | 
 | dbictl
 | yes
@@ -831,11 +569,41 @@ as required/desired.
 | yes
 | -
 | 
+| derateen
+| -
+| -
+| -
+| yes
+| 
+| derateint
+| -
+| -
+| -
+| yes
+| 
+| dfilpcfg0
+| -
+| -
+| -
+| yes
+| 
 | dfimisc
 | yes
 | yes
 | yes
 | -
+| 
+| dfiphymstr
+| -
+| -
+| -
+| yes
+| 
+| dfiupd2
+| -
+| -
+| -
+| yes
 | 
 | dramtmg12
 | yes
@@ -909,6 +677,24 @@ as required/desired.
 | yes
 | -
 | 
+| dx0dllcr
+| -
+| -
+| -
+| yes
+| 
+| dx0dqstr
+| -
+| -
+| -
+| yes
+| 
+| dx0dqtr
+| -
+| -
+| -
+| yes
+| 
 | dx0gcr5
 | -
 | -
@@ -939,6 +725,24 @@ as required/desired.
 | yes
 | -
 | 
+| dx1dllcr
+| -
+| -
+| -
+| yes
+| 
+| dx1dqstr
+| -
+| -
+| -
+| yes
+| 
+| dx1dqtr
+| -
+| -
+| -
+| yes
+| 
 | dx1gcr5
 | -
 | -
@@ -968,6 +772,24 @@ as required/desired.
 | yes
 | yes
 | -
+| 
+| dx2dllcr
+| -
+| -
+| -
+| yes
+| 
+| dx2dqstr
+| -
+| -
+| -
+| yes
+| 
+| dx2dqtr
+| -
+| -
+| -
+| yes
 | 
 | dx2gcr0
 | yes
@@ -1004,6 +826,24 @@ as required/desired.
 | yes
 | yes
 | -
+| 
+| dx3dllcr
+| -
+| -
+| -
+| yes
+| 
+| dx3dqstr
+| -
+| -
+| -
+| yes
+| 
+| dx3dqtr
+| -
+| -
+| -
+| yes
 | 
 | dx3gcr0
 | yes
@@ -1076,6 +916,12 @@ as required/desired.
 | -
 | -
 | -
+| 
+| hwlpctl
+| -
+| -
+| -
+| yes
 | 
 | init0
 | yes
@@ -1215,11 +1061,119 @@ as required/desired.
 | yes
 | -
 | 
+| mrctrl0
+| -
+| -
+| -
+| yes
+| 
+| mrctrl1
+| -
+| -
+| -
+| yes
+| 
+| odtmap
+| -
+| -
+| -
+| yes
+| 
+| pcfgqos0_0
+| -
+| -
+| -
+| yes
+| 
+| pcfgqos0_1
+| -
+| -
+| -
+| yes
+| 
+| pcfgqos1_0
+| -
+| -
+| -
+| yes
+| 
+| pcfgqos1_1
+| -
+| -
+| -
+| yes
+| 
+| pcfgr_0
+| -
+| -
+| -
+| yes
+| 
+| pcfgr_1
+| -
+| -
+| -
+| yes
+| 
+| pcfgw_0
+| -
+| -
+| -
+| yes
+| 
+| pcfgw_1
+| -
+| -
+| -
+| yes
+| 
+| pcfgwqos0_0
+| -
+| -
+| -
+| yes
+| 
+| pcfgwqos0_1
+| -
+| -
+| -
+| yes
+| 
+| pcfgwqos1_0
+| -
+| -
+| -
+| yes
+| 
+| pcfgwqos1_1
+| -
+| -
+| -
+| yes
+| 
 | pctrl_0
 | -
 | yes
 | yes
 | -
+| 
+| perfhpr1
+| -
+| -
+| -
+| yes
+| 
+| perflpr1
+| -
+| -
+| -
+| yes
+| 
+| perfwr1
+| -
+| -
+| -
+| yes
 | 
 | pgcr0
 | yes
@@ -1257,6 +1211,12 @@ as required/desired.
 | yes
 | -
 | 
+| poisoncfg
+| -
+| -
+| -
+| yes
+| 
 | ptr3
 | yes
 | yes
@@ -1268,6 +1228,12 @@ as required/desired.
 | yes
 | yes
 | -
+| 
+| pwrtmg
+| -
+| -
+| -
+| yes
 | 
 | rankctl
 | yes
@@ -1304,6 +1270,18 @@ as required/desired.
 | -
 | -
 | -
+| 
+| sched
+| -
+| -
+| -
+| yes
+| 
+| sched1
+| -
+| -
+| -
+| yes
 | 
 | swctl
 | yes
@@ -1346,4 +1324,10 @@ as required/desired.
 | yes
 | yes
 | -
+| 
+| zqctl0
+| -
+| -
+| -
+| yes
 | 

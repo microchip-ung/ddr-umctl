@@ -3,10 +3,8 @@ require 'pp';
 regs = [
 
     { :grp => "Main control registers",
-      :regs => %w(mstr mrctrl0 mrctrl1 derateen derateint pwrctl pwrtmg
-hwlpctl rfshctl0 rfshctl3 crcparctl0 zqctl0 dfitmg0 dfitmg1 dfilpcfg0
-dfiupd0 dfiupd1 dfiupd2 dfiphymstr odtmap dbg0 dbg1 dbgcmd poisoncfg
-pccfg)
+      :regs => %w(mstr pwrctl
+rfshctl0 rfshctl3 dfitmg0 dfitmg1 dfiupd0 dfiupd1 pccfg),
     },
 
     { :grp => "Timing configuration registers",
@@ -18,12 +16,6 @@ dramtmg8 dramtmg9 odtcfg),
       :regs => %w(addrmap0 addrmap1 addrmap2 addrmap3 addrmap4 addrmap5 addrmap6 addrmap7 addrmap8),
     },
     
-    { :grp => "Performance configuration registers",
-      :regs => %w(sched sched1 perfhpr1 perflpr1 perfwr1 pcfgr_0 pcfgw_0 pcfgqos0_0
-pcfgqos1_0 pcfgwqos0_0 pcfgwqos1_0 pcfgr_1 pcfgw_1 pcfgqos0_1
-pcfgqos1_1 pcfgwqos0_1 pcfgwqos1_1),
-    },
-
     { :grp => "DDR PHY registers",
       :regs => %w(pgcr aciocr dxccr dsgcr dcr odtcr zq0cr1 dx0gcr dx1gcr dx2gcr dx3gcr),
     },
@@ -32,10 +24,6 @@ pcfgqos1_1 pcfgwqos0_1 pcfgwqos1_1),
       :regs => %w(ptr0 ptr1 ptr2 dtpr0 dtpr1 dtpr2 mr0 mr1 mr2 mr3),
     },
 
-    { :grp => "DDR PHY calibration registers",
-      :regs => %w(dx0dllcr dx0dqtr dx0dqstr dx1dllcr dx1dqtr dx1dqstr dx2dllcr
-dx2dqtr dx2dqstr dx3dllcr dx3dqtr dx3dqstr),
-    },
 ]
 
 comments = {
