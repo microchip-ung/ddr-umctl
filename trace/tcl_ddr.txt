@@ -1,0 +1,282 @@
+    erf_wr -u CLKGEN LCPLL1_DDR_CLK_CFG DDR_CLK_DIV 5
+   erf_wr -s CPU DDRCTRL_RST DDRC_RST 1
+   erf_wr -s CPU DDRCTRL_RST DDR_AXI_RST 1
+   erf_wr -s CPU DDRCTRL_RST DDR_APB_RST 1
+   erf_wr -s CPU DDRCTRL_RST DDRPHY_CTL_RST 1
+   erf_wr -u CPU DDRCTRL_RST DDRPHY_APB_RST 1
+   erf_wr -s CPU DDRCTRL_CLK DDR_CLK_ENA 1
+   erf_wr -s CPU DDRCTRL_CLK DDR_AXI_CLK_ENA 1
+   erf_wr -s CPU DDRCTRL_CLK DDR_APB_CLK_ENA 1
+   erf_wr -s CPU DDRCTRL_CLK DDRPHY_CTL_CLK_ENA 1
+   erf_wr -u CPU DDRCTRL_CLK DDRPHY_APB_CLK_ENA 1
+   erf_wr -u CPU DDRCTRL_RST DDR_APB_RST 0
+   #erf_wr -v CPU RESET MEM_RST 1;               ## Assert the core_ddrc_rstn reset
+   erf_wr -u CPU RESET MEM_RST 0;               ## Deassert the core_ddrc_rstn reset
+   erf_wr -u CPU DDRCTRL_RST DDRC_RST 0;        # Deassert the core_ddrc_rstn reset
+   erf_wr -u CPU DDRCTRL_RST DDR_AXI_RST 0;     # Deassert aresetn_n
+   erf_wr -u CPU DDRCTRL_RST DDRPHY_APB_RST 0;     # Deassert the PHY APB reset
+   erf_wr -u CPU DDRCTRL_RST DDRPHY_CTL_RST 0;     # Deassert PHY CTL reset
+   erf_wr -u DDR_UMCTL2 SWCTL SW_DONE 0
+   erf_wr -u DDR_UMCTL2 DFIMISC DFI_INIT_COMPLETE_EN 1
+   erf_wr -u DDR_UMCTL2 SWCTL SW_DONE 1
+     erf_wr -v DDR_UMCTL2 RFSHCTL3 DIS_AUTO_REFRESH 1
+     erf_wr -v DDR_UMCTL2 PWRCTL   POWERDOWN_EN     0
+     erf_wr -v DDR_UMCTL2 DFIMISC  DFI_INIT_COMPLETE_EN  0
+     erf_wr -v DDR_UMCTL2 RFSHCTL3 DIS_AUTO_REFRESH 0
+     erf_wr -v DDR_UMCTL2 PWRCTL   POWERDOWN_EN     0
+     erf_wr -v DDR_UMCTL2 DFIMISC  DFI_INIT_COMPLETE_EN  1
+  erf_wr DDR_PHY PIR 0x00000073
+  erf_wr -u DDR_PHY PIR 0x00000181
+  erf_wr -u DDR_PHY PIR 0x00040001
+  erf_wr -u DDR_PHY PGCR0 PHYFRST 0
+  erf_wr -u DDR_PHY PGCR0 PHYFRST 1
+  #erf_wr -u DDR_PHY PGCR1 PHYHRST 0
+  #erf_wr -u DDR_PHY PGCR1 PHYHRST 1
+  erf_wr -u DDR_PHY PIR 0x00000E01
+  #erf_wr -u DDR_PHY PIR 0x00000C01
+  #erf_wr -u DDR_PHY PIR 0x0002FE01
+  erf_wr -u DDR_PHY PGCR3 RDMODE 0x1
+    erf_wr -u DDR_PHY PIR 0x0003F001
+    #erf_wr -u DDR_PHY PIR 0x00010001
+    erf_wr -u DDR_PHY PIR 0x0001F001
+  erf_wr -u DDR_PHY PGCR0 PHYFRST 0
+  erf_wr -u DDR_PHY PGCR0 PHYFRST 1
+  erf_wr -u DDR_PHY PGCR1 ioddrm 0x01
+  erf_wr -u DDR_PHY PGCR2 tREFPRD [format "%.0f" [expr $params(tRASc_max) - 400]] ;# FIXME = FIXED
+  erf_wr -s DDR_PHY PTR0 tPLLGS $params(tpllgs); #[format "%.0f" [expr int(4000/$params(ctl_clk_period))]] ; # 4 us
+  erf_wr -u DDR_PHY PTR0 tPLLPD $params(tpllpd); #[format "%.0f" [expr int(1000/$params(ctl_clk_period))]] ; # 1 us
+  erf_wr -s DDR_PHY PTR1 tPLLLOCK $params(tplllock); #[format "%.0f" [expr int(100000/$params(ctl_clk_period))]] ; # 100 us
+  erf_wr -u DDR_PHY PTR1 tPLLRST  $params(tpllrst); #[format "%.0f" [expr int(9000/$params(ctl_clk_period)])] ; # 9 us
+  erf_wr -u DDR_PHY ZQCR PGWAIT 7
+  erf_wr -v -u DDR_PHY DCR DDRMD $DDRMD; #$params(DDRMD);  # DDR3 = 3'b011 and DDR4 = 3'b100
+  erf_wr -v -u DDR_PHY DCR DDR2T $params(2T_mode)
+    erf_wr -v -u DDR_PHY SCHCR1 ALLRANK 1
+        erf_wr -v -s DDR_PHY PGCR3 RDBICLSEL 1
+        erf_wr -v -s DDR_PHY PGCR3 RDBICL 3
+        erf_wr -v -s DDR_PHY PGCR3 PGCR3_RDBI $params(rd_dbi_en)
+        erf_wr -v -u DDR_PHY PGCR3 PGCR3_WDBI $params(wr_dbi_en)
+    erf_wr -v -u DDR_PHY MR0_DDR4 $params(reg_ddrc_mr)
+    erf_wr -v -u DDR_PHY MR1_DDR4 $params(reg_ddrc_emr)
+    erf_wr -v -u DDR_PHY MR2_DDR4 $params(reg_ddrc_emr2)
+    erf_wr -v -u DDR_PHY MR3_DDR4 $params(reg_ddrc_emr3)
+    erf_wr -v -u DDR_PHY MR4_DDR4 $params(reg_ddrc_mr4)
+    erf_wr -v -u DDR_PHY MR5_DDR4 $params(reg_ddrc_mr5)
+    erf_wr -v -u DDR_PHY MR6_DDR4 $params(reg_ddrc_mr6)
+    erf_wr -v -u DDR_PHY MR0 $params(reg_ddrc_mr)
+    erf_wr -v -u DDR_PHY MR1 $params(reg_ddrc_emr)
+    erf_wr -v -u DDR_PHY MR2 $params(reg_ddrc_emr2)
+    erf_wr -v -u DDR_PHY MR3 $params(reg_ddrc_emr3)
+  erf_wr -v -s DDR_PHY DTPR0 tRTP   $params(tRTPc)
+  erf_wr -v -s DDR_PHY DTPR0 tRP    $params(tRPc)
+  erf_wr -v -s DDR_PHY DTPR0 tRAS   $params(tRASc_min)
+  erf_wr -v -u DDR_PHY DTPR0 tRRD   $params(tRRDc)
+  erf_wr -v -s DDR_PHY DTPR1 tMRD   $params(tMRDc)
+  erf_wr -v -s DDR_PHY DTPR1 tMOD   $params(tMOD)
+  erf_wr -v -s DDR_PHY DTPR1 tFAW   $params(tFAWc)
+  erf_wr -v -u DDR_PHY DTPR1 tWLMRD $params(tWLMRDc)
+  erf_wr -v -s DDR_PHY DTPR2 tXS    $params(tXS_tRFCc)
+    erf_wr -v -u DDR_PHY DTPR2 tCKE   $params(tCKEc)
+    erf_wr -v -u DDR_PHY DTPR2 tCKE   [expr $params(tCKEc) + 1]
+  erf_wr -v -u DDR_PHY DTPR3 tDLLK  $params(tDLLKc)
+    erf_wr -v -s DDR_PHY DTPR4 tXP    $params(tXPc)
+    erf_wr -v -s DDR_PHY DTPR4 tXP    $params(tXPDLLc)
+  erf_wr -v -u DDR_PHY DTPR4 tRFC   $params(tRFCc)
+  erf_wr -v -s DDR_PHY DTPR5 tWTR   $params(tWTRc)
+  erf_wr -v -s DDR_PHY DTPR5 tRCD   $params(tRCDc)
+  erf_wr -v -u DDR_PHY DTPR5 tRC    $params(tRCc)
+  erf_wr -v -s DDR_PHY PTR3 tDINIT0 $params(tdinit0); # 500 us
+  erf_wr -v -u DDR_PHY PTR3 tDINIT1 $params(tXS_tRFCc);# (tRFC + 10 ns)
+  erf_wr -v -s DDR_PHY PTR4 tDINIT2 $params(tdinit2); # 200 us
+  erf_wr -v -u DDR_PHY PTR4 tDINIT3 $params(tZQinitc); # tZQinit
+  erf_wr -v -s DDR_PHY DXCCR DQSRES  0x4; # 500 ohms
+  erf_wr -v -u DDR_PHY DXCCR DQSNRES 0xC; # 500 ohms
+  erf_wr -v -s DDR_PHY DSGCR CUAEN   0x1
+  erf_wr -v -u DDR_PHY DSGCR SDRMODE 0x0; # Both controller and PHY run in HDR mode
+      erf_wr -v -s DDR_PHY DTCR0 DTRDBITR 0x3
+  erf_wr -v -s DDR_PHY DTCR0 DTRPTN  15
+  erf_wr -v -s DDR_PHY DTCR0 DTMPR   1
+  erf_wr -v -u DDR_PHY DTCR0 RFSHDT  2; #FIXED #FIX_ME : The value must match the size of the refresh burst issued by memory controller.
+  erf_wr -v -u DDR_PHY DTCR1 RANKEN $params(active_ranks); # No of rank Rank Enable : required for data training
+  erf_wr -v -u DDR_PHY PGCR7 WRPSTEX 0x1; # Disable Write Post-amble extension
+      erf_wr -v -u DDR_PHY DX4GCR0 DX4GCR0_DXEN 0x0
+    erf_wr -v -u DDR_PHY DX4GCR0 DX4GCR0_DXEN 0x0
+    erf_wr -v -u DDR_PHY DX3GCR0 DX3GCR0_DXEN 0x0
+    erf_wr -v -u DDR_PHY DX2GCR0 DX2GCR0_DXEN 0x0
+  erf_wr -v -u DDR_PHY DX0GTR0 DX0GTR0_DGSL 0x2
+  erf_wr -v -u DDR_PHY DX1GTR0 DX1GTR0_DGSL 0x2
+  erf_wr -v -u DDR_PHY DX2GTR0 DX2GTR0_DGSL 0x2
+  erf_wr -v -u DDR_PHY DX3GTR0 DX3GTR0_DGSL 0x2
+  erf_wr -v -u DDR_PHY DX4GTR0 DX4GTR0_DGSL 0x2
+  erf_wr -v -u DDR_PHY RANKIDR RANKWID 0x1
+  erf_wr -v -u DDR_PHY DX0GTR0 DX0GTR0_DGSL 0x2
+  erf_wr -v -u DDR_PHY DX1GTR0 DX1GTR0_DGSL 0x2
+  erf_wr -v -u DDR_PHY DX2GTR0 DX2GTR0_DGSL 0x2
+  erf_wr -v -u DDR_PHY DX3GTR0 DX3GTR0_DGSL 0x2
+  erf_wr -v -u DDR_PHY DX4GTR0 DX4GTR0_DGSL 0x2
+  erf_wr -v -s DDR_PHY IOVCR0 ACVREFIEN 0x1
+  erf_wr -v -s DDR_PHY IOVCR0 ACVREFSEN 0x1
+  erf_wr -v -u DDR_PHY IOVCR0 ACVREFPEN 0x0
+  erf_wr -v -u DDR_PHY IOVCR1 ZQVREFPEN 0x1
+    erf_wr -v -s DDR_UMCTL2 MSTR DDR3 0x0
+    erf_wr -v -s DDR_UMCTL2 MSTR DDR4 0x1
+    erf_wr -v -s DDR_UMCTL2 MSTR DATA_BUS_WIDTH 0x1
+  erf_wr -v -s DDR_UMCTL2 MSTR ACTIVE_RANKS $params(active_ranks)
+  erf_wr -v -s DDR_UMCTL2 MSTR EN_2T_TIMING_MODE $params(2T_mode)
+  erf_wr -v -u DDR_UMCTL2 MSTR DEVICE_CONFIG $params(device_config)
+    erf_wr -v -u DDR_UMCTL2 PCCFG BL_EXP_MODE 1
+  erf_wr -v -s DDR_UMCTL2 INIT0 pre_cke_x1024 $params(pre_cke_x1024)
+  erf_wr -v -u DDR_UMCTL2 INIT0 post_cke_x1024 $params(post_cke_x1024); #[expr (($params(tXPR)/2) + 1)/1024]; #Unit : 1024 DFI CLOCK CYCLE : FIX ME
+  #erf_wr -v -u DDR_UMCTL2 INIT0 post_cke_x1024 [expr int((($params(tXPR)/2)/1024) + 1)]; #Unit : 1024 DFI CLOCK CYCLE : FIX ME
+  erf_wr -v -u DDR_UMCTL2 INIT1 dram_rstn_x1024 $params(dram_rstn_x1024)
+  erf_wr -v -s DDR_UMCTL2 INIT3 mr $params(reg_ddrc_mr)
+  erf_wr -v -u DDR_UMCTL2 INIT3 emr  $params(reg_ddrc_emr)
+  erf_wr -v -s DDR_UMCTL2 INIT4 emr3 $params(reg_ddrc_emr3)
+  erf_wr -v -u DDR_UMCTL2 INIT4 emr2 $params(reg_ddrc_emr2)
+  erf_wr -v -u DDR_UMCTL2 INIT5 dev_zqinit_x32  [expr int(ceil(($params(tZQinitc) / 2.0) / 32) + 1)]
+    erf_wr -v -u DDR_UMCTL2 INIT6 mr5 $params(reg_ddrc_mr5)
+    erf_wr -v -u DDR_UMCTL2 INIT7 mr6 $params(reg_ddrc_mr6)
+    erf_wr -v -u DDR_UMCTL2 INIT6 mr4 $params(reg_ddrc_mr4)
+    erf_wr -v -s DDR_UMCTL2 DBICTL DM_EN $params(dm_en)
+    erf_wr -v -s DDR_UMCTL2 DBICTL WR_DBI_EN $params(wr_dbi_en)
+    erf_wr -v -u DDR_UMCTL2 DBICTL RD_DBI_EN $params(rd_dbi_en)
+      erf_wr -v -u DDR_UMCTL2 DFIMISC PHY_DBI_MODE $params(phy_dbi_en)
+    erf_wr -v -s DDR_UMCTL2 ODTCFG WR_ODT_HOLD  [expr 5 + $params(WR_PREAMBLE) + $params(write_crc)]; # 0 for write CRC disabled (mr2_A12)
+    erf_wr -v -s DDR_UMCTL2 ODTCFG WR_ODT_DELAY $params(tCAL)
+    erf_wr -v -s DDR_UMCTL2 ODTCFG RD_ODT_HOLD  [expr 5 + $params(RD_PREAMBLE)]
+    #erf_wr -v -u DDR_UMCTL2 ODTCFG RD_ODT_DELAY [expr $params(CLc) - $params(CWLc) - $params(read_preamble) + $params(write_preamble) + $params(tCAL)]
+    erf_wr -v -u DDR_UMCTL2 ODTCFG RD_ODT_DELAY [expr $params(CLc) - $params(CWLc) - $params(RD_PREAMBLE) + $params(WR_PREAMBLE) + $params(tCAL)]
+    erf_wr -v -s DDR_UMCTL2 ODTCFG WR_ODT_HOLD  0x6
+    erf_wr -v -s DDR_UMCTL2 ODTCFG WR_ODT_DELAY 0x0
+    erf_wr -v -s DDR_UMCTL2 ODTCFG RD_ODT_HOLD  0x6
+    erf_wr -v -u DDR_UMCTL2 ODTCFG RD_ODT_DELAY [expr $params(CLc) - $params(CWLc)]
+      erf_wr -v -s DDR_UMCTL2 DRAMTMG0 wr2pre [expr int(($params(WL) + int($params(BL) / 2.0) + $params(tWRc) + 2 ) / 2.0) + $params(2T_mode)]; # add 2 tck when write_preamble = 1
+        erf_wr -v -s DDR_UMCTL2 DRAMTMG0 wr2pre [expr int(($params(WL) + int($params(BL) / 2.0) + $params(tWRc_CRC_DM)) / 2.0) + $params(2T_mode)];
+        erf_wr -v -s DDR_UMCTL2 DRAMTMG0 wr2pre [expr int(($params(WL) + int($params(BL) / 2.0) + $params(tWRc)) / 2.0) + $params(2T_mode)];
+      erf_wr -v -s DDR_UMCTL2 DRAMTMG0 wr2pre [expr int(($params(WL) + int($params(BL) / 2.0) + $params(tWRc)) / 2.0) + $params(2T_mode)];
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG0 t_faw  [expr int(ceil($params(tFAWc) / 2.0))];
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG0 t_ras_min [expr int($params(tRASc_min) / 2.0) + $params(2T_mode)]
+  erf_wr -v -u DDR_UMCTL2 DRAMTMG0 t_ras_max [format "%.0f" [expr int(($params(tRASc_max) -1) / (2.0*1024))]]
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG1 t_rc [expr int(ceil($params(tRCc) / 2.0))]
+      erf_wr -v -s DDR_UMCTL2 DRAMTMG1 t_xp [expr int(ceil($params(tXPc) / 2.0))]
+      erf_wr -v -s DDR_UMCTL2 DRAMTMG1 t_xp [expr int(ceil(($params(tXPc) + $params(tPLc)) / 2.0))]
+    erf_wr -v -s DDR_UMCTL2 DRAMTMG1 t_xp [expr int(ceil($params(tXPc) / 2.0))]
+  erf_wr -v -u DDR_UMCTL2 DRAMTMG1 rd2pre [expr int(($params(AL) + $params(tRTPc)) / 2.0) + $params(2T_mode)];
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG2 wr2rd [expr int(ceil($val_wr2rd / 2.0))];
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG2 write_latency [expr int(ceil($params(WL) / 2.0))] ;
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG2 read_latency  [expr int(ceil($params(RL) / 2.0))] ;
+  erf_wr -v -u DDR_UMCTL2 DRAMTMG2 rd2wr [expr int(ceil($val_rd2wr / 2.0))];
+    erf_wr -v -s DDR_UMCTL2 DRAMTMG3 t_mrd [expr int(ceil(($params(tMRDc) + $params(tCAL)) / 2.0))];
+    erf_wr -v -u DDR_UMCTL2 DRAMTMG3 t_mod [expr int(ceil(($params(tWR_MPRc) + $params(tCAL)) / 2.0))];
+    erf_wr -v -s DDR_UMCTL2 DRAMTMG3 t_mrd [expr int(ceil($params(tMRDc) / 2.0))];
+    erf_wr -v -u DDR_UMCTL2 DRAMTMG3 t_mod [expr int(ceil($params(tWR_MPRc) / 2.0))];
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG4 t_rcd [expr int(ceil(($params(tRCDc) - $params(AL)) / 2.0))];
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG4 t_rp  [expr int((floor($params(tRPc) / 2.0)) + 1)];
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG4 t_ccd $val_tCCD;
+  erf_wr -v -u DDR_UMCTL2 DRAMTMG4 t_rrd $val_tRRD;
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG5 t_cksrx [expr int(ceil($params(tCKSRXc) / 2.0))];
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG5 t_cksre [expr int(ceil($params(tCKSREc) / 2.0))];
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG5 t_ckesr [expr int(ceil(($params(tCKEc) + 1) / 2.0))];
+  erf_wr -v -u DDR_UMCTL2 DRAMTMG5 t_cke   [expr int(ceil($params(tCKEc) / 2.0))];
+    erf_wr -v -s DDR_UMCTL2 DRAMTMG8 t_xs_fast_x32  [expr int(ceil($params(tXS_tRFC4c) / (2.0 * 32)) + 1)]
+    erf_wr -v -s DDR_UMCTL2 DRAMTMG8 t_xs_abort_x32 [expr int(ceil($params(tXS_tRFC4c) / (2.0 * 32)))]
+  erf_wr -v -s DDR_UMCTL2 DRAMTMG8 t_xs_dll_x32   [expr int(ceil($params(tDLLKc) / (2.0 * 32)))]
+  erf_wr -v -u DDR_UMCTL2 DRAMTMG8 t_xs_x32       [expr int(ceil($params(tXS_tRFCc) / (2.0 * 32)))]
+    erf_wr -v -s DDR_UMCTL2 DRAMTMG9 DDR4_WR_PREAMBLE $params(write_preamble);
+    erf_wr -v -s DDR_UMCTL2 DRAMTMG9 t_ccd_s [expr int(ceil(($params(tCCDc_S) + 1) / 2.0))];
+    erf_wr -v -s DDR_UMCTL2 DRAMTMG9 t_rrd_s [expr int(ceil($params(tRRDc_S) / 2.0))];
+      erf_wr -v -u DDR_UMCTL2 DRAMTMG9 wr2rd_s [expr int(ceil(($params(CWLc) + $params(tPLc) + int($params(BL) / 2.0)  + $params(tWTRc_S_CRC_DM) + $params(write_preamble)) / 2.0))];
+      erf_wr -v -u DDR_UMCTL2 DRAMTMG9 wr2rd_s [expr int(ceil(($params(CWLc) + $params(tPLc) + int($params(BL) / 2.0) + $params(tWTRc_S) + $params(write_preamble)) / 2.0))];
+    erf_wr -v -u DDR_UMCTL2 DRAMTMG12 T_MRD_PDA [expr int(ceil($params(tMRD_PDAc) / 2.0))]
+    erf_wr -v -s DDR_UMCTL2 DFITMG0 DFI_RDDATA_USE_DFI_PHY_CLK 1
+    erf_wr -v -s DDR_UMCTL2 DFITMG0 DFI_WRDATA_USE_DFI_PHY_CLK 1
+    erf_wr -v -s DDR_UMCTL2 DFITMG0 dfi_tphy_wrlat   [expr $params(WL) - 2 + $params(tCAL)];
+    erf_wr -v -s DDR_UMCTL2 DFITMG0 dfi_t_rddata_en  [expr $params(RL) - 4 + $params(tCAL)];
+    erf_wr -v -s DDR_UMCTL2 DFITMG0 dfi_tphy_wrlat   [expr $params(WL) - 2];
+    erf_wr -v -s DDR_UMCTL2 DFITMG0 dfi_t_rddata_en  [expr $params(RL) - 4];
+  erf_wr -v -s DDR_UMCTL2 DFITMG0 dfi_tphy_wrdata  0x2;
+  erf_wr -v -u DDR_UMCTL2 DFITMG0 dfi_t_ctrl_delay 0x3;
+  erf_wr -v -s DDR_UMCTL2 DFITMG1 DFI_T_DRAM_CLK_ENABLE   0x1;
+  erf_wr -v -s DDR_UMCTL2 DFITMG1 DFI_T_DRAM_CLK_DISABLE  0x2;
+    erf_wr -v -s DDR_UMCTL2 DFITMG1 DFI_T_CMD_LAT $params(tCAL);
+  erf_wr -v -u DDR_UMCTL2 DFITMG1 DFI_T_WRDATA_DELAY 0x4;
+  #   erf_wr -v -s DDR_UMCTL2 DFITMG0 dfi_tphy_wrlat   [expr int((($params(WL) + $params(tCAL)) - 2) / 2.0)];
+  #   erf_wr -v -s DDR_UMCTL2 DFITMG0 dfi_t_rddata_en  [expr int((($params(RL) + $params(tCAL)) - 4) / 2.0)];
+  #   erf_wr -v -s DDR_UMCTL2 DFITMG0 dfi_tphy_wrlat   [expr int(($params(WL) - 2) / 2.0)];
+  #   erf_wr -v -s DDR_UMCTL2 DFITMG0 dfi_t_rddata_en  [expr int(($params(RL) - 4) / 2.0)];
+  # erf_wr -v -s DDR_UMCTL2 DFITMG0 dfi_tphy_wrdata  0x1;
+  # erf_wr -v -u DDR_UMCTL2 DFITMG0 dfi_t_ctrl_delay 0x2;
+  # erf_wr -v -s DDR_UMCTL2 DFITMG1 DFI_T_DRAM_CLK_ENABLE   0x1;
+  # erf_wr -v -s DDR_UMCTL2 DFITMG1 DFI_T_DRAM_CLK_DISABLE  0x2;
+  #   erf_wr -v -s DDR_UMCTL2 DFITMG1 DFI_T_CMD_LAT $params(tCAL);
+  # erf_wr -v -u DDR_UMCTL2 DFITMG1 DFI_T_WRDATA_DELAY 0x3;
+  erf_wr -v -u DDR_UMCTL2 DFIUPD0 DIS_AUTO_CTRLUPD_SRX 1;
+  erf_wr -v -s DDR_UMCTL2 DFIUPD1 DFI_T_CTRLUPD_INTERVAL_MIN_x1024 0x40
+  erf_wr -v -u DDR_UMCTL2 DFIUPD1 DFI_T_CTRLUPD_INTERVAL_MAX_x1024 0xFF
+  erf_wr -v -u DDR_UMCTL2 RFSHCTL0 REFRESH_BURST 1; # Burst of refreshes = 2. For fixed 1x mode, burst of refreshes should be less than 8 burst
+    erf_wr -v -s DDR_UMCTL2 RFSHTMG T_RFC_NOM_x32 [expr int($params(tREFIc) / (2.0 * 32))]; # tRFEI (7.8 us) ((7800000 / itck) / (2 * 32))
+    erf_wr -v -s DDR_UMCTL2 RFSHTMG T_RFC_NOM_x32 0x82; # tRFEI (7.8 us) ((7800000 / 2) / itck * 32) where itck = 938 ps
+  erf_wr -v -u DDR_UMCTL2 RFSHTMG T_RFC_MIN [expr int(ceil($params(tRFCc) / 2.0))]
+  erf_wr -v -s DDR_UMCTL2 RFSHCTL1 REFRESH_TIMER0_START_VALUE_x32 0x20
+  erf_wr -v -u DDR_UMCTL2 RFSHCTL1 REFRESH_TIMER1_START_VALUE_x32 0x40
+  erf_wr -v -s DDR_UMCTL2 RANKCTL DIFF_RANK_RD_GAP 2; # FIX ME
+  erf_wr -v -u DDR_UMCTL2 RANKCTL DIFF_RANK_WR_GAP 2; # FIX ME
+  #erf_wr -v -u DDR_UMCTL2 PCTRL_0 PORT_EN 1 ;# AXI0 port enable
+    erf_wr -v -s DDR_UMCTL2 CRCPARCTL1 CRC_INC_DM    $params(write_crc)
+    erf_wr -v -s DDR_UMCTL2 CRCPARCTL1 CRC_ENABLE    $params(write_crc)
+    erf_wr -v -u DDR_UMCTL2 CRCPARCTL1 PARITY_ENABLE $params(ca_parity_en)
+  #erf_wr -v -u DDR_UMCTL2 ADDRMAP0 ADDRMAP_CS_BIT0   31; #Internal Base: 6, ####################### NOT USED
+  #erf_wr -v -u DDR_UMCTL2 ADDRMAP0 ADDRMAP_CS_BIT0   23; #Internal Base: 6, thus hif_bit = 6 + 23 = 29
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP1 ADDRMAP_BANK_B0   24; #Internal Base: 2, thus hif_bit = 2 + 24 = 26
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP1 ADDRMAP_BANK_B1   24; #Internal Base: 3, thus hif_bit = 3 + 24 = 27
+    erf_wr -v -u DDR_UMCTL2 ADDRMAP1 ADDRMAP_BANK_B2   63; #Internal Base: 4, ####################### NOT USED
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP1 ADDRMAP_BANK_B0   23; #Internal Base: 2, thus hif_bit = 2 + 23 = 25
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP1 ADDRMAP_BANK_B1   23; #Internal Base: 3, thus hif_bit = 3 + 23 = 26
+    erf_wr -v -u DDR_UMCTL2 ADDRMAP1 ADDRMAP_BANK_B2   23; #Internal Base: 4, thus hif_bit = 4 + 23 = 27
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP2 ADDRMAP_COL_B2    7; #Internal Base: 2, thus mapping hif_bit = 2 + 7 = 9 to col_addr[3]
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP2 ADDRMAP_COL_B3    0; #Internal Base: 3, thus mapping hif_bit = 3 + 0 = 3 to col_addr[4]
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP2 ADDRMAP_COL_B4    0; #Internal Base: 4, thus mapping hif_bit = 4 + 0 = 4 to col_addr[5]
+    erf_wr -v -u DDR_UMCTL2 ADDRMAP2 ADDRMAP_COL_B5    0; #Internal Base: 5, thus mapping hif_bit = 5 + 0 = 5 to col_addr[6]
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP3 ADDRMAP_COL_B6    0; #Internal Base: 6, thus mapping hif_bit = 6 + 0 = 6 to col_addr[7]
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP3 ADDRMAP_COL_B7    0; #Internal Base: 7, thus mapping hif_bit = 7 + 0 = 7 to col_addr[8]
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP3 ADDRMAP_COL_B8    0; #Internal Base: 8, thus mapping hif_bit = 8 + 0 = 8 to col_addr[9]
+    erf_wr -v -u DDR_UMCTL2 ADDRMAP3 ADDRMAP_COL_B9   31; #Internal Base: 9, ###################### NOT USED
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP2 ADDRMAP_COL_B2    0; #Internal Base: 2, thus hif_bit = 2 + 0 = 2
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP2 ADDRMAP_COL_B3    0; #Internal Base: 3, thus hif_bit = 3 + 0 = 3
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP2 ADDRMAP_COL_B4    0; #Internal Base: 4, thus hif_bit = 4 + 0 = 4
+    erf_wr -v -u DDR_UMCTL2 ADDRMAP2 ADDRMAP_COL_B5    0; #Internal Base: 5, thus hif_bit = 5 + 0 = 5
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP3 ADDRMAP_COL_B6    0; #Internal Base: 6, thus hif_bit = 6 + 0 = 6
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP3 ADDRMAP_COL_B7    0; #Internal Base: 7, thus hif_bit = 7 + 0 = 7
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP3 ADDRMAP_COL_B8    0; #Internal Base: 8, thus hif_bit = 8 + 0 = 8
+    erf_wr -v -u DDR_UMCTL2 ADDRMAP3 ADDRMAP_COL_B9    0; #Internal Base: 9, thus hif_bit = 9 + 0 = 9
+  erf_wr -v -s DDR_UMCTL2 ADDRMAP4 ADDRMAP_COL_B10   31; #Internal Base: 10, ###################### NOT USED
+  erf_wr -v -u DDR_UMCTL2 ADDRMAP4 ADDRMAP_COL_B11   31; #Internal Base: 11, ###################### NOT USED
+  erf_wr -v -s DDR_UMCTL2 ADDRMAP5 ADDRMAP_ROW_B0    4; #Internal Base: 6,  thus hif_bit =  6 + 4 = 10
+  erf_wr -v -s DDR_UMCTL2 ADDRMAP5 ADDRMAP_ROW_B1    4; #Internal Base: 7,  thus hif_bit =  7 + 4 = 11
+  erf_wr -v -s DDR_UMCTL2 ADDRMAP5 ADDRMAP_ROW_B2_10 4; #Internal Base: 8,  thus hif_bit =  8..16 + 4 = 12..20
+  erf_wr -v -u DDR_UMCTL2 ADDRMAP5 ADDRMAP_ROW_B11   4; #Internal Base: 17, thus hif_bit = 17 + 4 = 21
+  erf_wr -v -s DDR_UMCTL2 ADDRMAP6 ADDRMAP_ROW_B12   4; #Internal Base: 18, thus hif_bit = 18 + 4 = 22
+  erf_wr -v -s DDR_UMCTL2 ADDRMAP6 ADDRMAP_ROW_B13   4; #Internal Base: 19, thus hif_bit = 19 + 4 = 23
+  erf_wr -v -s DDR_UMCTL2 ADDRMAP6 ADDRMAP_ROW_B14   4; #Internal Base: 20, thus hif_bit = 20 + 4 = 24
+    erf_wr -v -u DDR_UMCTL2 ADDRMAP6 ADDRMAP_ROW_B15  4; #Internal Base: 21, thus hif_bit = 21 + 4 = 25
+    erf_wr -v -u DDR_UMCTL2 ADDRMAP6 ADDRMAP_ROW_B15   15; #Internal Base: 21, ###################### NOT USED
+  erf_wr -v -s DDR_UMCTL2 ADDRMAP7 ADDRMAP_ROW_B16   15; #Internal Base: 22, ###################### NOT USED
+  erf_wr -v -u DDR_UMCTL2 ADDRMAP7 ADDRMAP_ROW_B17   15; #Internal Base: 23, ###################### NOT USED
+      erf_wr -v -s DDR_UMCTL2 ADDRMAP8 ADDRMAP_BG_B0     0; #Internal Base: 2, thus mapping hif_bit = 2 + 0 = 2 to BG0
+      erf_wr -v -s DDR_UMCTL2 ADDRMAP8 ADDRMAP_BG_B0     26; #Internal Base: 2, thus hif_bit = 2 + 26 = 28
+      erf_wr -v -u DDR_UMCTL2 ADDRMAP8 ADDRMAP_BG_B1     63; #Internal Base: 3, ###################### NOT USED
+        erf_wr -v -u DDR_UMCTL2 ADDRMAP0 ADDRMAP_CS_BIT0   22; #Internal Base: 6, thus hif_bit = 6 + 22 = 28
+        erf_wr -v -u DDR_UMCTL2 ADDRMAP0 ADDRMAP_CS_BIT0   23; #Internal Base: 6, thus hif_bit = 6 + 23 = 29
+      erf_wr -v -u DDR_UMCTL2 ADDRMAP8 ADDRMAP_BG_B1     26; #Internal Base: 3, thus hif_bit = 3 + 26 = 29
+      erf_wr -v -u DDR_UMCTL2 ADDRMAP0 ADDRMAP_CS_BIT0   24; #Internal Base: 6, thus hif_bit = 6 + 24 = 30
+    erf_wr -v -s DDR_UMCTL2 ADDRMAP8 ADDRMAP_BG_B0     63; #Internal Base: 2, ###################### NOT USED
+    erf_wr -v -u DDR_UMCTL2 ADDRMAP8 ADDRMAP_BG_B1     63; #Internal Base: 3, ###################### NOT USED
+    erf_wr -v -u DDR_UMCTL2 ADDRMAP0 ADDRMAP_CS_BIT0   22; #Internal Base: 6, thus hif_bit = 6 + 22 = 28
+      erf_wr -v -s DDR_UMCTL2 ECCPOISONADDR1 ECC_POISON_BG $bg_addr
+    erf_wr -v -s DDR_UMCTL2 ECCPOISONADDR1 ECC_POISON_ROW  $row_addr
+    erf_wr -v -u DDR_UMCTL2 ECCPOISONADDR1 ECC_POISON_BANK $ba_addr
+    erf_wr -v -s DDR_UMCTL2 ECCPOISONADDR0 ECC_POISON_COL  $col_addr
+    erf_wr -v -u DDR_UMCTL2 ECCPOISONADDR0 ECC_POISON_RANK $rank_addr
+    erf_wr -v -u DDR_UMCTL2 ECCCFG0 ECC_MODE 4
+    erf_wr -v -u DDR_UMCTL2 ECCCFG0 ECC_MODE 0
+# Added comments about removing an erf_wr procedure call to PCTRL_0 register
+# Removed few redundant erf_wr procedure calls

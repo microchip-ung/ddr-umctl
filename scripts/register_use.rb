@@ -11,12 +11,11 @@ pccfg)
 
     { :grp => "Timing configuration registers",
       :regs => %w(rfshtmg dramtmg0 dramtmg1 dramtmg2 dramtmg3 dramtmg4 dramtmg5
-dramtmg6 dramtmg7 dramtmg8 dramtmg14 odtcfg),
+dramtmg8 dramtmg9 odtcfg),
     },    
 
     { :grp => "Address map configuration registers",
-      :regs => %w(addrmap1 addrmap2 addrmap3 addrmap4 addrmap5 addrmap6 addrmap9
-addrmap10 addrmap11),
+      :regs => %w(addrmap0 addrmap1 addrmap2 addrmap3 addrmap4 addrmap5 addrmap6 addrmap7 addrmap8),
     },
     
     { :grp => "Performance configuration registers",
@@ -39,6 +38,10 @@ dx2dqtr dx2dqstr dx3dllcr dx3dqtr dx3dqstr),
     },
 ]
 
+comments = {
+    'dramtmg9' => "Only used when x16 width",
+}
+
 def read_trace(file)
     reguse = Hash.new
     File.open(file).each do |line|
@@ -49,7 +52,19 @@ def read_trace(file)
     return reguse
 end
 
+def read_tcl(file)
+    reguse = Hash.new
+    File.open(file).each do |line|
+        if line.match(/^\s+erf_wr/) and
+          data = line.match(/\s(DDR_UMCTL2|DDR_PHY)\s+(\w+)/)
+            reguse[data[2].downcase] = true
+        end
+    end
+    return reguse
+end
+
 reguse = Hash.new
+reguse["ddr tcl"] = read_tcl("trace/tcl_ddr.txt")
 reguse["fa ddr3"] = read_trace("trace/fireant_ddr3.txt")
 reguse["fa ddr4"] = read_trace("trace/fireant_ddr4.txt")
 
@@ -58,31 +73,33 @@ regs.each do |rg|
     puts "=== #{rg[:grp]}"
     puts
 
-    puts "[cols=\"1,1,1\"]"
+    puts "[cols=\"1,4*^\"]"
     puts "|==="
-    puts "| " + ["stm32mp1"].concat(platforms).join(" | ")
+    puts "| " + ["stm32mp1"].concat(platforms).join(" | ") + " | comments"
     puts
     rg[:regs].each do |rname|
         puts "| #{rname}"
         platforms.each do|p|
             puts reguse[p].include?(rname) ? "| yes" : "| -"
         end
+        puts "| " + (comments[rname] ? comments[rname] : "")
     end
     puts "|==="
     puts
 end
 
-totused = platforms.map{|p| reguse[p].keys}.flatten.sort
+totused = platforms.map{|p| reguse[p].keys}.flatten.uniq.sort
 refregs = regs.map{|rg| rg[:regs]}.flatten
 puts "=== DDR registers not mapped to configuration registers"
 puts
-puts "[cols=\"1,1,1\"]"
+puts "[cols=\"1,4*^\"]"
 puts "|==="
-puts "| " + ["register"].concat(platforms).join(" | ")
+puts "| " + ["register"].concat(platforms).join(" | ") + " | comments"
 puts
 (totused - refregs).each do|rname|
     puts "| #{rname}"
     platforms.each do|p|
         puts reguse[p].include?(rname) ? "| yes" : "| -"
     end
+    puts "| " + (comments[rname] ? comments[rname] : "")
 end
