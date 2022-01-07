@@ -712,7 +712,7 @@ as required/desired.
 | yes
 | -
 | -
-| 
+| *Add config*: Used - params_reg_ddrc_mr
 | mr0_lpddr3
 | -
 | yes
@@ -722,7 +722,7 @@ as required/desired.
 | yes
 | -
 | -
-| 
+| *Add config*: Used - ddrc_emr
 | mr1_lpddr3
 | -
 | yes
@@ -732,7 +732,7 @@ as required/desired.
 | yes
 | -
 | -
-| 
+| *Add config*: Used - ddrc_emr2
 | mr2_lpddr3
 | -
 | yes
@@ -742,7 +742,7 @@ as required/desired.
 | yes
 | -
 | -
-| 
+| *Add config*: Used - params_reg_ddrc_emr3
 | mr3_lpddr3
 | -
 | yes
@@ -752,7 +752,7 @@ as required/desired.
 | yes
 | -
 | -
-| 
+| *Add config*: Used - params_reg_ddrc_mr4
 | mr4_lpddr3
 | -
 | -
@@ -762,7 +762,7 @@ as required/desired.
 | yes
 | -
 | -
-| 
+| *Add config*: Used - dbi_en / params_dm_en / params_reg_ddrc_mr5
 | mr5_lpddr3
 | -
 | -
@@ -772,7 +772,7 @@ as required/desired.
 | yes
 | -
 | -
-| 
+| *Add config*: Used - params_reg_ddrc_mr6
 | mr6_lpddr3
 | -
 | -
@@ -782,109 +782,109 @@ as required/desired.
 | -
 | yes
 | yes
-| 
+| Control only (ECC scrubbing)
 | pgcr0
 | yes
 | yes
 | yes
-| 
+| Control only
 | pgcr1
 | yes
 | yes
 | yes
-| 
+| Fixed settings
 | pgcr2
 | yes
 | yes
 | yes
-| 
+| *Add config*: Used - params_tRASc_max
 | pgcr3
 | yes
 | yes
 | yes
-| 
+| Fixed settings, but *used* to hold params params_rd_dbi_en / params_wr_dbi_en (TCL script)
 | pgcr7
 | yes
 | yes
 | yes
-| 
+| Fixed settings
 | pir
 | yes
 | yes
 | yes
-| 
+| Fixed settings / depending on DDR3/DDR4
 | ptr3
 | yes
 | yes
 | yes
-| 
+| *Add config*: Used - params_tdinit0 / params_tXS_tRFCc
 | ptr4
 | yes
 | yes
 | yes
-| 
+| *Add config*: Used - params_tdinit2 / params_tZQinitc
 | rankctl
 | yes
 | yes
 | yes
-| 
+| Fixed settings
 | rankidr
 | yes
 | yes
 | yes
-| 
+| Index register for `DX*GTR0` etc
 | rfshctl1
 | yes
 | yes
 | yes
-| 
+| Fixed settings
 | sbrctl
 | -
 | yes
 | yes
-| 
+| Used for ECC scrubbing init
 | sbrwdata0
 | -
 | yes
 | yes
-| 
+| -same-
 | schcr1
 | yes
 | -
 | -
-| 
+| *Add config*: Used - params_active_ranks > 1
 | swctl
 | yes
 | yes
 | yes
-| 
+| Control only
 | vtcr0
 | -
 | -
 | yes
-| 
+| Fixed settings
 | vtcr1
 | -
 | -
 | yes
-| 
+| Fixed settings
 | zq0pr
 | -
 | yes
 | yes
-| 
+| *Add config*: Used - ddrconf->ca_ln_drv : ddrconf->zqdiv
 | zq1pr
 | -
 | yes
 | yes
-| 
+| *Add config*: Used - ddrconf->zqdiv
 | zq2pr
 | -
 | yes
 | yes
-| 
+| *Add config*: Used - ddrconf->zqdiv
 | zqcr
 | yes
 | yes
 | yes
-| 
+| *Add config*: Used - asym_drv_pd/pu and params_tCK_min
