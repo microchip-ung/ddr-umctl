@@ -1,4 +1,5 @@
-require 'pp';
+require 'pp'
+require_relative 'soc/sparx5_soc.rb'
 
 regs = [
 
@@ -54,6 +55,8 @@ def read_tcl(file)
     return reguse.uniq
 end
 
+#sparx5 = Sparx5.new()
+
 reguse = Hash.new
 reguse["stm32mp1"] = %w(
 mstr mrctrl0 mrctrl1 derateen derateint pwrctl pwrtmg
@@ -95,11 +98,15 @@ regs.each do |rg|
     puts
 end
 
+# Drop stm32mp1 registers, since we don't exactly same set of registers
+reguse.delete("stm32mp1")
+platforms.delete("stm32mp1")
+
 totused = platforms.map{|p| reguse[p]}.flatten.uniq.sort
 refregs = regs.map{|rg| rg[:regs]}.flatten
-puts "=== DDR registers not mapped to configuration registers"
+puts "=== Sparx5 DDR registers not mapped to configuration registers"
 puts
-puts "[cols=\"1,5*^\"]"
+puts "[cols=\"1,4*^\"]"
 puts "|==="
 puts "| " + ["register"].concat(platforms).join(" | ") + " | comments"
 puts
@@ -108,5 +115,6 @@ puts
     platforms.each do|p|
         puts reguse[p].include?(rname) ? "| yes" : "| -"
     end
+    #puts "| " + (sparx5.registers.include?(rname) ? "yes" : "no")
     puts "| " + (comments[rname] ? comments[rname] : "")
 end

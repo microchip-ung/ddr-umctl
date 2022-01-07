@@ -437,62 +437,28 @@ as required/desired.
 | 
 |===
 
-=== DDR registers not mapped to configuration registers
+=== Sparx5 DDR registers not mapped to configuration registers
 
-[cols="1,5*^"]
+[cols="1,4*^"]
 |===
-| register | ddr tcl | fa ddr3 | fa ddr4 | stm32mp1 | comments
+| register | ddr tcl | fa ddr3 | fa ddr4 | comments
 
-| aciocr
-| -
-| -
-| -
-| yes
-| 
-| addrmap10
-| -
-| -
-| -
-| yes
-| 
-| addrmap11
-| -
-| -
-| -
-| yes
-| 
-| addrmap9
-| -
-| -
-| -
-| yes
-| 
 | bistar0
 | -
 | -
 | yes
-| -
 | 
 | bistar1
 | -
 | -
 | yes
-| -
 | 
 | bistar3
 | -
 | -
 | yes
-| -
 | 
 | bistudpr
-| -
-| -
-| yes
-| -
-| 
-| crcparctl0
-| -
 | -
 | -
 | yes
@@ -501,47 +467,9 @@ as required/desired.
 | yes
 | -
 | yes
-| -
-| 
-| dbg0
-| -
-| -
-| -
-| yes
-| 
-| dbg1
-| -
-| -
-| -
-| yes
-| 
-| dbgcmd
-| -
-| -
-| -
-| yes
 | 
 | dbictl
 | yes
-| -
-| yes
-| -
-| 
-| derateen
-| -
-| -
-| -
-| yes
-| 
-| derateint
-| -
-| -
-| -
-| yes
-| 
-| dfilpcfg0
-| -
-| -
 | -
 | yes
 | 
@@ -549,227 +477,104 @@ as required/desired.
 | yes
 | yes
 | yes
-| -
-| 
-| dfiphymstr
-| -
-| -
-| -
-| yes
-| 
-| dfiupd2
-| -
-| -
-| -
-| yes
 | 
 | dramtmg12
 | yes
 | -
 | -
-| -
 | Only used with PDA_EN
-| dramtmg14
-| -
-| -
-| -
-| yes
-| 
-| dramtmg6
-| -
-| -
-| -
-| yes
-| 
-| dramtmg7
-| -
-| -
-| -
-| yes
-| 
 | dtcr0
 | yes
 | yes
 | yes
-| -
 | 
 | dtcr1
 | yes
 | yes
 | yes
-| -
 | 
 | dtpr3
 | yes
 | yes
 | yes
-| -
 | 
 | dtpr4
 | yes
 | yes
 | yes
-| -
 | 
 | dtpr5
 | yes
 | yes
 | yes
-| -
 | 
 | dx0bdlr0
 | -
 | yes
 | yes
-| -
 | 
 | dx0bdlr1
 | -
 | yes
 | yes
-| -
 | 
 | dx0bdlr2
 | -
 | yes
-| yes
-| -
-| 
-| dx0dllcr
-| -
-| -
-| -
-| yes
-| 
-| dx0dqstr
-| -
-| -
-| -
-| yes
-| 
-| dx0dqtr
-| -
-| -
-| -
-| yes
-| 
-| dx0gcr
-| -
-| -
-| -
 | yes
 | 
 | dx0gcr5
 | -
 | -
 | yes
-| -
 | 
 | dx0gtr0
 | yes
 | yes
 | yes
-| -
 | 
 | dx1bdlr0
 | -
 | yes
 | yes
-| -
 | 
 | dx1bdlr1
 | -
 | yes
 | yes
-| -
 | 
 | dx1bdlr2
 | -
 | yes
-| yes
-| -
-| 
-| dx1dllcr
-| -
-| -
-| -
-| yes
-| 
-| dx1dqstr
-| -
-| -
-| -
-| yes
-| 
-| dx1dqtr
-| -
-| -
-| -
-| yes
-| 
-| dx1gcr
-| -
-| -
-| -
 | yes
 | 
 | dx1gcr5
 | -
 | -
 | yes
-| -
 | 
 | dx1gtr0
 | yes
 | yes
 | yes
-| -
 | 
 | dx2bdlr0
 | -
 | yes
 | yes
-| -
 | 
 | dx2bdlr1
 | -
 | yes
 | yes
-| -
 | 
 | dx2bdlr2
 | -
 | yes
 | yes
-| -
-| 
-| dx2dllcr
-| -
-| -
-| -
-| yes
-| 
-| dx2dqstr
-| -
-| -
-| -
-| yes
-| 
-| dx2dqtr
-| -
-| -
-| -
-| yes
-| 
-| dx2gcr
-| -
-| -
-| -
-| yes
 | 
 | dx2gcr0
 | yes
-| -
 | -
 | -
 | 
@@ -777,59 +582,29 @@ as required/desired.
 | -
 | -
 | yes
-| -
 | 
 | dx2gtr0
 | yes
 | yes
 | yes
-| -
 | 
 | dx3bdlr0
 | -
 | yes
 | yes
-| -
 | 
 | dx3bdlr1
 | -
 | yes
 | yes
-| -
 | 
 | dx3bdlr2
 | -
 | yes
 | yes
-| -
-| 
-| dx3dllcr
-| -
-| -
-| -
-| yes
-| 
-| dx3dqstr
-| -
-| -
-| -
-| yes
-| 
-| dx3dqtr
-| -
-| -
-| -
-| yes
-| 
-| dx3gcr
-| -
-| -
-| -
-| yes
 | 
 | dx3gcr0
 | yes
-| -
 | -
 | -
 | 
@@ -837,35 +612,29 @@ as required/desired.
 | -
 | -
 | yes
-| -
 | 
 | dx3gtr0
 | yes
 | yes
 | yes
-| -
 | 
 | dx4bdlr0
 | -
 | yes
 | yes
-| -
 | 
 | dx4bdlr1
 | -
 | yes
 | yes
-| -
 | 
 | dx4bdlr2
 | -
 | yes
 | yes
-| -
 | 
 | dx4gcr0
 | yes
-| -
 | -
 | -
 | 
@@ -873,23 +642,19 @@ as required/desired.
 | -
 | -
 | yes
-| -
 | 
 | dx4gtr0
 | yes
 | yes
 | yes
-| -
 | 
 | ecccfg0
 | yes
 | yes
 | yes
-| -
 | 
 | eccpoisonaddr0
 | yes
-| -
 | -
 | -
 | 
@@ -897,71 +662,54 @@ as required/desired.
 | yes
 | -
 | -
-| -
-| 
-| hwlpctl
-| -
-| -
-| -
-| yes
 | 
 | init0
 | yes
 | yes
 | yes
-| -
 | 
 | init1
 | yes
 | yes
 | yes
-| -
 | 
 | init3
 | yes
 | yes
 | yes
-| -
 | 
 | init4
 | yes
 | yes
 | yes
-| -
 | 
 | init5
 | yes
 | yes
 | yes
-| -
 | 
 | init6
 | yes
 | -
 | yes
-| -
 | 
 | init7
 | yes
 | -
 | yes
-| -
 | 
 | iovcr0
 | yes
 | yes
 | yes
-| -
 | 
 | iovcr1
 | yes
 | yes
 | yes
-| -
 | 
 | mr0_ddr4
 | yes
-| -
 | -
 | -
 | 
@@ -969,11 +717,9 @@ as required/desired.
 | -
 | yes
 | yes
-| -
 | 
 | mr1_ddr4
 | yes
-| -
 | -
 | -
 | 
@@ -981,11 +727,9 @@ as required/desired.
 | -
 | yes
 | yes
-| -
 | 
 | mr2_ddr4
 | yes
-| -
 | -
 | -
 | 
@@ -993,11 +737,9 @@ as required/desired.
 | -
 | yes
 | yes
-| -
 | 
 | mr3_ddr4
 | yes
-| -
 | -
 | -
 | 
@@ -1005,11 +747,9 @@ as required/desired.
 | -
 | yes
 | yes
-| -
 | 
 | mr4_ddr4
 | yes
-| -
 | -
 | -
 | 
@@ -1017,11 +757,9 @@ as required/desired.
 | -
 | -
 | yes
-| -
 | 
 | mr5_ddr4
 | yes
-| -
 | -
 | -
 | 
@@ -1029,112 +767,13 @@ as required/desired.
 | -
 | -
 | yes
-| -
 | 
 | mr6_ddr4
 | yes
 | -
 | -
-| -
 | 
 | mr6_lpddr3
-| -
-| -
-| yes
-| -
-| 
-| mrctrl0
-| -
-| -
-| -
-| yes
-| 
-| mrctrl1
-| -
-| -
-| -
-| yes
-| 
-| odtcr
-| -
-| -
-| -
-| yes
-| 
-| odtmap
-| -
-| -
-| -
-| yes
-| 
-| pcfgqos0_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgqos0_1
-| -
-| -
-| -
-| yes
-| 
-| pcfgqos1_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgqos1_1
-| -
-| -
-| -
-| yes
-| 
-| pcfgr_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgr_1
-| -
-| -
-| -
-| yes
-| 
-| pcfgw_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgw_1
-| -
-| -
-| -
-| yes
-| 
-| pcfgwqos0_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgwqos0_1
-| -
-| -
-| -
-| yes
-| 
-| pcfgwqos1_0
-| -
-| -
-| -
-| yes
-| 
-| pcfgwqos1_1
-| -
 | -
 | -
 | yes
@@ -1143,160 +782,88 @@ as required/desired.
 | -
 | yes
 | yes
-| -
-| 
-| perfhpr1
-| -
-| -
-| -
-| yes
-| 
-| perflpr1
-| -
-| -
-| -
-| yes
-| 
-| perfwr1
-| -
-| -
-| -
-| yes
-| 
-| pgcr
-| -
-| -
-| -
-| yes
 | 
 | pgcr0
 | yes
 | yes
 | yes
-| -
 | 
 | pgcr1
 | yes
 | yes
 | yes
-| -
 | 
 | pgcr2
 | yes
 | yes
 | yes
-| -
 | 
 | pgcr3
 | yes
 | yes
 | yes
-| -
 | 
 | pgcr7
 | yes
 | yes
 | yes
-| -
 | 
 | pir
 | yes
 | yes
-| yes
-| -
-| 
-| poisoncfg
-| -
-| -
-| -
 | yes
 | 
 | ptr3
 | yes
 | yes
 | yes
-| -
 | 
 | ptr4
 | yes
 | yes
-| yes
-| -
-| 
-| pwrtmg
-| -
-| -
-| -
 | yes
 | 
 | rankctl
 | yes
 | yes
 | yes
-| -
 | 
 | rankidr
 | yes
 | yes
 | yes
-| -
 | 
 | rfshctl1
 | yes
 | yes
 | yes
-| -
 | 
 | sbrctl
 | -
 | yes
 | yes
-| -
 | 
 | sbrwdata0
 | -
 | yes
 | yes
-| -
 | 
 | schcr1
 | yes
 | -
 | -
-| -
-| 
-| sched
-| -
-| -
-| -
-| yes
-| 
-| sched1
-| -
-| -
-| -
-| yes
 | 
 | swctl
 | yes
 | yes
 | yes
-| -
 | 
 | vtcr0
 | -
 | -
 | yes
-| -
 | 
 | vtcr1
-| -
-| -
-| yes
-| -
-| 
-| zq0cr1
-| -
 | -
 | -
 | yes
@@ -1305,29 +872,19 @@ as required/desired.
 | -
 | yes
 | yes
-| -
 | 
 | zq1pr
 | -
 | yes
 | yes
-| -
 | 
 | zq2pr
 | -
 | yes
 | yes
-| -
 | 
 | zqcr
 | yes
 | yes
-| yes
-| -
-| 
-| zqctl0
-| -
-| -
-| -
 | yes
 | 
