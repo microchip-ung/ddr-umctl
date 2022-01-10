@@ -137,8 +137,8 @@ primarily the DDR mode and speed (grade).
 
 The DDR output configuration data is as follows.
 
-NOTE: In the section, the _stm32mp1_ column is extracted from
-https://bitbucket.microchip.com/projects/UNGE/repos/sw-arm-trusted-firmware/browse/drivers/st/ddr/stm32mp1_ddr.c?at=refs%2Fheads%2Flaguna-v1[drivers/st/ddr/stm32mp1_ddr.c]
+NOTE: In the following section, the _stm32mp1_ column is extracted from
+https://bitbucket.microchip.com/projects/UNGE/repos/sw-arm-trusted-firmware/browse/drivers/st/ddr/stm32mp1_ddr.c?at=refs%2Fheads%2Flaguna-v1[drivers/st/ddr/stm3<2mp1_ddr.c]
 and the associated header file
 https://bitbucket.microchip.com/projects/UNGE/repos/sw-arm-trusted-firmware/browse/include/drivers/st/stm32mp1_ddr.h?at=refs%2Fheads%2Flaguna-v1[include/drivers/st/stm32mp1_ddr.h].
 The driver is going to be used as a reference to implement the

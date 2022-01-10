@@ -1,5 +1,6 @@
 require 'pp'
 require_relative 'soc/sparx5_soc.rb'
+require_relative 'config_registers.rb'
 
 class Chip
 
@@ -22,32 +23,6 @@ class Chip
 
 end
 
-regs = [
-
-    { :grp => "Main control registers",
-      :regs => %w(mstr pwrctl
-rfshctl0 rfshctl3 dfitmg0 dfitmg1 dfiupd0 dfiupd1 pccfg crcparctl1 dbictl dfimisc ecccfg0
-init0 init1 init3 init4 init5 init6 init7),
-    },
-
-    { :grp => "Timing configuration registers",
-      :regs => %w(rfshtmg dramtmg0 dramtmg1 dramtmg2 dramtmg3 dramtmg4 dramtmg5
-dramtmg8 dramtmg9 dramtmg12 odtcfg),
-    },    
-
-    { :grp => "Address map configuration registers",
-      :regs => %w(addrmap0 addrmap1 addrmap2 addrmap3 addrmap4 addrmap5 addrmap6 addrmap7 addrmap8),
-    },
-    
-    { :grp => "DDR PHY registers",
-      :regs => %w(dxccr dsgcr dcr dtcr0 dtcr1 pgcr2 schcr1 zq0pr zq1pr zq2pr zqcr),
-    },
-
-    { :grp => "DDR PHY timing registers",
-      :regs => %w(ptr0 ptr1 ptr2 ptr3 ptr4 dtpr0 dtpr1 dtpr2 dtpr3 dtpr4 dtpr5 mr0 mr1 mr2 mr3 mr4 mr5 mr6),
-    },
-
-]
 
 comments = {
     'dramtmg9' => "Should this be configured even for DDR3?",
@@ -164,6 +139,7 @@ end
 
 sparx5 = Sparx5.new()
 chip = Chip.new(sparx5)
+config = Config.new()
 
 reguse = Hash.new
 reguse["stm32mp1"] = %w(
@@ -187,7 +163,7 @@ reguse["fa ddr3"] = read_trace("trace/fireant_ddr3.txt")
 reguse["fa ddr4"] = read_trace("trace/fireant_ddr4.txt")
 
 platforms = reguse.keys.sort
-regs.each do |rg|
+config.groups.each do |rg|
     puts "=== #{rg[:grp]}"
     puts
 
@@ -212,7 +188,7 @@ reguse.delete("stm32mp1")
 platforms.delete("stm32mp1")
 
 totused = platforms.map{|p| reguse[p]}.flatten.uniq.sort
-refregs = regs.map{|rg| rg[:regs]}.flatten
+refregs = config.groups.map{|rg| rg[:regs]}.flatten
 puts "=== Sparx5 DDR registers not depending on configuration"
 puts
 puts "[cols=\"1,5*^\"]"
