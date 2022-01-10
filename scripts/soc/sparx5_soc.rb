@@ -1,685 +1,701 @@
 class Sparx5
 
-attr_reader :registers
+attr_reader :targets
 
 def initialize()
-@registers = %w(
+@targets = [
+
+  { :name => "ddr_phy", :groups => [
 
 
-ridr
-pir
-cgcr
-cgcr1
-pgcr0
-pgcr1
-pgcr2
-pgcr3
-pgcr4
-pgcr5
-pgcr6
-pgcr7
-pgcr8
-pgsr0
-pgsr1
-ptr0
-ptr1
-ptr2
-ptr3
-ptr4
-ptr5
-ptr6
-pllcr0
-pllcr1
-pllcr2
-pllcr3
-pllcr4
-pllcr5
-pllcr
-dxccr
-dsgcr
-odtcr
-aacr
-gpr0
-gpr1
-dcr
-dtpr0
-dtpr1
-dtpr2
-dtpr3
-dtpr4
-dtpr5
-dtpr6
-rdimmgcr0
-rdimmgcr1
-rdimmgcr2
-rdimmcr0
-rdimmcr0_ddr4
-rdimmcr1
-rdimmcr1_ddr4
-rdimmcr2
-rdimmcr3
-rdimmcr4
-schcr0
-schcr1
-mr0
-mr0_ddr4
-mr0_lpddr2
-mr0_lpddr3
-mr1
-mr1_ddr4
-mr1_lpddr2
-mr1_lpddr3
-mr2
-mr2_ddr4
-mr2_lpddr2
-mr2_lpddr3
-mr3
-mr3_ddr4
-mr3_lpddr2
-mr3_lpddr3
-mr4
-mr4_ddr4
-mr4_lpddr2
-mr4_lpddr3
-mr5
-mr5_ddr4
-mr5_lpddr2
-mr5_lpddr3
-mr6
-mr6_ddr4
-mr6_lpddr2
-mr6_lpddr3
-mr7
-mr7_ddr4
-mr7_lpddr2
-mr7_lpddr3
-mr11
-mr11_ddr4
-mr11_lpddr2
-mr11_lpddr3
-dtcr0
-dtcr1
-dtar0
-dtar1
-dtar2
-dtdr0
-dtdr1
-uddr0
-uddr1
-dtedr0
-dtedr1
-dtedr2
-vtdr
-catr0
-catr1
-dqsdr0
-dqsdr1
-dqsdr2
-dcuar
-dcudr
-dcurr
-dculr
-dcugcr
-dcutpr
-dcusr0
-dcusr1
-bistrr
-bistwcr
-bistmskr0
-bistmskr1
-bistmskr2
-bistlsr
-bistar0
-bistar1
-bistar2
-bistar3
-bistar4
-bistudpr
-bistgsr
-bistwer0
-bistwer1
-bistber0
-bistber1
-bistber2
-bistber3
-bistber4
-bistwcsr
-bistfwr0
-bistfwr1
-bistfwr2
-bistber5
-rankidr
-riocr0
-riocr1
-riocr2
-riocr3
-riocr4
-riocr5
-aciocr0
-aciocr1
-aciocr2
-aciocr3
-aciocr4
-iovcr0
-iovcr1
-vtcr0
-vtcr1
-acbdlr0
-acbdlr1
-acbdlr2
-acbdlr3
-acbdlr4
-acbdlr5
-acbdlr6
-acbdlr7
-acbdlr8
-acbdlr9
-acbdlr10
-acbdlr11
-acbdlr12
-acbdlr13
-acbdlr14
-aclcdlr
-acmdlr0
-acmdlr1
-zqcr
-zq0pr
-zq0dr
-zq0sr
-zq1pr
-zq1dr
-zq1sr
-zq2pr
-zq2dr
-zq2sr
-zq3pr
-zq3dr
-zq3sr
-dx0gcr0
-dx0gcr1
-dx0gcr2
-dx0gcr3
-dx0gcr4
-dx0gcr5
-dx0gcr6
-dx0gcr7
-dx0gcr8
-dx0gcr9
-dx0bdlr0
-dx0bdlr1
-dx0bdlr2
-dx0bdlr3
-dx0bdlr4
-dx0bdlr5
-dx0bdlr6
-dx0bdlr7
-dx0bdlr8
-dx0bdlr9
-dx0lcdlr0
-dx0lcdlr1
-dx0lcdlr2
-dx0lcdlr3
-dx0lcdlr4
-dx0lcdlr5
-dx0mdlr0
-dx0mdlr1
-dx0gtr0
-dx0rsr0
-dx0rsr1
-dx0rsr2
-dx0rsr3
-dx0gsr0
-dx0gsr1
-dx0gsr2
-dx0gsr3
-dx0gsr4
-dx0gsr5
-dx0gsr6
-dx1gcr0
-dx1gcr1
-dx1gcr2
-dx1gcr3
-dx1gcr4
-dx1gcr5
-dx1gcr6
-dx1gcr7
-dx1gcr8
-dx1gcr9
-dx1bdlr0
-dx1bdlr1
-dx1bdlr2
-dx1bdlr3
-dx1bdlr4
-dx1bdlr5
-dx1bdlr6
-dx1bdlr7
-dx1bdlr8
-dx1bdlr9
-dx1lcdlr0
-dx1lcdlr1
-dx1lcdlr2
-dx1lcdlr3
-dx1lcdlr4
-dx1lcdlr5
-dx1mdlr0
-dx1mdlr1
-dx1gtr0
-dx1rsr0
-dx1rsr1
-dx1rsr2
-dx1rsr3
-dx1gsr0
-dx1gsr1
-dx1gsr2
-dx1gsr3
-dx1gsr4
-dx1gsr5
-dx1gsr6
-dx2gcr0
-dx2gcr1
-dx2gcr2
-dx2gcr3
-dx2gcr4
-dx2gcr5
-dx2gcr6
-dx2gcr7
-dx2gcr8
-dx2gcr9
-dx2bdlr0
-dx2bdlr1
-dx2bdlr2
-dx2bdlr3
-dx2bdlr4
-dx2bdlr5
-dx2bdlr6
-dx2bdlr7
-dx2bdlr8
-dx2bdlr9
-dx2lcdlr0
-dx2lcdlr1
-dx2lcdlr2
-dx2lcdlr3
-dx2lcdlr4
-dx2lcdlr5
-dx2mdlr0
-dx2mdlr1
-dx2gtr0
-dx2rsr0
-dx2rsr1
-dx2rsr2
-dx2rsr3
-dx2gsr0
-dx2gsr1
-dx2gsr2
-dx2gsr3
-dx2gsr4
-dx2gsr5
-dx2gsr6
-dx3gcr0
-dx3gcr1
-dx3gcr2
-dx3gcr3
-dx3gcr4
-dx3gcr5
-dx3gcr6
-dx3gcr7
-dx3gcr8
-dx3gcr9
-dx3bdlr0
-dx3bdlr1
-dx3bdlr2
-dx3bdlr3
-dx3bdlr4
-dx3bdlr5
-dx3bdlr6
-dx3bdlr7
-dx3bdlr8
-dx3bdlr9
-dx3lcdlr0
-dx3lcdlr1
-dx3lcdlr2
-dx3lcdlr3
-dx3lcdlr4
-dx3lcdlr5
-dx3mdlr0
-dx3mdlr1
-dx3gtr0
-dx3rsr0
-dx3rsr1
-dx3rsr2
-dx3rsr3
-dx3gsr0
-dx3gsr1
-dx3gsr2
-dx3gsr3
-dx3gsr4
-dx3gsr5
-dx3gsr6
-dx4gcr0
-dx4gcr1
-dx4gcr2
-dx4gcr3
-dx4gcr4
-dx4gcr5
-dx4gcr6
-dx4gcr7
-dx4gcr8
-dx4gcr9
-dx4bdlr0
-dx4bdlr1
-dx4bdlr2
-dx4bdlr3
-dx4bdlr4
-dx4bdlr5
-dx4bdlr6
-dx4bdlr7
-dx4bdlr8
-dx4bdlr9
-dx4lcdlr0
-dx4lcdlr1
-dx4lcdlr2
-dx4lcdlr3
-dx4lcdlr4
-dx4lcdlr5
-dx4mdlr0
-dx4mdlr1
-dx4gtr0
-dx4rsr0
-dx4rsr1
-dx4rsr2
-dx4rsr3
-dx4gsr0
-dx4gsr1
-dx4gsr2
-dx4gsr3
-dx4gsr4
-dx4gsr5
-dx4gsr6
-dx5gcr0
-dx5gcr1
-dx5gcr2
-dx5gcr3
-dx5gcr4
-dx5gcr5
-dx5gcr6
-dx5gcr7
-dx5gcr8
-dx5gcr9
-dx5bdlr0
-dx5bdlr1
-dx5bdlr2
-dx5bdlr3
-dx5bdlr4
-dx5bdlr5
-dx5bdlr6
-dx5bdlr7
-dx5bdlr8
-dx5bdlr9
-dx5lcdlr0
-dx5lcdlr1
-dx5lcdlr2
-dx5lcdlr3
-dx5lcdlr4
-dx5lcdlr5
-dx5mdlr0
-dx5mdlr1
-dx5gtr0
-dx5rsr0
-dx5rsr1
-dx5rsr2
-dx5rsr3
-dx5gsr0
-dx5gsr1
-dx5gsr2
-dx5gsr3
-dx5gsr4
-dx5gsr5
-dx5gsr6
-dx6gcr0
-dx6gcr1
-dx6gcr2
-dx6gcr3
-dx6gcr4
-dx6gcr5
-dx6gcr6
-dx6gcr7
-dx6gcr8
-dx6gcr9
-dx6bdlr0
-dx6bdlr1
-dx6bdlr2
-dx6bdlr3
-dx6bdlr4
-dx6bdlr5
-dx6bdlr6
-dx6bdlr7
-dx6bdlr8
-dx6bdlr9
-dx6lcdlr0
-dx6lcdlr1
-dx6lcdlr2
-dx6lcdlr3
-dx6lcdlr4
-dx6lcdlr5
-dx6mdlr0
-dx6mdlr1
-dx6gtr0
-dx6rsr0
-dx6rsr1
-dx6rsr2
-dx6rsr3
-dx6gsr0
-dx6gsr1
-dx6gsr2
-dx6gsr3
-dx6gsr4
-dx6gsr5
-dx6gsr6
-dx7gcr0
-dx7gcr1
-dx7gcr2
-dx7gcr3
-dx7gcr4
-dx7gcr5
-dx7gcr6
-dx7gcr7
-dx7gcr8
-dx7gcr9
-dx7bdlr0
-dx7bdlr1
-dx7bdlr2
-dx7bdlr3
-dx7bdlr4
-dx7bdlr5
-dx7bdlr6
-dx7bdlr7
-dx7bdlr8
-dx7bdlr9
-dx7lcdlr0
-dx7lcdlr1
-dx7lcdlr2
-dx7lcdlr3
-dx7lcdlr4
-dx7lcdlr5
-dx7mdlr0
-dx7mdlr1
-dx7gtr0
-dx7rsr0
-dx7rsr1
-dx7rsr2
-dx7rsr3
-dx7gsr0
-dx7gsr1
-dx7gsr2
-dx7gsr3
-dx7gsr4
-dx7gsr5
-dx7gsr6
-dx8gcr0
-dx8gcr1
-dx8gcr2
-dx8gcr3
-dx8gcr4
-dx8gcr5
-dx8gcr6
-dx8gcr7
-dx8gcr8
-dx8gcr9
-dx8bdlr0
-dx8bdlr1
-dx8bdlr2
-dx8bdlr3
-dx8bdlr4
-dx8bdlr5
-dx8bdlr6
-dx8bdlr7
-dx8bdlr8
-dx8bdlr9
-dx8lcdlr0
-dx8lcdlr1
-dx8lcdlr2
-dx8lcdlr3
-dx8lcdlr4
-dx8lcdlr5
-dx8mdlr0
-dx8mdlr1
-dx8gtr0
-dx8rsr0
-dx8rsr1
-dx8rsr2
-dx8rsr3
-dx8gsr0
-dx8gsr1
-dx8gsr2
-dx8gsr3
-dx8gsr4
-dx8gsr5
-dx8gsr6
+    { :name => "dwc_ddrphy_pub", :registers => [
+      { :name => "ridr" },
+      { :name => "pir" },
+      { :name => "cgcr" },
+      { :name => "cgcr1" },
+      { :name => "pgcr0" },
+      { :name => "pgcr1" },
+      { :name => "pgcr2" },
+      { :name => "pgcr3" },
+      { :name => "pgcr4" },
+      { :name => "pgcr5" },
+      { :name => "pgcr6" },
+      { :name => "pgcr7" },
+      { :name => "pgcr8" },
+      { :name => "pgsr0" },
+      { :name => "pgsr1" },
+      { :name => "ptr0" },
+      { :name => "ptr1" },
+      { :name => "ptr2" },
+      { :name => "ptr3" },
+      { :name => "ptr4" },
+      { :name => "ptr5" },
+      { :name => "ptr6" },
+      { :name => "pllcr0" },
+      { :name => "pllcr1" },
+      { :name => "pllcr2" },
+      { :name => "pllcr3" },
+      { :name => "pllcr4" },
+      { :name => "pllcr5" },
+      { :name => "pllcr" },
+      { :name => "dxccr" },
+      { :name => "dsgcr" },
+      { :name => "odtcr" },
+      { :name => "aacr" },
+      { :name => "gpr0" },
+      { :name => "gpr1" },
+      { :name => "dcr" },
+      { :name => "dtpr0" },
+      { :name => "dtpr1" },
+      { :name => "dtpr2" },
+      { :name => "dtpr3" },
+      { :name => "dtpr4" },
+      { :name => "dtpr5" },
+      { :name => "dtpr6" },
+      { :name => "rdimmgcr0" },
+      { :name => "rdimmgcr1" },
+      { :name => "rdimmgcr2" },
+      { :name => "rdimmcr0" },
+      { :name => "rdimmcr0_ddr4" },
+      { :name => "rdimmcr1" },
+      { :name => "rdimmcr1_ddr4" },
+      { :name => "rdimmcr2" },
+      { :name => "rdimmcr3" },
+      { :name => "rdimmcr4" },
+      { :name => "schcr0" },
+      { :name => "schcr1" },
+      { :name => "mr0" },
+      { :name => "mr0_ddr4" },
+      { :name => "mr0_lpddr2" },
+      { :name => "mr0_lpddr3" },
+      { :name => "mr1" },
+      { :name => "mr1_ddr4" },
+      { :name => "mr1_lpddr2" },
+      { :name => "mr1_lpddr3" },
+      { :name => "mr2" },
+      { :name => "mr2_ddr4" },
+      { :name => "mr2_lpddr2" },
+      { :name => "mr2_lpddr3" },
+      { :name => "mr3" },
+      { :name => "mr3_ddr4" },
+      { :name => "mr3_lpddr2" },
+      { :name => "mr3_lpddr3" },
+      { :name => "mr4" },
+      { :name => "mr4_ddr4" },
+      { :name => "mr4_lpddr2" },
+      { :name => "mr4_lpddr3" },
+      { :name => "mr5" },
+      { :name => "mr5_ddr4" },
+      { :name => "mr5_lpddr2" },
+      { :name => "mr5_lpddr3" },
+      { :name => "mr6" },
+      { :name => "mr6_ddr4" },
+      { :name => "mr6_lpddr2" },
+      { :name => "mr6_lpddr3" },
+      { :name => "mr7" },
+      { :name => "mr7_ddr4" },
+      { :name => "mr7_lpddr2" },
+      { :name => "mr7_lpddr3" },
+      { :name => "mr11" },
+      { :name => "mr11_ddr4" },
+      { :name => "mr11_lpddr2" },
+      { :name => "mr11_lpddr3" },
+      { :name => "dtcr0" },
+      { :name => "dtcr1" },
+      { :name => "dtar0" },
+      { :name => "dtar1" },
+      { :name => "dtar2" },
+      { :name => "dtdr0" },
+      { :name => "dtdr1" },
+      { :name => "uddr0" },
+      { :name => "uddr1" },
+      { :name => "dtedr0" },
+      { :name => "dtedr1" },
+      { :name => "dtedr2" },
+      { :name => "vtdr" },
+      { :name => "catr0" },
+      { :name => "catr1" },
+      { :name => "dqsdr0" },
+      { :name => "dqsdr1" },
+      { :name => "dqsdr2" },
+      { :name => "dcuar" },
+      { :name => "dcudr" },
+      { :name => "dcurr" },
+      { :name => "dculr" },
+      { :name => "dcugcr" },
+      { :name => "dcutpr" },
+      { :name => "dcusr0" },
+      { :name => "dcusr1" },
+      { :name => "bistrr" },
+      { :name => "bistwcr" },
+      { :name => "bistmskr0" },
+      { :name => "bistmskr1" },
+      { :name => "bistmskr2" },
+      { :name => "bistlsr" },
+      { :name => "bistar0" },
+      { :name => "bistar1" },
+      { :name => "bistar2" },
+      { :name => "bistar3" },
+      { :name => "bistar4" },
+      { :name => "bistudpr" },
+      { :name => "bistgsr" },
+      { :name => "bistwer0" },
+      { :name => "bistwer1" },
+      { :name => "bistber0" },
+      { :name => "bistber1" },
+      { :name => "bistber2" },
+      { :name => "bistber3" },
+      { :name => "bistber4" },
+      { :name => "bistwcsr" },
+      { :name => "bistfwr0" },
+      { :name => "bistfwr1" },
+      { :name => "bistfwr2" },
+      { :name => "bistber5" },
+      { :name => "rankidr" },
+      { :name => "riocr0" },
+      { :name => "riocr1" },
+      { :name => "riocr2" },
+      { :name => "riocr3" },
+      { :name => "riocr4" },
+      { :name => "riocr5" },
+      { :name => "aciocr0" },
+      { :name => "aciocr1" },
+      { :name => "aciocr2" },
+      { :name => "aciocr3" },
+      { :name => "aciocr4" },
+      { :name => "iovcr0" },
+      { :name => "iovcr1" },
+      { :name => "vtcr0" },
+      { :name => "vtcr1" },
+      { :name => "acbdlr0" },
+      { :name => "acbdlr1" },
+      { :name => "acbdlr2" },
+      { :name => "acbdlr3" },
+      { :name => "acbdlr4" },
+      { :name => "acbdlr5" },
+      { :name => "acbdlr6" },
+      { :name => "acbdlr7" },
+      { :name => "acbdlr8" },
+      { :name => "acbdlr9" },
+      { :name => "acbdlr10" },
+      { :name => "acbdlr11" },
+      { :name => "acbdlr12" },
+      { :name => "acbdlr13" },
+      { :name => "acbdlr14" },
+      { :name => "aclcdlr" },
+      { :name => "acmdlr0" },
+      { :name => "acmdlr1" },
+      { :name => "zqcr" },
+      { :name => "zq0pr" },
+      { :name => "zq0dr" },
+      { :name => "zq0sr" },
+      { :name => "zq1pr" },
+      { :name => "zq1dr" },
+      { :name => "zq1sr" },
+      { :name => "zq2pr" },
+      { :name => "zq2dr" },
+      { :name => "zq2sr" },
+      { :name => "zq3pr" },
+      { :name => "zq3dr" },
+      { :name => "zq3sr" },
+      { :name => "dx0gcr0" },
+      { :name => "dx0gcr1" },
+      { :name => "dx0gcr2" },
+      { :name => "dx0gcr3" },
+      { :name => "dx0gcr4" },
+      { :name => "dx0gcr5" },
+      { :name => "dx0gcr6" },
+      { :name => "dx0gcr7" },
+      { :name => "dx0gcr8" },
+      { :name => "dx0gcr9" },
+      { :name => "dx0bdlr0" },
+      { :name => "dx0bdlr1" },
+      { :name => "dx0bdlr2" },
+      { :name => "dx0bdlr3" },
+      { :name => "dx0bdlr4" },
+      { :name => "dx0bdlr5" },
+      { :name => "dx0bdlr6" },
+      { :name => "dx0bdlr7" },
+      { :name => "dx0bdlr8" },
+      { :name => "dx0bdlr9" },
+      { :name => "dx0lcdlr0" },
+      { :name => "dx0lcdlr1" },
+      { :name => "dx0lcdlr2" },
+      { :name => "dx0lcdlr3" },
+      { :name => "dx0lcdlr4" },
+      { :name => "dx0lcdlr5" },
+      { :name => "dx0mdlr0" },
+      { :name => "dx0mdlr1" },
+      { :name => "dx0gtr0" },
+      { :name => "dx0rsr0" },
+      { :name => "dx0rsr1" },
+      { :name => "dx0rsr2" },
+      { :name => "dx0rsr3" },
+      { :name => "dx0gsr0" },
+      { :name => "dx0gsr1" },
+      { :name => "dx0gsr2" },
+      { :name => "dx0gsr3" },
+      { :name => "dx0gsr4" },
+      { :name => "dx0gsr5" },
+      { :name => "dx0gsr6" },
+      { :name => "dx1gcr0" },
+      { :name => "dx1gcr1" },
+      { :name => "dx1gcr2" },
+      { :name => "dx1gcr3" },
+      { :name => "dx1gcr4" },
+      { :name => "dx1gcr5" },
+      { :name => "dx1gcr6" },
+      { :name => "dx1gcr7" },
+      { :name => "dx1gcr8" },
+      { :name => "dx1gcr9" },
+      { :name => "dx1bdlr0" },
+      { :name => "dx1bdlr1" },
+      { :name => "dx1bdlr2" },
+      { :name => "dx1bdlr3" },
+      { :name => "dx1bdlr4" },
+      { :name => "dx1bdlr5" },
+      { :name => "dx1bdlr6" },
+      { :name => "dx1bdlr7" },
+      { :name => "dx1bdlr8" },
+      { :name => "dx1bdlr9" },
+      { :name => "dx1lcdlr0" },
+      { :name => "dx1lcdlr1" },
+      { :name => "dx1lcdlr2" },
+      { :name => "dx1lcdlr3" },
+      { :name => "dx1lcdlr4" },
+      { :name => "dx1lcdlr5" },
+      { :name => "dx1mdlr0" },
+      { :name => "dx1mdlr1" },
+      { :name => "dx1gtr0" },
+      { :name => "dx1rsr0" },
+      { :name => "dx1rsr1" },
+      { :name => "dx1rsr2" },
+      { :name => "dx1rsr3" },
+      { :name => "dx1gsr0" },
+      { :name => "dx1gsr1" },
+      { :name => "dx1gsr2" },
+      { :name => "dx1gsr3" },
+      { :name => "dx1gsr4" },
+      { :name => "dx1gsr5" },
+      { :name => "dx1gsr6" },
+      { :name => "dx2gcr0" },
+      { :name => "dx2gcr1" },
+      { :name => "dx2gcr2" },
+      { :name => "dx2gcr3" },
+      { :name => "dx2gcr4" },
+      { :name => "dx2gcr5" },
+      { :name => "dx2gcr6" },
+      { :name => "dx2gcr7" },
+      { :name => "dx2gcr8" },
+      { :name => "dx2gcr9" },
+      { :name => "dx2bdlr0" },
+      { :name => "dx2bdlr1" },
+      { :name => "dx2bdlr2" },
+      { :name => "dx2bdlr3" },
+      { :name => "dx2bdlr4" },
+      { :name => "dx2bdlr5" },
+      { :name => "dx2bdlr6" },
+      { :name => "dx2bdlr7" },
+      { :name => "dx2bdlr8" },
+      { :name => "dx2bdlr9" },
+      { :name => "dx2lcdlr0" },
+      { :name => "dx2lcdlr1" },
+      { :name => "dx2lcdlr2" },
+      { :name => "dx2lcdlr3" },
+      { :name => "dx2lcdlr4" },
+      { :name => "dx2lcdlr5" },
+      { :name => "dx2mdlr0" },
+      { :name => "dx2mdlr1" },
+      { :name => "dx2gtr0" },
+      { :name => "dx2rsr0" },
+      { :name => "dx2rsr1" },
+      { :name => "dx2rsr2" },
+      { :name => "dx2rsr3" },
+      { :name => "dx2gsr0" },
+      { :name => "dx2gsr1" },
+      { :name => "dx2gsr2" },
+      { :name => "dx2gsr3" },
+      { :name => "dx2gsr4" },
+      { :name => "dx2gsr5" },
+      { :name => "dx2gsr6" },
+      { :name => "dx3gcr0" },
+      { :name => "dx3gcr1" },
+      { :name => "dx3gcr2" },
+      { :name => "dx3gcr3" },
+      { :name => "dx3gcr4" },
+      { :name => "dx3gcr5" },
+      { :name => "dx3gcr6" },
+      { :name => "dx3gcr7" },
+      { :name => "dx3gcr8" },
+      { :name => "dx3gcr9" },
+      { :name => "dx3bdlr0" },
+      { :name => "dx3bdlr1" },
+      { :name => "dx3bdlr2" },
+      { :name => "dx3bdlr3" },
+      { :name => "dx3bdlr4" },
+      { :name => "dx3bdlr5" },
+      { :name => "dx3bdlr6" },
+      { :name => "dx3bdlr7" },
+      { :name => "dx3bdlr8" },
+      { :name => "dx3bdlr9" },
+      { :name => "dx3lcdlr0" },
+      { :name => "dx3lcdlr1" },
+      { :name => "dx3lcdlr2" },
+      { :name => "dx3lcdlr3" },
+      { :name => "dx3lcdlr4" },
+      { :name => "dx3lcdlr5" },
+      { :name => "dx3mdlr0" },
+      { :name => "dx3mdlr1" },
+      { :name => "dx3gtr0" },
+      { :name => "dx3rsr0" },
+      { :name => "dx3rsr1" },
+      { :name => "dx3rsr2" },
+      { :name => "dx3rsr3" },
+      { :name => "dx3gsr0" },
+      { :name => "dx3gsr1" },
+      { :name => "dx3gsr2" },
+      { :name => "dx3gsr3" },
+      { :name => "dx3gsr4" },
+      { :name => "dx3gsr5" },
+      { :name => "dx3gsr6" },
+      { :name => "dx4gcr0" },
+      { :name => "dx4gcr1" },
+      { :name => "dx4gcr2" },
+      { :name => "dx4gcr3" },
+      { :name => "dx4gcr4" },
+      { :name => "dx4gcr5" },
+      { :name => "dx4gcr6" },
+      { :name => "dx4gcr7" },
+      { :name => "dx4gcr8" },
+      { :name => "dx4gcr9" },
+      { :name => "dx4bdlr0" },
+      { :name => "dx4bdlr1" },
+      { :name => "dx4bdlr2" },
+      { :name => "dx4bdlr3" },
+      { :name => "dx4bdlr4" },
+      { :name => "dx4bdlr5" },
+      { :name => "dx4bdlr6" },
+      { :name => "dx4bdlr7" },
+      { :name => "dx4bdlr8" },
+      { :name => "dx4bdlr9" },
+      { :name => "dx4lcdlr0" },
+      { :name => "dx4lcdlr1" },
+      { :name => "dx4lcdlr2" },
+      { :name => "dx4lcdlr3" },
+      { :name => "dx4lcdlr4" },
+      { :name => "dx4lcdlr5" },
+      { :name => "dx4mdlr0" },
+      { :name => "dx4mdlr1" },
+      { :name => "dx4gtr0" },
+      { :name => "dx4rsr0" },
+      { :name => "dx4rsr1" },
+      { :name => "dx4rsr2" },
+      { :name => "dx4rsr3" },
+      { :name => "dx4gsr0" },
+      { :name => "dx4gsr1" },
+      { :name => "dx4gsr2" },
+      { :name => "dx4gsr3" },
+      { :name => "dx4gsr4" },
+      { :name => "dx4gsr5" },
+      { :name => "dx4gsr6" },
+      { :name => "dx5gcr0" },
+      { :name => "dx5gcr1" },
+      { :name => "dx5gcr2" },
+      { :name => "dx5gcr3" },
+      { :name => "dx5gcr4" },
+      { :name => "dx5gcr5" },
+      { :name => "dx5gcr6" },
+      { :name => "dx5gcr7" },
+      { :name => "dx5gcr8" },
+      { :name => "dx5gcr9" },
+      { :name => "dx5bdlr0" },
+      { :name => "dx5bdlr1" },
+      { :name => "dx5bdlr2" },
+      { :name => "dx5bdlr3" },
+      { :name => "dx5bdlr4" },
+      { :name => "dx5bdlr5" },
+      { :name => "dx5bdlr6" },
+      { :name => "dx5bdlr7" },
+      { :name => "dx5bdlr8" },
+      { :name => "dx5bdlr9" },
+      { :name => "dx5lcdlr0" },
+      { :name => "dx5lcdlr1" },
+      { :name => "dx5lcdlr2" },
+      { :name => "dx5lcdlr3" },
+      { :name => "dx5lcdlr4" },
+      { :name => "dx5lcdlr5" },
+      { :name => "dx5mdlr0" },
+      { :name => "dx5mdlr1" },
+      { :name => "dx5gtr0" },
+      { :name => "dx5rsr0" },
+      { :name => "dx5rsr1" },
+      { :name => "dx5rsr2" },
+      { :name => "dx5rsr3" },
+      { :name => "dx5gsr0" },
+      { :name => "dx5gsr1" },
+      { :name => "dx5gsr2" },
+      { :name => "dx5gsr3" },
+      { :name => "dx5gsr4" },
+      { :name => "dx5gsr5" },
+      { :name => "dx5gsr6" },
+      { :name => "dx6gcr0" },
+      { :name => "dx6gcr1" },
+      { :name => "dx6gcr2" },
+      { :name => "dx6gcr3" },
+      { :name => "dx6gcr4" },
+      { :name => "dx6gcr5" },
+      { :name => "dx6gcr6" },
+      { :name => "dx6gcr7" },
+      { :name => "dx6gcr8" },
+      { :name => "dx6gcr9" },
+      { :name => "dx6bdlr0" },
+      { :name => "dx6bdlr1" },
+      { :name => "dx6bdlr2" },
+      { :name => "dx6bdlr3" },
+      { :name => "dx6bdlr4" },
+      { :name => "dx6bdlr5" },
+      { :name => "dx6bdlr6" },
+      { :name => "dx6bdlr7" },
+      { :name => "dx6bdlr8" },
+      { :name => "dx6bdlr9" },
+      { :name => "dx6lcdlr0" },
+      { :name => "dx6lcdlr1" },
+      { :name => "dx6lcdlr2" },
+      { :name => "dx6lcdlr3" },
+      { :name => "dx6lcdlr4" },
+      { :name => "dx6lcdlr5" },
+      { :name => "dx6mdlr0" },
+      { :name => "dx6mdlr1" },
+      { :name => "dx6gtr0" },
+      { :name => "dx6rsr0" },
+      { :name => "dx6rsr1" },
+      { :name => "dx6rsr2" },
+      { :name => "dx6rsr3" },
+      { :name => "dx6gsr0" },
+      { :name => "dx6gsr1" },
+      { :name => "dx6gsr2" },
+      { :name => "dx6gsr3" },
+      { :name => "dx6gsr4" },
+      { :name => "dx6gsr5" },
+      { :name => "dx6gsr6" },
+      { :name => "dx7gcr0" },
+      { :name => "dx7gcr1" },
+      { :name => "dx7gcr2" },
+      { :name => "dx7gcr3" },
+      { :name => "dx7gcr4" },
+      { :name => "dx7gcr5" },
+      { :name => "dx7gcr6" },
+      { :name => "dx7gcr7" },
+      { :name => "dx7gcr8" },
+      { :name => "dx7gcr9" },
+      { :name => "dx7bdlr0" },
+      { :name => "dx7bdlr1" },
+      { :name => "dx7bdlr2" },
+      { :name => "dx7bdlr3" },
+      { :name => "dx7bdlr4" },
+      { :name => "dx7bdlr5" },
+      { :name => "dx7bdlr6" },
+      { :name => "dx7bdlr7" },
+      { :name => "dx7bdlr8" },
+      { :name => "dx7bdlr9" },
+      { :name => "dx7lcdlr0" },
+      { :name => "dx7lcdlr1" },
+      { :name => "dx7lcdlr2" },
+      { :name => "dx7lcdlr3" },
+      { :name => "dx7lcdlr4" },
+      { :name => "dx7lcdlr5" },
+      { :name => "dx7mdlr0" },
+      { :name => "dx7mdlr1" },
+      { :name => "dx7gtr0" },
+      { :name => "dx7rsr0" },
+      { :name => "dx7rsr1" },
+      { :name => "dx7rsr2" },
+      { :name => "dx7rsr3" },
+      { :name => "dx7gsr0" },
+      { :name => "dx7gsr1" },
+      { :name => "dx7gsr2" },
+      { :name => "dx7gsr3" },
+      { :name => "dx7gsr4" },
+      { :name => "dx7gsr5" },
+      { :name => "dx7gsr6" },
+      { :name => "dx8gcr0" },
+      { :name => "dx8gcr1" },
+      { :name => "dx8gcr2" },
+      { :name => "dx8gcr3" },
+      { :name => "dx8gcr4" },
+      { :name => "dx8gcr5" },
+      { :name => "dx8gcr6" },
+      { :name => "dx8gcr7" },
+      { :name => "dx8gcr8" },
+      { :name => "dx8gcr9" },
+      { :name => "dx8bdlr0" },
+      { :name => "dx8bdlr1" },
+      { :name => "dx8bdlr2" },
+      { :name => "dx8bdlr3" },
+      { :name => "dx8bdlr4" },
+      { :name => "dx8bdlr5" },
+      { :name => "dx8bdlr6" },
+      { :name => "dx8bdlr7" },
+      { :name => "dx8bdlr8" },
+      { :name => "dx8bdlr9" },
+      { :name => "dx8lcdlr0" },
+      { :name => "dx8lcdlr1" },
+      { :name => "dx8lcdlr2" },
+      { :name => "dx8lcdlr3" },
+      { :name => "dx8lcdlr4" },
+      { :name => "dx8lcdlr5" },
+      { :name => "dx8mdlr0" },
+      { :name => "dx8mdlr1" },
+      { :name => "dx8gtr0" },
+      { :name => "dx8rsr0" },
+      { :name => "dx8rsr1" },
+      { :name => "dx8rsr2" },
+      { :name => "dx8rsr3" },
+      { :name => "dx8gsr0" },
+      { :name => "dx8gsr1" },
+      { :name => "dx8gsr2" },
+      { :name => "dx8gsr3" },
+      { :name => "dx8gsr4" },
+      { :name => "dx8gsr5" },
+      { :name => "dx8gsr6" },
+        ],
+      },
+
+      ],
+    },
 
 
+  { :name => "ddr_umctl2", :groups => [
 
 
-mstr
-stat
-mrctrl0
-mrctrl1
-mrstat
-mrctrl2
-derateen
-derateint
-pwrctl
-pwrtmg
-hwlpctl
-rfshctl0
-rfshctl1
-rfshctl3
-rfshtmg
-ecccfg0
-ecccfg1
-eccstat
-eccclr
-eccerrcnt
-ecccaddr0
-ecccaddr1
-ecccsyn0
-ecccsyn2
-eccbitmask0
-eccbitmask2
-eccuaddr0
-eccuaddr1
-eccusyn0
-eccusyn2
-eccpoisonaddr0
-eccpoisonaddr1
-crcparctl0
-crcparctl1
-crcparstat
-init0
-init1
-init2
-init3
-init4
-init5
-init6
-init7
-dimmctl
-rankctl
-dramtmg0
-dramtmg1
-dramtmg2
-dramtmg3
-dramtmg4
-dramtmg5
-dramtmg6
-dramtmg7
-dramtmg8
-dramtmg9
-dramtmg10
-dramtmg11
-dramtmg12
-dramtmg14
-dramtmg15
-zqctl0
-zqctl1
-zqctl2
-zqstat
-dfitmg0
-dfitmg1
-dfilpcfg0
-dfilpcfg1
-dfiupd0
-dfiupd1
-dfiupd2
-dfimisc
-dfitmg3
-dfistat
-dbictl
-dfiphymstr
-addrmap0
-addrmap1
-addrmap2
-addrmap3
-addrmap4
-addrmap5
-addrmap6
-addrmap7
-addrmap8
-addrmap9
-addrmap10
-addrmap11
-odtcfg
-odtmap
-sched
-sched1
-perfhpr1
-perflpr1
-perfwr1
-dbg0
-dbg1
-dbgcam
-dbgcmd
-dbgstat
-swctl
-swstat
-poisoncfg
-poisonstat
-adveccindex
-eccpoisonpat0
-eccpoisonpat2
+    { :name => "umctl2_regs", :registers => [
+      { :name => "mstr" },
+      { :name => "stat" },
+      { :name => "mrctrl0" },
+      { :name => "mrctrl1" },
+      { :name => "mrstat" },
+      { :name => "mrctrl2" },
+      { :name => "derateen" },
+      { :name => "derateint" },
+      { :name => "pwrctl" },
+      { :name => "pwrtmg" },
+      { :name => "hwlpctl" },
+      { :name => "rfshctl0" },
+      { :name => "rfshctl1" },
+      { :name => "rfshctl3" },
+      { :name => "rfshtmg" },
+      { :name => "ecccfg0" },
+      { :name => "ecccfg1" },
+      { :name => "eccstat" },
+      { :name => "eccclr" },
+      { :name => "eccerrcnt" },
+      { :name => "ecccaddr0" },
+      { :name => "ecccaddr1" },
+      { :name => "ecccsyn0" },
+      { :name => "ecccsyn2" },
+      { :name => "eccbitmask0" },
+      { :name => "eccbitmask2" },
+      { :name => "eccuaddr0" },
+      { :name => "eccuaddr1" },
+      { :name => "eccusyn0" },
+      { :name => "eccusyn2" },
+      { :name => "eccpoisonaddr0" },
+      { :name => "eccpoisonaddr1" },
+      { :name => "crcparctl0" },
+      { :name => "crcparctl1" },
+      { :name => "crcparstat" },
+      { :name => "init0" },
+      { :name => "init1" },
+      { :name => "init2" },
+      { :name => "init3" },
+      { :name => "init4" },
+      { :name => "init5" },
+      { :name => "init6" },
+      { :name => "init7" },
+      { :name => "dimmctl" },
+      { :name => "rankctl" },
+      { :name => "dramtmg0" },
+      { :name => "dramtmg1" },
+      { :name => "dramtmg2" },
+      { :name => "dramtmg3" },
+      { :name => "dramtmg4" },
+      { :name => "dramtmg5" },
+      { :name => "dramtmg6" },
+      { :name => "dramtmg7" },
+      { :name => "dramtmg8" },
+      { :name => "dramtmg9" },
+      { :name => "dramtmg10" },
+      { :name => "dramtmg11" },
+      { :name => "dramtmg12" },
+      { :name => "dramtmg14" },
+      { :name => "dramtmg15" },
+      { :name => "zqctl0" },
+      { :name => "zqctl1" },
+      { :name => "zqctl2" },
+      { :name => "zqstat" },
+      { :name => "dfitmg0" },
+      { :name => "dfitmg1" },
+      { :name => "dfilpcfg0" },
+      { :name => "dfilpcfg1" },
+      { :name => "dfiupd0" },
+      { :name => "dfiupd1" },
+      { :name => "dfiupd2" },
+      { :name => "dfimisc" },
+      { :name => "dfitmg3" },
+      { :name => "dfistat" },
+      { :name => "dbictl" },
+      { :name => "dfiphymstr" },
+      { :name => "addrmap0" },
+      { :name => "addrmap1" },
+      { :name => "addrmap2" },
+      { :name => "addrmap3" },
+      { :name => "addrmap4" },
+      { :name => "addrmap5" },
+      { :name => "addrmap6" },
+      { :name => "addrmap7" },
+      { :name => "addrmap8" },
+      { :name => "addrmap9" },
+      { :name => "addrmap10" },
+      { :name => "addrmap11" },
+      { :name => "odtcfg" },
+      { :name => "odtmap" },
+      { :name => "sched" },
+      { :name => "sched1" },
+      { :name => "perfhpr1" },
+      { :name => "perflpr1" },
+      { :name => "perfwr1" },
+      { :name => "dbg0" },
+      { :name => "dbg1" },
+      { :name => "dbgcam" },
+      { :name => "dbgcmd" },
+      { :name => "dbgstat" },
+      { :name => "swctl" },
+      { :name => "swstat" },
+      { :name => "poisoncfg" },
+      { :name => "poisonstat" },
+      { :name => "adveccindex" },
+      { :name => "eccpoisonpat0" },
+      { :name => "eccpoisonpat2" },
+        ],
+      },
 
+    { :name => "umctl2_mp", :registers => [
+      { :name => "pstat" },
+      { :name => "pccfg" },
+      { :name => "pcfgr_0" },
+      { :name => "pcfgw_0" },
+      { :name => "pctrl_0" },
+      { :name => "pcfgqos0_0" },
+      { :name => "sbrctl" },
+      { :name => "sbrstat" },
+      { :name => "sbrwdata0" },
+        ],
+      },
 
-pstat
-pccfg
-pcfgr_0
-pcfgw_0
-pctrl_0
-pcfgqos0_0
-sbrctl
-sbrstat
-sbrwdata0
+      ],
+    },
 
-
-)
+]
 end
 
 end

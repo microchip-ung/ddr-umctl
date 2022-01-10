@@ -1,6 +1,27 @@
 require 'pp'
 require_relative 'soc/sparx5_soc.rb'
 
+class Chip
+
+    attr_reader :chip
+    
+    def initialize(chip)
+        @chip = chip
+    end
+
+    def reggrp(regname)
+        @chip.targets.each do|t|
+            t[:groups].each do|g|
+                if g[:registers].map{|r| r[:name]}.include?(regname)
+                    return g[:name]
+                end
+            end
+        end
+        return "-unknown-"
+    end
+
+end
+
 regs = [
 
     { :grp => "Main control registers",
@@ -143,7 +164,8 @@ def read_tcl(file)
     return reguse.uniq
 end
 
-#sparx5 = Sparx5.new()
+sparx5 = Sparx5.new()
+chip = Chip.new(sparx5)
 
 reguse = Hash.new
 reguse["stm32mp1"] = %w(
@@ -171,12 +193,13 @@ regs.each do |rg|
     puts "=== #{rg[:grp]}"
     puts
 
-    puts "[cols=\"1,5*^\"]"
+    puts "[cols=\"1,6*^\"]"
     puts "|==="
-    puts "| " + ["registers"].concat(platforms).join(" | ") + " | comments"
+    puts "| " + ["register", "group"].concat(platforms).join(" | ") + " | comments"
     puts
-    rg[:regs].each do |rname|
+    rg[:regs].sort.each do |rname|
         puts "| #{rname}"
+        puts "| " + chip.reggrp(rname)
         platforms.each do|p|
             puts reguse[p].include?(rname) ? "| yes" : "| -"
         end
@@ -194,15 +217,15 @@ totused = platforms.map{|p| reguse[p]}.flatten.uniq.sort
 refregs = regs.map{|rg| rg[:regs]}.flatten
 puts "=== Sparx5 DDR registers not mapped to configuration registers"
 puts
-puts "[cols=\"1,4*^\"]"
+puts "[cols=\"1,5*^\"]"
 puts "|==="
-puts "| " + ["register"].concat(platforms).join(" | ") + " | comments"
+puts "| " + ["register", "group"].concat(platforms).join(" | ") + " | comments"
 puts
-(totused - refregs).each do|rname|
+(totused - refregs).sort.each do|rname|
     puts "| #{rname}"
+    puts "| " + chip.reggrp(rname)
     platforms.each do|p|
         puts reguse[p].include?(rname) ? "| yes" : "| -"
     end
-    #puts "| " + (sparx5.registers.include?(rname) ? "yes" : "no")
     puts "| " + (comments[rname] ? comments[rname] : "")
 end

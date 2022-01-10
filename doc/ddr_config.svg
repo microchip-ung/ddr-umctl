@@ -26,11 +26,11 @@
      showgrid="false"
      inkscape:zoom="0.75187991"
      inkscape:cx="429.58988"
-     inkscape:cy="421.60988"
-     inkscape:window-width="1920"
-     inkscape:window-height="1043"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:cy="420.94488"
+     inkscape:window-width="1848"
+     inkscape:window-height="1016"
+     inkscape:window-x="1992"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -227,18 +227,23 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#c4cce5;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="62.162739"
-       y="34.957291"
+       x="61.633572"
+       y="32.840622"
        id="text54992"><tspan
          sodipodi:role="line"
          id="tspan54990"
          style="font-size:6.35px;text-align:center;text-anchor:middle;fill:#c4cce5;fill-opacity:1;stroke-width:0.264583"
-         x="62.162739"
-         y="34.957291">Configuration</tspan><tspan
+         x="61.633572"
+         y="32.840622">Configuration</tspan><tspan
          sodipodi:role="line"
          style="font-size:6.35px;text-align:center;text-anchor:middle;fill:#c4cce5;fill-opacity:1;stroke-width:0.264583"
-         x="62.162739"
-         y="42.894791"
+         x="61.633572"
+         y="40.778122"
+         id="tspan4747">generator</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:6.35px;text-align:center;text-anchor:middle;fill:#c4cce5;fill-opacity:1;stroke-width:0.264583"
+         x="61.633572"
+         y="48.715622"
          id="tspan55050">Tool</tspan></text>
     <text
        xml:space="preserve"
