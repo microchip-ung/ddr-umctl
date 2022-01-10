@@ -137,7 +137,7 @@ primarily the DDR mode and speed (grade).
 
 The DDR output configuration data is as follows.
 
-NOTE: The following data/registers set is taken from
+NOTE: In the section, the _stm32mp1_ column is extracted from
 https://bitbucket.microchip.com/projects/UNGE/repos/sw-arm-trusted-firmware/browse/drivers/st/ddr/stm32mp1_ddr.c?at=refs%2Fheads%2Flaguna-v1[drivers/st/ddr/stm32mp1_ddr.c]
 and the associated header file
 https://bitbucket.microchip.com/projects/UNGE/repos/sw-arm-trusted-firmware/browse/include/drivers/st/stm32mp1_ddr.h?at=refs%2Fheads%2Flaguna-v1[include/drivers/st/stm32mp1_ddr.h].
@@ -157,6 +157,27 @@ as required/desired.
 |===
 | register | group | ddr tcl | fa ddr3 | fa ddr4 | stm32mp1 | comments
 
+| crcparctl1
+| umctl2_regs
+| yes
+| -
+| yes
+| -
+| write_crc, ca_parity_en
+| dbictl
+| umctl2_regs
+| yes
+| -
+| yes
+| -
+| dbi_en
+| dfimisc
+| umctl2_regs
+| yes
+| yes
+| yes
+| -
+| dbi_en
 | dfitmg0
 | umctl2_regs
 | yes
@@ -185,6 +206,62 @@ as required/desired.
 | yes
 | yes
 | 
+| ecccfg0
+| umctl2_regs
+| yes
+| yes
+| yes
+| -
+| ecc_mode
+| init0
+| umctl2_regs
+| yes
+| yes
+| yes
+| -
+| pre_cke / post_cke
+| init1
+| umctl2_regs
+| yes
+| yes
+| yes
+| -
+| DRAM_RSTN_X1024
+| init3
+| umctl2_regs
+| yes
+| yes
+| yes
+| -
+| params_reg_ddrc_mr / ddrc_emr
+| init4
+| umctl2_regs
+| yes
+| yes
+| yes
+| -
+| params_reg_ddrc_emr3 / ddrc_emr2
+| init5
+| umctl2_regs
+| yes
+| yes
+| yes
+| -
+| params_tZQinitc
+| init6
+| umctl2_regs
+| yes
+| -
+| yes
+| -
+| params_reg_ddrc_mr5
+| init7
+| umctl2_regs
+| yes
+| -
+| yes
+| -
+| params_reg_ddrc_mr6
 | mstr
 | umctl2_regs
 | yes
@@ -242,6 +319,13 @@ as required/desired.
 | yes
 | yes
 | 
+| dramtmg12
+| umctl2_regs
+| yes
+| -
+| -
+| -
+| Only used with PDA_EN, do need this feature?
 | dramtmg2
 | umctl2_regs
 | yes
@@ -391,6 +475,20 @@ as required/desired.
 | yes
 | yes
 | 
+| dtcr0
+| dwc_ddrphy_pub
+| yes
+| yes
+| yes
+| -
+| depends on #lanes (dq_bits_used)
+| dtcr1
+| dwc_ddrphy_pub
+| yes
+| yes
+| yes
+| -
+| depends params_active_ranks
 | dxccr
 | dwc_ddrphy_pub
 | yes
@@ -398,6 +496,48 @@ as required/desired.
 | yes
 | yes
 | 
+| pgcr2
+| dwc_ddrphy_pub
+| yes
+| yes
+| yes
+| -
+| params_tRASc_max
+| schcr1
+| dwc_ddrphy_pub
+| yes
+| -
+| -
+| -
+| params_active_ranks > 1
+| zq0pr
+| dwc_ddrphy_pub
+| -
+| yes
+| yes
+| -
+| ddrconf->ca_ln_drv : ddrconf->zqdiv
+| zq1pr
+| dwc_ddrphy_pub
+| -
+| yes
+| yes
+| -
+| ddrconf->zqdiv
+| zq2pr
+| dwc_ddrphy_pub
+| -
+| yes
+| yes
+| -
+| ddrconf->zqdiv
+| zqcr
+| dwc_ddrphy_pub
+| yes
+| yes
+| yes
+| -
+| asym_drv_pd/pu and params_tCK_min
 |===
 
 === DDR PHY timing registers
@@ -427,34 +567,76 @@ as required/desired.
 | yes
 | yes
 | 
+| dtpr3
+| dwc_ddrphy_pub
+| yes
+| yes
+| yes
+| -
+| depends params_tDLLKc
+| dtpr4
+| dwc_ddrphy_pub
+| yes
+| yes
+| yes
+| -
+| depends params_tXPc / params_tXPDLLc
+| dtpr5
+| dwc_ddrphy_pub
+| yes
+| yes
+| yes
+| -
+| depends params_tWTRc / params_tRCDc / params_tRCc
 | mr0
 | dwc_ddrphy_pub
 | yes
-| -
-| -
 | yes
-| 
+| yes
+| yes
+| params_reg_ddrc_mr
 | mr1
 | dwc_ddrphy_pub
 | yes
-| -
-| -
 | yes
-| 
+| yes
+| yes
+| ddrc_emr
 | mr2
 | dwc_ddrphy_pub
 | yes
-| -
-| -
 | yes
-| 
+| yes
+| yes
+| ddrc_emr2
 | mr3
 | dwc_ddrphy_pub
 | yes
-| -
+| yes
+| yes
+| yes
+| params_reg_ddrc_emr3
+| mr4
+| dwc_ddrphy_pub
+| yes
 | -
 | yes
-| 
+| -
+| params_reg_ddrc_mr4
+| mr5
+| dwc_ddrphy_pub
+| yes
+| -
+| yes
+| -
+| dbi_en / params_dm_en / params_reg_ddrc_mr5
+| mr6
+| dwc_ddrphy_pub
+| yes
+| -
+| yes
+| -
+| params_reg_ddrc_mr6
 | ptr0
 | dwc_ddrphy_pub
 | yes
@@ -476,9 +658,23 @@ as required/desired.
 | -
 | yes
 | Should this be used?
+| ptr3
+| dwc_ddrphy_pub
+| yes
+| yes
+| yes
+| -
+| params_tdinit0 / params_tXS_tRFCc
+| ptr4
+| dwc_ddrphy_pub
+| yes
+| yes
+| yes
+| -
+| params_tdinit2 / params_tZQinitc
 |===
 
-=== Sparx5 DDR registers not mapped to configuration registers
+=== Sparx5 DDR registers not depending on configuration
 
 [cols="1,5*^"]
 |===
@@ -489,79 +685,25 @@ as required/desired.
 | -
 | -
 | yes
-| Newly added (by JSA) for VREF training
+| VREF training
 | bistar1
 | dwc_ddrphy_pub
 | -
 | -
 | yes
-| -same-
+| VREF training
 | bistar3
 | dwc_ddrphy_pub
 | -
 | -
 | yes
-| -same-
+| VREF training
 | bistudpr
 | dwc_ddrphy_pub
 | -
 | -
 | yes
-| Newly added for VREF training
-| crcparctl1
-| umctl2_regs
-| yes
-| -
-| yes
-| *Add config*: write_crc, ca_parity_en
-| dbictl
-| umctl2_regs
-| yes
-| -
-| yes
-| *Add config*: dbi_en
-| dfimisc
-| umctl2_regs
-| yes
-| yes
-| yes
-| *Add config*: dbi_en
-| dramtmg12
-| umctl2_regs
-| yes
-| -
-| -
-| Only used with PDA_EN, do need this feature?
-| dtcr0
-| dwc_ddrphy_pub
-| yes
-| yes
-| yes
-| *Add config*: depends on #lanes (dq_bits_used)
-| dtcr1
-| dwc_ddrphy_pub
-| yes
-| yes
-| yes
-| *Add config*: depends params_active_ranks
-| dtpr3
-| dwc_ddrphy_pub
-| yes
-| yes
-| yes
-| *Add config*: depends params_tDLLKc
-| dtpr4
-| dwc_ddrphy_pub
-| yes
-| yes
-| yes
-| *Add config*: depends params_tXPc / params_tXPDLLc
-| dtpr5
-| dwc_ddrphy_pub
-| yes
-| yes
-| yes
-| *Add config*: depends params_tWTRc / params_tRCDc / params_tRCc
+| VREF training
 | dx0bdlr0
 | dwc_ddrphy_pub
 | -
@@ -730,12 +872,6 @@ as required/desired.
 | yes
 | yes
 | Fixed value: DGSL = 2 used, should it ever changed?
-| ecccfg0
-| umctl2_regs
-| yes
-| yes
-| yes
-| *Add config*: ecc_mode
 | eccpoisonaddr0
 | umctl2_regs
 | yes
@@ -748,48 +884,6 @@ as required/desired.
 | -
 | -
 | _Ignore_: Only used for ECC injection
-| init0
-| umctl2_regs
-| yes
-| yes
-| yes
-| *Add config*: pre_cke / post_cke
-| init1
-| umctl2_regs
-| yes
-| yes
-| yes
-| *Add config*: DRAM_RSTN_X1024
-| init3
-| umctl2_regs
-| yes
-| yes
-| yes
-| *Add config*: params_reg_ddrc_mr / ddrc_emr
-| init4
-| umctl2_regs
-| yes
-| yes
-| yes
-| *Add config*: params_reg_ddrc_emr3 / ddrc_emr2
-| init5
-| umctl2_regs
-| yes
-| yes
-| yes
-| *Add config*: params_tZQinitc
-| init6
-| umctl2_regs
-| yes
-| -
-| yes
-| *Add config*: params_reg_ddrc_mr5
-| init7
-| umctl2_regs
-| yes
-| -
-| yes
-| *Add config*: params_reg_ddrc_mr6
 | iovcr0
 | dwc_ddrphy_pub
 | yes
@@ -802,90 +896,6 @@ as required/desired.
 | yes
 | yes
 | Fixed settings
-| mr0_ddr4
-| dwc_ddrphy_pub
-| yes
-| -
-| -
-| *Add config*: Used - params_reg_ddrc_mr
-| mr0_lpddr3
-| dwc_ddrphy_pub
-| -
-| yes
-| yes
-| Alias for mr0_ddr4
-| mr1_ddr4
-| dwc_ddrphy_pub
-| yes
-| -
-| -
-| *Add config*: Used - ddrc_emr
-| mr1_lpddr3
-| dwc_ddrphy_pub
-| -
-| yes
-| yes
-| Alias for mr1_ddr4
-| mr2_ddr4
-| dwc_ddrphy_pub
-| yes
-| -
-| -
-| *Add config*: Used - ddrc_emr2
-| mr2_lpddr3
-| dwc_ddrphy_pub
-| -
-| yes
-| yes
-| Alias for mr2_ddr4
-| mr3_ddr4
-| dwc_ddrphy_pub
-| yes
-| -
-| -
-| *Add config*: Used - params_reg_ddrc_emr3
-| mr3_lpddr3
-| dwc_ddrphy_pub
-| -
-| yes
-| yes
-| Alias for mr3_ddr4
-| mr4_ddr4
-| dwc_ddrphy_pub
-| yes
-| -
-| -
-| *Add config*: Used - params_reg_ddrc_mr4
-| mr4_lpddr3
-| dwc_ddrphy_pub
-| -
-| -
-| yes
-| Alias for mr4_ddr4
-| mr5_ddr4
-| dwc_ddrphy_pub
-| yes
-| -
-| -
-| *Add config*: Used - dbi_en / params_dm_en / params_reg_ddrc_mr5
-| mr5_lpddr3
-| dwc_ddrphy_pub
-| -
-| -
-| yes
-| Alias for mr5_ddr4
-| mr6_ddr4
-| dwc_ddrphy_pub
-| yes
-| -
-| -
-| *Add config*: Used - params_reg_ddrc_mr6
-| mr6_lpddr3
-| dwc_ddrphy_pub
-| -
-| -
-| yes
-| Alias for mr6_ddr4
 | pctrl_0
 | umctl2_mp
 | -
@@ -904,12 +914,6 @@ as required/desired.
 | yes
 | yes
 | Fixed settings
-| pgcr2
-| dwc_ddrphy_pub
-| yes
-| yes
-| yes
-| *Add config*: Used - params_tRASc_max
 | pgcr3
 | dwc_ddrphy_pub
 | yes
@@ -928,18 +932,6 @@ as required/desired.
 | yes
 | yes
 | Fixed settings / depending on DDR3/DDR4
-| ptr3
-| dwc_ddrphy_pub
-| yes
-| yes
-| yes
-| *Add config*: Used - params_tdinit0 / params_tXS_tRFCc
-| ptr4
-| dwc_ddrphy_pub
-| yes
-| yes
-| yes
-| *Add config*: Used - params_tdinit2 / params_tZQinitc
 | rankctl
 | umctl2_regs
 | yes
@@ -969,13 +961,7 @@ as required/desired.
 | -
 | yes
 | yes
-| -same-
-| schcr1
-| dwc_ddrphy_pub
-| yes
-| -
-| -
-| *Add config*: Used - params_active_ranks > 1
+| Used for ECC scrubbing init
 | swctl
 | umctl2_regs
 | yes
@@ -994,27 +980,3 @@ as required/desired.
 | -
 | yes
 | Fixed settings
-| zq0pr
-| dwc_ddrphy_pub
-| -
-| yes
-| yes
-| *Add config*: Used - ddrconf->ca_ln_drv : ddrconf->zqdiv
-| zq1pr
-| dwc_ddrphy_pub
-| -
-| yes
-| yes
-| *Add config*: Used - ddrconf->zqdiv
-| zq2pr
-| dwc_ddrphy_pub
-| -
-| yes
-| yes
-| *Add config*: Used - ddrconf->zqdiv
-| zqcr
-| dwc_ddrphy_pub
-| yes
-| yes
-| yes
-| *Add config*: Used - asym_drv_pd/pu and params_tCK_min

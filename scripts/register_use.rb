@@ -26,12 +26,13 @@ regs = [
 
     { :grp => "Main control registers",
       :regs => %w(mstr pwrctl
-rfshctl0 rfshctl3 dfitmg0 dfitmg1 dfiupd0 dfiupd1 pccfg),
+rfshctl0 rfshctl3 dfitmg0 dfitmg1 dfiupd0 dfiupd1 pccfg crcparctl1 dbictl dfimisc ecccfg0
+init0 init1 init3 init4 init5 init6 init7),
     },
 
     { :grp => "Timing configuration registers",
       :regs => %w(rfshtmg dramtmg0 dramtmg1 dramtmg2 dramtmg3 dramtmg4 dramtmg5
-dramtmg8 dramtmg9 odtcfg),
+dramtmg8 dramtmg9 dramtmg12 odtcfg),
     },    
 
     { :grp => "Address map configuration registers",
@@ -39,11 +40,11 @@ dramtmg8 dramtmg9 odtcfg),
     },
     
     { :grp => "DDR PHY registers",
-      :regs => %w(dxccr dsgcr dcr),
+      :regs => %w(dxccr dsgcr dcr dtcr0 dtcr1 pgcr2 schcr1 zq0pr zq1pr zq2pr zqcr),
     },
 
     { :grp => "DDR PHY timing registers",
-      :regs => %w(ptr0 ptr1 ptr2 dtpr0 dtpr1 dtpr2 mr0 mr1 mr2 mr3),
+      :regs => %w(ptr0 ptr1 ptr2 ptr3 ptr4 dtpr0 dtpr1 dtpr2 dtpr3 dtpr4 dtpr5 mr0 mr1 mr2 mr3 mr4 mr5 mr6),
     },
 
 ]
@@ -53,18 +54,18 @@ comments = {
     'pccfg' => "Only used for x16 width configurations",
     'dramtmg12' => "Only used with PDA_EN, do need this feature?",
     'ptr2' => "Should this be used?",
-    'bistar0' => "Newly added (by JSA) for VREF training",
-    'bistar1' => "-same-",
-    'bistar3' => "-same-",
-    'bistudpr' => "Newly added for VREF training",
-    'crcparctl1' => "*Add config*: write_crc, ca_parity_en",
-    'dbictl' => "*Add config*: dbi_en",
-    'dfimisc' => "*Add config*: dbi_en",
-    'dtcr0' => "*Add config*: depends on #lanes (dq_bits_used)",
-    'dtcr1' => "*Add config*: depends params_active_ranks",
-    'dtpr3' => "*Add config*: depends params_tDLLKc",
-    'dtpr4' => "*Add config*: depends params_tXPc / params_tXPDLLc",
-    'dtpr5' => "*Add config*: depends params_tWTRc / params_tRCDc / params_tRCc",
+    'bistar0' => "VREF training",
+    'bistar1' => "VREF training",
+    'bistar3' => "VREF training",
+    'bistudpr' => "VREF training",
+    'crcparctl1' => "write_crc, ca_parity_en",
+    'dbictl' => "dbi_en",
+    'dfimisc' => "dbi_en",
+    'dtcr0' => "depends on #lanes (dq_bits_used)",
+    'dtcr1' => "depends params_active_ranks",
+    'dtpr3' => "depends params_tDLLKc",
+    'dtpr4' => "depends params_tXPc / params_tXPDLLc",
+    'dtpr5' => "depends params_tWTRc / params_tRCDc / params_tRCc",
     'dx0gtr0' => "Fixed value: DGSL = 2 used, should it ever changed?",
     'dx1gtr0' => "Fixed value: DGSL = 2 used, should it ever changed?",
     'dx2gtr0' => "Fixed value: DGSL = 2 used, should it ever changed?",
@@ -93,61 +94,56 @@ comments = {
     'dx2gcr0' => "Only used for x16 width configurations",
     'dx3gcr0' => "Only used for x16 width configurations",
     'dx4gcr0' => "Only used for x16 width configurations",
-    'ecccfg0' => "*Add config*: ecc_mode",
+    'ecccfg0' => "ecc_mode",
     'eccpoisonaddr0' => "_Ignore_: Only used for ECC injection",
     'eccpoisonaddr1' => "_Ignore_: Only used for ECC injection",
-    'init0' => "*Add config*: pre_cke / post_cke",
-    'init1' => "*Add config*: DRAM_RSTN_X1024",
-    'init3' => "*Add config*: params_reg_ddrc_mr / ddrc_emr",
-    'init4' => "*Add config*: params_reg_ddrc_emr3 / ddrc_emr2",
-    'init5' => "*Add config*: params_tZQinitc",
-    'init6' => "*Add config*: params_reg_ddrc_mr5",
-    'init7' => "*Add config*: params_reg_ddrc_mr6",
+    'init0' => "pre_cke / post_cke",
+    'init1' => "DRAM_RSTN_X1024",
+    'init3' => "params_reg_ddrc_mr / ddrc_emr",
+    'init4' => "params_reg_ddrc_emr3 / ddrc_emr2",
+    'init5' => "params_tZQinitc",
+    'init6' => "params_reg_ddrc_mr5",
+    'init7' => "params_reg_ddrc_mr6",
     'iovcr0' => "Fixed settings",
     'iovcr1' => "Fixed settings",
-    'mr0_lpddr3' => "Alias for mr0_ddr4",
-    'mr1_lpddr3' => "Alias for mr1_ddr4",
-    'mr2_lpddr3' => "Alias for mr2_ddr4",
-    'mr3_lpddr3' => "Alias for mr3_ddr4",
-    'mr4_lpddr3' => "Alias for mr4_ddr4",
-    'mr5_lpddr3' => "Alias for mr5_ddr4",
-    'mr6_lpddr3' => "Alias for mr6_ddr4",
-    'mr0_ddr4' => "*Add config*: Used - params_reg_ddrc_mr",
-    'mr1_ddr4' => "*Add config*: Used - ddrc_emr",
-    'mr2_ddr4' => "*Add config*: Used - ddrc_emr2",
-    'mr3_ddr4' => "*Add config*: Used - params_reg_ddrc_emr3",
-    'mr4_ddr4' => "*Add config*: Used - params_reg_ddrc_mr4",
-    'mr5_ddr4' => "*Add config*: Used - dbi_en / params_dm_en / params_reg_ddrc_mr5",
-    'mr6_ddr4' => "*Add config*: Used - params_reg_ddrc_mr6",
+    'mr0' => "params_reg_ddrc_mr",
+    'mr1' => "ddrc_emr",
+    'mr2' => "ddrc_emr2",
+    'mr3' => "params_reg_ddrc_emr3",
+    'mr4' => "params_reg_ddrc_mr4",
+    'mr5' => "dbi_en / params_dm_en / params_reg_ddrc_mr5",
+    'mr6' => "params_reg_ddrc_mr6",
     'pctrl_0' => "Control only (ECC scrubbing)",
     'pgcr0' => "Control only",
     'pgcr1' => "Fixed settings",
-    'pgcr2' => "*Add config*: Used - params_tRASc_max",
+    'pgcr2' => "params_tRASc_max",
     'pgcr3' => "Fixed settings, but *used* to hold params params_rd_dbi_en / params_wr_dbi_en (TCL script)",
     'pgcr7' => "Fixed settings",
     'pir' => "Fixed settings / depending on DDR3/DDR4",
-    'ptr3' => "*Add config*: Used - params_tdinit0 / params_tXS_tRFCc",
-    'ptr4' => "*Add config*: Used - params_tdinit2 / params_tZQinitc",
+    'ptr3' => "params_tdinit0 / params_tXS_tRFCc",
+    'ptr4' => "params_tdinit2 / params_tZQinitc",
     'rankctl' => "Fixed settings",
     'rankidr' => "Index register for `DX*GTR0` etc",
     'rfshctl1' => "Fixed settings",
     'sbrctl' => "Used for ECC scrubbing init",
-    'sbrwdata0' => "-same-",
-    'schcr1' => "*Add config*: Used - params_active_ranks > 1",
+    'sbrwdata0' => "Used for ECC scrubbing init",
+    'schcr1' => "params_active_ranks > 1",
     'swctl' => "Control only",
     'vtcr0' => "Fixed settings",
     'vtcr1' => "Fixed settings",
-    'zq0pr' => "*Add config*: Used - ddrconf->ca_ln_drv : ddrconf->zqdiv",
-    'zq1pr' => "*Add config*: Used - ddrconf->zqdiv",
-    'zq2pr' => "*Add config*: Used - ddrconf->zqdiv",
-    'zqcr' => "*Add config*: Used - asym_drv_pd/pu and params_tCK_min",
+    'zq0pr' => "ddrconf->ca_ln_drv : ddrconf->zqdiv",
+    'zq1pr' => "ddrconf->zqdiv",
+    'zq2pr' => "ddrconf->zqdiv",
+    'zqcr' => "asym_drv_pd/pu and params_tCK_min",
 }
 
 def read_trace(file)
     reguse = []
     File.open(file).each do |line|
         if data = line.match(/[Ww]([0-9a-f]{8,10})[,=]([0-9a-f]{8}) \((UMCTL2_REGS|DWC_DDRPHY_PUB|UMCTL2_MP)_(\w+)\)/)
-            reguse << data[4].downcase
+            reg = data[4].downcase
+            reg.gsub!(/^(mr\d)_.+/, '\1')
+            reguse << reg
         end
     end
     return reguse.uniq
@@ -158,7 +154,9 @@ def read_tcl(file)
     File.open(file).each do |line|
         if line.match(/^\s+erf_wr/) and
           data = line.match(/\s(DDR_UMCTL2|DDR_PHY)\s+(\w+)/)
-            reguse << data[2].downcase
+            reg = data[2].downcase
+            reg.gsub!(/^(mr\d)_.+/, '\1')
+            reguse << reg
         end
     end
     return reguse.uniq
@@ -215,7 +213,7 @@ platforms.delete("stm32mp1")
 
 totused = platforms.map{|p| reguse[p]}.flatten.uniq.sort
 refregs = regs.map{|rg| rg[:regs]}.flatten
-puts "=== Sparx5 DDR registers not mapped to configuration registers"
+puts "=== Sparx5 DDR registers not depending on configuration"
 puts
 puts "[cols=\"1,5*^\"]"
 puts "|==="
