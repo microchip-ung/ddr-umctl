@@ -1,0 +1,22 @@
+/*
+ * Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+#ifndef _DDR_CONFIG_H
+#define _DDR_CONFIG_H
+
+#include <stdint.h>
+
+struct ddr_config {
+<%- config.groups.each do |rg| -%>
+    struct {
+<%- rg[:regs].sort.each do |rname| -%>
+        uint32 <%= rname %>;
+<%- end -%>
+    } <%= rg[:name] %>;
+<%- end -%>
+};
+
+#endif /* _DDR_CONFIG_H */
