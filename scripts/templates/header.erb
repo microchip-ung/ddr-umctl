@@ -9,13 +9,26 @@
 
 #include <stdint.h>
 
-struct ddr_config {
 <%- config.groups.each do |rg| -%>
-    struct {
+#define XLIST_DDR_<%= rg[:name].upcase %> \
 <%- rg[:regs].sort.each do |rname| -%>
-        uint32 <%= rname %>;
+        X(<%= rname %>, <%= rg[:name] %>)	\
 <%- end -%>
-    } <%= rg[:name] %>;
+
+<%- end -%>
+
+struct ddr_config {
+	struct config_ddr_info {
+		const char *name;
+		uint32_t speed; /* in kHZ */
+		uint32_t size;  /* Memory size in byte = col * row * width */
+	} info;
+<%- config.groups.each do |rg| -%>
+	struct config_ddr_<%= rg[:name] %> {
+<%- rg[:regs].sort.each do |rname| -%>
+		uint32_t <%= rname %>;
+<%- end -%>
+	} <%= rg[:name] %>;
 <%- end -%>
 };
 

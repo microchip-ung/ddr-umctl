@@ -1,28 +1,6 @@
 require 'pp'
-require_relative 'soc/sparx5_soc.rb'
+require_relative 'soc/chip.rb'
 require_relative 'config_registers.rb'
-
-class Chip
-
-    attr_reader :chip
-    
-    def initialize(chip)
-        @chip = chip
-    end
-
-    def reggrp(regname)
-        @chip.targets.each do|t|
-            t[:groups].each do|g|
-                if g[:registers].map{|r| r[:name]}.include?(regname)
-                    return g[:name]
-                end
-            end
-        end
-        return "-unknown-"
-    end
-
-end
-
 
 comments = {
     'dramtmg9' => "Should this be configured even for DDR3?",
@@ -137,8 +115,7 @@ def read_tcl(file)
     return reguse.uniq
 end
 
-sparx5 = Sparx5.new()
-chip = Chip.new(sparx5)
+chip = Chip.new("sparx5")
 config = Config.new()
 
 reguse = Hash.new

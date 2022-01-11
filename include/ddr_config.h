@@ -9,86 +9,171 @@
 
 #include <stdint.h>
 
+#define XLIST_DDR_MAIN \
+        X(crcparctl1, main)	\
+        X(dbictl, main)	\
+        X(dfimisc, main)	\
+        X(dfitmg0, main)	\
+        X(dfitmg1, main)	\
+        X(dfiupd0, main)	\
+        X(dfiupd1, main)	\
+        X(ecccfg0, main)	\
+        X(init0, main)	\
+        X(init1, main)	\
+        X(init3, main)	\
+        X(init4, main)	\
+        X(init5, main)	\
+        X(init6, main)	\
+        X(init7, main)	\
+        X(mstr, main)	\
+        X(pccfg, main)	\
+        X(pwrctl, main)	\
+        X(rfshctl0, main)	\
+        X(rfshctl3, main)	\
+
+#define XLIST_DDR_TIMING \
+        X(dramtmg0, timing)	\
+        X(dramtmg1, timing)	\
+        X(dramtmg12, timing)	\
+        X(dramtmg2, timing)	\
+        X(dramtmg3, timing)	\
+        X(dramtmg4, timing)	\
+        X(dramtmg5, timing)	\
+        X(dramtmg8, timing)	\
+        X(dramtmg9, timing)	\
+        X(odtcfg, timing)	\
+        X(rfshtmg, timing)	\
+
+#define XLIST_DDR_MAPPING \
+        X(addrmap0, mapping)	\
+        X(addrmap1, mapping)	\
+        X(addrmap2, mapping)	\
+        X(addrmap3, mapping)	\
+        X(addrmap4, mapping)	\
+        X(addrmap5, mapping)	\
+        X(addrmap6, mapping)	\
+        X(addrmap7, mapping)	\
+        X(addrmap8, mapping)	\
+
+#define XLIST_DDR_PHY \
+        X(dcr, phy)	\
+        X(dsgcr, phy)	\
+        X(dtcr0, phy)	\
+        X(dtcr1, phy)	\
+        X(dxccr, phy)	\
+        X(pgcr2, phy)	\
+        X(schcr1, phy)	\
+        X(zq0pr, phy)	\
+        X(zq1pr, phy)	\
+        X(zq2pr, phy)	\
+        X(zqcr, phy)	\
+
+#define XLIST_DDR_PHY_TIMING \
+        X(dtpr0, phy_timing)	\
+        X(dtpr1, phy_timing)	\
+        X(dtpr2, phy_timing)	\
+        X(dtpr3, phy_timing)	\
+        X(dtpr4, phy_timing)	\
+        X(dtpr5, phy_timing)	\
+        X(mr0, phy_timing)	\
+        X(mr1, phy_timing)	\
+        X(mr2, phy_timing)	\
+        X(mr3, phy_timing)	\
+        X(mr4, phy_timing)	\
+        X(mr5, phy_timing)	\
+        X(mr6, phy_timing)	\
+        X(ptr0, phy_timing)	\
+        X(ptr1, phy_timing)	\
+        X(ptr2, phy_timing)	\
+        X(ptr3, phy_timing)	\
+        X(ptr4, phy_timing)	\
+
+
 struct ddr_config {
-    struct {
-        uint32 crcparctl1;
-        uint32 dbictl;
-        uint32 dfimisc;
-        uint32 dfitmg0;
-        uint32 dfitmg1;
-        uint32 dfiupd0;
-        uint32 dfiupd1;
-        uint32 ecccfg0;
-        uint32 init0;
-        uint32 init1;
-        uint32 init3;
-        uint32 init4;
-        uint32 init5;
-        uint32 init6;
-        uint32 init7;
-        uint32 mstr;
-        uint32 pccfg;
-        uint32 pwrctl;
-        uint32 rfshctl0;
-        uint32 rfshctl3;
-    } main;
-    struct {
-        uint32 dramtmg0;
-        uint32 dramtmg1;
-        uint32 dramtmg12;
-        uint32 dramtmg2;
-        uint32 dramtmg3;
-        uint32 dramtmg4;
-        uint32 dramtmg5;
-        uint32 dramtmg8;
-        uint32 dramtmg9;
-        uint32 odtcfg;
-        uint32 rfshtmg;
-    } timing;
-    struct {
-        uint32 addrmap0;
-        uint32 addrmap1;
-        uint32 addrmap2;
-        uint32 addrmap3;
-        uint32 addrmap4;
-        uint32 addrmap5;
-        uint32 addrmap6;
-        uint32 addrmap7;
-        uint32 addrmap8;
-    } mapping;
-    struct {
-        uint32 dcr;
-        uint32 dsgcr;
-        uint32 dtcr0;
-        uint32 dtcr1;
-        uint32 dxccr;
-        uint32 pgcr2;
-        uint32 schcr1;
-        uint32 zq0pr;
-        uint32 zq1pr;
-        uint32 zq2pr;
-        uint32 zqcr;
-    } phy;
-    struct {
-        uint32 dtpr0;
-        uint32 dtpr1;
-        uint32 dtpr2;
-        uint32 dtpr3;
-        uint32 dtpr4;
-        uint32 dtpr5;
-        uint32 mr0;
-        uint32 mr1;
-        uint32 mr2;
-        uint32 mr3;
-        uint32 mr4;
-        uint32 mr5;
-        uint32 mr6;
-        uint32 ptr0;
-        uint32 ptr1;
-        uint32 ptr2;
-        uint32 ptr3;
-        uint32 ptr4;
-    } phy_timing;
+	struct config_ddr_info {
+		const char *name;
+		uint32_t speed; /* in kHZ */
+		uint32_t size;  /* Memory size in byte = col * row * width */
+	} info;
+	struct config_ddr_main {
+		uint32_t crcparctl1;
+		uint32_t dbictl;
+		uint32_t dfimisc;
+		uint32_t dfitmg0;
+		uint32_t dfitmg1;
+		uint32_t dfiupd0;
+		uint32_t dfiupd1;
+		uint32_t ecccfg0;
+		uint32_t init0;
+		uint32_t init1;
+		uint32_t init3;
+		uint32_t init4;
+		uint32_t init5;
+		uint32_t init6;
+		uint32_t init7;
+		uint32_t mstr;
+		uint32_t pccfg;
+		uint32_t pwrctl;
+		uint32_t rfshctl0;
+		uint32_t rfshctl3;
+	} main;
+	struct config_ddr_timing {
+		uint32_t dramtmg0;
+		uint32_t dramtmg1;
+		uint32_t dramtmg12;
+		uint32_t dramtmg2;
+		uint32_t dramtmg3;
+		uint32_t dramtmg4;
+		uint32_t dramtmg5;
+		uint32_t dramtmg8;
+		uint32_t dramtmg9;
+		uint32_t odtcfg;
+		uint32_t rfshtmg;
+	} timing;
+	struct config_ddr_mapping {
+		uint32_t addrmap0;
+		uint32_t addrmap1;
+		uint32_t addrmap2;
+		uint32_t addrmap3;
+		uint32_t addrmap4;
+		uint32_t addrmap5;
+		uint32_t addrmap6;
+		uint32_t addrmap7;
+		uint32_t addrmap8;
+	} mapping;
+	struct config_ddr_phy {
+		uint32_t dcr;
+		uint32_t dsgcr;
+		uint32_t dtcr0;
+		uint32_t dtcr1;
+		uint32_t dxccr;
+		uint32_t pgcr2;
+		uint32_t schcr1;
+		uint32_t zq0pr;
+		uint32_t zq1pr;
+		uint32_t zq2pr;
+		uint32_t zqcr;
+	} phy;
+	struct config_ddr_phy_timing {
+		uint32_t dtpr0;
+		uint32_t dtpr1;
+		uint32_t dtpr2;
+		uint32_t dtpr3;
+		uint32_t dtpr4;
+		uint32_t dtpr5;
+		uint32_t mr0;
+		uint32_t mr1;
+		uint32_t mr2;
+		uint32_t mr3;
+		uint32_t mr4;
+		uint32_t mr5;
+		uint32_t mr6;
+		uint32_t ptr0;
+		uint32_t ptr1;
+		uint32_t ptr2;
+		uint32_t ptr3;
+		uint32_t ptr4;
+	} phy_timing;
 };
 
 #endif /* _DDR_CONFIG_H */
