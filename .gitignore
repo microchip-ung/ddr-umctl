@@ -1,7 +1,6 @@
 # Ignore miscellaneous files
 *.patch
 *~
-*.o
 
 # Ignore build directory
 build/

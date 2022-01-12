@@ -9,14 +9,6 @@
 
 #include <stdint.h>
 
-<%- config.groups.each do |rg| -%>
-#define XLIST_DDR_<%= rg[:name].upcase %> \
-<%- rg[:regs].sort.each do |rname| -%>
-        X(<%= rname %>, <%= rg[:name] %>)	\
-<%- end -%>
-
-<%- end -%>
-
 struct ddr_config {
 	struct config_ddr_info {
 		const char *name;

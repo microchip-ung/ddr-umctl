@@ -1,6 +1,6 @@
 class Config
 
-    attr_reader :groups
+    attr_reader :groups, :registers
 
     def initialize()
         @groups = [
@@ -16,13 +16,13 @@ init0 init1 init3 init4 init5 init6 init7),
               :name => 'timing',
               :regs => %w(rfshtmg dramtmg0 dramtmg1 dramtmg2 dramtmg3 dramtmg4 dramtmg5
 dramtmg8 dramtmg9 dramtmg12 odtcfg),
-            },    
+            },
 
             { :grp => "Address map configuration registers",
               :name => 'mapping',
               :regs => %w(addrmap0 addrmap1 addrmap2 addrmap3 addrmap4 addrmap5 addrmap6 addrmap7 addrmap8),
             },
-            
+
             { :grp => "DDR PHY registers",
               :name => 'phy',
               :regs => %w(dxccr dsgcr dcr dtcr0 dtcr1 pgcr2 schcr1 zq0pr zq1pr zq2pr zqcr),
@@ -34,5 +34,6 @@ dramtmg8 dramtmg9 dramtmg12 odtcfg),
             },
 
         ]
+        @registers = @groups.map{|g| g[:regs]}.flatten
     end
 end

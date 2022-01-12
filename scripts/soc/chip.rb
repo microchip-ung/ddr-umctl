@@ -17,7 +17,18 @@ class Chip
                 end
             end
         end
-        return "-unknown-"
+        return nil
+    end
+
+    def target(regname)
+        @chip.targets.each do|t|
+            t[:groups].each do|g|
+                if g[:registers].map{|r| r[:name]}.include?(regname)
+                    return t[:name]
+                end
+            end
+        end
+        return nil
     end
 
 end

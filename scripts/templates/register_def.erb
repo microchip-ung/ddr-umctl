@@ -4,17 +4,25 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifndef __REGISTER_DEF_H
-#define __REGISTER_DEF_H
+#ifndef __DDR_REG_H
+#define __DDR_REG_H
 
 #include <stdint.h>
 
 <%- soc.chip.targets.each do |t| -%>
 <%- t[:groups].each do |g| -%>
 <%- g[:registers].each do |r| -%>
-#define <%= sprintf("%-20s 0x%08x", t[:name].upcase + "_" + r[:name].upcase, soc.chip.regaddr(t, g, r)) %>
+#define <%= sprintf("%-24s 0x%08x", t[:name].upcase + "_" + r[:name].upcase, soc.chip.regaddr(t, g, r)) %>
 <%- end -%>
 <%- end -%>
 <%- end -%>
 
-#endif /* __REGISTER_DEF_H */
+<%- config.groups.each do |rg| -%>
+#define XLIST_DDR_<%= rg[:name].upcase %> \
+<%- rg[:regs].sort.each do |rname| -%>
+        X(<%= rname %>, <%= soc.target(rname).upcase %>_<%= rname.upcase %>, <%= rg[:name] %>)	\
+<%- end -%>
+
+<%- end -%>
+
+#endif /* __DDR_REG_H */
