@@ -20,7 +20,7 @@
 <%- config.groups.each do |rg| -%>
 #define XLIST_DDR_<%= rg[:name].upcase %> \
 <%- rg[:regs].sort.each do |rname| -%>
-        X(<%= rname %>, <%= soc.target(rname).upcase %>_<%= rname.upcase %>, <%= rg[:name] %>)	\
+        X(<%= rname %>, <%= soc.target(rname.upcase).upcase %>_<%= rname.upcase %>, <%= rg[:name] %>)	\
 <%- end -%>
 
 <%- end -%>

@@ -1,0 +1,1350 @@
+---
+- :name: DDR_PHY
+  :region: amba_top
+  :toffset: 6442450944
+  :offset: 270336
+  :groups:
+  - :name: DWC_DDRPHY_PUB
+    :offset: 0
+    :registers:
+    - :name: RIDR
+      :addr: 0
+    - :name: PIR
+      :addr: 1
+    - :name: CGCR
+      :addr: 2
+    - :name: CGCR1
+      :addr: 3
+    - :name: PGCR0
+      :addr: 4
+    - :name: PGCR1
+      :addr: 5
+    - :name: PGCR2
+      :addr: 6
+    - :name: PGCR3
+      :addr: 7
+    - :name: PGCR4
+      :addr: 8
+    - :name: PGCR5
+      :addr: 9
+    - :name: PGCR6
+      :addr: 10
+    - :name: PGCR7
+      :addr: 11
+    - :name: PGCR8
+      :addr: 12
+    - :name: PGSR0
+      :addr: 13
+    - :name: PGSR1
+      :addr: 14
+    - :name: PTR0
+      :addr: 16
+    - :name: PTR1
+      :addr: 17
+    - :name: PTR2
+      :addr: 18
+    - :name: PTR3
+      :addr: 19
+    - :name: PTR4
+      :addr: 20
+    - :name: PTR5
+      :addr: 21
+    - :name: PTR6
+      :addr: 22
+    - :name: PLLCR0
+      :addr: 26
+    - :name: PLLCR1
+      :addr: 27
+    - :name: PLLCR2
+      :addr: 28
+    - :name: PLLCR3
+      :addr: 29
+    - :name: PLLCR4
+      :addr: 30
+    - :name: PLLCR5
+      :addr: 31
+    - :name: PLLCR
+      :addr: 32
+    - :name: DXCCR
+      :addr: 34
+    - :name: DSGCR
+      :addr: 36
+    - :name: ODTCR
+      :addr: 38
+    - :name: AACR
+      :addr: 40
+    - :name: GPR0
+      :addr: 48
+    - :name: GPR1
+      :addr: 49
+    - :name: DCR
+      :addr: 64
+    - :name: DTPR0
+      :addr: 68
+    - :name: DTPR1
+      :addr: 69
+    - :name: DTPR2
+      :addr: 70
+    - :name: DTPR3
+      :addr: 71
+    - :name: DTPR4
+      :addr: 72
+    - :name: DTPR5
+      :addr: 73
+    - :name: DTPR6
+      :addr: 74
+    - :name: RDIMMGCR0
+      :addr: 80
+    - :name: RDIMMGCR1
+      :addr: 81
+    - :name: RDIMMGCR2
+      :addr: 82
+    - :name: RDIMMCR0
+      :addr: 84
+    - :name: RDIMMCR0_DDR4
+      :addr: 84
+    - :name: RDIMMCR1
+      :addr: 85
+    - :name: RDIMMCR1_DDR4
+      :addr: 85
+    - :name: RDIMMCR2
+      :addr: 86
+    - :name: RDIMMCR3
+      :addr: 87
+    - :name: RDIMMCR4
+      :addr: 88
+    - :name: SCHCR0
+      :addr: 90
+    - :name: SCHCR1
+      :addr: 91
+    - :name: MR0
+      :addr: 96
+    - :name: MR0_DDR4
+      :addr: 96
+    - :name: MR0_LPDDR2
+      :addr: 96
+    - :name: MR0_LPDDR3
+      :addr: 96
+    - :name: MR1
+      :addr: 97
+    - :name: MR1_DDR4
+      :addr: 97
+    - :name: MR1_LPDDR2
+      :addr: 97
+    - :name: MR1_LPDDR3
+      :addr: 97
+    - :name: MR2
+      :addr: 98
+    - :name: MR2_DDR4
+      :addr: 98
+    - :name: MR2_LPDDR2
+      :addr: 98
+    - :name: MR2_LPDDR3
+      :addr: 98
+    - :name: MR3
+      :addr: 99
+    - :name: MR3_DDR4
+      :addr: 99
+    - :name: MR3_LPDDR2
+      :addr: 99
+    - :name: MR3_LPDDR3
+      :addr: 99
+    - :name: MR4
+      :addr: 100
+    - :name: MR4_DDR4
+      :addr: 100
+    - :name: MR4_LPDDR2
+      :addr: 100
+    - :name: MR4_LPDDR3
+      :addr: 100
+    - :name: MR5
+      :addr: 101
+    - :name: MR5_DDR4
+      :addr: 101
+    - :name: MR5_LPDDR2
+      :addr: 101
+    - :name: MR5_LPDDR3
+      :addr: 101
+    - :name: MR6
+      :addr: 102
+    - :name: MR6_DDR4
+      :addr: 102
+    - :name: MR6_LPDDR2
+      :addr: 102
+    - :name: MR6_LPDDR3
+      :addr: 102
+    - :name: MR7
+      :addr: 103
+    - :name: MR7_DDR4
+      :addr: 103
+    - :name: MR7_LPDDR2
+      :addr: 103
+    - :name: MR7_LPDDR3
+      :addr: 103
+    - :name: MR11
+      :addr: 107
+    - :name: MR11_DDR4
+      :addr: 107
+    - :name: MR11_LPDDR2
+      :addr: 107
+    - :name: MR11_LPDDR3
+      :addr: 107
+    - :name: DTCR0
+      :addr: 128
+    - :name: DTCR1
+      :addr: 129
+    - :name: DTAR0
+      :addr: 130
+    - :name: DTAR1
+      :addr: 131
+    - :name: DTAR2
+      :addr: 132
+    - :name: DTDR0
+      :addr: 134
+    - :name: DTDR1
+      :addr: 135
+    - :name: UDDR0
+      :addr: 136
+    - :name: UDDR1
+      :addr: 137
+    - :name: DTEDR0
+      :addr: 140
+    - :name: DTEDR1
+      :addr: 141
+    - :name: DTEDR2
+      :addr: 142
+    - :name: VTDR
+      :addr: 143
+    - :name: CATR0
+      :addr: 144
+    - :name: CATR1
+      :addr: 145
+    - :name: DQSDR0
+      :addr: 148
+    - :name: DQSDR1
+      :addr: 149
+    - :name: DQSDR2
+      :addr: 150
+    - :name: DCUAR
+      :addr: 192
+    - :name: DCUDR
+      :addr: 193
+    - :name: DCURR
+      :addr: 194
+    - :name: DCULR
+      :addr: 195
+    - :name: DCUGCR
+      :addr: 196
+    - :name: DCUTPR
+      :addr: 197
+    - :name: DCUSR0
+      :addr: 198
+    - :name: DCUSR1
+      :addr: 199
+    - :name: BISTRR
+      :addr: 256
+    - :name: BISTWCR
+      :addr: 257
+    - :name: BISTMSKR0
+      :addr: 258
+    - :name: BISTMSKR1
+      :addr: 259
+    - :name: BISTMSKR2
+      :addr: 260
+    - :name: BISTLSR
+      :addr: 261
+    - :name: BISTAR0
+      :addr: 262
+    - :name: BISTAR1
+      :addr: 263
+    - :name: BISTAR2
+      :addr: 264
+    - :name: BISTAR3
+      :addr: 265
+    - :name: BISTAR4
+      :addr: 266
+    - :name: BISTUDPR
+      :addr: 267
+    - :name: BISTGSR
+      :addr: 268
+    - :name: BISTWER0
+      :addr: 269
+    - :name: BISTWER1
+      :addr: 270
+    - :name: BISTBER0
+      :addr: 271
+    - :name: BISTBER1
+      :addr: 272
+    - :name: BISTBER2
+      :addr: 273
+    - :name: BISTBER3
+      :addr: 274
+    - :name: BISTBER4
+      :addr: 275
+    - :name: BISTWCSR
+      :addr: 276
+    - :name: BISTFWR0
+      :addr: 277
+    - :name: BISTFWR1
+      :addr: 278
+    - :name: BISTFWR2
+      :addr: 279
+    - :name: BISTBER5
+      :addr: 280
+    - :name: RANKIDR
+      :addr: 311
+    - :name: RIOCR0
+      :addr: 312
+    - :name: RIOCR1
+      :addr: 313
+    - :name: RIOCR2
+      :addr: 314
+    - :name: RIOCR3
+      :addr: 315
+    - :name: RIOCR4
+      :addr: 316
+    - :name: RIOCR5
+      :addr: 317
+    - :name: ACIOCR0
+      :addr: 320
+    - :name: ACIOCR1
+      :addr: 321
+    - :name: ACIOCR2
+      :addr: 322
+    - :name: ACIOCR3
+      :addr: 323
+    - :name: ACIOCR4
+      :addr: 324
+    - :name: IOVCR0
+      :addr: 328
+    - :name: IOVCR1
+      :addr: 329
+    - :name: VTCR0
+      :addr: 330
+    - :name: VTCR1
+      :addr: 331
+    - :name: ACBDLR0
+      :addr: 336
+    - :name: ACBDLR1
+      :addr: 337
+    - :name: ACBDLR2
+      :addr: 338
+    - :name: ACBDLR3
+      :addr: 339
+    - :name: ACBDLR4
+      :addr: 340
+    - :name: ACBDLR5
+      :addr: 341
+    - :name: ACBDLR6
+      :addr: 342
+    - :name: ACBDLR7
+      :addr: 343
+    - :name: ACBDLR8
+      :addr: 344
+    - :name: ACBDLR9
+      :addr: 345
+    - :name: ACBDLR10
+      :addr: 346
+    - :name: ACBDLR11
+      :addr: 347
+    - :name: ACBDLR12
+      :addr: 348
+    - :name: ACBDLR13
+      :addr: 349
+    - :name: ACBDLR14
+      :addr: 350
+    - :name: ACLCDLR
+      :addr: 352
+    - :name: ACMDLR0
+      :addr: 360
+    - :name: ACMDLR1
+      :addr: 361
+    - :name: ZQCR
+      :addr: 416
+    - :name: ZQ0PR
+      :addr: 417
+    - :name: ZQ0DR
+      :addr: 418
+    - :name: ZQ0SR
+      :addr: 419
+    - :name: ZQ1PR
+      :addr: 421
+    - :name: ZQ1DR
+      :addr: 422
+    - :name: ZQ1SR
+      :addr: 423
+    - :name: ZQ2PR
+      :addr: 425
+    - :name: ZQ2DR
+      :addr: 426
+    - :name: ZQ2SR
+      :addr: 427
+    - :name: ZQ3PR
+      :addr: 429
+    - :name: ZQ3DR
+      :addr: 430
+    - :name: ZQ3SR
+      :addr: 431
+    - :name: DX0GCR0
+      :addr: 448
+    - :name: DX0GCR1
+      :addr: 449
+    - :name: DX0GCR2
+      :addr: 450
+    - :name: DX0GCR3
+      :addr: 451
+    - :name: DX0GCR4
+      :addr: 452
+    - :name: DX0GCR5
+      :addr: 453
+    - :name: DX0GCR6
+      :addr: 454
+    - :name: DX0GCR7
+      :addr: 455
+    - :name: DX0GCR8
+      :addr: 456
+    - :name: DX0GCR9
+      :addr: 457
+    - :name: DX0BDLR0
+      :addr: 464
+    - :name: DX0BDLR1
+      :addr: 465
+    - :name: DX0BDLR2
+      :addr: 466
+    - :name: DX0BDLR3
+      :addr: 468
+    - :name: DX0BDLR4
+      :addr: 469
+    - :name: DX0BDLR5
+      :addr: 470
+    - :name: DX0BDLR6
+      :addr: 472
+    - :name: DX0BDLR7
+      :addr: 473
+    - :name: DX0BDLR8
+      :addr: 474
+    - :name: DX0BDLR9
+      :addr: 475
+    - :name: DX0LCDLR0
+      :addr: 480
+    - :name: DX0LCDLR1
+      :addr: 481
+    - :name: DX0LCDLR2
+      :addr: 482
+    - :name: DX0LCDLR3
+      :addr: 483
+    - :name: DX0LCDLR4
+      :addr: 484
+    - :name: DX0LCDLR5
+      :addr: 485
+    - :name: DX0MDLR0
+      :addr: 488
+    - :name: DX0MDLR1
+      :addr: 489
+    - :name: DX0GTR0
+      :addr: 496
+    - :name: DX0RSR0
+      :addr: 500
+    - :name: DX0RSR1
+      :addr: 501
+    - :name: DX0RSR2
+      :addr: 502
+    - :name: DX0RSR3
+      :addr: 503
+    - :name: DX0GSR0
+      :addr: 504
+    - :name: DX0GSR1
+      :addr: 505
+    - :name: DX0GSR2
+      :addr: 506
+    - :name: DX0GSR3
+      :addr: 507
+    - :name: DX0GSR4
+      :addr: 508
+    - :name: DX0GSR5
+      :addr: 509
+    - :name: DX0GSR6
+      :addr: 510
+    - :name: DX1GCR0
+      :addr: 512
+    - :name: DX1GCR1
+      :addr: 513
+    - :name: DX1GCR2
+      :addr: 514
+    - :name: DX1GCR3
+      :addr: 515
+    - :name: DX1GCR4
+      :addr: 516
+    - :name: DX1GCR5
+      :addr: 517
+    - :name: DX1GCR6
+      :addr: 518
+    - :name: DX1GCR7
+      :addr: 519
+    - :name: DX1GCR8
+      :addr: 520
+    - :name: DX1GCR9
+      :addr: 521
+    - :name: DX1BDLR0
+      :addr: 528
+    - :name: DX1BDLR1
+      :addr: 529
+    - :name: DX1BDLR2
+      :addr: 530
+    - :name: DX1BDLR3
+      :addr: 532
+    - :name: DX1BDLR4
+      :addr: 533
+    - :name: DX1BDLR5
+      :addr: 534
+    - :name: DX1BDLR6
+      :addr: 536
+    - :name: DX1BDLR7
+      :addr: 537
+    - :name: DX1BDLR8
+      :addr: 538
+    - :name: DX1BDLR9
+      :addr: 539
+    - :name: DX1LCDLR0
+      :addr: 544
+    - :name: DX1LCDLR1
+      :addr: 545
+    - :name: DX1LCDLR2
+      :addr: 546
+    - :name: DX1LCDLR3
+      :addr: 547
+    - :name: DX1LCDLR4
+      :addr: 548
+    - :name: DX1LCDLR5
+      :addr: 549
+    - :name: DX1MDLR0
+      :addr: 552
+    - :name: DX1MDLR1
+      :addr: 553
+    - :name: DX1GTR0
+      :addr: 560
+    - :name: DX1RSR0
+      :addr: 564
+    - :name: DX1RSR1
+      :addr: 565
+    - :name: DX1RSR2
+      :addr: 566
+    - :name: DX1RSR3
+      :addr: 567
+    - :name: DX1GSR0
+      :addr: 568
+    - :name: DX1GSR1
+      :addr: 569
+    - :name: DX1GSR2
+      :addr: 570
+    - :name: DX1GSR3
+      :addr: 571
+    - :name: DX1GSR4
+      :addr: 572
+    - :name: DX1GSR5
+      :addr: 573
+    - :name: DX1GSR6
+      :addr: 574
+    - :name: DX2GCR0
+      :addr: 576
+    - :name: DX2GCR1
+      :addr: 577
+    - :name: DX2GCR2
+      :addr: 578
+    - :name: DX2GCR3
+      :addr: 579
+    - :name: DX2GCR4
+      :addr: 580
+    - :name: DX2GCR5
+      :addr: 581
+    - :name: DX2GCR6
+      :addr: 582
+    - :name: DX2GCR7
+      :addr: 583
+    - :name: DX2GCR8
+      :addr: 584
+    - :name: DX2GCR9
+      :addr: 585
+    - :name: DX2BDLR0
+      :addr: 592
+    - :name: DX2BDLR1
+      :addr: 593
+    - :name: DX2BDLR2
+      :addr: 594
+    - :name: DX2BDLR3
+      :addr: 596
+    - :name: DX2BDLR4
+      :addr: 597
+    - :name: DX2BDLR5
+      :addr: 598
+    - :name: DX2BDLR6
+      :addr: 600
+    - :name: DX2BDLR7
+      :addr: 601
+    - :name: DX2BDLR8
+      :addr: 602
+    - :name: DX2BDLR9
+      :addr: 603
+    - :name: DX2LCDLR0
+      :addr: 608
+    - :name: DX2LCDLR1
+      :addr: 609
+    - :name: DX2LCDLR2
+      :addr: 610
+    - :name: DX2LCDLR3
+      :addr: 611
+    - :name: DX2LCDLR4
+      :addr: 612
+    - :name: DX2LCDLR5
+      :addr: 613
+    - :name: DX2MDLR0
+      :addr: 616
+    - :name: DX2MDLR1
+      :addr: 617
+    - :name: DX2GTR0
+      :addr: 624
+    - :name: DX2RSR0
+      :addr: 628
+    - :name: DX2RSR1
+      :addr: 629
+    - :name: DX2RSR2
+      :addr: 630
+    - :name: DX2RSR3
+      :addr: 631
+    - :name: DX2GSR0
+      :addr: 632
+    - :name: DX2GSR1
+      :addr: 633
+    - :name: DX2GSR2
+      :addr: 634
+    - :name: DX2GSR3
+      :addr: 635
+    - :name: DX2GSR4
+      :addr: 636
+    - :name: DX2GSR5
+      :addr: 637
+    - :name: DX2GSR6
+      :addr: 638
+    - :name: DX3GCR0
+      :addr: 640
+    - :name: DX3GCR1
+      :addr: 641
+    - :name: DX3GCR2
+      :addr: 642
+    - :name: DX3GCR3
+      :addr: 643
+    - :name: DX3GCR4
+      :addr: 644
+    - :name: DX3GCR5
+      :addr: 645
+    - :name: DX3GCR6
+      :addr: 646
+    - :name: DX3GCR7
+      :addr: 647
+    - :name: DX3GCR8
+      :addr: 648
+    - :name: DX3GCR9
+      :addr: 649
+    - :name: DX3BDLR0
+      :addr: 656
+    - :name: DX3BDLR1
+      :addr: 657
+    - :name: DX3BDLR2
+      :addr: 658
+    - :name: DX3BDLR3
+      :addr: 660
+    - :name: DX3BDLR4
+      :addr: 661
+    - :name: DX3BDLR5
+      :addr: 662
+    - :name: DX3BDLR6
+      :addr: 664
+    - :name: DX3BDLR7
+      :addr: 665
+    - :name: DX3BDLR8
+      :addr: 666
+    - :name: DX3BDLR9
+      :addr: 667
+    - :name: DX3LCDLR0
+      :addr: 672
+    - :name: DX3LCDLR1
+      :addr: 673
+    - :name: DX3LCDLR2
+      :addr: 674
+    - :name: DX3LCDLR3
+      :addr: 675
+    - :name: DX3LCDLR4
+      :addr: 676
+    - :name: DX3LCDLR5
+      :addr: 677
+    - :name: DX3MDLR0
+      :addr: 680
+    - :name: DX3MDLR1
+      :addr: 681
+    - :name: DX3GTR0
+      :addr: 688
+    - :name: DX3RSR0
+      :addr: 692
+    - :name: DX3RSR1
+      :addr: 693
+    - :name: DX3RSR2
+      :addr: 694
+    - :name: DX3RSR3
+      :addr: 695
+    - :name: DX3GSR0
+      :addr: 696
+    - :name: DX3GSR1
+      :addr: 697
+    - :name: DX3GSR2
+      :addr: 698
+    - :name: DX3GSR3
+      :addr: 699
+    - :name: DX3GSR4
+      :addr: 700
+    - :name: DX3GSR5
+      :addr: 701
+    - :name: DX3GSR6
+      :addr: 702
+    - :name: DX4GCR0
+      :addr: 704
+    - :name: DX4GCR1
+      :addr: 705
+    - :name: DX4GCR2
+      :addr: 706
+    - :name: DX4GCR3
+      :addr: 707
+    - :name: DX4GCR4
+      :addr: 708
+    - :name: DX4GCR5
+      :addr: 709
+    - :name: DX4GCR6
+      :addr: 710
+    - :name: DX4GCR7
+      :addr: 711
+    - :name: DX4GCR8
+      :addr: 712
+    - :name: DX4GCR9
+      :addr: 713
+    - :name: DX4BDLR0
+      :addr: 720
+    - :name: DX4BDLR1
+      :addr: 721
+    - :name: DX4BDLR2
+      :addr: 722
+    - :name: DX4BDLR3
+      :addr: 724
+    - :name: DX4BDLR4
+      :addr: 725
+    - :name: DX4BDLR5
+      :addr: 726
+    - :name: DX4BDLR6
+      :addr: 728
+    - :name: DX4BDLR7
+      :addr: 729
+    - :name: DX4BDLR8
+      :addr: 730
+    - :name: DX4BDLR9
+      :addr: 731
+    - :name: DX4LCDLR0
+      :addr: 736
+    - :name: DX4LCDLR1
+      :addr: 737
+    - :name: DX4LCDLR2
+      :addr: 738
+    - :name: DX4LCDLR3
+      :addr: 739
+    - :name: DX4LCDLR4
+      :addr: 740
+    - :name: DX4LCDLR5
+      :addr: 741
+    - :name: DX4MDLR0
+      :addr: 744
+    - :name: DX4MDLR1
+      :addr: 745
+    - :name: DX4GTR0
+      :addr: 752
+    - :name: DX4RSR0
+      :addr: 756
+    - :name: DX4RSR1
+      :addr: 757
+    - :name: DX4RSR2
+      :addr: 758
+    - :name: DX4RSR3
+      :addr: 759
+    - :name: DX4GSR0
+      :addr: 760
+    - :name: DX4GSR1
+      :addr: 761
+    - :name: DX4GSR2
+      :addr: 762
+    - :name: DX4GSR3
+      :addr: 763
+    - :name: DX4GSR4
+      :addr: 764
+    - :name: DX4GSR5
+      :addr: 765
+    - :name: DX4GSR6
+      :addr: 766
+    - :name: DX5GCR0
+      :addr: 768
+    - :name: DX5GCR1
+      :addr: 769
+    - :name: DX5GCR2
+      :addr: 770
+    - :name: DX5GCR3
+      :addr: 771
+    - :name: DX5GCR4
+      :addr: 772
+    - :name: DX5GCR5
+      :addr: 773
+    - :name: DX5GCR6
+      :addr: 774
+    - :name: DX5GCR7
+      :addr: 775
+    - :name: DX5GCR8
+      :addr: 776
+    - :name: DX5GCR9
+      :addr: 777
+    - :name: DX5BDLR0
+      :addr: 784
+    - :name: DX5BDLR1
+      :addr: 785
+    - :name: DX5BDLR2
+      :addr: 786
+    - :name: DX5BDLR3
+      :addr: 788
+    - :name: DX5BDLR4
+      :addr: 789
+    - :name: DX5BDLR5
+      :addr: 790
+    - :name: DX5BDLR6
+      :addr: 792
+    - :name: DX5BDLR7
+      :addr: 793
+    - :name: DX5BDLR8
+      :addr: 794
+    - :name: DX5BDLR9
+      :addr: 795
+    - :name: DX5LCDLR0
+      :addr: 800
+    - :name: DX5LCDLR1
+      :addr: 801
+    - :name: DX5LCDLR2
+      :addr: 802
+    - :name: DX5LCDLR3
+      :addr: 803
+    - :name: DX5LCDLR4
+      :addr: 804
+    - :name: DX5LCDLR5
+      :addr: 805
+    - :name: DX5MDLR0
+      :addr: 808
+    - :name: DX5MDLR1
+      :addr: 809
+    - :name: DX5GTR0
+      :addr: 816
+    - :name: DX5RSR0
+      :addr: 820
+    - :name: DX5RSR1
+      :addr: 821
+    - :name: DX5RSR2
+      :addr: 822
+    - :name: DX5RSR3
+      :addr: 823
+    - :name: DX5GSR0
+      :addr: 824
+    - :name: DX5GSR1
+      :addr: 825
+    - :name: DX5GSR2
+      :addr: 826
+    - :name: DX5GSR3
+      :addr: 827
+    - :name: DX5GSR4
+      :addr: 828
+    - :name: DX5GSR5
+      :addr: 829
+    - :name: DX5GSR6
+      :addr: 830
+    - :name: DX6GCR0
+      :addr: 832
+    - :name: DX6GCR1
+      :addr: 833
+    - :name: DX6GCR2
+      :addr: 834
+    - :name: DX6GCR3
+      :addr: 835
+    - :name: DX6GCR4
+      :addr: 836
+    - :name: DX6GCR5
+      :addr: 837
+    - :name: DX6GCR6
+      :addr: 838
+    - :name: DX6GCR7
+      :addr: 839
+    - :name: DX6GCR8
+      :addr: 840
+    - :name: DX6GCR9
+      :addr: 841
+    - :name: DX6BDLR0
+      :addr: 848
+    - :name: DX6BDLR1
+      :addr: 849
+    - :name: DX6BDLR2
+      :addr: 850
+    - :name: DX6BDLR3
+      :addr: 852
+    - :name: DX6BDLR4
+      :addr: 853
+    - :name: DX6BDLR5
+      :addr: 854
+    - :name: DX6BDLR6
+      :addr: 856
+    - :name: DX6BDLR7
+      :addr: 857
+    - :name: DX6BDLR8
+      :addr: 858
+    - :name: DX6BDLR9
+      :addr: 859
+    - :name: DX6LCDLR0
+      :addr: 864
+    - :name: DX6LCDLR1
+      :addr: 865
+    - :name: DX6LCDLR2
+      :addr: 866
+    - :name: DX6LCDLR3
+      :addr: 867
+    - :name: DX6LCDLR4
+      :addr: 868
+    - :name: DX6LCDLR5
+      :addr: 869
+    - :name: DX6MDLR0
+      :addr: 872
+    - :name: DX6MDLR1
+      :addr: 873
+    - :name: DX6GTR0
+      :addr: 880
+    - :name: DX6RSR0
+      :addr: 884
+    - :name: DX6RSR1
+      :addr: 885
+    - :name: DX6RSR2
+      :addr: 886
+    - :name: DX6RSR3
+      :addr: 887
+    - :name: DX6GSR0
+      :addr: 888
+    - :name: DX6GSR1
+      :addr: 889
+    - :name: DX6GSR2
+      :addr: 890
+    - :name: DX6GSR3
+      :addr: 891
+    - :name: DX6GSR4
+      :addr: 892
+    - :name: DX6GSR5
+      :addr: 893
+    - :name: DX6GSR6
+      :addr: 894
+    - :name: DX7GCR0
+      :addr: 896
+    - :name: DX7GCR1
+      :addr: 897
+    - :name: DX7GCR2
+      :addr: 898
+    - :name: DX7GCR3
+      :addr: 899
+    - :name: DX7GCR4
+      :addr: 900
+    - :name: DX7GCR5
+      :addr: 901
+    - :name: DX7GCR6
+      :addr: 902
+    - :name: DX7GCR7
+      :addr: 903
+    - :name: DX7GCR8
+      :addr: 904
+    - :name: DX7GCR9
+      :addr: 905
+    - :name: DX7BDLR0
+      :addr: 912
+    - :name: DX7BDLR1
+      :addr: 913
+    - :name: DX7BDLR2
+      :addr: 914
+    - :name: DX7BDLR3
+      :addr: 916
+    - :name: DX7BDLR4
+      :addr: 917
+    - :name: DX7BDLR5
+      :addr: 918
+    - :name: DX7BDLR6
+      :addr: 920
+    - :name: DX7BDLR7
+      :addr: 921
+    - :name: DX7BDLR8
+      :addr: 922
+    - :name: DX7BDLR9
+      :addr: 923
+    - :name: DX7LCDLR0
+      :addr: 928
+    - :name: DX7LCDLR1
+      :addr: 929
+    - :name: DX7LCDLR2
+      :addr: 930
+    - :name: DX7LCDLR3
+      :addr: 931
+    - :name: DX7LCDLR4
+      :addr: 932
+    - :name: DX7LCDLR5
+      :addr: 933
+    - :name: DX7MDLR0
+      :addr: 936
+    - :name: DX7MDLR1
+      :addr: 937
+    - :name: DX7GTR0
+      :addr: 944
+    - :name: DX7RSR0
+      :addr: 948
+    - :name: DX7RSR1
+      :addr: 949
+    - :name: DX7RSR2
+      :addr: 950
+    - :name: DX7RSR3
+      :addr: 951
+    - :name: DX7GSR0
+      :addr: 952
+    - :name: DX7GSR1
+      :addr: 953
+    - :name: DX7GSR2
+      :addr: 954
+    - :name: DX7GSR3
+      :addr: 955
+    - :name: DX7GSR4
+      :addr: 956
+    - :name: DX7GSR5
+      :addr: 957
+    - :name: DX7GSR6
+      :addr: 958
+    - :name: DX8GCR0
+      :addr: 960
+    - :name: DX8GCR1
+      :addr: 961
+    - :name: DX8GCR2
+      :addr: 962
+    - :name: DX8GCR3
+      :addr: 963
+    - :name: DX8GCR4
+      :addr: 964
+    - :name: DX8GCR5
+      :addr: 965
+    - :name: DX8GCR6
+      :addr: 966
+    - :name: DX8GCR7
+      :addr: 967
+    - :name: DX8GCR8
+      :addr: 968
+    - :name: DX8GCR9
+      :addr: 969
+    - :name: DX8BDLR0
+      :addr: 976
+    - :name: DX8BDLR1
+      :addr: 977
+    - :name: DX8BDLR2
+      :addr: 978
+    - :name: DX8BDLR3
+      :addr: 980
+    - :name: DX8BDLR4
+      :addr: 981
+    - :name: DX8BDLR5
+      :addr: 982
+    - :name: DX8BDLR6
+      :addr: 984
+    - :name: DX8BDLR7
+      :addr: 985
+    - :name: DX8BDLR8
+      :addr: 986
+    - :name: DX8BDLR9
+      :addr: 987
+    - :name: DX8LCDLR0
+      :addr: 992
+    - :name: DX8LCDLR1
+      :addr: 993
+    - :name: DX8LCDLR2
+      :addr: 994
+    - :name: DX8LCDLR3
+      :addr: 995
+    - :name: DX8LCDLR4
+      :addr: 996
+    - :name: DX8LCDLR5
+      :addr: 997
+    - :name: DX8MDLR0
+      :addr: 1000
+    - :name: DX8MDLR1
+      :addr: 1001
+    - :name: DX8GTR0
+      :addr: 1008
+    - :name: DX8RSR0
+      :addr: 1012
+    - :name: DX8RSR1
+      :addr: 1013
+    - :name: DX8RSR2
+      :addr: 1014
+    - :name: DX8RSR3
+      :addr: 1015
+    - :name: DX8GSR0
+      :addr: 1016
+    - :name: DX8GSR1
+      :addr: 1017
+    - :name: DX8GSR2
+      :addr: 1018
+    - :name: DX8GSR3
+      :addr: 1019
+    - :name: DX8GSR4
+      :addr: 1020
+    - :name: DX8GSR5
+      :addr: 1021
+    - :name: DX8GSR6
+      :addr: 1022
+- :name: DDR_UMCTL2
+  :region: amba_top
+  :toffset: 6442450944
+  :offset: 269312
+  :groups:
+  - :name: UMCTL2_REGS
+    :offset: 0
+    :registers:
+    - :name: MSTR
+      :addr: 0
+    - :name: STAT
+      :addr: 1
+    - :name: MRCTRL0
+      :addr: 4
+    - :name: MRCTRL1
+      :addr: 5
+    - :name: MRSTAT
+      :addr: 6
+    - :name: MRCTRL2
+      :addr: 7
+    - :name: DERATEEN
+      :addr: 8
+    - :name: DERATEINT
+      :addr: 9
+    - :name: PWRCTL
+      :addr: 12
+    - :name: PWRTMG
+      :addr: 13
+    - :name: HWLPCTL
+      :addr: 14
+    - :name: RFSHCTL0
+      :addr: 20
+    - :name: RFSHCTL1
+      :addr: 21
+    - :name: RFSHCTL3
+      :addr: 24
+    - :name: RFSHTMG
+      :addr: 25
+    - :name: ECCCFG0
+      :addr: 28
+    - :name: ECCCFG1
+      :addr: 29
+    - :name: ECCSTAT
+      :addr: 30
+    - :name: ECCCLR
+      :addr: 31
+    - :name: ECCERRCNT
+      :addr: 32
+    - :name: ECCCADDR0
+      :addr: 33
+    - :name: ECCCADDR1
+      :addr: 34
+    - :name: ECCCSYN0
+      :addr: 35
+    - :name: ECCCSYN2
+      :addr: 37
+    - :name: ECCBITMASK0
+      :addr: 38
+    - :name: ECCBITMASK2
+      :addr: 40
+    - :name: ECCUADDR0
+      :addr: 41
+    - :name: ECCUADDR1
+      :addr: 42
+    - :name: ECCUSYN0
+      :addr: 43
+    - :name: ECCUSYN2
+      :addr: 45
+    - :name: ECCPOISONADDR0
+      :addr: 46
+    - :name: ECCPOISONADDR1
+      :addr: 47
+    - :name: CRCPARCTL0
+      :addr: 48
+    - :name: CRCPARCTL1
+      :addr: 49
+    - :name: CRCPARSTAT
+      :addr: 51
+    - :name: INIT0
+      :addr: 52
+    - :name: INIT1
+      :addr: 53
+    - :name: INIT2
+      :addr: 54
+    - :name: INIT3
+      :addr: 55
+    - :name: INIT4
+      :addr: 56
+    - :name: INIT5
+      :addr: 57
+    - :name: INIT6
+      :addr: 58
+    - :name: INIT7
+      :addr: 59
+    - :name: DIMMCTL
+      :addr: 60
+    - :name: RANKCTL
+      :addr: 61
+    - :name: DRAMTMG0
+      :addr: 64
+    - :name: DRAMTMG1
+      :addr: 65
+    - :name: DRAMTMG2
+      :addr: 66
+    - :name: DRAMTMG3
+      :addr: 67
+    - :name: DRAMTMG4
+      :addr: 68
+    - :name: DRAMTMG5
+      :addr: 69
+    - :name: DRAMTMG6
+      :addr: 70
+    - :name: DRAMTMG7
+      :addr: 71
+    - :name: DRAMTMG8
+      :addr: 72
+    - :name: DRAMTMG9
+      :addr: 73
+    - :name: DRAMTMG10
+      :addr: 74
+    - :name: DRAMTMG11
+      :addr: 75
+    - :name: DRAMTMG12
+      :addr: 76
+    - :name: DRAMTMG14
+      :addr: 78
+    - :name: DRAMTMG15
+      :addr: 79
+    - :name: ZQCTL0
+      :addr: 96
+    - :name: ZQCTL1
+      :addr: 97
+    - :name: ZQCTL2
+      :addr: 98
+    - :name: ZQSTAT
+      :addr: 99
+    - :name: DFITMG0
+      :addr: 100
+    - :name: DFITMG1
+      :addr: 101
+    - :name: DFILPCFG0
+      :addr: 102
+    - :name: DFILPCFG1
+      :addr: 103
+    - :name: DFIUPD0
+      :addr: 104
+    - :name: DFIUPD1
+      :addr: 105
+    - :name: DFIUPD2
+      :addr: 106
+    - :name: DFIMISC
+      :addr: 108
+    - :name: DFITMG3
+      :addr: 110
+    - :name: DFISTAT
+      :addr: 111
+    - :name: DBICTL
+      :addr: 112
+    - :name: DFIPHYMSTR
+      :addr: 113
+    - :name: ADDRMAP0
+      :addr: 128
+    - :name: ADDRMAP1
+      :addr: 129
+    - :name: ADDRMAP2
+      :addr: 130
+    - :name: ADDRMAP3
+      :addr: 131
+    - :name: ADDRMAP4
+      :addr: 132
+    - :name: ADDRMAP5
+      :addr: 133
+    - :name: ADDRMAP6
+      :addr: 134
+    - :name: ADDRMAP7
+      :addr: 135
+    - :name: ADDRMAP8
+      :addr: 136
+    - :name: ADDRMAP9
+      :addr: 137
+    - :name: ADDRMAP10
+      :addr: 138
+    - :name: ADDRMAP11
+      :addr: 139
+    - :name: ODTCFG
+      :addr: 144
+    - :name: ODTMAP
+      :addr: 145
+    - :name: SCHED
+      :addr: 148
+    - :name: SCHED1
+      :addr: 149
+    - :name: PERFHPR1
+      :addr: 151
+    - :name: PERFLPR1
+      :addr: 153
+    - :name: PERFWR1
+      :addr: 155
+    - :name: DBG0
+      :addr: 192
+    - :name: DBG1
+      :addr: 193
+    - :name: DBGCAM
+      :addr: 194
+    - :name: DBGCMD
+      :addr: 195
+    - :name: DBGSTAT
+      :addr: 196
+    - :name: SWCTL
+      :addr: 200
+    - :name: SWSTAT
+      :addr: 201
+    - :name: POISONCFG
+      :addr: 219
+    - :name: POISONSTAT
+      :addr: 220
+    - :name: ADVECCINDEX
+      :addr: 221
+    - :name: ECCPOISONPAT0
+      :addr: 223
+    - :name: ECCPOISONPAT2
+      :addr: 225
+  - :name: UMCTL2_MP
+    :offset: 254
+    :registers:
+    - :name: PSTAT
+      :addr: 1
+    - :name: PCCFG
+      :addr: 2
+    - :name: PCFGR_0
+      :addr: 3
+    - :name: PCFGW_0
+      :addr: 4
+    - :name: PCTRL_0
+      :addr: 38
+    - :name: PCFGQOS0_0
+      :addr: 39
+    - :name: SBRCTL
+      :addr: 715
+    - :name: SBRSTAT
+      :addr: 716
+    - :name: SBRWDATA0
+      :addr: 717

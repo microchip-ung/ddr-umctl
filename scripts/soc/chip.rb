@@ -1,12 +1,26 @@
-require_relative 'sparx5_soc.rb'
+require 'yaml'
+
+class Soc
+
+    attr_reader :targets
+
+    def initialize(filename)
+        @targets = YAML::load_file(__dir__ + "/" + filename)
+    end
+
+    def regaddr(t, g, r)
+        abs = (t[:toffset] + t[:offset] + g[:offset] + r[:addr]) * 4
+        return abs
+    end
+
+end
 
 class Chip
 
     attr_reader :chip
 
     def initialize(chipname)
-        sparx5 = Sparx5.new()
-        @chip = sparx5
+        @chip = Soc.new("Sparx5.yaml")
     end
 
     def reggrp(regname)
@@ -28,7 +42,7 @@ class Chip
                 end
             end
         end
-        return nil
+        return "what"
     end
 
 end
