@@ -42,7 +42,7 @@ class Chip
                 end
             end
         end
-        return "what"
+        return nil
     end
 
 end
