@@ -1,6 +1,6 @@
 require 'yaml'
 
-class Soc
+class SoC
 
     attr_reader :targets
 
@@ -20,10 +20,11 @@ class Chip
     attr_reader :chip
 
     def initialize(chipname)
-        @chip = Soc.new("Sparx5.yaml")
+        @chip = SoC.new("Sparx5.yaml")
     end
 
     def reggrp(regname)
+        regname.upcase!
         @chip.targets.each do|t|
             t[:groups].each do|g|
                 if g[:registers].map{|r| r[:name]}.include?(regname)

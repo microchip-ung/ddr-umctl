@@ -9,10 +9,24 @@
 
 #include <stdint.h>
 
+#if !defined(BIT_32)
+#define BIT_32(x)	(1 << x)
+#endif
+
+#if !defined(GENMASK_32)
+#define GENMASK_32(h, l) \
+	(((1 << (1 + h - l)) - 1) << l)
+#endif
+
 <%- soc.chip.targets.each do |t| -%>
 <%- t[:groups].each do |g| -%>
 <%- g[:registers].each do |r| -%>
 #define <%= sprintf("%-24s 0x%08x", t[:name].upcase + "_" + r[:name].upcase, soc.chip.regaddr(t, g, r)) %>
+<%- r[:fields].each do |f| -%>
+<%- mask = (f[:width] == 1 ? sprintf("BIT_32(%d)", f[:pos]) : sprintf("GENMASK_32(%d, %d)", f[:pos] + f[:width] - 1, f[:pos])) -%>
+#define  <%= sprintf("%-24s %s", r[:name].upcase + "_" + f[:name].upcase, mask ) %>
+<%- end -%>
+
 <%- end -%>
 <%- end -%>
 <%- end -%>

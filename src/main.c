@@ -176,6 +176,7 @@ const struct ddr_config pcb135_cfg = {
 
 static	uint32_t mmio_read_32(uintptr_t addr)
 {
+	DEBUG("Read 0x%08lx\n", addr);
 	return 0;
 }
 
@@ -184,27 +185,26 @@ static	void     mmio_write_32(uintptr_t addr, uint32_t val)
 	DEBUG("Write 0x%08lx = %08x\n", addr, val);
 }
 
-static	void     mmio_setbits_32(uintptr_t addr, uint32_t val)
+static uint32_t timeout;
+
+void timeout_set_us(uint32_t val)
 {
-	DEBUG("Write 0x%08lx - set = %08x\n", addr, val);
+	timeout = val;
 }
 
-static	void     mmio_clrbits_32(uintptr_t addr, uint32_t val)
+bool timeout_elapsed(void)
 {
-	DEBUG("Write 0x%08lx - clr = %08x\n", addr, val);
-}
-
-static	void     mmio_clrsetbits_32(uintptr_t addr, uint32_t clr, uint32_t set)
-{
-	DEBUG("Write 0x%08lx - clrset = %08x, %08x\n", addr, clr, set);
+	if (timeout == 0)
+		return true;
+	timeout--;
+	return false;
 }
 
 int main(int argc, char **argv)
 {
 	drv.mmio_read_32 = mmio_read_32;
 	drv.mmio_write_32 = mmio_write_32;
-	drv.mmio_setbits_32 = mmio_setbits_32;
-	drv.mmio_clrbits_32 = mmio_clrbits_32;
-	drv.mmio_clrsetbits_32 = mmio_clrsetbits_32;
+	drv.timeout_set_us = timeout_set_us;
+	drv.timeout_elapsed = timeout_elapsed;
 	return ddr_init(&drv, &pcb135_cfg);
 }

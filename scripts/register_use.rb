@@ -150,7 +150,8 @@ config.groups.each do |rg|
     puts
     rg[:regs].sort.each do |rname|
         puts "| #{rname}"
-        puts "| " + chip.reggrp(rname)
+        grp = chip.reggrp(rname) || "-na-"
+        puts "| " + grp.downcase
         platforms.each do|p|
             puts reguse[p].include?(rname) ? "| yes" : "| -"
         end
@@ -174,7 +175,8 @@ puts "| " + ["register", "group"].concat(platforms).join(" | ") + " | comments"
 puts
 (totused - refregs).sort.each do|rname|
     puts "| #{rname}"
-    puts "| " + chip.reggrp(rname)
+    grp = chip.reggrp(rname) || "-na-"
+    puts "| " + grp.downcase
     platforms.each do|p|
         puts reguse[p].include?(rname) ? "| yes" : "| -"
     end

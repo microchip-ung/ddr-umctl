@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <ddr_config.h>
 
 #if !defined(ARRAY_SIZE)
@@ -22,9 +23,8 @@
 struct umctl_drv {
 	uint32_t (*mmio_read_32)      (uintptr_t addr);
 	void     (*mmio_write_32)     (uintptr_t addr, uint32_t val);
-	void     (*mmio_setbits_32)   (uintptr_t addr, uint32_t val);
-	void     (*mmio_clrbits_32)   (uintptr_t addr, uint32_t val);
-	void     (*mmio_clrsetbits_32)(uintptr_t addr, uint32_t clr, uint32_t set);
+	void     (*timeout_set_us)    (uint32_t val);
+	bool     (*timeout_elapsed)   (void);
 };
 
 int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg);
