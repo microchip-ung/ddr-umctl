@@ -7,16 +7,7 @@
 #ifndef __DDR_REG_H
 #define __DDR_REG_H
 
-#include <stdint.h>
-
-#if !defined(BIT_32)
-#define BIT_32(x)	(1 << x)
-#endif
-
-#if !defined(GENMASK_32)
-#define GENMASK_32(h, l) \
-	(((1 << (1 + h - l)) - 1) << l)
-#endif
+#include <ddr_platform.h>
 
 <%- soc.chip.targets.each do |t| -%>
 <%- t[:groups].each do |g| -%>
