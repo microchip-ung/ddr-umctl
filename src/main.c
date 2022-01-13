@@ -11,6 +11,7 @@
 struct umctl_drv drv = {};
 
 const struct ddr_config pcb134_cfg = {
+	.info = { "PCB134 DDR3 with ECC", 16750, 4UL * 1024UL * 1024UL * 1024UL, },
 	.main = {
 		.crcparctl1 = 0x00001000,
 		.dbictl = 0x00000001,
@@ -93,6 +94,7 @@ const struct ddr_config pcb134_cfg = {
 };
 
 const struct ddr_config pcb135_cfg = {
+	.info = { "PCB135 DDR4 with ECC", 16750, 4UL * 1024UL * 1024UL * 1024UL, },
 	.main = {
 		.crcparctl1 = 0x00001000,
 		.dbictl = 0x00000001,

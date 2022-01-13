@@ -20,6 +20,10 @@
 #define DEBUG(x...) printf(x)
 #endif
 
+#if !defined(VERBOSE)
+#define VERBOSE(x...) printf(x)
+#endif
+
 struct umctl_drv {
 	uint32_t (*mmio_read_32)      (uintptr_t addr);
 	void     (*mmio_write_32)     (uintptr_t addr, uint32_t val);

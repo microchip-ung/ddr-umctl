@@ -138,6 +138,11 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 
 int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 {
+
+        VERBOSE("name = %s\n", cfg->info.name);
+        VERBOSE("speed = %d kHz\n", cfg->info.speed);
+        VERBOSE("size  = %zdM\n", cfg->info.size / 1024 / 1024);
+
 	set_regs(drv, &cfg->main, ddr_main_reg, ARRAY_SIZE(ddr_main_reg));
 	set_regs(drv, &cfg->timing, ddr_timing_reg, ARRAY_SIZE(ddr_timing_reg));
 	set_regs(drv, &cfg->mapping, ddr_mapping_reg, ARRAY_SIZE(ddr_mapping_reg));
