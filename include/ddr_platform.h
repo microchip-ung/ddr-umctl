@@ -25,6 +25,10 @@ struct ddr_config;
 # define VERBOSE(x...) printf(x)
 #endif
 
+#if !defined(NOTICE)
+# define NOTICE(x...) printf(x)
+#endif
+
 #if !defined(BIT_32)
 # if defined(BIT)
 #  define BIT_32(x)	BIT(x)

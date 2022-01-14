@@ -123,6 +123,50 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 	DEBUG("Enabled ECC scrubbing\n");
 }
 
+static void wait_phy_idone(const struct umctl_drv *drv)
+{
+	uint32_t pgsr;
+        int i, error = 0;
+	static const struct {
+		uint32_t mask;
+		const char *desc;
+	} phyerr[] = {
+		{ PGSR0_VERR, "VREF Training Error" },
+		{ PGSR0_ZCERR, "Impedance Calibration Error" },
+		{ PGSR0_WLERR, "Write Leveling Error" },
+		{ PGSR0_QSGERR, "DQS Gate Training Error" },
+		{ PGSR0_WLAERR, "Write Leveling Adjustment Error" },
+		{ PGSR0_RDERR, "Read Bit Deskew Error" },
+		{ PGSR0_WDERR, "Write Bit Deskew Error" },
+		{ PGSR0_REERR, "Read Eye Training Error" },
+		{ PGSR0_WEERR, "Write Eye Training Error" },
+		{ PGSR0_CAERR, "CA Training Error" },
+		// { PGSR0_CAWRN, "CA Training Warning" },
+		{ PGSR0_SRDERR, "Static Read Error" },
+	};
+
+	drv->timeout_set_us(100);
+
+	do {
+		pgsr = drv->mmio_read_32(DDR_PHY_PGSR0);
+
+		VERBOSE("  > [0x%lx] pgsr = 0x%x &\n", DDR_PHY_PGSR0, pgsr);
+
+		if (drv->timeout_elapsed()) {
+			NOTICE("PHY IDONE timeout\n");
+			assert(false);
+		}
+
+		for (i = 0; i < ARRAY_SIZE(phyerr); i++) {
+			if (pgsr & phyerr[i].mask) {
+				NOTICE("PHYERR: %s", phyerr[i].desc);
+				error++;
+			}
+		}
+
+	} while((pgsr & PGSR0_IDONE) == 0 && error == 0);
+}
+
 int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 {
 
@@ -141,8 +185,19 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	/* Release reset */
 	drv->reset(drv, cfg, false);
 
+	/* Set PHY registers */
 	set_regs(drv, &cfg->phy, ddr_phy_reg, ARRAY_SIZE(ddr_phy_reg));
 	set_regs(drv, &cfg->phy_timing, ddr_phy_timing_reg, ARRAY_SIZE(ddr_phy_timing_reg));
+
+	/* Init PHY */
+
+	/* PHY initialization: PLL initialization, Delay line
+	 * calibration, PHY reset and Impedence Calibration
+	 */
+	drv->mmio_write_32(DDR_PHY_PIR,
+			   PIR_INIT | PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST);
+
+	wait_phy_idone(drv);
 
 	if (cfg->main.ecccfg0 & ECCCFG0_ECC_MODE)
 		ecc_enable_scrubbing(drv);
