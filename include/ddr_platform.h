@@ -9,10 +9,6 @@
 
 #include <stdint.h>
 
-/* Forward */
-struct umctl_drv;
-struct ddr_config;
-
 #if !defined(ARRAY_SIZE)
 # define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 #endif
@@ -50,24 +46,48 @@ static inline void usleep(int usec)
 	/* NOP */
 }
 
-static inline void mmio_setbits_32(const struct umctl_drv *drv, uintptr_t addr, uint32_t set)
+typedef uint32_t ddr_timeout_t;
+
+static inline ddr_timeout_t timeout_set_us(uint32_t val)
+{
+	return (ddr_timeout_t) val;
+}
+
+static inline bool timeout_elapsed(ddr_timeout_t *timeout)
+{
+	if (*timeout == 0)
+		return true;
+	--*timeout;
+	return false;
+}
+
+static inline uint32_t mmio_read_32(uintptr_t addr)
+{
+	DEBUG("Read 0x%08lx\n", addr);
+	return 0;
+}
+
+static	inline void mmio_write_32(uintptr_t addr, uint32_t val)
+{
+	DEBUG("Write 0x%08lx = %08x\n", addr, val);
+}
+
+static inline void mmio_setbits_32(uintptr_t addr, uint32_t set)
 {
 	DEBUG("Write 0x%08lx - set = %08x\n", addr, set);
-	drv->mmio_write_32(addr, drv->mmio_read_32(addr) | set);
+	mmio_write_32(addr, mmio_read_32(addr) | set);
 }
 
-static inline void mmio_clrbits_32(const struct umctl_drv *drv, uintptr_t addr, uint32_t clr)
+static inline void mmio_clrbits_32(uintptr_t addr, uint32_t clr)
 {
 	DEBUG("Write 0x%08lx - clr = %08x\n", addr, clr);
-	drv->mmio_write_32(addr, drv->mmio_read_32(addr) & ~clr);
+	mmio_write_32(addr, mmio_read_32(addr) & ~clr);
 }
 
-#if 0
-static void mmio_clrsetbits_32(const struct umctl_drv *drv, uintptr_t addr, uint32_t clr, uint32_t set)
+static inline void mmio_clrsetbits_32(uintptr_t addr, uint32_t clr, uint32_t set)
 {
 	DEBUG("Write 0x%08lx - clrset = %08x, %08x\n", addr, clr, set);
-	drv->mmio_write_32(addr, (drv->mmio_read_32(addr) & ~clr) | set);
+	mmio_write_32(addr, (mmio_read_32(addr) & ~clr) | set);
 }
-#endif
 
 #endif /* __DDR_PLATFORM_H */

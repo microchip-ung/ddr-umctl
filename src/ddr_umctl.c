@@ -43,32 +43,29 @@ static const struct reg_desc ddr_phy_timing_reg[] = {
 XLIST_DDR_PHY_TIMING
 };
 
-static void wait_reg_set(const struct umctl_drv *drv,
-			 uintptr_t reg, uint32_t mask, int usec)
+static void wait_reg_set(uintptr_t reg, uint32_t mask, int usec)
 {
-	drv->timeout_set_us(usec);
-	while ((drv->mmio_read_32(reg) & mask) == 0) {
-		if (drv->timeout_elapsed()) {
+	ddr_timeout_t t = timeout_set_us(usec);
+	while ((mmio_read_32(reg) & mask) == 0) {
+		if (timeout_elapsed(&t)) {
 			DEBUG("Timeout waiting for %p mask %08x set", (void*)reg, mask);
 			assert(false);
 		}
 	}
 }
 
-static void wait_reg_clr(const struct umctl_drv *drv,
-			 uintptr_t reg, uint32_t mask, int usec)
+static void wait_reg_clr(uintptr_t reg, uint32_t mask, int usec)
 {
-	drv->timeout_set_us(usec);
-	while ((drv->mmio_read_32(reg) & mask) != 0) {
-		if (drv->timeout_elapsed()) {
+	ddr_timeout_t t = timeout_set_us(usec);
+	while ((mmio_read_32(reg) & mask) != 0) {
+		if (timeout_elapsed(&t)) {
 			DEBUG("Timeout waiting for %p mask %08x clr", (void*)reg, mask);
 			assert(false);
 		}
 	}
 }
 
-static void set_regs(const struct umctl_drv *drv,
-		     const void *cfg,
+static void set_regs(const void *cfg,
 		     const struct reg_desc *reg,
 		     size_t ct)
 {
@@ -76,7 +73,7 @@ static void set_regs(const struct umctl_drv *drv,
 
 	for (i = 0; i < ct; i++) {
 		uint32_t val = ((const uint32_t *)cfg)[reg[i].par_offset >> 2];
-		drv->mmio_write_32(reg[i].reg_addr, val);
+		mmio_write_32(reg[i].reg_addr, val);
 	}
 }
 
@@ -85,30 +82,30 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 	DEBUG("Enable ECC scrubbing\n");
 
         /* 1.  Disable AXI port. port_en = 0 */
-	mmio_clrbits_32(drv, DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
+	mmio_clrbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
 
         /* 2. scrub_mode = 1 */
-	mmio_setbits_32(drv, DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_MODE);
+	mmio_setbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_MODE);
 
         /* 3. scrub_interval = 0 */
-	mmio_clrbits_32(drv, DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_MODE);
+	mmio_clrbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_MODE);
 
         /* 4. Data pattern = 0 */
-	drv->mmio_write_32(DDR_UMCTL2_SBRWDATA0, 0);
+	mmio_write_32(DDR_UMCTL2_SBRWDATA0, 0);
 
         /* 5. (skip) */
 
         /* 6. Enable SBR programming */
-	mmio_setbits_32(drv, DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
+	mmio_setbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
 
         /* 7. Poll SBRSTAT.scrub_done */
-	wait_reg_set(drv, DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_DONE, 1000);
+	wait_reg_set(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_DONE, 1000);
 
         /* 8. Poll SBRSTAT.scrub_busy */
-	wait_reg_clr(drv, DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_BUSY, 1000);
+	wait_reg_clr(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_BUSY, 1000);
 
         /* 9. Disable SBR programming */
-	mmio_clrbits_32(drv, DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
+	mmio_clrbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
 #if 0
         /* 10. Normal scrub operation, mode = 0, interval = 100 */
         wr_fld_r_r (DDR_UMCTL2, UMCTL2_MP, SBRCTL, SCRUB_MODE, 0);
@@ -118,7 +115,7 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 #endif
 
         /* 12. Enable AXI port */
-	mmio_setbits_32(drv, DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
+	mmio_setbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
 
 	DEBUG("Enabled ECC scrubbing\n");
 }
@@ -127,6 +124,7 @@ static void wait_phy_idone(const struct umctl_drv *drv)
 {
 	uint32_t pgsr;
         int i, error = 0;
+	ddr_timeout_t t;
 	static const struct {
 		uint32_t mask;
 		const char *desc;
@@ -145,14 +143,12 @@ static void wait_phy_idone(const struct umctl_drv *drv)
 		{ PGSR0_SRDERR, "Static Read Error" },
 	};
 
-	drv->timeout_set_us(100);
+	t = timeout_set_us(100);
 
 	do {
-		pgsr = drv->mmio_read_32(DDR_PHY_PGSR0);
+		pgsr = mmio_read_32(DDR_PHY_PGSR0);
 
-		VERBOSE("  > [0x%lx] pgsr = 0x%x &\n", DDR_PHY_PGSR0, pgsr);
-
-		if (drv->timeout_elapsed()) {
+		if (timeout_elapsed(&t)) {
 			NOTICE("PHY IDONE timeout\n");
 			assert(false);
 		}
@@ -178,24 +174,24 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	drv->reset(drv, cfg, true);
 
 	/* Set up controller registers */
-	set_regs(drv, &cfg->main, ddr_main_reg, ARRAY_SIZE(ddr_main_reg));
-	set_regs(drv, &cfg->timing, ddr_timing_reg, ARRAY_SIZE(ddr_timing_reg));
-	set_regs(drv, &cfg->mapping, ddr_mapping_reg, ARRAY_SIZE(ddr_mapping_reg));
+	set_regs(&cfg->main, ddr_main_reg, ARRAY_SIZE(ddr_main_reg));
+	set_regs(&cfg->timing, ddr_timing_reg, ARRAY_SIZE(ddr_timing_reg));
+	set_regs(&cfg->mapping, ddr_mapping_reg, ARRAY_SIZE(ddr_mapping_reg));
 
 	/* Release reset */
 	drv->reset(drv, cfg, false);
 
 	/* Set PHY registers */
-	set_regs(drv, &cfg->phy, ddr_phy_reg, ARRAY_SIZE(ddr_phy_reg));
-	set_regs(drv, &cfg->phy_timing, ddr_phy_timing_reg, ARRAY_SIZE(ddr_phy_timing_reg));
+	set_regs(&cfg->phy, ddr_phy_reg, ARRAY_SIZE(ddr_phy_reg));
+	set_regs(&cfg->phy_timing, ddr_phy_timing_reg, ARRAY_SIZE(ddr_phy_timing_reg));
 
 	/* Init PHY */
 
 	/* PHY initialization: PLL initialization, Delay line
 	 * calibration, PHY reset and Impedence Calibration
 	 */
-	drv->mmio_write_32(DDR_PHY_PIR,
-			   PIR_INIT | PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST);
+	mmio_write_32(DDR_PHY_PIR,
+		      PIR_INIT | PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST);
 
 	wait_phy_idone(drv);
 

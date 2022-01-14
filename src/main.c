@@ -179,38 +179,8 @@ const struct ddr_config pcb135_cfg = {
 	}
 };
 
-static	uint32_t mmio_read_32(uintptr_t addr)
-{
-	DEBUG("Read 0x%08lx\n", addr);
-	return 0;
-}
-
-static	void     mmio_write_32(uintptr_t addr, uint32_t val)
-{
-	DEBUG("Write 0x%08lx = %08x\n", addr, val);
-}
-
-static uint32_t timeout;
-
-void timeout_set_us(uint32_t val)
-{
-	timeout = val;
-}
-
-bool timeout_elapsed(void)
-{
-	if (timeout == 0)
-		return true;
-	timeout--;
-	return false;
-}
-
 int main(int argc, char **argv)
 {
-	drv.mmio_read_32 = mmio_read_32;
-	drv.mmio_write_32 = mmio_write_32;
 	drv.reset = ddr_reset;
-	drv.timeout_set_us = timeout_set_us;
-	drv.timeout_elapsed = timeout_elapsed;
 	return ddr_init(&drv, &pcb135_cfg);
 }
