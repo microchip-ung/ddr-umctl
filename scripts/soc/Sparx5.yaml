@@ -1,4 +1,165 @@
 ---
+- :name: CLKGEN
+  :region: default
+  :toffset: 6509559808
+  :offset: 4456448
+  :groups:
+  - :name: LCPLL1
+    :offset: 3
+    :registers:
+    - :name: LCPLL1_DDR_CLK_CFG
+      :addr: 1
+      :fields:
+      - :name: DDR_CLK_DIV
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 4
+      - :name: DDR_PRE_DIV
+        :pos: 8
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: DDR_ROT_DIR
+        :pos: 11
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDR_ROT_SEL
+        :pos: 12
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: DDR_ROT_ENA
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDR_CLK_ENA
+        :pos: 15
+        :width: 1
+        :type: rw
+        :default: 1
+- :name: CPU
+  :region: amba_top
+  :toffset: 6442450944
+  :offset: 0
+  :groups:
+  - :name: CPU_REGS
+    :offset: 0
+    :registers:
+    - :name: RESET
+      :addr: 32
+      :fields:
+      - :name: VCORE_RST
+        :pos: 9
+        :width: 1
+        :type: se
+        :default: 0
+      - :name: CPU_CORE_0_WARM_RST
+        :pos: 8
+        :width: 1
+        :type: se
+        :default: 0
+      - :name: CPU_CORE_1_WARM_RST
+        :pos: 7
+        :width: 1
+        :type: se
+        :default: 0
+      - :name: PROC_DBG_RST
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CPU_L2_RST
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: MEM_RST
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: WDT_FORCE_RST
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CPU_CORE_0_COLD_RST
+        :pos: 2
+        :width: 1
+        :type: rhw
+        :default: 1
+      - :name: CPU_CORE_1_COLD_RST
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: GIC_RST
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+  - :name: DDRCTRL
+    :offset: 176
+    :registers:
+    - :name: DDRCTRL_CLK
+      :addr: 0
+      :fields:
+      - :name: DDR_CLK_ENA
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDR_AXI_CLK_ENA
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDR_APB_CLK_ENA
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDRPHY_CTL_CLK_ENA
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDRPHY_APB_CLK_ENA
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: DDRCTRL_RST
+      :addr: 1
+      :fields:
+      - :name: DDRC_RST
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DDR_AXI_RST
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DDR_APB_RST
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DDRPHY_CTL_RST
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DDRPHY_APB_RST
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 1
 - :name: DDR_PHY
   :region: amba_top
   :toffset: 6442450944

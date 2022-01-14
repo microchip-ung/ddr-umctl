@@ -1,5 +1,12 @@
+/*
+ * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #include <assert.h>
 #include <stddef.h>
+
 #include <ddr_init.h>
 #include <ddr_reg.h>
 
@@ -35,26 +42,6 @@ XLIST_DDR_PHY
 static const struct reg_desc ddr_phy_timing_reg[] = {
 XLIST_DDR_PHY_TIMING
 };
-
-static void mmio_setbits_32(const struct umctl_drv *drv, uintptr_t addr, uint32_t set)
-{
-	DEBUG("Write 0x%08lx - set = %08x\n", addr, set);
-	drv->mmio_write_32(addr, drv->mmio_read_32(addr) | set);
-}
-
-static void mmio_clrbits_32(const struct umctl_drv *drv, uintptr_t addr, uint32_t clr)
-{
-	DEBUG("Write 0x%08lx - clr = %08x\n", addr, clr);
-	drv->mmio_write_32(addr, drv->mmio_read_32(addr) & ~clr);
-}
-
-#if 0
-static void mmio_clrsetbits_32(const struct umctl_drv *drv, uintptr_t addr, uint32_t clr, uint32_t set)
-{
-	DEBUG("Write 0x%08lx - clrset = %08x, %08x\n", addr, clr, set);
-	drv->mmio_write_32(addr, (drv->mmio_read_32(addr) & ~clr) | set);
-}
-#endif
 
 static void wait_reg_set(const struct umctl_drv *drv,
 			 uintptr_t reg, uint32_t mask, int usec)
@@ -143,9 +130,17 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
         VERBOSE("speed = %d kHz\n", cfg->info.speed);
         VERBOSE("size  = %zdM\n", cfg->info.size / 1024 / 1024);
 
+	/* Reset, start clocks at desired speed */
+	drv->reset(drv, cfg, true);
+
+	/* Set up controller registers */
 	set_regs(drv, &cfg->main, ddr_main_reg, ARRAY_SIZE(ddr_main_reg));
 	set_regs(drv, &cfg->timing, ddr_timing_reg, ARRAY_SIZE(ddr_timing_reg));
 	set_regs(drv, &cfg->mapping, ddr_mapping_reg, ARRAY_SIZE(ddr_mapping_reg));
+
+	/* Release reset */
+	drv->reset(drv, cfg, false);
+
 	set_regs(drv, &cfg->phy, ddr_phy_reg, ARRAY_SIZE(ddr_phy_reg));
 	set_regs(drv, &cfg->phy_timing, ddr_phy_timing_reg, ARRAY_SIZE(ddr_phy_timing_reg));
 

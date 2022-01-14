@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */

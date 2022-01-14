@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -8,6 +8,40 @@
 #define __DDR_REG_H
 
 #include <ddr_platform.h>
+
+#define CLKGEN_LCPLL1_DDR_CLK_CFG 0x611100010
+#define  LCPLL1_DDR_CLK_CFG_DDR_CLK_DIV GENMASK_32(7, 0)
+#define  LCPLL1_DDR_CLK_CFG_DDR_PRE_DIV GENMASK_32(10, 8)
+#define  LCPLL1_DDR_CLK_CFG_DDR_ROT_DIR BIT_32(11)
+#define  LCPLL1_DDR_CLK_CFG_DDR_ROT_SEL GENMASK_32(13, 12)
+#define  LCPLL1_DDR_CLK_CFG_DDR_ROT_ENA BIT_32(14)
+#define  LCPLL1_DDR_CLK_CFG_DDR_CLK_ENA BIT_32(15)
+
+#define CPU_RESET                0x600000080
+#define  RESET_VCORE_RST          BIT_32(9)
+#define  RESET_CPU_CORE_0_WARM_RST BIT_32(8)
+#define  RESET_CPU_CORE_1_WARM_RST BIT_32(7)
+#define  RESET_PROC_DBG_RST       BIT_32(6)
+#define  RESET_CPU_L2_RST         BIT_32(5)
+#define  RESET_MEM_RST            BIT_32(4)
+#define  RESET_WDT_FORCE_RST      BIT_32(3)
+#define  RESET_CPU_CORE_0_COLD_RST BIT_32(2)
+#define  RESET_CPU_CORE_1_COLD_RST BIT_32(1)
+#define  RESET_GIC_RST            BIT_32(0)
+
+#define CPU_DDRCTRL_CLK          0x6000002c0
+#define  DDRCTRL_CLK_DDR_CLK_ENA  BIT_32(0)
+#define  DDRCTRL_CLK_DDR_AXI_CLK_ENA BIT_32(1)
+#define  DDRCTRL_CLK_DDR_APB_CLK_ENA BIT_32(2)
+#define  DDRCTRL_CLK_DDRPHY_CTL_CLK_ENA BIT_32(3)
+#define  DDRCTRL_CLK_DDRPHY_APB_CLK_ENA BIT_32(4)
+
+#define CPU_DDRCTRL_RST          0x6000002c4
+#define  DDRCTRL_RST_DDRC_RST     BIT_32(0)
+#define  DDRCTRL_RST_DDR_AXI_RST  BIT_32(1)
+#define  DDRCTRL_RST_DDR_APB_RST  BIT_32(2)
+#define  DDRCTRL_RST_DDRPHY_CTL_RST BIT_32(3)
+#define  DDRCTRL_RST_DDRPHY_APB_RST BIT_32(4)
 
 #define DDR_PHY_RIDR             0x600108000
 #define  RIDR_PUBID               GENMASK_32(11, 0)

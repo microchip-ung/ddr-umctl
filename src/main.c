@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -7,11 +7,14 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <ddr_init.h>
+#include <ddr_platform.h>
+
+void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert);
 
 struct umctl_drv drv = {};
 
 const struct ddr_config pcb134_cfg = {
-	.info = { "PCB134 DDR3 with ECC", 16750, 4UL * 1024UL * 1024UL * 1024UL, },
+	.info = { "PCB134 DDR3 with ECC", 416, 4UL * 1024UL * 1024UL * 1024UL, },
 	.main = {
 		.crcparctl1 = 0x00001000,
 		.dbictl = 0x00000001,
@@ -94,7 +97,7 @@ const struct ddr_config pcb134_cfg = {
 };
 
 const struct ddr_config pcb135_cfg = {
-	.info = { "PCB135 DDR4 with ECC", 16750, 4UL * 1024UL * 1024UL * 1024UL, },
+	.info = { "PCB135 DDR4 with ECC", 416, 4UL * 1024UL * 1024UL * 1024UL, },
 	.main = {
 		.crcparctl1 = 0x00001000,
 		.dbictl = 0x00000001,
@@ -206,6 +209,7 @@ int main(int argc, char **argv)
 {
 	drv.mmio_read_32 = mmio_read_32;
 	drv.mmio_write_32 = mmio_write_32;
+	drv.reset = ddr_reset;
 	drv.timeout_set_us = timeout_set_us;
 	drv.timeout_elapsed = timeout_elapsed;
 	return ddr_init(&drv, &pcb135_cfg);
