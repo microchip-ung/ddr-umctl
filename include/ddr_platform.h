@@ -90,4 +90,12 @@ static inline void mmio_clrsetbits_32(uintptr_t addr, uint32_t clr, uint32_t set
 	mmio_write_32(addr, (mmio_read_32(addr) & ~clr) | set);
 }
 
+#if !defined(FIELD_PREP)
+#define __bf_shf(x) (__builtin_ffsll(x) - 1)
+#define FIELD_PREP(_mask, _val)						\
+	({								\
+		((typeof(_mask))(_val) << __bf_shf(_mask)) & (_mask);	\
+	})
+#endif
+
 #endif /* __DDR_PLATFORM_H */
