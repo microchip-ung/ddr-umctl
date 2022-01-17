@@ -163,9 +163,23 @@ static void wait_phy_idone(const struct umctl_drv *drv)
 	} while((pgsr & PGSR0_IDONE) == 0 && error == 0);
 }
 
+static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode)
+{
+	mode |= PIR_INIT;
+
+	/* Now, kick PHY */
+	mmio_write_32(DDR_PHY_PIR, mode);
+
+	VERBOSE("pir = 0x%x -> 0x%x\n", mode, mmio_read_32(DDR_PHY_PIR));
+
+        /* Need to wait 10 configuration clock before start polling */
+        usleep(10);
+
+	wait_phy_idone(drv);
+}
+
 int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 {
-
         VERBOSE("name = %s\n", cfg->info.name);
         VERBOSE("speed = %d kHz\n", cfg->info.speed);
         VERBOSE("size  = %zdM\n", cfg->info.size / 1024 / 1024);
@@ -185,15 +199,10 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	set_regs(&cfg->phy, ddr_phy_reg, ARRAY_SIZE(ddr_phy_reg));
 	set_regs(&cfg->phy_timing, ddr_phy_timing_reg, ARRAY_SIZE(ddr_phy_timing_reg));
 
-	/* Init PHY */
-
 	/* PHY initialization: PLL initialization, Delay line
-	 * calibration, PHY reset and Impedence Calibration
+	 * calibration, PHY reset and Impedance Calibration
 	 */
-	mmio_write_32(DDR_PHY_PIR,
-		      PIR_INIT | PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST);
-
-	wait_phy_idone(drv);
+	ddr_phy_init(drv, PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST);
 
 	if (cfg->main.ecccfg0 & ECCCFG0_ECC_MODE)
 		ecc_enable_scrubbing(drv);
