@@ -14,7 +14,7 @@ extern void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg 
 static struct umctl_drv drv = { .reset = ddr_reset, };
 
 const struct ddr_config pcb134_cfg = {
-	.info = { "PCB134 DDR3 with ECC", 416, 4UL * 1024UL * 1024UL * 1024UL, },
+	.info = { "PCB134 DDR3 with ECC", 416, 4UL * 1024UL * 1024UL * 1024UL, 40 },
 	.main = {
 		.crcparctl1 = 0x00001000,
 		.dbictl = 0x00000001,
@@ -97,7 +97,7 @@ const struct ddr_config pcb134_cfg = {
 };
 
 const struct ddr_config pcb135_cfg = {
-	.info = { "PCB135 DDR4 with ECC", 416, 4UL * 1024UL * 1024UL * 1024UL, },
+	.info = { "PCB135 DDR4 with ECC", 416, 4UL * 1024UL * 1024UL * 1024UL, 40 },
 	.main = {
 		.crcparctl1 = 0x00001000,
 		.dbictl = 0x00000001,

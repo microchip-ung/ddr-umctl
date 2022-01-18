@@ -12,8 +12,9 @@
 struct ddr_config {
 	struct config_ddr_info {
 		char name[128];
-		uint32_t speed; /* in kHZ */
-		size_t size;  /* Memory size in byte = col * row * width */
+		uint32_t speed;		/* in kHZ */
+		size_t size;		/* Memory size in byte = col * row * width */
+		uint32_t dq_bits_used;	/* dq bits used */
 	} info;
 	struct config_ddr_main {
 		uint32_t crcparctl1;
