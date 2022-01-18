@@ -30,6 +30,8 @@ static int clk_div(uint32_t speed)
 void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert)
 {
 	if (assert) {
+		TRACE("reset:assert\n");
+
 		/* Set DDR clock frequency to match speed */
 		mmio_write_32(CLKGEN_LCPLL1_DDR_CLK_CFG,
 			      LCPLL1_DDR_CLK_CFG_DDR_CLK_ENA |
@@ -61,6 +63,8 @@ void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool 
 		/* Deassert presetn once the clocks are active and stable */
 		mmio_clrbits_32(CPU_DDRCTRL_RST, DDRCTRL_RST_DDR_APB_RST);
 	} else {
+		TRACE("reset:deassert\n");
+
 		/* Deassert the core_ddrc_rstn reset */
 		mmio_clrbits_32(CPU_RESET, RESET_MEM_RST);
 

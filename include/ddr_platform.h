@@ -7,7 +7,9 @@
 #ifndef __DDR_PLATFORM_H
 #define __DDR_PLATFORM_H
 
+#include <assert.h>
 #include <stdint.h>
+#include <stdarg.h>
 
 #if !defined(ARRAY_SIZE)
 # define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
@@ -25,6 +27,14 @@
 # define NOTICE(x...) printf(x)
 #endif
 
+#if !defined(TRACE)
+# define TRACE(s) puts(s)
+#endif
+
+#if !defined(PANIC)
+# define PANIC(s...) _panic(s)
+#endif
+
 #if !defined(BIT_32)
 # if defined(BIT)
 #  define BIT_32(x)	BIT(x)
@@ -35,11 +45,20 @@
 
 #if !defined(GENMASK_32)
 # if defined(GENMASK)
-#  define GENMASK_32(h, l)	GENMASK(x)
+#  define GENMASK_32(h, l)	GENMASK(h, l)
 # else
 #  define GENMASK_32(h, l)	(((1 << (1 + h - l)) - 1) << l)
 # endif
 #endif
+
+static inline void _panic(char *fmt, ...)
+{
+	va_list ap;
+	va_start(ap, fmt);
+	vprintf(fmt, ap);
+	va_end(ap);
+	assert(false);
+}
 
 static inline void usleep(int usec)
 {
@@ -96,6 +115,13 @@ static inline void mmio_clrsetbits_32(uintptr_t addr, uint32_t clr, uint32_t set
 	({								\
 		((typeof(_mask))(_val) << __bf_shf(_mask)) & (_mask);	\
 	})
+#endif
+
+#if !defined(FIELD_GET)
+#define FIELD_GET(_mask, _reg)                                          \
+        ({                                                              \
+                (typeof(_mask))(((_reg) & (_mask)) >> __bf_shf(_mask)); \
+        })
 #endif
 
 #endif /* __DDR_PLATFORM_H */

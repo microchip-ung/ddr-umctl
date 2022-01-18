@@ -4,11 +4,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <assert.h>
 #include <stddef.h>
 
 #include <ddr_init.h>
 #include <ddr_reg.h>
+
+extern void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert);
 
 struct reg_desc {
         const char *name;
@@ -48,8 +49,8 @@ static void wait_reg_set(uintptr_t reg, uint32_t mask, int usec)
 	ddr_timeout_t t = timeout_set_us(usec);
 	while ((mmio_read_32(reg) & mask) == 0) {
 		if (timeout_elapsed(&t)) {
-			DEBUG("Timeout waiting for %p mask %08x set", (void*)reg, mask);
-			assert(false);
+			VERBOSE("Timeout waiting for %p mask %08x set", (void*)reg, mask);
+			PANIC("wait_reg_set");
 		}
 	}
 }
@@ -59,8 +60,20 @@ static void wait_reg_clr(uintptr_t reg, uint32_t mask, int usec)
 	ddr_timeout_t t = timeout_set_us(usec);
 	while ((mmio_read_32(reg) & mask) != 0) {
 		if (timeout_elapsed(&t)) {
-			DEBUG("Timeout waiting for %p mask %08x clr", (void*)reg, mask);
-			assert(false);
+			VERBOSE("Timeout waiting for %p mask %08x clr", (void*)reg, mask);
+			PANIC("wait_reg_clr");
+		}
+	}
+}
+
+static void wait_operating_mode(uint32_t mode, int usec)
+{
+	ddr_timeout_t t = timeout_set_us(usec);
+	while ((FIELD_GET(STAT_OPERATING_MODE,
+			  mmio_read_32(DDR_UMCTL2_STAT))) != mode) {
+		if (timeout_elapsed(&t)) {
+			VERBOSE("Timeout waiting for mode %d", mode);
+			PANIC("wait_operating_mode");
 		}
 	}
 }
@@ -79,7 +92,7 @@ static void set_regs(const void *cfg,
 
 static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 {
-	DEBUG("Enable ECC scrubbing\n");
+	TRACE("Enable ECC scrubbing\n");
 
         /* 1.  Disable AXI port. port_en = 0 */
 	mmio_clrbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
@@ -99,10 +112,10 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 	mmio_setbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
 
         /* 7. Poll SBRSTAT.scrub_done */
-	wait_reg_set(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_DONE, 1000);
+	wait_reg_set(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_DONE, 10);
 
         /* 8. Poll SBRSTAT.scrub_busy */
-	wait_reg_clr(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_BUSY, 1000);
+	wait_reg_clr(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_BUSY, 10);
 
         /* 9. Disable SBR programming */
 	mmio_clrbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
@@ -117,7 +130,7 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
         /* 12. Enable AXI port */
 	mmio_setbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
 
-	DEBUG("Enabled ECC scrubbing\n");
+	TRACE("Enabled ECC scrubbing\n");
 }
 
 static void wait_phy_idone(const struct umctl_drv *drv)
@@ -149,8 +162,7 @@ static void wait_phy_idone(const struct umctl_drv *drv)
 		pgsr = mmio_read_32(DDR_PHY_PGSR0);
 
 		if (timeout_elapsed(&t)) {
-			NOTICE("PHY IDONE timeout\n");
-			assert(false);
+			PANIC("PHY IDONE timeout\n");
 		}
 
 		for (i = 0; i < ARRAY_SIZE(phyerr); i++) {
@@ -167,6 +179,8 @@ static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode)
 {
 	mode |= PIR_INIT;
 
+	TRACE("ddr_phy_init:start\n");
+
 	/* Now, kick PHY */
 	mmio_write_32(DDR_PHY_PIR, mode);
 
@@ -176,10 +190,28 @@ static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode)
         usleep(10);
 
 	wait_phy_idone(drv);
+
+	TRACE("ddr_phy_init:done\n");
+}
+
+static void PHY_initialization(const struct umctl_drv *drv)
+{
+	/* write PHY initialization register for Write leveling, DQS
+	 * gate training, Write_latency adjustment
+	 */
+	ddr_phy_init(drv, PIR_PHYRST | PIR_DRAMRST | PIR_DRAMINIT);
+}
+
+static void DRAM_initialization_by_memctrl(const struct umctl_drv *drv)
+{
+	/* write PHY initialization register for SDRAM initialization */
+	ddr_phy_init(drv, PIR_CTLDINIT);
 }
 
 int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 {
+	TRACE("ddr_init:start\n");
+
         VERBOSE("name = %s\n", cfg->info.name);
         VERBOSE("speed = %d kHz\n", cfg->info.speed);
         VERBOSE("size  = %zdM\n", cfg->info.size / 1024 / 1024);
@@ -204,8 +236,30 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	 */
 	ddr_phy_init(drv, PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST);
 
+	/* PHY FIFO reset */
+	mmio_setbits_32(DDR_PHY_PGCR0, PGCR0_PHYFRST);
+
+	PHY_initialization(drv);
+
+	DRAM_initialization_by_memctrl(drv);
+
+	/* Signal SW_DONE */
+	mmio_clrbits_32(DDR_UMCTL2_SWCTL, SWCTL_SW_DONE);
+
+	/* ...?... */
+	mmio_setbits_32(DDR_UMCTL2_DFIMISC, DFIMISC_DFI_INIT_COMPLETE_EN);
+	mmio_setbits_32(DDR_UMCTL2_SWCTL, SWCTL_SW_DONE);
+
+	/* wait for SWSTAT.sw_done_ack to become set */
+	wait_reg_set(DDR_UMCTL2_SWSTAT, SWSTAT_SW_DONE_ACK, 100);
+
+	/* wait for STAT.operating_mode to become "normal" */
+	wait_operating_mode(1, 100);
+
 	if (cfg->main.ecccfg0 & ECCCFG0_ECC_MODE)
 		ecc_enable_scrubbing(drv);
+
+	TRACE("ddr_init:done\n");
 
 	return 0;
 }

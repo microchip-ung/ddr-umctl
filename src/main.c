@@ -9,9 +9,9 @@
 #include <ddr_init.h>
 #include <ddr_platform.h>
 
-void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert);
+extern void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert);
 
-struct umctl_drv drv = {};
+static struct umctl_drv drv = { .reset = ddr_reset, };
 
 const struct ddr_config pcb134_cfg = {
 	.info = { "PCB134 DDR3 with ECC", 416, 4UL * 1024UL * 1024UL * 1024UL, },
@@ -179,8 +179,11 @@ const struct ddr_config pcb135_cfg = {
 	}
 };
 
+#if defined(STANDALONE)
 int main(int argc, char **argv)
+#else
+int ddr_setup(void)
+#endif
 {
-	drv.reset = ddr_reset;
-	return ddr_init(&drv, &pcb135_cfg);
+	return ddr_init(&drv, &pcb134_cfg);
 }
