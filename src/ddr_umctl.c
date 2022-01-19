@@ -101,7 +101,7 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 	mmio_setbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_MODE);
 
         /* 3. scrub_interval = 0 */
-	mmio_clrbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_MODE);
+	mmio_clrbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_INTERVAL);
 
         /* 4. Data pattern = 0 */
 	mmio_write_32(DDR_UMCTL2_SBRWDATA0, 0);
@@ -112,10 +112,10 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 	mmio_setbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
 
         /* 7. Poll SBRSTAT.scrub_done */
-	wait_reg_set(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_DONE, 10);
+	wait_reg_set(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_DONE, 10000);
 
         /* 8. Poll SBRSTAT.scrub_busy */
-	wait_reg_clr(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_BUSY, 10);
+	wait_reg_clr(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_BUSY, 10000);
 
         /* 9. Disable SBR programming */
 	mmio_clrbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
@@ -374,6 +374,26 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 
 	ddr_restore_refresh(drv, cfg->main.rfshctl3);
 
+	/* Reenabling uMCTL2 initiated update request after executing
+	 * DDR initization. Reference: DDR4 MultiPHY PUB databook
+	 * (3.11a) PIR.INIT description (pg no. 114)
+	 */
+	sw_done_start();
+	mmio_clrbits_32(DDR_UMCTL2_DFIUPD0, DFIUPD0_DIS_AUTO_CTRLUPD);
+	sw_done_ack();
+
+	/* Reenabling PHY update Request after executing DDR
+	 * initization. Reference: DDR4 MultiPHY PUB databook (3.11a)
+	 * PIR.INIT description (pg no. 114)
+	 */
+	mmio_setbits_32(DDR_PHY_DSGCR, DSGCR_PUREN);
+
+	/* Enable AXI port */
+	mmio_setbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
+
+	/* Settle */
+	usleep(10);
+
 	TRACE("do_data_training:exit\n");
 }
 
@@ -420,9 +440,6 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	wait_operating_mode(1, 100);
 
 	do_data_training(drv, cfg);
-
-	/* PHY FIFO reset (???) */
-	phy_fifo_reset();
 
 	if (cfg->main.ecccfg0 & ECCCFG0_ECC_MODE)
 		ecc_enable_scrubbing(drv);

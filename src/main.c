@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <ddr_init.h>
 #include <ddr_platform.h>
+#include <ddr_reg.h>
 
 extern void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert);
 
@@ -21,7 +22,7 @@ const struct ddr_config pcb134_cfg = {
 		.dfimisc = 0x00000001,
 		.dfitmg0 = 0x0389820a,
 		.dfitmg1 = 0x00040201,
-		.dfiupd0 = 0x40400003,
+		.dfiupd0 = 0x40400003 | DFIUPD0_DIS_AUTO_CTRLUPD,
 		.dfiupd1 = 0x004000ff,
 		.ecccfg0 = 0x00000004,
 		.init0 = 0x000100f4,
@@ -63,7 +64,7 @@ const struct ddr_config pcb134_cfg = {
 	},
 	.phy = {
 		.dcr = 0x0000040c,
-		.dsgcr = 0x0064403b,
+		.dsgcr = 0x0064403b & ~DSGCR_PUREN,
 		.dtcr0 = 0x0000b0cf,
 		.dtcr1 = 0x00010237,
 		.dxccr = 0x00c01884,
@@ -104,7 +105,7 @@ const struct ddr_config pcb135_cfg = {
 		.dfimisc = 0x00000001,
 		.dfitmg0 = 0x03898207,
 		.dfitmg1 = 0x00040201,
-		.dfiupd0 = 0x40400003,
+		.dfiupd0 = 0x40400003 | DFIUPD0_DIS_AUTO_CTRLUPD,
 		.dfiupd1 = 0x004000ff,
 		.ecccfg0 = 0x00000004,
 		.init0 = 0x000200cc,
@@ -146,7 +147,7 @@ const struct ddr_config pcb135_cfg = {
 	},
 	.phy = {
 		.dcr = 0x1000040b,
-		.dsgcr = 0x0064403b,
+		.dsgcr = 0x0064403b & ~DSGCR_PUREN,
 		.dtcr0 = 0x2000b0cf,
 		.dtcr1 = 0x00010237,
 		.dxccr = 0x00c01884,
