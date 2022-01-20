@@ -76,9 +76,10 @@ void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool 
 		/* Settle */
 		usleep(100);
 
-		/* Deassert PHY_CTLL and PHY_APB RST */
+		/* Deassert DDRPHY_APB_RST and DRPHY_CTL_RST */
 		mmio_clrbits_32(CPU_DDRCTRL_RST,
-				DDRCTRL_CLK_DDRPHY_CTL_CLK_ENA |
-				DDRCTRL_CLK_DDRPHY_APB_CLK_ENA);
+				DDRCTRL_RST_DDRPHY_APB_RST | DDRCTRL_RST_DDRPHY_CTL_RST);
+
+		usleep(100);
 	}
 }

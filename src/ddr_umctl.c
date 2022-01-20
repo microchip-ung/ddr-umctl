@@ -44,26 +44,28 @@ static const struct reg_desc ddr_phy_timing_reg[] = {
 XLIST_DDR_PHY_TIMING
 };
 
-static void wait_reg_set(uintptr_t reg, uint32_t mask, int usec)
+static bool wait_reg_set(uintptr_t reg, uint32_t mask, int usec)
 {
 	ddr_timeout_t t = timeout_set_us(usec);
 	while ((mmio_read_32(reg) & mask) == 0) {
 		if (timeout_elapsed(&t)) {
 			VERBOSE("Timeout waiting for %p mask %08x set\n", (void*)reg, mask);
-			PANIC("wait_reg_set");
+			return true;
 		}
 	}
+	return false;
 }
 
-static void wait_reg_clr(uintptr_t reg, uint32_t mask, int usec)
+static bool wait_reg_clr(uintptr_t reg, uint32_t mask, int usec)
 {
 	ddr_timeout_t t = timeout_set_us(usec);
 	while ((mmio_read_32(reg) & mask) != 0) {
 		if (timeout_elapsed(&t)) {
 			VERBOSE("Timeout waiting for %p mask %08x clr\n", (void*)reg, mask);
-			PANIC("wait_reg_clr");
+			return true;
 		}
 	}
+	return false;
 }
 
 static void wait_operating_mode(uint32_t mode, int usec)
@@ -90,6 +92,69 @@ static void set_regs(const void *cfg,
 	}
 }
 
+static void set_static_ctl(void)
+{
+	mmio_write_32(DDR_UMCTL2_RFSHCTL1,
+		      FIELD_PREP(RFSHCTL1_REFRESH_TIMER0_START_VALUE_X32, 0x20) |
+		      FIELD_PREP(RFSHCTL1_REFRESH_TIMER1_START_VALUE_X32, 0x40));
+	mmio_clrsetbits_32(DDR_UMCTL2_RANKCTL,
+			   RANKCTL_DIFF_RANK_RD_GAP | RANKCTL_DIFF_RANK_WR_GAP,
+			   FIELD_PREP(RANKCTL_DIFF_RANK_RD_GAP, 2) |
+			   FIELD_PREP(RANKCTL_DIFF_RANK_WR_GAP, 2));
+	/* Disabling update request initiated by DDR controller during
+	 * DDR initialization */
+	mmio_setbits_32(DDR_UMCTL2_DFIUPD0,
+			DFIUPD0_DIS_AUTO_CTRLUPD_SRX | DFIUPD0_DIS_AUTO_CTRLUPD);
+}
+
+static void set_static_phy(const struct ddr_config *cfg)
+{
+	mmio_clrsetbits_32(DDR_PHY_PGCR1,
+			   PGCR1_IODDRM,
+			   FIELD_PREP(PGCR1_IODDRM, 1));
+	mmio_clrsetbits_32(DDR_PHY_PGCR7,
+			   PGCR7_WRPSTEX,
+			   FIELD_PREP(PGCR7_WRPSTEX, 1));
+	/* Disabling PHY initiated update request during DDR
+	 * initialization */
+	mmio_clrbits_32(DDR_PHY_DSGCR, DSGCR_PUREN);
+	// # Disable un-used byte lanes by writing DXnGCR0[0] = 1'b0 (DXEN).
+	if (cfg->info.dq_bits_used == 32) {
+		mmio_clrbits_32(DDR_PHY_DX4GCR0, DX4GCR0_DXEN);
+	} else if (cfg->info.dq_bits_used == 16) {
+		mmio_clrbits_32(DDR_PHY_DX2GCR0, DX2GCR0_DXEN);
+		mmio_clrbits_32(DDR_PHY_DX3GCR0, DX3GCR0_DXEN);
+		mmio_clrbits_32(DDR_PHY_DX4GCR0, DX4GCR0_DXEN);
+	}
+
+	/* To capture valid read data for rank0 */
+	mmio_clrsetbits_32(DDR_PHY_RANKIDR, RANKIDR_RANKWID,
+			   FIELD_PREP(RANKIDR_RANKWID, 0));
+#define SET_DGSEL(n)							\
+	mmio_clrsetbits_32(DDR_PHY_DX ## n ## GTR0, DX ## n ## GTR0_DGSL, \
+			   FIELD_PREP(DX ## n ## GTR0_DGSL, 0x2))
+	SET_DGSEL(0);
+	SET_DGSEL(1);
+	SET_DGSEL(2);
+	SET_DGSEL(3);
+	SET_DGSEL(4);
+
+	/* To capture valid read data for rank1 */
+	mmio_clrsetbits_32(DDR_PHY_RANKIDR, RANKIDR_RANKWID,
+			   FIELD_PREP(RANKIDR_RANKWID, 1));
+	SET_DGSEL(0);
+	SET_DGSEL(1);
+	SET_DGSEL(2);
+	SET_DGSEL(3);
+	SET_DGSEL(4);
+#undef SET_DGSEL
+
+	/* VREF IO control register */
+	mmio_setbits_32(DDR_PHY_IOVCR0,
+			IOVCR0_ACVREFIEN | IOVCR0_ACVREFSEN | IOVCR0_ACVREFPEN);
+	mmio_setbits_32(DDR_PHY_IOVCR1, IOVCR1_ZQVREFPEN);
+}
+
 static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 {
 	TRACE("Enable ECC scrubbing\n");
@@ -112,10 +177,12 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 	mmio_setbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
 
         /* 7. Poll SBRSTAT.scrub_done */
-	wait_reg_set(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_DONE, 10000);
+	if (wait_reg_set(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_DONE, 10000))
+		PANIC("Timeout SBRSTAT.scrub_done set");
 
         /* 8. Poll SBRSTAT.scrub_busy */
-	wait_reg_clr(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_BUSY, 10000);
+	if (wait_reg_clr(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_BUSY, 10000))
+		PANIC("Timeout SBRSTAT.scrub_busy clear");
 
         /* 9. Disable SBR programming */
 	mmio_clrbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
@@ -229,7 +296,8 @@ static void sw_done_ack(void)
 	mmio_write_32(DDR_UMCTL2_SWCTL, SWCTL_SW_DONE);
 
 	/* wait for SWSTAT.sw_done_ack to become set */
-	wait_reg_set(DDR_UMCTL2_SWSTAT, SWSTAT_SW_DONE_ACK, 100);
+	if (wait_reg_set(DDR_UMCTL2_SWSTAT, SWSTAT_SW_DONE_ACK, 100))
+		PANIC("Timout SWSTAT.sw_done_ack set");
 
 	TRACE("sw_done_ack:exit\n");
 }
@@ -413,12 +481,20 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	set_regs(&cfg->timing, ddr_timing_reg, ARRAY_SIZE(ddr_timing_reg));
 	set_regs(&cfg->mapping, ddr_mapping_reg, ARRAY_SIZE(ddr_mapping_reg));
 
+	/* Static controller settings */
+	set_static_ctl();
+
 	/* Release reset */
 	drv->reset(drv, cfg, false);
+
+	usleep(10);
 
 	/* Set PHY registers */
 	set_regs(&cfg->phy, ddr_phy_reg, ARRAY_SIZE(ddr_phy_reg));
 	set_regs(&cfg->phy_timing, ddr_phy_timing_reg, ARRAY_SIZE(ddr_phy_timing_reg));
+
+	/* Static PHY settings */
+	set_static_phy(cfg);
 
 	/* PHY FIFO reset (???) */
 	phy_fifo_reset();

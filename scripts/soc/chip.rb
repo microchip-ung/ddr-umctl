@@ -23,6 +23,20 @@ class Chip
         @chip = SoC.new("Sparx5.yaml")
     end
 
+    def find(regname)
+        regname.upcase!
+        @chip.targets.each do|t|
+            t[:groups].each do|g|
+                g[:registers].each do|r|
+                    if r[:name] == regname
+                        return [t, g, r]
+                    end
+                end
+            end
+        end
+        return nil
+    end
+
     def reggrp(regname)
         regname.upcase!
         @chip.targets.each do|t|
