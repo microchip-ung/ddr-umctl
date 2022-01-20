@@ -39,7 +39,7 @@ void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool 
 					 clk_div(cfg->info.speed)));
 
 		/* Settle */
-		usleep(10);
+		ddr_usleep(10);
 
 		/* Assert resets */
 		mmio_setbits_32(CPU_DDRCTRL_RST,
@@ -58,12 +58,16 @@ void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool 
 				DDRCTRL_CLK_DDRPHY_APB_CLK_ENA);
 
 		/* Allow clocks to settle */
-		usleep(100);
+		ddr_nsleep(100);
 
 		/* Deassert presetn once the clocks are active and stable */
 		mmio_clrbits_32(CPU_DDRCTRL_RST, DDRCTRL_RST_DDR_APB_RST);
+
+		ddr_nsleep(50);
 	} else {
 		TRACE("reset:deassert\n");
+
+		ddr_nsleep(200);
 
 		/* Deassert the core_ddrc_rstn reset */
 		mmio_clrbits_32(CPU_RESET, RESET_MEM_RST);
@@ -74,12 +78,12 @@ void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool 
 				DDRCTRL_RST_DDR_AXI_RST);
 
 		/* Settle */
-		usleep(100);
+		ddr_nsleep(100);
 
 		/* Deassert DDRPHY_APB_RST and DRPHY_CTL_RST */
 		mmio_clrbits_32(CPU_DDRCTRL_RST,
 				DDRCTRL_RST_DDRPHY_APB_RST | DDRCTRL_RST_DDRPHY_CTL_RST);
 
-		usleep(100);
+		ddr_nsleep(100);
 	}
 }

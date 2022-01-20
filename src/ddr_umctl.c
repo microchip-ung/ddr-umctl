@@ -44,6 +44,30 @@ static const struct reg_desc ddr_phy_timing_reg[] = {
 XLIST_DDR_PHY_TIMING
 };
 
+static inline bool ddr4_only_register(uintptr_t reg)
+{
+	static uintptr_t ddr4_only[] = {
+		DDR_UMCTL2_CRCPARCTL1,
+		DDR_UMCTL2_DBICTL,
+		DDR_UMCTL2_INIT6,
+		DDR_UMCTL2_INIT7,
+		DDR_UMCTL2_PCCFG,
+		DDR_UMCTL2_DRAMTMG12,
+		DDR_UMCTL2_DRAMTMG9,
+		DDR_PHY_SCHCR1,
+		DDR_PHY_MR4,
+		DDR_PHY_MR5,
+		DDR_PHY_MR6,
+		DDR_PHY_PTR2,
+	};
+	int i;
+
+	for(i = 0; i < ARRAY_SIZE(ddr4_only); i++)
+		if (ddr4_only[i] == reg)
+			return true;
+	return false;
+}
+
 static bool wait_reg_set(uintptr_t reg, uint32_t mask, int usec)
 {
 	ddr_timeout_t t = timeout_set_us(usec);
@@ -80,13 +104,17 @@ static void wait_operating_mode(uint32_t mode, int usec)
 	}
 }
 
-static void set_regs(const void *cfg,
+static void set_regs(const struct ddr_config *ddr_cfg,
+		     const void *cfg,
 		     const struct reg_desc *reg,
 		     size_t ct)
 {
+	bool ddr3 = !!(ddr_cfg->main.mstr & MSTR_DDR3);
 	int i;
 
 	for (i = 0; i < ct; i++) {
+		if (ddr3 && ddr4_only_register(reg[i].reg_addr))
+			continue;
 		uint32_t val = ((const uint32_t *)cfg)[reg[i].par_offset >> 2];
 		mmio_write_32(reg[i].reg_addr, val);
 	}
@@ -203,7 +231,7 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 static void phy_fifo_reset(void)
 {
 	mmio_clrbits_32(DDR_PHY_PGCR0, PGCR0_PHYFRST);
-	usleep(1);
+	ddr_usleep(1);
 	mmio_setbits_32(DDR_PHY_PGCR0, PGCR0_PHYFRST);
 }
 
@@ -261,7 +289,7 @@ static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode)
 	VERBOSE("pir = 0x%x -> 0x%x\n", mode, mmio_read_32(DDR_PHY_PIR));
 
         /* Need to wait 10 configuration clock before start polling */
-        usleep(10);
+        ddr_nsleep(10);
 
 	wait_phy_idone(drv);
 
@@ -460,7 +488,7 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 	mmio_setbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
 
 	/* Settle */
-	usleep(10);
+	ddr_usleep(1);
 
 	TRACE("do_data_training:exit\n");
 }
@@ -477,9 +505,9 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	drv->reset(drv, cfg, true);
 
 	/* Set up controller registers */
-	set_regs(&cfg->main, ddr_main_reg, ARRAY_SIZE(ddr_main_reg));
-	set_regs(&cfg->timing, ddr_timing_reg, ARRAY_SIZE(ddr_timing_reg));
-	set_regs(&cfg->mapping, ddr_mapping_reg, ARRAY_SIZE(ddr_mapping_reg));
+	set_regs(cfg, &cfg->main, ddr_main_reg, ARRAY_SIZE(ddr_main_reg));
+	set_regs(cfg, &cfg->timing, ddr_timing_reg, ARRAY_SIZE(ddr_timing_reg));
+	set_regs(cfg, &cfg->mapping, ddr_mapping_reg, ARRAY_SIZE(ddr_mapping_reg));
 
 	/* Static controller settings */
 	set_static_ctl();
@@ -487,11 +515,9 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	/* Release reset */
 	drv->reset(drv, cfg, false);
 
-	usleep(10);
-
 	/* Set PHY registers */
-	set_regs(&cfg->phy, ddr_phy_reg, ARRAY_SIZE(ddr_phy_reg));
-	set_regs(&cfg->phy_timing, ddr_phy_timing_reg, ARRAY_SIZE(ddr_phy_timing_reg));
+	set_regs(cfg, &cfg->phy, ddr_phy_reg, ARRAY_SIZE(ddr_phy_reg));
+	set_regs(cfg, &cfg->phy_timing, ddr_phy_timing_reg, ARRAY_SIZE(ddr_phy_timing_reg));
 
 	/* Static PHY settings */
 	set_static_phy(cfg);

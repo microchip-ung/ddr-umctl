@@ -60,7 +60,12 @@ static inline void _panic(char *fmt, ...)
 	assert(false);
 }
 
-static inline void usleep(int usec)
+static inline void ddr_nsleep(int nsec)
+{
+	/* NOP */
+}
+
+static inline void ddr_usleep(int usec)
 {
 	/* NOP */
 }

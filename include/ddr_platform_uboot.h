@@ -52,11 +52,11 @@ static inline void _panic(const char *str)
 	panic("%s", str);
 }
 
-static inline void usleep(int usec)
+extern void ddr_nsleep(u32 t_nsec);
+
+static inline void ddr_usleep(int usec)
 {
-	int i = usec * 1000;
-	while (i)
-		i--;
+	ddr_nsleep(usec * 1000);
 }
 
 typedef uint32_t ddr_timeout_t;

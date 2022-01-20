@@ -186,5 +186,5 @@ int main(int argc, char **argv)
 int ddr_setup(void)
 #endif
 {
-	return ddr_init(&drv, &pcb134_cfg);
+	return ddr_init(&drv, &pcb135_cfg);
 }
