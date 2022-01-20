@@ -33,12 +33,17 @@ new_use = record_writes(chip, new)
 
 ref_use.keys.each do|r|
     if new_use[r]
-        rval = ref_use[r].pop
-        nval = new_use[r].pop
+        rval = ref_use[r][-1]
+        nval = new_use[r][-1]
         if rval != nval
             puts "*** differing value of #{r} set - #{rval} vs #{nval}"
         else
             puts "Same value of #{r} set (#{rval})"
+            if ref_use[r].size != new_use[r].size
+                puts " - but differing writes"
+                pp ref_use[r]
+                pp new_use[r]
+            end
         end
     else
         puts "*** New needs #{r} set"
