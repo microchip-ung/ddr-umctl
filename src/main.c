@@ -10,6 +10,8 @@
 #include <ddr_platform.h>
 #include <ddr_reg.h>
 
+#include <common.h>
+
 extern void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert);
 
 static struct umctl_drv drv = { .reset = ddr_reset, };
@@ -183,8 +185,9 @@ const struct ddr_config pcb135_cfg = {
 #if defined(STANDALONE)
 int main(int argc, char **argv)
 #else
-int ddr_setup(void)
+int ddr_setup(bool pcb134)
 #endif
 {
-	return ddr_init(&drv, &pcb135_cfg);
+	const struct ddr_config *cfg = pcb134 ? &pcb134_cfg : &pcb135_cfg;
+	return ddr_init(&drv, cfg);
 }

@@ -305,7 +305,7 @@ static void PHY_initialization(const struct umctl_drv *drv)
 	/* PHY initialization: PLL initialization, Delay line
 	 * calibration, PHY reset and Impedance Calibration
 	 */
-	ddr_phy_init(drv, PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST, 300);
+	ddr_phy_init(drv, PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST, 600);
 }
 
 static void DRAM_initialization_by_memctrl(const struct umctl_drv *drv)
@@ -543,7 +543,7 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	sw_done_ack();
 
 	/* wait for STAT.operating_mode to become "normal" */
-	wait_operating_mode(1, 100);
+	wait_operating_mode(1, 2000);
 
 	do_data_training(drv, cfg);
 

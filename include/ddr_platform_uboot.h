@@ -47,6 +47,8 @@
 #define GENMASK_32(h, l)	GENMASK(h, l)
 #endif
 
+extern void ddr_nsleep(u32 t_nsec);
+
 static inline void ddr_usleep(int usec)
 {
 	udelay(usec);
