@@ -77,6 +77,7 @@ static bool wait_reg_set(uintptr_t reg, uint32_t mask, int usec)
 			return true;
 		}
 	}
+	timeout_completed(&t);
 	return false;
 }
 
@@ -89,6 +90,7 @@ static bool wait_reg_clr(uintptr_t reg, uint32_t mask, int usec)
 			return true;
 		}
 	}
+	timeout_completed(&t);
 	return false;
 }
 
@@ -102,6 +104,7 @@ static void wait_operating_mode(uint32_t mode, int usec)
 			PANIC("wait_operating_mode");
 		}
 	}
+	timeout_completed(&t);
 }
 
 static void set_regs(const struct ddr_config *ddr_cfg,
@@ -205,11 +208,11 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 	mmio_setbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
 
         /* 7. Poll SBRSTAT.scrub_done */
-	if (wait_reg_set(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_DONE, 10000))
+	if (wait_reg_set(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_DONE, 1000000))
 		PANIC("Timeout SBRSTAT.scrub_done set");
 
         /* 8. Poll SBRSTAT.scrub_busy */
-	if (wait_reg_clr(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_BUSY, 10000))
+	if (wait_reg_clr(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_BUSY, 50))
 		PANIC("Timeout SBRSTAT.scrub_busy clear");
 
         /* 9. Disable SBR programming */
@@ -235,7 +238,7 @@ static void phy_fifo_reset(void)
 	mmio_setbits_32(DDR_PHY_PGCR0, PGCR0_PHYFRST);
 }
 
-static void wait_phy_idone(const struct umctl_drv *drv)
+static void wait_phy_idone(const struct umctl_drv *drv, int tmo)
 {
 	uint32_t pgsr;
         int i, error = 0;
@@ -258,7 +261,7 @@ static void wait_phy_idone(const struct umctl_drv *drv)
 		{ PGSR0_SRDERR, "Static Read Error" },
 	};
 
-	t = timeout_set_us(100);
+	t = timeout_set_us(tmo);
 
 	do {
 		pgsr = mmio_read_32(DDR_PHY_PGSR0);
@@ -275,9 +278,10 @@ static void wait_phy_idone(const struct umctl_drv *drv)
 		}
 
 	} while((pgsr & PGSR0_IDONE) == 0 && error == 0);
+	timeout_completed(&t);
 }
 
-static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode)
+static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode, int usec_timout)
 {
 	mode |= PIR_INIT;
 
@@ -291,7 +295,7 @@ static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode)
         /* Need to wait 10 configuration clock before start polling */
         ddr_nsleep(10);
 
-	wait_phy_idone(drv);
+	wait_phy_idone(drv, usec_timout);
 
 	TRACE("ddr_phy_init:done\n");
 }
@@ -301,13 +305,13 @@ static void PHY_initialization(const struct umctl_drv *drv)
 	/* PHY initialization: PLL initialization, Delay line
 	 * calibration, PHY reset and Impedance Calibration
 	 */
-	ddr_phy_init(drv, PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST);
+	ddr_phy_init(drv, PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST, 300);
 }
 
 static void DRAM_initialization_by_memctrl(const struct umctl_drv *drv)
 {
 	/* write PHY initialization register for SDRAM initialization */
-	ddr_phy_init(drv, PIR_CTLDINIT);
+	ddr_phy_init(drv, PIR_CTLDINIT, 100);
 }
 
 static void sw_done_start(void)
@@ -324,7 +328,7 @@ static void sw_done_ack(void)
 	mmio_write_32(DDR_UMCTL2_SWCTL, SWCTL_SW_DONE);
 
 	/* wait for SWSTAT.sw_done_ack to become set */
-	if (wait_reg_set(DDR_UMCTL2_SWSTAT, SWSTAT_SW_DONE_ACK, 100))
+	if (wait_reg_set(DDR_UMCTL2_SWSTAT, SWSTAT_SW_DONE_ACK, 50))
 		PANIC("Timout SWSTAT.sw_done_ack set");
 
 	TRACE("sw_done_ack:exit\n");
@@ -440,7 +444,7 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 	/* write PHY initialization register for Write leveling, DQS
 	 * gate training, Write_latency adjustment
 	 */
-	ddr_phy_init(drv,  PIR_WL | PIR_QSGATE | PIR_WLADJ);
+	ddr_phy_init(drv,  PIR_WL | PIR_QSGATE | PIR_WLADJ, 200);
 
 	/* Static read training must be performed in static read mode.
 	 * read/write bit Deskew, read/write Eye Centering training,
@@ -457,7 +461,7 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 		w |= PIR_VREF;
 		VREF_Training_Setup();
 	}
-	ddr_phy_init(drv, w);
+	ddr_phy_init(drv, w, 800);
 
 	w = mmio_read_32(DDR_PHY_PGSR0);
 	m = GENMASK_32(11, 0) | PGSR0_SRDDONE | PGSR0_APLOCK; /* *DONE ex CADONE, VDONE */

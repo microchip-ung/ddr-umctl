@@ -9,14 +9,15 @@
 
 #include <stdint.h>
 #include <asm/io.h>
+#include <common.h>
 #include <linux/kernel.h>
 #include <linux/bitops.h>
 #include <linux/bitfield.h>
 #include <linux/delay.h>
 #include <debug_uart.h>
 
-#define READ_DEBUG
-#define WRITE_DEBUG
+//#define READ_DEBUG
+//#define WRITE_DEBUG
 
 #if !defined(DEBUG)
 # define DEBUG(x...)
@@ -31,11 +32,11 @@
 #endif
 
 #if !defined(TRACE)
-# define TRACE(s) printascii(s)
+# define TRACE(s)
 #endif
 
 #if !defined(PANIC)
-# define PANIC(s) _panic(s)
+# define PANIC(s) panic("panic: %s:%d: %s", __FILE__, __LINE__, s);
 #endif
 
 #if !defined(BIT_32)
@@ -46,32 +47,28 @@
 #define GENMASK_32(h, l)	GENMASK(h, l)
 #endif
 
-static inline void _panic(const char *str)
-{
-	TRACE(str);
-	panic("%s", str);
-}
-
-extern void ddr_nsleep(u32 t_nsec);
-
 static inline void ddr_usleep(int usec)
 {
-	ddr_nsleep(usec * 1000);
+	udelay(usec);
 }
 
-typedef uint32_t ddr_timeout_t;
+typedef unsigned long ddr_timeout_t;
 
 static inline ddr_timeout_t timeout_set_us(uint32_t val)
 {
-	return (ddr_timeout_t) val;
+	return timer_get_us() + val;
 }
 
 static inline bool timeout_elapsed(ddr_timeout_t *timeout)
 {
-	if (*timeout == 0)
-		return true;
-	--*timeout;
-	return false;
+	ddr_timeout_t now = timer_get_us();
+	return now > *timeout;
+}
+
+static inline void timeout_completed(ddr_timeout_t *timeout)
+{
+	//ddr_timeout_t now = timer_get_us();
+	//printf("Actual timeout gap: %ld usec\n", *timeout - now);
 }
 
 static inline uint32_t mmio_read_32(uintptr_t addr)
