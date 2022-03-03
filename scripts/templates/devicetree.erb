@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+ *
+ */
+
+&ddr {
+        microchip,mem-name = "01-03-2022-A";
+        microchip,mem-speed = <416>;
+        microchip,mem-size = <0x80000000>;
+        microchip,mem-dq-bits = <40>;
+
+<%- $config.groups.each do |rg| -%>
+        microchip,<%= rg[:name] %>-reg = <
+<%- rg[:regs].each do |rname| -%>
+		<%= hex_values[rname] %>	/* <%= rname.downcase %> */
+<%- end -%>
+	>;
+
+<%- end -%>
+};
