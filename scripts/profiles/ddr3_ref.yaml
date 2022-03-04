@@ -1,0 +1,8 @@
+---
+:mem_type:		"DDR3"
+:CONFIGURED_DENSITY:	4G
+:dq_bits_per_mem:	16
+:device_config:		0x2
+:active_ranks:		0x1
+:dq_bits_used:		40
+:speed_grade:		"sg093"

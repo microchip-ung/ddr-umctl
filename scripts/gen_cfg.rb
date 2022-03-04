@@ -1,7 +1,13 @@
+#!/bin/env ruby
+
+require 'optparse'
 require 'erb'
 require 'pp'
+
 require_relative 'config_registers.rb'
 require_relative 'soc/chip.rb'
+require_relative 'ddr/ddr_process.rb'
+require_relative 'ddr/ddr3.rb'
 
 def calc_value(reg, settings)
     val = 0
@@ -39,16 +45,59 @@ def convert_hex(regs, settings)
     return values
 end
 
+# Parse options
+$option = {
+    :platform	=> "sparx5",
+    :memory	=> "ddr3_ref",
+    :debug	=> false,
+    :verbose	=> false,
+    :format	=> "devicetree",
+}
+OptionParser.new do |opts|
+    opts.banner = "Usage: cfg_gen.rb [options]"
+    opts.version = 0.1
+    opts.on("-p", "--platform <platform>", "Generate for given platform") do |p|
+        $option[:platform] = p
+    end
+    opts.on("-m", "--memory <memory>", "Generate for given memory parameters set") do |m|
+        $option[:memory] = m
+    end
+    opts.on("-d", "--debug", "Enable debug messages") do
+        $option[:debug] = true
+    end
+    opts.on("-v", "--verbose", "Enable verbose messages") do
+        $option[:verbose] = true
+    end
+    opts.on("-f", "--format <format>", %w(devicetree text), "Use format (devicetree, text)") do |f|
+        $option[:format] = f
+    end
+end.order!
+
+# Prepare default values, registers, etc.
 $config = Config.new()
-$chip = Chip.new("sparx5")
+$chip = Chip.new($option[:platform])
 
 cfg_regs = get_config_regs()
-cfg_values = Hash.new
-cfg_regs.keys.map {|r| cfg_values[r] = Hash.new }
+reg_settings = Hash.new
+cfg_regs.keys.map {|r| reg_settings[r] = Hash.new }
 
-cfg_values["MSTR"]["ACTIVE_RANKS"] = 47
+# Load platform/memory parameters
+params = YAML::load_file(__dir__ + "/profiles/#{$option[:platform]}.yaml")
+params.merge!(YAML::load_file(__dir__ + "/profiles/#{$option[:memory]}.yaml"))
 
-hex_values = convert_hex(cfg_regs, cfg_values)
+case params[:mem_type]
+when "DDR3"
+    params = ddr3(params)
+when "DDR4"
+    raise "Unsupported for now"
+else
+    raise "Unsupported memory type: #{params[:mem_type]}"
+end
 
-renderer = ERB.new(File.read(__dir__ + "/templates/devicetree.erb"), nil, '-')
+# Calculate derived settings
+params = ddr_process(params)
+
+# Feed the chicken and go home
+hex_values = convert_hex(cfg_regs, reg_settings)
+renderer = ERB.new(File.read(__dir__ + "/templates/$option[:format].erb"), nil, '-')
 puts renderer.result(binding)
