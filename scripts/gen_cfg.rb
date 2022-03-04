@@ -2,6 +2,7 @@
 
 require 'optparse'
 require 'erb'
+require 'logger'
 require 'pp'
 
 require_relative 'config_registers.rb'
@@ -53,6 +54,10 @@ $option = {
     :verbose	=> false,
     :format	=> "devicetree",
 }
+
+$l = Logger.new(STDERR)
+$l.level = Logger::WARN
+
 OptionParser.new do |opts|
     opts.banner = "Usage: cfg_gen.rb [options]"
     opts.version = 0.1
@@ -64,9 +69,11 @@ OptionParser.new do |opts|
     end
     opts.on("-d", "--debug", "Enable debug messages") do
         $option[:debug] = true
+        $l.level = Logger::DEBUG
     end
     opts.on("-v", "--verbose", "Enable verbose messages") do
         $option[:verbose] = true
+        $l.level = Logger::INFO
     end
     opts.on("-f", "--format <format>", %w(devicetree text), "Use format (devicetree, text)") do |f|
         $option[:format] = f
@@ -85,6 +92,8 @@ cfg_regs.keys.map {|r| reg_settings[r] = Hash.new }
 params = YAML::load_file(__dir__ + "/profiles/#{$option[:platform]}.yaml")
 params.merge!(YAML::load_file(__dir__ + "/profiles/#{$option[:memory]}.yaml"))
 
+params[:dq_bits_per_mem] = params[:CONFIGURED_DQ_BITS]
+
 case params[:mem_type]
 when "DDR3"
     params = ddr3(params)
@@ -93,6 +102,9 @@ when "DDR4"
 else
     raise "Unsupported memory type: #{params[:mem_type]}"
 end
+
+pp params
+exit
 
 # Calculate derived settings
 params = ddr_process(params)
