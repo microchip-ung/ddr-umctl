@@ -20,7 +20,7 @@ class Chip
     attr_reader :chip
 
     def initialize(chipname)
-        @chip = SoC.new("Sparx5.yaml")
+        @chip = SoC.new("#{chipname}.yaml")
     end
 
     def find(regname)
@@ -30,6 +30,22 @@ class Chip
                 g[:registers].each do|r|
                     if r[:name] == regname
                         return [t, g, r]
+                    end
+                end
+            end
+        end
+        return nil
+    end
+
+    def find_by_address(addr)
+        #printf("Look up: 0x%08x\n", addr)
+        @chip.targets.each do|t|
+            t[:groups].each do|g|
+                g[:registers].each do|r|
+                    raddr = @chip.regaddr(t,g,r)
+                    #printf("%-24s 0x%08x\n", t[:name].upcase + "_" + r[:name], raddr)
+                    if raddr == addr
+                        return r
                     end
                 end
             end

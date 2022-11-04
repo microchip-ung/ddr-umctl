@@ -1,0 +1,5703 @@
+---
+- :name: CPU
+  :region: amba_axi_top
+  :toffset: 939524096
+  :offset: 196608
+  :groups:
+  - :name: CPU_REGS
+    :offset: 0
+    :registers:
+    - :name: RESET
+      :addr: 33
+      :fields:
+      - :name: VCORE_RST
+        :pos: 7
+        :width: 1
+        :type: se
+        :default: 0
+      - :name: CPU_CORE_0_WARM_RST
+        :pos: 6
+        :width: 1
+        :type: se
+        :default: 0
+      - :name: PROC_DBG_RST
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: JTAG_RST
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CPU_L2_RST
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: MEM_RST
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: WDT_FORCE_RST
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CPU_CORE_0_COLD_RST
+        :pos: 0
+        :width: 1
+        :type: rhw
+        :default: 1
+  - :name: DDRCTRL
+    :offset: 172
+    :registers:
+    - :name: DDRCTRL_CLK
+      :addr: 0
+      :fields:
+      - :name: RAM_RING_ENA
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDRPHY_APB_CLK_ENA
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDRPHY_CTL_CLK_ENA
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDR_APB_CLK_ENA
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDR_AXI2_CLK_ENA
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDR_AXI1_CLK_ENA
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDR_AXI0_CLK_ENA
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDR_CLK_ENA
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: DDRCTRL_RST
+      :addr: 1
+      :fields:
+      - :name: DDRPHY_APB_RST
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: FPGA_DDRPHY_SOFT_RST
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DDRPHY_CTL_RST
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DDR_APB_RST
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DDR_AXI2_RST
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DDR_AXI1_RST
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DDR_AXI0_RST
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DDRC_RST
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+- :name: DDR_PHY
+  :region: amba_axi_top
+  :toffset: 939524096
+  :offset: 135168
+  :groups:
+  - :name: DDR3_2_PHY_PUB
+    :offset: 0
+    :registers:
+    - :name: RIDR
+      :addr: 0
+      :fields:
+      - :name: UDRID
+        :pos: 24
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: PHYID
+        :pos: 12
+        :width: 12
+        :type: ro
+        :default: 256
+      - :name: PUBID
+        :pos: 0
+        :width: 12
+        :type: ro
+        :default: 791
+    - :name: PIR
+      :addr: 1
+      :fields:
+      - :name: INITBYP
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZCALBYP
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DCALBYP
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: LOCKBYP
+        :pos: 28
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CLRSR
+        :pos: 27
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RDIMMINIT
+        :pos: 19
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CTLDINIT
+        :pos: 18
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PLLBYP
+        :pos: 17
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ICPC
+        :pos: 16
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WREYE
+        :pos: 15
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RDEYE
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WRDSKW
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RDDSKW
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WLADJ
+        :pos: 11
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: QSGATE
+        :pos: 10
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WL
+        :pos: 9
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DRAMINIT
+        :pos: 8
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DRAMRST
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PHYRST
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DCAL
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PLLINIT
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZCAL
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: INIT
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: PGCR0
+      :addr: 2
+      :fields:
+      - :name: CKEN
+        :pos: 26
+        :width: 6
+        :type: rw
+        :default: 42
+      - :name: PUBMODE
+        :pos: 25
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DTOSEL
+        :pos: 14
+        :width: 5
+        :type: rw
+        :default: 0
+      - :name: OSCWDL
+        :pos: 12
+        :width: 2
+        :type: rw
+        :default: 3
+      - :name: OSCDIV
+        :pos: 9
+        :width: 3
+        :type: rw
+        :default: 7
+      - :name: OSCEN
+        :pos: 8
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DLTST
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DLTMODE
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RDBVT
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WDBVT
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RGLVT
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RDLVT
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WDLVT
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WLLVT
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: PGCR1
+      :addr: 3
+      :fields:
+      - :name: LBMODE
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: LBGDQS
+        :pos: 29
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: LBDQSS
+        :pos: 28
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: IOLB
+        :pos: 27
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: INHVT
+        :pos: 26
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DXHRST
+        :pos: 25
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ZCKSEL
+        :pos: 23
+        :width: 2
+        :type: rw
+        :default: 2
+      - :name: DLDLMT
+        :pos: 15
+        :width: 8
+        :type: rw
+        :default: 1
+      - :name: FDEPTH
+        :pos: 13
+        :width: 2
+        :type: rw
+        :default: 2
+      - :name: LPFDEPTH
+        :pos: 11
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: LPFEN
+        :pos: 10
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: MDLEN
+        :pos: 9
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WLSELT
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ACHRST
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: WSLOPT
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WLSTEP
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WLMODE
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PDDISDX
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: PGSR0
+      :addr: 4
+      :fields:
+      - :name: APLOCK
+        :pos: 31
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: PLDONE_CHN
+        :pos: 28
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: WEERR
+        :pos: 27
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: REERR
+        :pos: 26
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WDERR
+        :pos: 25
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RDERR
+        :pos: 24
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WLAERR
+        :pos: 23
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: QSGERR
+        :pos: 22
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WLERR
+        :pos: 21
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: ZCERR
+        :pos: 20
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WEDONE
+        :pos: 11
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: REDONE
+        :pos: 10
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WDDONE
+        :pos: 9
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RDDONE
+        :pos: 8
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WLADONE
+        :pos: 7
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: QSGDONE
+        :pos: 6
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WLDONE
+        :pos: 5
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DIDONE
+        :pos: 4
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: ZCDONE
+        :pos: 3
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DCDONE
+        :pos: 2
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: PLDONE
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: IDONE
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: PGSR1
+      :addr: 5
+      :fields:
+      - :name: PARERR
+        :pos: 31
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: VTSTOP
+        :pos: 30
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DLTCODE
+        :pos: 1
+        :width: 24
+        :type: ro
+        :default: 0
+      - :name: DLTDONE
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: PLLCR
+      :addr: 6
+      :fields:
+      - :name: PLLBYP
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PLLRST
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PLLPD
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: FRQSEL
+        :pos: 18
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: QPMODE
+        :pos: 17
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CPPC
+        :pos: 13
+        :width: 4
+        :type: rw
+        :default: 14
+      - :name: CPIC
+        :pos: 11
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: GSHIFT
+        :pos: 10
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ATOEN
+        :pos: 6
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ATC
+        :pos: 2
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: DTC
+        :pos: 0
+        :width: 2
+        :type: rw
+        :default: 0
+    - :name: PTR0
+      :addr: 7
+      :fields:
+      - :name: TPLLPD
+        :pos: 21
+        :width: 11
+        :type: rw
+        :default: 534
+      - :name: TPLLGS
+        :pos: 6
+        :width: 15
+        :type: rw
+        :default: 2134
+      - :name: TPHYRST
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 16
+    - :name: PTR1
+      :addr: 8
+      :fields:
+      - :name: TPLLLOCK
+        :pos: 16
+        :width: 16
+        :type: rw
+        :default: 53334
+      - :name: TPLLRST
+        :pos: 0
+        :width: 13
+        :type: rw
+        :default: 4800
+    - :name: PTR2
+      :addr: 9
+      :fields:
+      - :name: TWLDLYS
+        :pos: 15
+        :width: 5
+        :type: rw
+        :default: 16
+      - :name: TCALH
+        :pos: 10
+        :width: 5
+        :type: rw
+        :default: 15
+      - :name: TCALS
+        :pos: 5
+        :width: 5
+        :type: rw
+        :default: 15
+      - :name: TCALON
+        :pos: 0
+        :width: 5
+        :type: rw
+        :default: 15
+    - :name: PTR3
+      :addr: 10
+      :fields:
+      - :name: TDINIT1
+        :pos: 20
+        :width: 10
+        :type: rw
+        :default: 384
+      - :name: TDINIT0
+        :pos: 0
+        :width: 20
+        :type: rw
+        :default: 533334
+    - :name: PTR4
+      :addr: 11
+      :fields:
+      - :name: TDINIT3
+        :pos: 18
+        :width: 10
+        :type: rw
+        :default: 683
+      - :name: TDINIT2
+        :pos: 0
+        :width: 18
+        :type: rw
+        :default: 213334
+    - :name: ACMDLR
+      :addr: 12
+      :fields:
+      - :name: MDLD
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: TPRD
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: IPRD
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: ACBDLR
+      :addr: 13
+      :fields:
+      - :name: ACBD
+        :pos: 18
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: CK2BD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: CK1BD
+        :pos: 6
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: CK0BD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: ACIOCR
+      :addr: 14
+      :fields:
+      - :name: RSTIOM
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: RSTPDR
+        :pos: 28
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: RSTPDD
+        :pos: 27
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RSTODT
+        :pos: 26
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RANKPDR
+        :pos: 22
+        :width: 4
+        :type: rw
+        :default: 15
+      - :name: CSPDD
+        :pos: 18
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RANKODT
+        :pos: 14
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: CKPDR
+        :pos: 11
+        :width: 3
+        :type: rw
+        :default: 7
+      - :name: CKPDD
+        :pos: 8
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: CKODT
+        :pos: 5
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: ACPDR
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ACPDD
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ACODT
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: AC0E
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ACIOM
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: DXCCR
+      :addr: 15
+      :fields:
+      - :name: DDPDRCDO
+        :pos: 28
+        :width: 4
+        :type: rw
+        :default: 4
+      - :name: DDPDDCDO
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 4
+      - :name: DYNDXPDR
+        :pos: 23
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DYNDXPDD
+        :pos: 22
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: UDQIOM
+        :pos: 21
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: UDQPDR
+        :pos: 20
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: UDQPDD
+        :pos: 19
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: UDQODT
+        :pos: 18
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: MSBUDQ
+        :pos: 15
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: DQSNRES
+        :pos: 9
+        :width: 4
+        :type: rw
+        :default: 12
+      - :name: DQSRES
+        :pos: 5
+        :width: 4
+        :type: rw
+        :default: 4
+      - :name: DXPDR
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DXPDD
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: MDLEN
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DXIOM
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DXODT
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: DSGCR
+      :addr: 16
+      :fields:
+      - :name: CKEOE
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: RSTOE
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ODTOE
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: CKOE
+        :pos: 28
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ODTPDD
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: CKEPDD
+        :pos: 20
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: SDRMODE
+        :pos: 19
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RRMODE
+        :pos: 18
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ATOAE
+        :pos: 17
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DTOOE
+        :pos: 16
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DTOIOM
+        :pos: 15
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DTOPDR
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DTOPDD
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DTOODT
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PUAD
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 4
+      - :name: BRRMODE
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DQSGX
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CUAEN
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: LPPLLPD
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: LPIOPD
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ZUEN
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: BDISEN
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: PUREN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: DCR
+      :addr: 17
+      :fields:
+      - :name: UDIMM
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDR2T
+        :pos: 28
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: NOSRA
+        :pos: 27
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: BYTEMASK
+        :pos: 10
+        :width: 8
+        :type: rw
+        :default: 1
+      - :name: MPRDQ
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PDQ
+        :pos: 4
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: DDR8BNK
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DDRMD
+        :pos: 0
+        :width: 3
+        :type: rw
+        :default: 3
+    - :name: DTPR0
+      :addr: 18
+      :fields:
+      - :name: TRC
+        :pos: 26
+        :width: 6
+        :type: rw
+        :default: 50
+      - :name: TRRD
+        :pos: 22
+        :width: 4
+        :type: rw
+        :default: 7
+      - :name: TRAS
+        :pos: 16
+        :width: 6
+        :type: rw
+        :default: 36
+      - :name: TRCD
+        :pos: 12
+        :width: 4
+        :type: rw
+        :default: 14
+      - :name: TRP
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 14
+      - :name: TWTR
+        :pos: 4
+        :width: 4
+        :type: rw
+        :default: 8
+      - :name: TRTP
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 8
+    - :name: DTPR1
+      :addr: 19
+      :fields:
+      - :name: TAON_OFF_D
+        :pos: 30
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: TWLO
+        :pos: 26
+        :width: 4
+        :type: rw
+        :default: 8
+      - :name: TWLMRD
+        :pos: 20
+        :width: 6
+        :type: rw
+        :default: 40
+      - :name: TRFC
+        :pos: 11
+        :width: 9
+        :type: rw
+        :default: 374
+      - :name: TFAW
+        :pos: 5
+        :width: 6
+        :type: rw
+        :default: 38
+      - :name: TMOD
+        :pos: 2
+        :width: 3
+        :type: rw
+        :default: 4
+      - :name: TMRD
+        :pos: 0
+        :width: 2
+        :type: rw
+        :default: 2
+    - :name: DTPR2
+      :addr: 20
+      :fields:
+      - :name: TCCD
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: TRTW
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: TRTODT
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: TDLLK
+        :pos: 19
+        :width: 10
+        :type: rw
+        :default: 512
+      - :name: TCKE
+        :pos: 15
+        :width: 4
+        :type: rw
+        :default: 6
+      - :name: TXP
+        :pos: 10
+        :width: 5
+        :type: rw
+        :default: 26
+      - :name: TXS
+        :pos: 0
+        :width: 10
+        :type: rw
+        :default: 512
+    - :name: MR0
+      :addr: 21
+      :fields:
+      - :name: RSVD_15_13
+        :pos: 13
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: PD
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WR
+        :pos: 9
+        :width: 3
+        :type: rw
+        :default: 5
+      - :name: DR
+        :pos: 8
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: TM
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CL_6_4
+        :pos: 4
+        :width: 3
+        :type: rw
+        :default: 5
+      - :name: BT
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CL_2
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: BL
+        :pos: 0
+        :width: 2
+        :type: rw
+        :default: 2
+    - :name: MR1
+      :addr: 22
+      :fields:
+      - :name: RSVD_15_13
+        :pos: 13
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: QOFF
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: TDQS
+        :pos: 11
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RSVD_10
+        :pos: 10
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RTT_9
+        :pos: 9
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DE_RSVD_8
+        :pos: 8
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: LEVEL
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RTT_6
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIC_5
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: AL
+        :pos: 3
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: RTT_2
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIC_1
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DE
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: MR2
+      :addr: 23
+      :fields:
+      - :name: RSVD_15_11
+        :pos: 11
+        :width: 5
+        :type: rw
+        :default: 0
+      - :name: RTT_WR
+        :pos: 9
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: RSVD_8
+        :pos: 8
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: SRT
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ASR
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CWL
+        :pos: 3
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: PASR
+        :pos: 0
+        :width: 3
+        :type: rw
+        :default: 0
+    - :name: MR3
+      :addr: 24
+      :fields:
+      - :name: RSVD_15_3
+        :pos: 3
+        :width: 13
+        :type: rw
+        :default: 0
+      - :name: MPR
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: MPRLOC
+        :pos: 0
+        :width: 2
+        :type: rw
+        :default: 0
+    - :name: ODTCR
+      :addr: 25
+      :fields:
+      - :name: WRODT
+        :pos: 16
+        :width: 16
+        :type: rw
+        :default: 33825
+      - :name: RDODT
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 0
+    - :name: DTCR
+      :addr: 26
+      :fields:
+      - :name: RFSHDT
+        :pos: 28
+        :width: 4
+        :type: rw
+        :default: 9
+      - :name: RANKEN
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 15
+      - :name: DTEXD
+        :pos: 22
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DTDSTP
+        :pos: 21
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DTDEN
+        :pos: 20
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DTDBS
+        :pos: 16
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: DTWDQMO
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DTBDC
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DTWBDDM
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DTWDQM
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 5
+      - :name: DTCMPD
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DTMPR
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DTRANK
+        :pos: 4
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: DTRPTN
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 7
+    - :name: DTAR0
+      :addr: 27
+      :fields:
+      - :name: DTBANK
+        :pos: 28
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: DTROW
+        :pos: 12
+        :width: 16
+        :type: rw
+        :default: 0
+      - :name: DTCOL
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 0
+    - :name: DTAR1
+      :addr: 28
+      :fields:
+      - :name: DTBANK
+        :pos: 28
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: DTROW
+        :pos: 12
+        :width: 16
+        :type: rw
+        :default: 0
+      - :name: DTCOL
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 8
+    - :name: DTAR2
+      :addr: 29
+      :fields:
+      - :name: DTBANK
+        :pos: 28
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: DTROW
+        :pos: 12
+        :width: 16
+        :type: rw
+        :default: 0
+      - :name: DTCOL
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 16
+    - :name: DTAR3
+      :addr: 30
+      :fields:
+      - :name: DTBANK
+        :pos: 28
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: DTROW
+        :pos: 12
+        :width: 16
+        :type: rw
+        :default: 0
+      - :name: DTCOL
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 24
+    - :name: DTDR0
+      :addr: 31
+      :fields:
+      - :name: DTBYTE3
+        :pos: 24
+        :width: 8
+        :type: rw
+        :default: 221
+      - :name: DTBYTE2
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 34
+      - :name: DTBYTE1
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 238
+      - :name: DTBYTE0
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 17
+    - :name: DTDR1
+      :addr: 32
+      :fields:
+      - :name: DTBYTE7
+        :pos: 24
+        :width: 8
+        :type: rw
+        :default: 119
+      - :name: DTBYTE6
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 136
+      - :name: DTBYTE5
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 187
+      - :name: DTBYTE4
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 68
+    - :name: DTEDR0
+      :addr: 33
+      :fields:
+      - :name: DTWBMX
+        :pos: 24
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: DTWBMN
+        :pos: 16
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: DTWLMX
+        :pos: 8
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: DTWLMN
+        :pos: 0
+        :width: 8
+        :type: ro
+        :default: 0
+    - :name: DTEDR1
+      :addr: 34
+      :fields:
+      - :name: DTRBMX
+        :pos: 24
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: DTRBMN
+        :pos: 16
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: DTRLMX
+        :pos: 8
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: DTRLMN
+        :pos: 0
+        :width: 8
+        :type: ro
+        :default: 0
+    - :name: PGCR2
+      :addr: 35
+      :fields:
+      - :name: DYNACPDD
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: LPMSTRC0
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ACPDDC
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: SHRAC
+        :pos: 28
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DTPMXTMR
+        :pos: 20
+        :width: 8
+        :type: rw
+        :default: 15
+      - :name: FXDLAT
+        :pos: 19
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: NOBUB
+        :pos: 18
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: TREFPRD
+        :pos: 0
+        :width: 18
+        :type: rw
+        :default: 74880
+    - :name: RDIMMGCR0
+      :addr: 44
+      :fields:
+      - :name: MIRROR
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: QCSEN
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: MIRROROE
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: QCSENOE
+        :pos: 28
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: RDIMMIOM
+        :pos: 27
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: RDIMMPDR
+        :pos: 26
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: RDIMMPDD
+        :pos: 25
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RDIMMODT
+        :pos: 24
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ERROUTOE
+        :pos: 23
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ERROUTIOM
+        :pos: 22
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ERROUTPDR
+        :pos: 21
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ERROUTPDD
+        :pos: 20
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ERROUTODT
+        :pos: 19
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PARINOE
+        :pos: 18
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: PARINIOM
+        :pos: 17
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PARINPDR
+        :pos: 16
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: PARINPDD
+        :pos: 15
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PARINODT
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: SOPERR
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ERRNOREG
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RDIMM
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: RDIMMGCR1
+      :addr: 45
+      :fields:
+      - :name: CRINIT
+        :pos: 16
+        :width: 16
+        :type: rw
+        :default: 65535
+      - :name: TBCMRD
+        :pos: 12
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: TBCSTAB
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 3200
+    - :name: RDIMMCR0
+      :addr: 46
+      :fields:
+      - :name: RC7
+        :pos: 28
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC6
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC5
+        :pos: 20
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC4
+        :pos: 16
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC3
+        :pos: 12
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC2
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC1
+        :pos: 4
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC0
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: RDIMMCR1
+      :addr: 47
+      :fields:
+      - :name: RC15
+        :pos: 28
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC14
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC13
+        :pos: 20
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC12
+        :pos: 16
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC11
+        :pos: 12
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC10
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC9
+        :pos: 4
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: RC8
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: DCUAR
+      :addr: 48
+      :fields:
+      - :name: ATYPE
+        :pos: 11
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: INCA
+        :pos: 10
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CSEL
+        :pos: 8
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: CSADDR
+        :pos: 4
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: CWADDR
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: DCUDR
+      :addr: 49
+      :fields:
+      - :name: CDATA
+        :pos: 0
+        :width: 32
+        :type: rw
+        :default: 0
+    - :name: DCURR
+      :addr: 50
+      :fields:
+      - :name: XCEN
+        :pos: 23
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RCEN
+        :pos: 22
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: SCOF
+        :pos: 21
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: SONF
+        :pos: 20
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: NFAIL
+        :pos: 12
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: EADDR
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: SADDR
+        :pos: 4
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: DINST
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: DCULR
+      :addr: 51
+      :fields:
+      - :name: XLEADDR
+        :pos: 28
+        :width: 4
+        :type: rw
+        :default: 15
+      - :name: IDA
+        :pos: 17
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: LINF
+        :pos: 16
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: LCNT
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: LEADDR
+        :pos: 4
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: LSADDR
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: DCUGCR
+      :addr: 52
+      :fields:
+      - :name: RCSW
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 0
+    - :name: DCUTPR
+      :addr: 53
+      :fields:
+      - :name: TDCUT3
+        :pos: 24
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: TDCUT2
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: TDCUT1
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: TDCUT0
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: DCUSR0
+      :addr: 54
+      :fields:
+      - :name: CFULL
+        :pos: 2
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: CFAIL
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RDONE
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: DCUSR1
+      :addr: 55
+      :fields:
+      - :name: LPCNT
+        :pos: 24
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: FLCNT
+        :pos: 16
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: RDCNT
+        :pos: 0
+        :width: 16
+        :type: ro
+        :default: 0
+    - :name: BISTRR
+      :addr: 64
+      :fields:
+      - :name: BCCSEL
+        :pos: 25
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: BCKSEL
+        :pos: 23
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: BDXSEL
+        :pos: 19
+        :width: 4
+        :type: rw
+        :default: 15
+      - :name: BDPAT
+        :pos: 17
+        :width: 2
+        :type: rw
+        :default: 15
+      - :name: BDMEN
+        :pos: 16
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: BACEN
+        :pos: 15
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: BDXEN
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: BSONF
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: NFAIL
+        :pos: 5
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: BINF
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: BMODE
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: BINST
+        :pos: 0
+        :width: 3
+        :type: rw
+        :default: 0
+    - :name: BISTWCR
+      :addr: 65
+      :fields:
+      - :name: BWCNT
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 32
+    - :name: BISTMSKR0
+      :addr: 66
+      :fields:
+      - :name: ODTMSK
+        :pos: 28
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: CSMSK
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: CKEMSK
+        :pos: 20
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: WEMSK
+        :pos: 19
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: BAMSK
+        :pos: 16
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: AMSK
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 0
+    - :name: BISTMSKR1
+      :addr: 67
+      :fields:
+      - :name: DMMSK
+        :pos: 28
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: PARMSK
+        :pos: 27
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CASMSK
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RASMSK
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: BISTMSKR2
+      :addr: 68
+      :fields:
+      - :name: DQMSK
+        :pos: 0
+        :width: 32
+        :type: rw
+        :default: 0
+    - :name: BISTLSR
+      :addr: 69
+      :fields:
+      - :name: SEED
+        :pos: 0
+        :width: 32
+        :type: rw
+        :default: 305441741
+    - :name: BISTAR0
+      :addr: 70
+      :fields:
+      - :name: BBANK
+        :pos: 28
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: BROW
+        :pos: 12
+        :width: 16
+        :type: rw
+        :default: 0
+      - :name: BCOL
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 0
+    - :name: BISTAR1
+      :addr: 71
+      :fields:
+      - :name: BAINC
+        :pos: 4
+        :width: 12
+        :type: rw
+        :default: 0
+      - :name: BMRANK
+        :pos: 2
+        :width: 2
+        :type: rw
+        :default: 3
+      - :name: BRANK
+        :pos: 0
+        :width: 2
+        :type: rw
+        :default: 0
+    - :name: BISTAR2
+      :addr: 72
+      :fields:
+      - :name: BMBANK
+        :pos: 28
+        :width: 3
+        :type: rw
+        :default: 7
+      - :name: BMROW
+        :pos: 12
+        :width: 16
+        :type: ro
+        :default: 65535
+      - :name: BMCOL
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 4095
+    - :name: BISTUDPR
+      :addr: 73
+      :fields:
+      - :name: BUDP1
+        :pos: 16
+        :width: 16
+        :type: rw
+        :default: 65535
+      - :name: BUDP0
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 0
+    - :name: BISTGSR
+      :addr: 74
+      :fields:
+      - :name: CASBER
+        :pos: 30
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: RASBER
+        :pos: 28
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: DMBER
+        :pos: 20
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: PARBER
+        :pos: 16
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: BDXERR
+        :pos: 2
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: BACERR
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: BDONE
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: BISTWER
+      :addr: 75
+      :fields:
+      - :name: DXWER
+        :pos: 16
+        :width: 16
+        :type: ro
+        :default: 0
+      - :name: ACWER
+        :pos: 0
+        :width: 16
+        :type: ro
+        :default: 0
+    - :name: BISTBER0
+      :addr: 76
+      :fields:
+      - :name: ABER
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 0
+    - :name: BISTBER1
+      :addr: 77
+      :fields:
+      - :name: ODTBER
+        :pos: 24
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: CSBER
+        :pos: 16
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: CKEBER
+        :pos: 8
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: WEBER
+        :pos: 6
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: BABER
+        :pos: 0
+        :width: 6
+        :type: ro
+        :default: 0
+    - :name: BISTBER2
+      :addr: 78
+      :fields:
+      - :name: DQBER0
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 0
+    - :name: BISTBER3
+      :addr: 79
+      :fields:
+      - :name: DQBER1
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 0
+    - :name: BISTWCSR
+      :addr: 80
+      :fields:
+      - :name: DXWCNT
+        :pos: 16
+        :width: 16
+        :type: ro
+        :default: 0
+      - :name: ACWCNT
+        :pos: 0
+        :width: 16
+        :type: ro
+        :default: 0
+    - :name: BISTFWR0
+      :addr: 81
+      :fields:
+      - :name: ODTWEBS
+        :pos: 28
+        :width: 4
+        :type: ro
+        :default: 0
+      - :name: CSWEBS
+        :pos: 24
+        :width: 4
+        :type: ro
+        :default: 0
+      - :name: CKEWEBS
+        :pos: 20
+        :width: 4
+        :type: ro
+        :default: 0
+      - :name: WEWEBS
+        :pos: 19
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: BAWEBS
+        :pos: 16
+        :width: 3
+        :type: ro
+        :default: 0
+      - :name: AWEBS
+        :pos: 0
+        :width: 16
+        :type: ro
+        :default: 0
+    - :name: BISTFWR1
+      :addr: 82
+      :fields:
+      - :name: DMWEBS
+        :pos: 28
+        :width: 4
+        :type: ro
+        :default: 0
+      - :name: PARWEBS
+        :pos: 26
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: CASWEBS
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RASWEBS
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: BISTFWR2
+      :addr: 83
+      :fields:
+      - :name: DQWEBS
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 0
+    - :name: AACR
+      :addr: 93
+      :fields:
+      - :name: AAOENC
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: AAENC
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: AATR
+        :pos: 0
+        :width: 30
+        :type: rw
+        :default: 255
+    - :name: ZQ0CR0
+      :addr: 96
+      :fields:
+      - :name: ZQ0_ZQPD
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ0_ZCALEN
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ZQ0_ZCALBYP
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ0_ZDEN
+        :pos: 28
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ0_ZDATA
+        :pos: 0
+        :width: 28
+        :type: rw
+        :default: 330
+    - :name: ZQ0CR1
+      :addr: 97
+      :fields:
+      - :name: ZQ0_DFIPU1
+        :pos: 17
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ0_DFIPU0
+        :pos: 16
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ0_DFICCU
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ0_DFICU1
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ0_DFICU0
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ZQ0_ZPROG
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 123
+    - :name: ZQ0SR0
+      :addr: 98
+      :fields:
+      - :name: ZQ0_ZDONE
+        :pos: 31
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: ZQ0_ZERR
+        :pos: 30
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: ZQ0_ZCTRL
+        :pos: 0
+        :width: 28
+        :type: ro
+        :default: 330
+    - :name: ZQ0SR1
+      :addr: 99
+      :fields:
+      - :name: ZQ0_OPU
+        :pos: 6
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: ZQ0_OPD
+        :pos: 4
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: ZQ0_ZPU
+        :pos: 2
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: ZQ0_ZPD
+        :pos: 0
+        :width: 2
+        :type: ro
+        :default: 0
+    - :name: ZQ1CR0
+      :addr: 100
+      :fields:
+      - :name: ZQ1_ZQPD
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ1_ZCALEN
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ZQ1_ZCALBYP
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ1_ZDEN
+        :pos: 28
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ1_ZDATA
+        :pos: 0
+        :width: 28
+        :type: rw
+        :default: 330
+    - :name: ZQ1CR1
+      :addr: 101
+      :fields:
+      - :name: ZQ1_DFIPU1
+        :pos: 17
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ1_DFIPU0
+        :pos: 16
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ1_DFICCU
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ1_DFICU1
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ1_DFICU0
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ZQ1_ZPROG
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 123
+    - :name: ZQ1SR0
+      :addr: 102
+      :fields:
+      - :name: ZQ1_ZDONE
+        :pos: 31
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: ZQ1_ZERR
+        :pos: 30
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: ZQ1_ZCTRL
+        :pos: 0
+        :width: 28
+        :type: ro
+        :default: 330
+    - :name: ZQ1SR1
+      :addr: 103
+      :fields:
+      - :name: ZQ1_OPU
+        :pos: 6
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: ZQ1_OPD
+        :pos: 4
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: ZQ1_ZPU
+        :pos: 2
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: ZQ1_ZPD
+        :pos: 0
+        :width: 2
+        :type: ro
+        :default: 0
+    - :name: DX0GCR
+      :addr: 112
+      :fields:
+      - :name: DX0_CALBYP
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_MDLEN
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DX0_WLRKEN
+        :pos: 26
+        :width: 4
+        :type: rw
+        :default: 15
+      - :name: DX0_PLLBYP
+        :pos: 19
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_GSHIFT
+        :pos: 18
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_PLLPD
+        :pos: 17
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_PLLRST
+        :pos: 16
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_DXOEO
+        :pos: 14
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: DX0_RTTOAL
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_RTTOH
+        :pos: 11
+        :width: 2
+        :type: rw
+        :default: 1
+      - :name: DX0_DQRTT
+        :pos: 10
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DX0_DQSRTT
+        :pos: 9
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DX0_DSEN
+        :pos: 7
+        :width: 2
+        :type: rw
+        :default: 1
+      - :name: DX0_DQSRPD
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_DXPDR
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_DXPDD
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_DXIOM
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_DQODT
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_DQSODT
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX0_DXEN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: DX0GSR0
+      :addr: 113
+      :fields:
+      - :name: DX0_WLDQ
+        :pos: 28
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_QSGERR
+        :pos: 24
+        :width: 4
+        :type: ro
+        :default: 0
+      - :name: DX0_GDQSPRD
+        :pos: 16
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: DX0_DPLOCK
+        :pos: 15
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_WLPRD
+        :pos: 7
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: DX0_WLERR
+        :pos: 6
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_WLDONE
+        :pos: 5
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_WLCAL
+        :pos: 4
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_GDQSCAL
+        :pos: 3
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_RDQSCAL
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_WDQCAL
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: DX0GSR1
+      :addr: 114
+      :fields:
+      - :name: DX0_DLTCODE
+        :pos: 1
+        :width: 24
+        :type: ro
+        :default: 0
+      - :name: DX0_DLTDONE
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: DX0BDLR0
+      :addr: 115
+      :fields:
+      - :name: DX0_DQ4WBD
+        :pos: 24
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ3WBD
+        :pos: 18
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ2WBD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ1WBD
+        :pos: 6
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ0WBD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: DX0BDLR1
+      :addr: 116
+      :fields:
+      - :name: DX0_DSWBD
+        :pos: 24
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DMWBD
+        :pos: 18
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ7WBD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ6WBD
+        :pos: 6
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ5WBD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: DX0BDLR2
+      :addr: 117
+      :fields:
+      - :name: DX0_DSRBD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQOEBD
+        :pos: 6
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DSOEBD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: DX0BDLR3
+      :addr: 118
+      :fields:
+      - :name: DX0_DQ4RBD
+        :pos: 24
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ3RBD
+        :pos: 18
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ2RBD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ1RBD
+        :pos: 6
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ0RBD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: DX0BDLR4
+      :addr: 119
+      :fields:
+      - :name: DX0_DMRBD
+        :pos: 18
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ7RBD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ6RBD
+        :pos: 6
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX0_DQ5RBD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: DX0LCDLR0
+      :addr: 120
+      :fields:
+      - :name: DX0_R3WLD
+        :pos: 24
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX0_R2WLD
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX0_R1WLD
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX0_R0WLD
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: DX0LCDLR1
+      :addr: 121
+      :fields:
+      - :name: DX0_RDQSD
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX0_WDQD
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: DX0LCDLR2
+      :addr: 122
+      :fields:
+      - :name: DX0_R3DQSGD
+        :pos: 24
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX0_R2DQSGD
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX0_R1DQSGD
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX0_R0DQSGD
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: DX0MDLR
+      :addr: 123
+      :fields:
+      - :name: DX0_MDLD
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX0_TPRD
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX0_IPRD
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: DX0GTR
+      :addr: 124
+      :fields:
+      - :name: DX0_WLSL
+        :pos: 12
+        :width: 8
+        :type: rw
+        :default: 85
+      - :name: DX0_DGSL
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 0
+    - :name: DX0GSR2
+      :addr: 125
+      :fields:
+      - :name: DX0_ESTAT
+        :pos: 8
+        :width: 4
+        :type: ro
+        :default: 0
+      - :name: DX0_WEWN
+        :pos: 7
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_WEERR
+        :pos: 6
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_REWN
+        :pos: 5
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_REERR
+        :pos: 4
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_WDWN
+        :pos: 3
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_WDERR
+        :pos: 2
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_RDWN
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX0_RDERR
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: DX1GCR
+      :addr: 128
+      :fields:
+      - :name: DX1_CALBYP
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_MDLEN
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DX1_WLRKEN
+        :pos: 26
+        :width: 4
+        :type: rw
+        :default: 15
+      - :name: DX1_PLLBYP
+        :pos: 19
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_GSHIFT
+        :pos: 18
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_PLLPD
+        :pos: 17
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_PLLRST
+        :pos: 16
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_DXOEO
+        :pos: 14
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: DX1_RTTOAL
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_RTTOH
+        :pos: 11
+        :width: 2
+        :type: rw
+        :default: 1
+      - :name: DX1_DQRTT
+        :pos: 10
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DX1_DQSRTT
+        :pos: 9
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DX1_DSEN
+        :pos: 7
+        :width: 2
+        :type: rw
+        :default: 1
+      - :name: DX1_DQSRPD
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_DXPDR
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_DXPDD
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_DXIOM
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_DQODT
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_DQSODT
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DX1_DXEN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: DX1GSR0
+      :addr: 129
+      :fields:
+      - :name: DX1_WLDQ
+        :pos: 28
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_QSGERR
+        :pos: 24
+        :width: 4
+        :type: ro
+        :default: 0
+      - :name: DX1_GDQSPRD
+        :pos: 16
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: DX1_DPLOCK
+        :pos: 15
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_WLPRD
+        :pos: 7
+        :width: 8
+        :type: ro
+        :default: 0
+      - :name: DX1_WLERR
+        :pos: 6
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_WLDONE
+        :pos: 5
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_WLCAL
+        :pos: 4
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_GDQSCAL
+        :pos: 3
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_RDQSCAL
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_WDQCAL
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: DX1GSR1
+      :addr: 130
+      :fields:
+      - :name: DX1_DLTCODE
+        :pos: 1
+        :width: 24
+        :type: ro
+        :default: 0
+      - :name: DX1_DLTDONE
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: DX1BDLR0
+      :addr: 131
+      :fields:
+      - :name: DX1_DQ4WBD
+        :pos: 24
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ3WBD
+        :pos: 18
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ2WBD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ1WBD
+        :pos: 6
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ0WBD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: DX1BDLR1
+      :addr: 132
+      :fields:
+      - :name: DX1_DSWBD
+        :pos: 24
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DMWBD
+        :pos: 18
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ7WBD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ6WBD
+        :pos: 6
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ5WBD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: DX1BDLR2
+      :addr: 133
+      :fields:
+      - :name: DX1_DSRBD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQOEBD
+        :pos: 6
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DSOEBD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: DX1BDLR3
+      :addr: 134
+      :fields:
+      - :name: DX1_DQ4RBD
+        :pos: 24
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ3RBD
+        :pos: 18
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ2RBD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ1RBD
+        :pos: 6
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ0RBD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: DX1BDLR4
+      :addr: 135
+      :fields:
+      - :name: DX1_DMRBD
+        :pos: 18
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ7RBD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ6RBD
+        :pos: 6
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DX1_DQ5RBD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: DX1LCDLR0
+      :addr: 136
+      :fields:
+      - :name: DX1_R3WLD
+        :pos: 24
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX1_R2WLD
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX1_R1WLD
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX1_R0WLD
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: DX1LCDLR1
+      :addr: 137
+      :fields:
+      - :name: DX1_RDQSD
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX1_WDQD
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: DX1LCDLR2
+      :addr: 138
+      :fields:
+      - :name: DX1_R3DQSGD
+        :pos: 24
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX1_R2DQSGD
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX1_R1DQSGD
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX1_R0DQSGD
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: DX1MDLR
+      :addr: 139
+      :fields:
+      - :name: DX1_MDLD
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX1_TPRD
+        :pos: 8
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: DX1_IPRD
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: DX1GTR
+      :addr: 140
+      :fields:
+      - :name: DX1_WLSL
+        :pos: 12
+        :width: 8
+        :type: rw
+        :default: 85
+      - :name: DX1_DGSL
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 0
+    - :name: DX1GSR2
+      :addr: 141
+      :fields:
+      - :name: DX1_ESTAT
+        :pos: 8
+        :width: 4
+        :type: ro
+        :default: 0
+      - :name: DX1_WEWN
+        :pos: 7
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_WEERR
+        :pos: 6
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_REWN
+        :pos: 5
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_REERR
+        :pos: 4
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_WDWN
+        :pos: 3
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_WDERR
+        :pos: 2
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_RDWN
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DX1_RDERR
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+- :name: DDR_UMCTL2
+  :region: amba_axi_top
+  :toffset: 939524096
+  :offset: 131072
+  :groups:
+  - :name: UMCTL2_REGS
+    :offset: 0
+    :registers:
+    - :name: MSTR
+      :addr: 0
+      :fields:
+      - :name: ACTIVE_RANKS
+        :pos: 24
+        :width: 2
+        :type: rw
+        :default: 3
+      - :name: BURST_RDWR
+        :pos: 16
+        :width: 4
+        :type: rw
+        :default: 4
+      - :name: DLL_OFF_MODE
+        :pos: 15
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DATA_BUS_WIDTH
+        :pos: 12
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: EN_2T_TIMING_MODE
+        :pos: 10
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: BURSTCHOP
+        :pos: 9
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DDR3
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: STAT
+      :addr: 1
+      :fields:
+      - :name: SELFREF_CAM_NOT_EMPTY
+        :pos: 12
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: SELFREF_TYPE
+        :pos: 4
+        :width: 2
+        :type: ro
+        :default: 0
+      - :name: OPERATING_MODE
+        :pos: 0
+        :width: 2
+        :type: ro
+        :default: 0
+    - :name: MRCTRL0
+      :addr: 4
+      :fields:
+      - :name: MR_WR
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: MR_ADDR
+        :pos: 12
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: MR_RANK
+        :pos: 4
+        :width: 2
+        :type: rw
+        :default: 3
+    - :name: MRCTRL1
+      :addr: 5
+      :fields:
+      - :name: MR_DATA
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 0
+    - :name: MRSTAT
+      :addr: 6
+      :fields:
+      - :name: MR_WR_BUSY
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: PWRCTL
+      :addr: 12
+      :fields:
+      - :name: DIS_CAM_DRAIN_SELFREF
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: SELFREF_SW
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: EN_DFI_DRAM_CLK_DISABLE
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: POWERDOWN_EN
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: SELFREF_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: PWRTMG
+      :addr: 13
+      :fields:
+      - :name: SELFREF_TO_X32
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 64
+      - :name: POWERDOWN_TO_X32
+        :pos: 0
+        :width: 5
+        :type: rw
+        :default: 16
+    - :name: HWLPCTL
+      :addr: 14
+      :fields:
+      - :name: HW_LP_IDLE_X32
+        :pos: 16
+        :width: 12
+        :type: rw
+        :default: 0
+      - :name: HW_LP_EXIT_IDLE_EN
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: HW_LP_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: RFSHCTL0
+      :addr: 20
+      :fields:
+      - :name: REFRESH_MARGIN
+        :pos: 20
+        :width: 4
+        :type: rw
+        :default: 2
+      - :name: REFRESH_TO_X1_X32
+        :pos: 12
+        :width: 5
+        :type: rw
+        :default: 16
+      - :name: REFRESH_BURST
+        :pos: 4
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: RFSHCTL1
+      :addr: 21
+      :fields:
+      - :name: REFRESH_TIMER1_START_VALUE_X32
+        :pos: 16
+        :width: 12
+        :type: rw
+        :default: 0
+      - :name: REFRESH_TIMER0_START_VALUE_X32
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 0
+    - :name: RFSHCTL3
+      :addr: 24
+      :fields:
+      - :name: REFRESH_UPDATE_LEVEL
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIS_AUTO_REFRESH
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: RFSHTMG
+      :addr: 25
+      :fields:
+      - :name: T_RFC_NOM_X1_X32
+        :pos: 16
+        :width: 12
+        :type: rw
+        :default: 98
+      - :name: T_RFC_MIN
+        :pos: 0
+        :width: 10
+        :type: rw
+        :default: 140
+    - :name: ECCCFG0
+      :addr: 28
+      :fields:
+      - :name: ECC_REGION_MAP_GRANU
+        :pos: 30
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: ECC_REGION_MAP_OTHER
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ECC_AP_ERR_THRESHOLD
+        :pos: 24
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: BLK_CHANNEL_IDLE_TIME_X32
+        :pos: 16
+        :width: 6
+        :type: rw
+        :default: 63
+      - :name: ECC_REGION_MAP
+        :pos: 8
+        :width: 7
+        :type: rw
+        :default: 127
+      - :name: ECC_REGION_REMAP_EN
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ECC_AP_EN
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DIS_SCRUB
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ECC_MODE
+        :pos: 0
+        :width: 3
+        :type: rw
+        :default: 0
+    - :name: ECCCFG1
+      :addr: 29
+      :fields:
+      - :name: ACTIVE_BLK_CHANNEL
+        :pos: 8
+        :width: 5
+        :type: rw
+        :default: 3
+      - :name: BLK_CHANNEL_ACTIVE_TERM
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ECC_REGION_WASTE_LOCK
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ECC_REGION_PARITY_LOCK
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: DATA_POISON_BIT
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DATA_POISON_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: ECCSTAT
+      :addr: 30
+      :fields:
+      - :name: ECC_UNCORRECTED_ERR
+        :pos: 16
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: ECC_CORRECTED_ERR
+        :pos: 8
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: ECC_CORRECTED_BIT_NUM
+        :pos: 0
+        :width: 7
+        :type: ro
+        :default: 0
+    - :name: ECCCTL
+      :addr: 31
+      :fields:
+      - :name: ECC_AP_ERR_INTR_FORCE
+        :pos: 18
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ECC_UNCORRECTED_ERR_INTR_FORCE
+        :pos: 17
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ECC_CORRECTED_ERR_INTR_FORCE
+        :pos: 16
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ECC_AP_ERR_INTR_EN
+        :pos: 10
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ECC_UNCORRECTED_ERR_INTR_EN
+        :pos: 9
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ECC_CORRECTED_ERR_INTR_EN
+        :pos: 8
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: ECC_AP_ERR_INTR_CLR
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ECC_UNCORR_ERR_CNT_CLR
+        :pos: 3
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ECC_CORR_ERR_CNT_CLR
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ECC_UNCORRECTED_ERR_CLR
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ECC_CORRECTED_ERR_CLR
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: ECCERRCNT
+      :addr: 32
+      :fields:
+      - :name: ECC_UNCORR_ERR_CNT
+        :pos: 16
+        :width: 16
+        :type: ro
+        :default: 0
+      - :name: ECC_CORR_ERR_CNT
+        :pos: 0
+        :width: 16
+        :type: ro
+        :default: 0
+    - :name: ECCCADDR0
+      :addr: 33
+      :fields:
+      - :name: ECC_CORR_RANK
+        :pos: 24
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: ECC_CORR_ROW
+        :pos: 0
+        :width: 16
+        :type: ro
+        :default: 0
+    - :name: ECCCADDR1
+      :addr: 34
+      :fields:
+      - :name: ECC_CORR_BANK
+        :pos: 16
+        :width: 3
+        :type: ro
+        :default: 0
+      - :name: ECC_CORR_COL
+        :pos: 0
+        :width: 12
+        :type: ro
+        :default: 0
+    - :name: ECCCSYN0
+      :addr: 35
+      :fields:
+      - :name: ECC_CORR_SYNDROMES_31_0
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 0
+    - :name: ECCCSYN1
+      :addr: 36
+      :fields:
+      - :name: ECC_CORR_SYNDROMES_63_32
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 0
+    - :name: ECCCSYN2
+      :addr: 37
+      :fields:
+      - :name: ECC_CORR_SYNDROMES_71_64
+        :pos: 0
+        :width: 8
+        :type: ro
+        :default: 0
+    - :name: ECCBITMASK0
+      :addr: 38
+      :fields:
+      - :name: ECC_CORR_BIT_MASK_31_0
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 0
+    - :name: ECCBITMASK1
+      :addr: 39
+      :fields:
+      - :name: ECC_CORR_BIT_MASK_63_32
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 0
+    - :name: ECCBITMASK2
+      :addr: 40
+      :fields:
+      - :name: ECC_CORR_BIT_MASK_71_64
+        :pos: 0
+        :width: 8
+        :type: ro
+        :default: 0
+    - :name: ECCUADDR0
+      :addr: 41
+      :fields:
+      - :name: ECC_UNCORR_RANK
+        :pos: 24
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: ECC_UNCORR_ROW
+        :pos: 0
+        :width: 16
+        :type: ro
+        :default: 0
+    - :name: ECCUADDR1
+      :addr: 42
+      :fields:
+      - :name: ECC_UNCORR_BANK
+        :pos: 16
+        :width: 3
+        :type: ro
+        :default: 0
+      - :name: ECC_UNCORR_COL
+        :pos: 0
+        :width: 12
+        :type: ro
+        :default: 0
+    - :name: ECCUSYN0
+      :addr: 43
+      :fields:
+      - :name: ECC_UNCORR_SYNDROMES_31_0
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 0
+    - :name: ECCUSYN1
+      :addr: 44
+      :fields:
+      - :name: ECC_UNCORR_SYNDROMES_63_32
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 0
+    - :name: ECCUSYN2
+      :addr: 45
+      :fields:
+      - :name: ECC_UNCORR_SYNDROMES_71_64
+        :pos: 0
+        :width: 8
+        :type: ro
+        :default: 0
+    - :name: ECCPOISONADDR0
+      :addr: 46
+      :fields:
+      - :name: ECC_POISON_RANK
+        :pos: 24
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ECC_POISON_COL
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 0
+    - :name: ECCPOISONADDR1
+      :addr: 47
+      :fields:
+      - :name: ECC_POISON_BANK
+        :pos: 24
+        :width: 3
+        :type: rw
+        :default: 0
+      - :name: ECC_POISON_ROW
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 0
+    - :name: CRCPARCTL0
+      :addr: 48
+      :fields:
+      - :name: DFI_ALERT_ERR_CNT_CLR
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DFI_ALERT_ERR_INT_CLR
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DFI_ALERT_ERR_INT_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: CRCPARSTAT
+      :addr: 51
+      :fields:
+      - :name: DFI_ALERT_ERR_INT
+        :pos: 16
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DFI_ALERT_ERR_CNT
+        :pos: 0
+        :width: 16
+        :type: ro
+        :default: 0
+    - :name: INIT0
+      :addr: 52
+      :fields:
+      - :name: SKIP_DRAM_INIT
+        :pos: 30
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: POST_CKE_X1024
+        :pos: 16
+        :width: 10
+        :type: rw
+        :default: 2
+      - :name: PRE_CKE_X1024
+        :pos: 0
+        :width: 12
+        :type: rw
+        :default: 78
+    - :name: INIT1
+      :addr: 53
+      :fields:
+      - :name: DRAM_RSTN_X1024
+        :pos: 16
+        :width: 9
+        :type: rw
+        :default: 0
+      - :name: PRE_OCD_X32
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: INIT3
+      :addr: 55
+      :fields:
+      - :name: MR
+        :pos: 16
+        :width: 16
+        :type: rw
+        :default: 0
+      - :name: EMR
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 1296
+    - :name: INIT4
+      :addr: 56
+      :fields:
+      - :name: EMR2
+        :pos: 16
+        :width: 16
+        :type: rw
+        :default: 0
+      - :name: EMR3
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 0
+    - :name: INIT5
+      :addr: 57
+      :fields:
+      - :name: DEV_ZQINIT_X32
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 16
+    - :name: DIMMCTL
+      :addr: 60
+      :fields:
+      - :name: DIMM_ADDR_MIRR_EN
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIMM_STAGGER_CS_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: RANKCTL
+      :addr: 61
+      :fields:
+      - :name: DIFF_RANK_WR_GAP_MSB
+        :pos: 26
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIFF_RANK_RD_GAP_MSB
+        :pos: 24
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: MAX_RANK_WR
+        :pos: 12
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: DIFF_RANK_WR_GAP
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 6
+      - :name: DIFF_RANK_RD_GAP
+        :pos: 4
+        :width: 4
+        :type: rw
+        :default: 6
+      - :name: MAX_RANK_RD
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 15
+    - :name: DRAMTMG0
+      :addr: 64
+      :fields:
+      - :name: WR2PRE
+        :pos: 24
+        :width: 7
+        :type: rw
+        :default: 15
+      - :name: T_FAW
+        :pos: 16
+        :width: 6
+        :type: rw
+        :default: 16
+      - :name: T_RAS_MAX
+        :pos: 8
+        :width: 7
+        :type: rw
+        :default: 27
+      - :name: T_RAS_MIN
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 15
+    - :name: DRAMTMG1
+      :addr: 65
+      :fields:
+      - :name: T_XP
+        :pos: 16
+        :width: 5
+        :type: rw
+        :default: 8
+      - :name: RD2PRE
+        :pos: 8
+        :width: 6
+        :type: rw
+        :default: 4
+      - :name: T_RC
+        :pos: 0
+        :width: 7
+        :type: rw
+        :default: 20
+    - :name: DRAMTMG2
+      :addr: 66
+      :fields:
+      - :name: RD2WR
+        :pos: 8
+        :width: 6
+        :type: rw
+        :default: 6
+      - :name: WR2RD
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 13
+    - :name: DRAMTMG3
+      :addr: 67
+      :fields:
+      - :name: T_MRD
+        :pos: 12
+        :width: 6
+        :type: rw
+        :default: 4
+      - :name: T_MOD
+        :pos: 0
+        :width: 10
+        :type: rw
+        :default: 12
+    - :name: DRAMTMG4
+      :addr: 68
+      :fields:
+      - :name: T_RCD
+        :pos: 24
+        :width: 5
+        :type: rw
+        :default: 5
+      - :name: T_CCD
+        :pos: 16
+        :width: 4
+        :type: rw
+        :default: 4
+      - :name: T_RRD
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 4
+      - :name: T_RP
+        :pos: 0
+        :width: 5
+        :type: rw
+        :default: 5
+    - :name: DRAMTMG5
+      :addr: 69
+      :fields:
+      - :name: T_CKSRX
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 5
+      - :name: T_CKSRE
+        :pos: 16
+        :width: 7
+        :type: rw
+        :default: 5
+      - :name: T_CKESR
+        :pos: 8
+        :width: 6
+        :type: rw
+        :default: 4
+      - :name: T_CKE
+        :pos: 0
+        :width: 5
+        :type: rw
+        :default: 3
+    - :name: DRAMTMG8
+      :addr: 72
+      :fields:
+      - :name: T_XS_DLL_X32
+        :pos: 8
+        :width: 7
+        :type: rw
+        :default: 68
+      - :name: T_XS_X32
+        :pos: 0
+        :width: 7
+        :type: rw
+        :default: 5
+    - :name: DRAMTMG15
+      :addr: 79
+      :fields:
+      - :name: EN_DFI_LP_T_STAB
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: T_STAB_X32
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: ZQCTL0
+      :addr: 96
+      :fields:
+      - :name: DIS_AUTO_ZQ
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIS_SRX_ZQCL
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ_RESISTOR_SHARED
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: T_ZQ_LONG_NOP
+        :pos: 16
+        :width: 11
+        :type: rw
+        :default: 512
+      - :name: T_ZQ_SHORT_NOP
+        :pos: 0
+        :width: 10
+        :type: rw
+        :default: 64
+    - :name: ZQCTL1
+      :addr: 97
+      :fields:
+      - :name: T_ZQ_SHORT_INTERVAL_X1024
+        :pos: 0
+        :width: 20
+        :type: rw
+        :default: 256
+    - :name: DFITMG0
+      :addr: 100
+      :fields:
+      - :name: DFI_T_CTRL_DELAY
+        :pos: 24
+        :width: 5
+        :type: rw
+        :default: 7
+      - :name: DFI_RDDATA_USE_DFI_PHY_CLK
+        :pos: 23
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DFI_T_RDDATA_EN
+        :pos: 16
+        :width: 7
+        :type: rw
+        :default: 2
+      - :name: DFI_WRDATA_USE_DFI_PHY_CLK
+        :pos: 15
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DFI_TPHY_WRDATA
+        :pos: 8
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: DFI_TPHY_WRLAT
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 2
+    - :name: DFITMG1
+      :addr: 101
+      :fields:
+      - :name: DFI_T_PARIN_LAT
+        :pos: 24
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: DFI_T_WRDATA_DELAY
+        :pos: 16
+        :width: 5
+        :type: rw
+        :default: 0
+      - :name: DFI_T_DRAM_CLK_DISABLE
+        :pos: 8
+        :width: 5
+        :type: rw
+        :default: 4
+      - :name: DFI_T_DRAM_CLK_ENABLE
+        :pos: 0
+        :width: 5
+        :type: rw
+        :default: 4
+    - :name: DFILPCFG0
+      :addr: 102
+      :fields:
+      - :name: DFI_TLP_RESP
+        :pos: 24
+        :width: 5
+        :type: rw
+        :default: 7
+      - :name: DFI_LP_WAKEUP_SR
+        :pos: 12
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: DFI_LP_EN_SR
+        :pos: 8
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DFI_LP_WAKEUP_PD
+        :pos: 4
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: DFI_LP_EN_PD
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: DFIUPD0
+      :addr: 104
+      :fields:
+      - :name: DIS_AUTO_CTRLUPD
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIS_AUTO_CTRLUPD_SRX
+        :pos: 30
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CTRLUPD_PRE_SRX
+        :pos: 29
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DFI_T_CTRLUP_MAX
+        :pos: 16
+        :width: 10
+        :type: rw
+        :default: 64
+      - :name: DFI_T_CTRLUP_MIN
+        :pos: 0
+        :width: 10
+        :type: rw
+        :default: 3
+    - :name: DFIUPD1
+      :addr: 105
+      :fields:
+      - :name: DFI_T_CTRLUPD_INTERVAL_MIN_X1024
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 1
+      - :name: DFI_T_CTRLUPD_INTERVAL_MAX_X1024
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 1
+    - :name: DFIUPD2
+      :addr: 106
+      :fields:
+      - :name: DFI_PHYUPD_EN
+        :pos: 31
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: DFIMISC
+      :addr: 108
+      :fields:
+      - :name: DFI_FREQUENCY
+        :pos: 8
+        :width: 5
+        :type: rw
+        :default: 0
+      - :name: DFI_INIT_START
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: CTL_IDLE_EN
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DFI_INIT_COMPLETE_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: DFISTAT
+      :addr: 111
+      :fields:
+      - :name: DFI_LP_ACK
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DFI_INIT_COMPLETE
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: DFIPHYMSTR
+      :addr: 113
+      :fields:
+      - :name: DFI_PHYMSTR_BLK_REF_X32
+        :pos: 24
+        :width: 8
+        :type: rw
+        :default: 128
+      - :name: DFI_PHYMSTR_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: ADDRMAP0
+      :addr: 128
+      :fields:
+      - :name: ADDRMAP_CS_BIT0
+        :pos: 0
+        :width: 5
+        :type: rw
+        :default: 0
+    - :name: ADDRMAP1
+      :addr: 129
+      :fields:
+      - :name: ADDRMAP_BANK_B2
+        :pos: 16
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_BANK_B1
+        :pos: 8
+        :width: 6
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_BANK_B0
+        :pos: 0
+        :width: 6
+        :type: rw
+        :default: 0
+    - :name: ADDRMAP2
+      :addr: 130
+      :fields:
+      - :name: ADDRMAP_COL_B5
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_COL_B4
+        :pos: 16
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_COL_B3
+        :pos: 8
+        :width: 5
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_COL_B2
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: ADDRMAP3
+      :addr: 131
+      :fields:
+      - :name: ADDRMAP_COL_B9
+        :pos: 24
+        :width: 5
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_COL_B8
+        :pos: 16
+        :width: 5
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_COL_B7
+        :pos: 8
+        :width: 5
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_COL_B6
+        :pos: 0
+        :width: 5
+        :type: rw
+        :default: 0
+    - :name: ADDRMAP4
+      :addr: 132
+      :fields:
+      - :name: ADDRMAP_COL_B11
+        :pos: 8
+        :width: 5
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_COL_B10
+        :pos: 0
+        :width: 5
+        :type: rw
+        :default: 0
+    - :name: ADDRMAP5
+      :addr: 133
+      :fields:
+      - :name: ADDRMAP_ROW_B11
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B2_10
+        :pos: 16
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B1
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B0
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: ADDRMAP6
+      :addr: 134
+      :fields:
+      - :name: ADDRMAP_ROW_B15
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B14
+        :pos: 16
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B13
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B12
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: ADDRMAP9
+      :addr: 137
+      :fields:
+      - :name: ADDRMAP_ROW_B5
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B4
+        :pos: 16
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B3
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B2
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: ADDRMAP10
+      :addr: 138
+      :fields:
+      - :name: ADDRMAP_ROW_B9
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B8
+        :pos: 16
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B7
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ADDRMAP_ROW_B6
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: ADDRMAP11
+      :addr: 139
+      :fields:
+      - :name: ADDRMAP_ROW_B10
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: ODTCFG
+      :addr: 144
+      :fields:
+      - :name: WR_ODT_HOLD
+        :pos: 24
+        :width: 4
+        :type: rw
+        :default: 4
+      - :name: WR_ODT_DELAY
+        :pos: 16
+        :width: 5
+        :type: rw
+        :default: 0
+      - :name: RD_ODT_HOLD
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 4
+      - :name: RD_ODT_DELAY
+        :pos: 2
+        :width: 5
+        :type: rw
+        :default: 0
+    - :name: ODTMAP
+      :addr: 145
+      :fields:
+      - :name: RANK1_RD_ODT
+        :pos: 12
+        :width: 2
+        :type: rw
+        :default: 2
+      - :name: RANK1_WR_ODT
+        :pos: 8
+        :width: 2
+        :type: rw
+        :default: 2
+      - :name: RANK0_RD_ODT
+        :pos: 4
+        :width: 2
+        :type: rw
+        :default: 1
+      - :name: RANK0_WR_ODT
+        :pos: 0
+        :width: 2
+        :type: rw
+        :default: 1
+    - :name: SCHED
+      :addr: 148
+      :fields:
+      - :name: RDWR_IDLE_GAP
+        :pos: 24
+        :width: 7
+        :type: rw
+        :default: 0
+      - :name: GO2CRITICAL_HYSTERESIS
+        :pos: 16
+        :width: 8
+        :type: rw
+        :default: 0
+      - :name: LPR_NUM_ENTRIES
+        :pos: 8
+        :width: 5
+        :type: rw
+        :default: 16
+      - :name: AUTOPRE_RMW
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PAGECLOSE
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: PREFER_WRITE
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIS_OPT_WRECC_COLLISION_FLUSH
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: SCHED1
+      :addr: 149
+      :fields:
+      - :name: PAGECLOSE_TIMER
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: PERFHPR1
+      :addr: 151
+      :fields:
+      - :name: HPR_XACT_RUN_LENGTH
+        :pos: 24
+        :width: 8
+        :type: rw
+        :default: 15
+      - :name: HPR_MAX_STARVE
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 1
+    - :name: PERFLPR1
+      :addr: 153
+      :fields:
+      - :name: LPR_XACT_RUN_LENGTH
+        :pos: 24
+        :width: 8
+        :type: rw
+        :default: 15
+      - :name: LPR_MAX_STARVE
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 127
+    - :name: PERFWR1
+      :addr: 155
+      :fields:
+      - :name: W_XACT_RUN_LENGTH
+        :pos: 24
+        :width: 8
+        :type: rw
+        :default: 15
+      - :name: W_MAX_STARVE
+        :pos: 0
+        :width: 16
+        :type: rw
+        :default: 127
+    - :name: DBG0
+      :addr: 192
+      :fields:
+      - :name: DIS_MAX_RANK_WR_OPT
+        :pos: 7
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIS_MAX_RANK_RD_OPT
+        :pos: 6
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIS_COLLISION_PAGE_OPT
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIS_WC
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: DBG1
+      :addr: 193
+      :fields:
+      - :name: DIS_HIF
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: DIS_DQ
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: DBGCAM
+      :addr: 194
+      :fields:
+      - :name: WR_DATA_PIPELINE_EMPTY
+        :pos: 29
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RD_DATA_PIPELINE_EMPTY
+        :pos: 28
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DBG_WR_Q_EMPTY
+        :pos: 26
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DBG_RD_Q_EMPTY
+        :pos: 25
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DBG_STALL
+        :pos: 24
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: DBG_W_Q_DEPTH
+        :pos: 16
+        :width: 6
+        :type: ro
+        :default: 0
+      - :name: DBG_LPR_Q_DEPTH
+        :pos: 8
+        :width: 6
+        :type: ro
+        :default: 0
+      - :name: DBG_HPR_Q_DEPTH
+        :pos: 0
+        :width: 6
+        :type: ro
+        :default: 0
+    - :name: DBGCMD
+      :addr: 195
+      :fields:
+      - :name: CTRLUPD
+        :pos: 5
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: ZQ_CALIB_SHORT
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RANK1_REFRESH
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RANK0_REFRESH
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: DBGSTAT
+      :addr: 196
+      :fields:
+      - :name: CTRLUPD_BUSY
+        :pos: 5
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: ZQ_CALIB_SHORT_BUSY
+        :pos: 4
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RANK1_REFRESH_BUSY
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RANK0_REFRESH_BUSY
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: DBGCAM1
+      :addr: 198
+      :fields:
+      - :name: DBG_WRECC_Q_DEPTH
+        :pos: 0
+        :width: 6
+        :type: ro
+        :default: 0
+    - :name: SWCTL
+      :addr: 200
+      :fields:
+      - :name: SW_DONE
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: SWSTAT
+      :addr: 201
+      :fields:
+      - :name: SW_DONE_ACK
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 1
+    - :name: SWCTLSTATIC
+      :addr: 202
+      :fields:
+      - :name: SW_STATIC_UNLOCK
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: POISONCFG
+      :addr: 219
+      :fields:
+      - :name: RD_POISON_INTR_CLR
+        :pos: 24
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RD_POISON_INTR_EN
+        :pos: 20
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: RD_POISON_SLVERR_EN
+        :pos: 16
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: WR_POISON_INTR_CLR
+        :pos: 8
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WR_POISON_INTR_EN
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: WR_POISON_SLVERR_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 1
+    - :name: POISONSTAT
+      :addr: 220
+      :fields:
+      - :name: RD_POISON_INTR_2
+        :pos: 18
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RD_POISON_INTR_1
+        :pos: 17
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RD_POISON_INTR_0
+        :pos: 16
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WR_POISON_INTR_2
+        :pos: 2
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WR_POISON_INTR_1
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WR_POISON_INTR_0
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: ADVECCINDEX
+      :addr: 221
+      :fields:
+      - :name: ECC_POISON_BEATS_SEL
+        :pos: 5
+        :width: 4
+        :type: rw
+        :default: 0
+      - :name: ECC_ERR_SYMBOL_SEL
+        :pos: 3
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: ECC_SYNDROME_SEL
+        :pos: 0
+        :width: 3
+        :type: rw
+        :default: 0
+    - :name: ECCPOISONPAT0
+      :addr: 223
+      :fields:
+      - :name: ECC_POISON_DATA_31_0
+        :pos: 0
+        :width: 32
+        :type: rw
+        :default: 0
+    - :name: ECCPOISONPAT2
+      :addr: 225
+      :fields:
+      - :name: ECC_POISON_DATA_71_64
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: ECCAPSTAT
+      :addr: 226
+      :fields:
+      - :name: ECC_AP_ERR
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+  - :name: UMCTL2_MP
+    :offset: 254
+    :registers:
+    - :name: PSTAT
+      :addr: 1
+      :fields:
+      - :name: WR_PORT_BUSY_2
+        :pos: 18
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WR_PORT_BUSY_1
+        :pos: 17
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: WR_PORT_BUSY_0
+        :pos: 16
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RD_PORT_BUSY_2
+        :pos: 2
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RD_PORT_BUSY_1
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: RD_PORT_BUSY_0
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: PCCFG
+      :addr: 2
+      :fields:
+      - :name: BL_EXP_MODE
+        :pos: 8
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: PAGEMATCH_LIMIT
+        :pos: 4
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: GO2CRITICAL_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: PCFGR_0
+      :addr: 3
+      :fields:
+      - :name: RD_PORT_PAGEMATCH_EN
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: RD_PORT_URGENT_EN
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RD_PORT_AGING_EN
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RD_PORT_PRIORITY
+        :pos: 0
+        :width: 10
+        :type: rw
+        :default: 0
+    - :name: PCFGW_0
+      :addr: 4
+      :fields:
+      - :name: WR_PORT_PAGEMATCH_EN
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: WR_PORT_URGENT_EN
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WR_PORT_AGING_EN
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WR_PORT_PRIORITY
+        :pos: 0
+        :width: 10
+        :type: rw
+        :default: 0
+    - :name: PCTRL_0
+      :addr: 38
+      :fields:
+      - :name: PORT_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: PCFGQOS0_0
+      :addr: 39
+      :fields:
+      - :name: RQOS_MAP_REGION1
+        :pos: 20
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: RQOS_MAP_REGION0
+        :pos: 16
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: RQOS_MAP_LEVEL1
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: PCFGQOS1_0
+      :addr: 40
+      :fields:
+      - :name: RQOS_MAP_TIMEOUTR
+        :pos: 16
+        :width: 11
+        :type: rw
+        :default: 0
+      - :name: RQOS_MAP_TIMEOUTB
+        :pos: 0
+        :width: 11
+        :type: rw
+        :default: 0
+    - :name: PCFGWQOS0_0
+      :addr: 41
+      :fields:
+      - :name: WQOS_MAP_REGION2
+        :pos: 24
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_REGION1
+        :pos: 20
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_REGION0
+        :pos: 16
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_LEVEL2
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 14
+      - :name: WQOS_MAP_LEVEL1
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: PCFGWQOS1_0
+      :addr: 42
+      :fields:
+      - :name: WQOS_MAP_TIMEOUT2
+        :pos: 16
+        :width: 11
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_TIMEOUT1
+        :pos: 0
+        :width: 11
+        :type: rw
+        :default: 0
+    - :name: PCFGR_1
+      :addr: 47
+      :fields:
+      - :name: RD_PORT_PAGEMATCH_EN
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: RD_PORT_URGENT_EN
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RD_PORT_AGING_EN
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RD_PORT_PRIORITY
+        :pos: 0
+        :width: 10
+        :type: rw
+        :default: 0
+    - :name: PCFGW_1
+      :addr: 48
+      :fields:
+      - :name: WR_PORT_PAGEMATCH_EN
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: WR_PORT_URGENT_EN
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WR_PORT_AGING_EN
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WR_PORT_PRIORITY
+        :pos: 0
+        :width: 10
+        :type: rw
+        :default: 0
+    - :name: PCTRL_1
+      :addr: 82
+      :fields:
+      - :name: PORT_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: PCFGQOS0_1
+      :addr: 83
+      :fields:
+      - :name: RQOS_MAP_REGION1
+        :pos: 20
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: RQOS_MAP_REGION0
+        :pos: 16
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: RQOS_MAP_LEVEL1
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: PCFGQOS1_1
+      :addr: 84
+      :fields:
+      - :name: RQOS_MAP_TIMEOUTR
+        :pos: 16
+        :width: 11
+        :type: rw
+        :default: 0
+      - :name: RQOS_MAP_TIMEOUTB
+        :pos: 0
+        :width: 11
+        :type: rw
+        :default: 0
+    - :name: PCFGWQOS0_1
+      :addr: 85
+      :fields:
+      - :name: WQOS_MAP_REGION2
+        :pos: 24
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_REGION1
+        :pos: 20
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_REGION0
+        :pos: 16
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_LEVEL2
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 14
+      - :name: WQOS_MAP_LEVEL1
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: PCFGWQOS1_1
+      :addr: 86
+      :fields:
+      - :name: WQOS_MAP_TIMEOUT2
+        :pos: 16
+        :width: 11
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_TIMEOUT1
+        :pos: 0
+        :width: 11
+        :type: rw
+        :default: 0
+    - :name: PCFGR_2
+      :addr: 91
+      :fields:
+      - :name: RD_PORT_PAGEMATCH_EN
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: RD_PORT_URGENT_EN
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RD_PORT_AGING_EN
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: RD_PORT_PRIORITY
+        :pos: 0
+        :width: 10
+        :type: rw
+        :default: 0
+    - :name: PCFGW_2
+      :addr: 92
+      :fields:
+      - :name: WR_PORT_PAGEMATCH_EN
+        :pos: 14
+        :width: 1
+        :type: rw
+        :default: 1
+      - :name: WR_PORT_URGENT_EN
+        :pos: 13
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WR_PORT_AGING_EN
+        :pos: 12
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: WR_PORT_PRIORITY
+        :pos: 0
+        :width: 10
+        :type: rw
+        :default: 0
+    - :name: PCTRL_2
+      :addr: 126
+      :fields:
+      - :name: PORT_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: PCFGQOS0_2
+      :addr: 127
+      :fields:
+      - :name: RQOS_MAP_REGION1
+        :pos: 20
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: RQOS_MAP_REGION0
+        :pos: 16
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: RQOS_MAP_LEVEL1
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: PCFGQOS1_2
+      :addr: 128
+      :fields:
+      - :name: RQOS_MAP_TIMEOUTR
+        :pos: 16
+        :width: 11
+        :type: rw
+        :default: 0
+      - :name: RQOS_MAP_TIMEOUTB
+        :pos: 0
+        :width: 11
+        :type: rw
+        :default: 0
+    - :name: PCFGWQOS0_2
+      :addr: 129
+      :fields:
+      - :name: WQOS_MAP_REGION2
+        :pos: 24
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_REGION1
+        :pos: 20
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_REGION0
+        :pos: 16
+        :width: 2
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_LEVEL2
+        :pos: 8
+        :width: 4
+        :type: rw
+        :default: 14
+      - :name: WQOS_MAP_LEVEL1
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: PCFGWQOS1_2
+      :addr: 130
+      :fields:
+      - :name: WQOS_MAP_TIMEOUT2
+        :pos: 16
+        :width: 11
+        :type: rw
+        :default: 0
+      - :name: WQOS_MAP_TIMEOUT1
+        :pos: 0
+        :width: 11
+        :type: rw
+        :default: 0
+    - :name: SARBASE0
+      :addr: 707
+      :fields:
+      - :name: BASE_ADDR
+        :pos: 0
+        :width: 3
+        :type: rw
+        :default: 0
+    - :name: SARSIZE0
+      :addr: 708
+      :fields:
+      - :name: NBLOCKS
+        :pos: 0
+        :width: 8
+        :type: rw
+        :default: 0
+    - :name: SBRCTL
+      :addr: 715
+      :fields:
+      - :name: SCRUB_INTERVAL
+        :pos: 8
+        :width: 13
+        :type: rw
+        :default: 255
+      - :name: SCRUB_BURST
+        :pos: 4
+        :width: 3
+        :type: rw
+        :default: 1
+      - :name: SCRUB_MODE
+        :pos: 2
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: SCRUB_DURING_LOWPOWER
+        :pos: 1
+        :width: 1
+        :type: rw
+        :default: 0
+      - :name: SCRUB_EN
+        :pos: 0
+        :width: 1
+        :type: rw
+        :default: 0
+    - :name: SBRSTAT
+      :addr: 716
+      :fields:
+      - :name: SCRUB_DONE
+        :pos: 1
+        :width: 1
+        :type: ro
+        :default: 0
+      - :name: SCRUB_BUSY
+        :pos: 0
+        :width: 1
+        :type: ro
+        :default: 0
+    - :name: SBRWDATA0
+      :addr: 717
+      :fields:
+      - :name: SCRUB_PATTERN0
+        :pos: 0
+        :width: 32
+        :type: rw
+        :default: 0
+    - :name: SBRSTART0
+      :addr: 720
+      :fields:
+      - :name: SBR_ADDRESS_START_MASK_0
+        :pos: 0
+        :width: 32
+        :type: rw
+        :default: 0
+    - :name: SBRSTART1
+      :addr: 721
+      :fields:
+      - :name: SBR_ADDRESS_START_MASK_1
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: SBRRANGE0
+      :addr: 722
+      :fields:
+      - :name: SBR_ADDRESS_RANGE_MASK_0
+        :pos: 0
+        :width: 32
+        :type: rw
+        :default: 0
+    - :name: SBRRANGE1
+      :addr: 723
+      :fields:
+      - :name: SBR_ADDRESS_RANGE_MASK_1
+        :pos: 0
+        :width: 4
+        :type: rw
+        :default: 0
+    - :name: UMCTL2_VER_NUMBER
+      :addr: 766
+      :fields:
+      - :name: VER_NUMBER
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 859385898
+    - :name: UMCTL2_VER_TYPE
+      :addr: 767
+      :fields:
+      - :name: VER_TYPE
+        :pos: 0
+        :width: 32
+        :type: ro
+        :default: 1734421034
