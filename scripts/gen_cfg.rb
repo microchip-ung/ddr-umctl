@@ -75,7 +75,7 @@ OptionParser.new do |opts|
         $option[:verbose] = true
         $l.level = Logger::INFO
     end
-    opts.on("-f", "--format <format>", %w(devicetree text), "Use format (devicetree, text)") do |f|
+    opts.on("-f", "--format <format>", %w(devicetree yaml), "Use format (devicetree, yaml)") do |f|
         $option[:format] = f
     end
 end.order!
