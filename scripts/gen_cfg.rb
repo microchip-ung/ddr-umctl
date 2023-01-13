@@ -10,13 +10,14 @@ require_relative 'soc/chip.rb'
 require_relative 'ddr/ddr_process.rb'
 require_relative 'ddr/ddr3.rb'
 
-def calc_value(reg, settings)
+def calc_value(reg, params)
     val = 0
     reg[:fields].each do|f|
-        fname = f[:name]
+        fname = f[:name].upcase
         fval = f[:default]
-        if settings.has_key?(fname)
-            fval = settings[fname]
+        if params.has_key?(fname)
+            $l.debug "#{reg[:name]}: Set #{fname} = #{params[fname]}"
+            fval = params[fname]
         end
         val += (fval << f[:pos])
     end
@@ -38,10 +39,10 @@ def get_config_regs()
     return regs
 end
 
-def convert_hex(regs, settings)
+def convert_hex(regs, params)
     values = Hash.new
     regs.each do|r, f|
-        values[r] = calc_value(f, settings[r])
+        values[r] = calc_value(f, params)
     end
     return values
 end
@@ -85,8 +86,6 @@ $config = Config.new()
 $chip = Chip.new($option[:platform])
 
 cfg_regs = get_config_regs()
-reg_settings = Hash.new
-cfg_regs.keys.map {|r| reg_settings[r] = Hash.new }
 
 # Load platform/memory parameters
 params = YAML::load_file(__dir__ + "/profiles/#{$option[:platform]}.yaml")
@@ -106,7 +105,13 @@ end
 # Calculate derived settings
 params = ddr_process(params)
 
+#
+params2 = Hash.new
+params.keys.each do |k|
+  params2[k.to_s.upcase] = params[k]
+end
+
 # Feed the chicken and go home
-hex_values = convert_hex(cfg_regs, reg_settings)
+hex_values = convert_hex(cfg_regs, params2)
 renderer = ERB.new(File.read(__dir__ + "/templates/#{$option[:format]}.erb"), nil, '-')
 puts renderer.result(binding)
