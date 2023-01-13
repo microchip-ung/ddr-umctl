@@ -103,13 +103,10 @@ else
     raise "Unsupported memory type: #{params[:mem_type]}"
 end
 
-pp params
-exit
-
 # Calculate derived settings
 params = ddr_process(params)
 
 # Feed the chicken and go home
 hex_values = convert_hex(cfg_regs, reg_settings)
-renderer = ERB.new(File.read(__dir__ + "/templates/$option[:format].erb"), nil, '-')
+renderer = ERB.new(File.read(__dir__ + "/templates/#{$option[:format]}.erb"), nil, '-')
 puts renderer.result(binding)

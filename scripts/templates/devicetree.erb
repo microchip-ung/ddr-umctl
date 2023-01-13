@@ -12,7 +12,7 @@
 
 <%- $config.groups.each do |rg| -%>
         microchip,<%= rg[:name] %>-reg = <
-<%- rg[:regs].each do |rname| -%>
+<%- rg[:regs].sort.each do |rname| -%>
 		<%= hex_values[rname] %>	/* <%= rname.downcase %> */
 <%- end -%>
 	>;

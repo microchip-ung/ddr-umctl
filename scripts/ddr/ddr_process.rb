@@ -4,8 +4,8 @@ def ddr_process(params)
     params[:phy_clk_period] = ddr_clk_ns
     params[:ctl_clk_period] = ddr_clk_ns
     params[:dfi_unit] = (1024 * params[:ctl_clk_period]).ceil()
-    params[:reset_period] = 200000; ## 200 us
-    params[:init_period]  = 500000; ## 500 us
+    params[:reset_period] = 200000 ## 200 us
+    params[:init_period]  = 500000 ## 500 us
     params[:wait_reset] = 12
     params[:wait_init]  = 30
 

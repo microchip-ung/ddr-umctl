@@ -404,7 +404,7 @@ end
 
 tDQSCK_DLLDIS =        tDQSCK;      #// tDQSCK     ps    for DLLDIS mode, timing not guaranteed
 
-case params["CONFIGURED_DQ_BITS"]
+case params[:CONFIGURED_DQ_BITS]
 when "x16"
     case params[:speed_grade]
     when "sg093"
@@ -465,8 +465,8 @@ end
     tCL_AVG_MAX =             0.53; #// tCL        tCK   Maximum Clock Low-Level Pulse Width
     tCH_ABS_MIN =             0.43; #// tCH        tCK   Minimum Clock High-Level Pulse Width
     tCL_ABS_MIN =             0.43; #// tCL        tCK   Maximum Clock Low-Level Pulse Width
-    params["tCK_min"] = tCK_MIN
-    params["tCKEc"] = ParamInClks(tCKE, tCK_MIN); #// tCKE       tCK   CKE minimum high or low pulse width
+    params[:tCK_min] = tCK_MIN
+    params[:tCKEc] = ParamInClks(tCKE, tCK_MIN); #// tCKE       tCK   CKE minimum high or low pulse width
     tAA_MAX =                 20000; #// TAA        ps    Internal READ command to first data
 
     #// Data OUT
@@ -482,89 +482,89 @@ end
     #// Command and Address
     #int   tZQCS;                   #// tZQCS      tCK   ZQ Cal (Short) time
     tZQinit =               640000; #// tZQinit    ps   ZQ Cal (Long) time
-    params["tZQinitc"] =    ParamInClks(tZQinit, tCK_MIN); #// tZQinit    tCK   ZQ Cal (Long) time
+    params[:tZQinitc] =    ParamInClks(tZQinit, tCK_MIN); #// tZQinit    tCK   ZQ Cal (Long) time
     #int   tZQOPER;                 #// tZQoper    tCK   ZQ Cal (Long) time
-    params["tCCDc"] =            4; #// tCCD       tCK   Cas to Cas command delay
-    params["tCCD_DGc"] =         2; #// tCCD_DG    tCK   Cas to Cas command delay to different group
+    params[:tCCDc] =            4; #// tCCD       tCK   Cas to Cas command delay
+    params[:tCCD_DGc] =         2; #// tCCD_DG    tCK   Cas to Cas command delay to different group
     tRAS_MAX =                60e9; #// tRAS       ps    Maximum Active to Precharge command time
     tWR =                    15000; #// tWR        ps    Write recovery time
-    params["tMRDc"] =            4; #// tMRD       tCK   Load Mode Register command cycle time
+    params[:tMRDc] =            4; #// tMRD       tCK   Load Mode Register command cycle time
     tMOD =                   15000; #// tMOD       ps    LOAD MODE to non-LOAD MODE command cycle time
     tMODc =                  ParamInClks(tMOD, tCK_MIN); #// tMOD       tCK   LOAD MODE to non-LOAD MODE command cycle time
-    params["tRRDc"] =        ParamInClks(tRRD, tCK_MIN); #// tRRD       tck   Active bank a to Active bank b command time
+    params[:tRRDc] =        ParamInClks(tRRD, tCK_MIN); #// tRRD       tck   Active bank a to Active bank b command time
     tRRD_DG =                 3000; #// tRRD_DG    ps    Active bank a to Active bank b command time to different group
-    params["tRRD_DGc"] =         2; #// tRRD_DG    tCK   Active bank a to Active bank b command time to different group
+    params[:tRRD_DGc] =         2; #// tRRD_DG    tCK   Active bank a to Active bank b command time to different group
     tRTP =                    7500; #// tRTP       ps    Read to Precharge command delay
-    params["tRTPc"] =        ParamInClks(tRTP, tCK_MIN); #// tRTP       tCK   Read to Precharge command delay
+    params[:tRTPc] =        ParamInClks(tRTP, tCK_MIN); #// tRTP       tCK   Read to Precharge command delay
     tWTR =                    7500; #// tWTR       ps    Write to Read command delay
     tWTR_DG =                 3750; #// tWTR_DG    ps    Write to Read command delay to different group
-    params["tWTRc"] =        ParamInClks(tWTR, tCK_MIN); #// tWTR       tCK   Write to Read command delay
-    params["tWTR_DGc"] =         2; #// tWTR_DG    tCK   Write to Read command delay to different group
-    params["tDLLKc"] =         512; #// tDLLK      tCK   DLL locking time
+    params[:tWTRc] =        ParamInClks(tWTR, tCK_MIN); #// tWTR       tCK   Write to Read command delay
+    params[:tWTR_DGc] =         2; #// tWTR_DG    tCK   Write to Read command delay to different group
+    params[:tDLLKc] =         512; #// tDLLK      tCK   DLL locking time
     #// Refresh - 4Gb
     tRFC_MIN =              260000; #// tRFC       ps    Refresh to Refresh Command interval minimum value
     tRFC_MAX =            70200000; #// tRFC       ps    Refresh to Refresh Command Interval maximum value
     #// Power Down
-    params["tXPc"] =         ParamInClks(tXP, tCK_MIN); #// tXP        tCK   Exit power down to a valid command
+    params[:tXPc] =         ParamInClks(tXP, tCK_MIN); #// tXP        tCK   Exit power down to a valid command
     tXPDLL =                 24000; #// tXPDLL     ps    Exit precharge power down to READ or WRITE command (DLL-off mode)
-    params["tXPDLLc"] =      ParamInClks(tXPDLL, tCK_MIN); #// tXPDLL     tCK   Exit precharge power down to READ or WRITE command (DLL-off mode)
-    params["tACTPDENc"] =        1; #// tACTPDEN   tCK   Timing of last ACT command to power down entry
-    params["tPRPDENc"] =         1; #// tPREPDEN   tCK   Timing of last PRE command to power down entry
-    params["tREFPDENc"] =        1; #// tARPDEN    tCK   Timing of last REFRESH command to power down entry
-    params["tCPDEDc"] =          1; #// tCPDED     tCK   Command pass disable/enable delay
+    params[:tXPDLLc] =      ParamInClks(tXPDLL, tCK_MIN); #// tXPDLL     tCK   Exit precharge power down to READ or WRITE command (DLL-off mode)
+    params[:tACTPDENc] =        1; #// tACTPDEN   tCK   Timing of last ACT command to power down entry
+    params[:tPRPDENc] =         1; #// tPREPDEN   tCK   Timing of last PRE command to power down entry
+    params[:tREFPDENc] =        1; #// tARPDEN    tCK   Timing of last REFRESH command to power down entry
+    params[:tCPDEDc] =          1; #// tCPDED     tCK   Command pass disable/enable delay
     tPD_MAX =            tRFC_MAX; #// tPD        ps    Power-down entry-to-exit timing
-    params["tXPR"] =     tRFC_MIN + 10000; #// tXPR       ps    Exit Reset from CKE assertion to a valid command
-    params["tXS_tRFC"] = tRFC_MIN + 10000; # tXS: Exit Self Refresh to commands not requiring a locked DLL.
-    params["tXS_tRFCc"] = ParamInClks(params["tXS_tRFC"], tCK_MIN); # # tXS in tck: Exit Self Refresh to commands not requiring a locked DLL.
+    params[:tXPR] =      tRFC_MIN + 10000; #// tXPR       ps    Exit Reset from CKE assertion to a valid command
+    params[:tXS_tRFC] = tRFC_MIN + 10000; # tXS: Exit Self Refresh to commands not requiring a locked DLL.
+    params[:tXS_tRFCc] = ParamInClks(params[:tXS_tRFC], tCK_MIN); # # tXS in tck: Exit Self Refresh to commands not requiring a locked DLL.
     #// Self Refresh
     tXS =                   260000; #// tXS        ps    Exit self refesh to a non-read or write command
-    params["tXSc"] =        ParamInClks(tXS, tCK_MIN); #// tXS        tCK   Exit self refesh to a non-read or write command
-    params["tXSDLLc"] = params["tDLLKc"]; #// tXSRD      tCK   Exit self refresh to a read or write command
+    params[:tXSc] =        ParamInClks(tXS, tCK_MIN); #// tXS        tCK   Exit self refesh to a non-read or write command
+    params[:tXSDLLc] = params[:tDLLKc]; #// tXSRD      tCK   Exit self refresh to a read or write command
     #tISXR =                  tTIS; #// tISXR      ps    CKE setup time during self refresh exit.
     tCKSRE =                 10000; #// tCKSRE     ps    Valid Clock requirement after self refresh entry (SRE)
-    params["tCKSREc"] =          5; #// tCKSRE     tCK   Valid Clock requirement after self refresh entry (SRE)
+    params[:tCKSREc] =          5; #// tCKSRE     tCK   Valid Clock requirement after self refresh entry (SRE)
     tCKSRX =                 10000; #// tCKSRX     ps    Valid Clock requirement prior to self refresh exit (SRX)
-    params["tCKSRXc"] =          5; #// tCKSRX     tCK   Valid Clock requirement prior to self refresh exit (SRX)
-    params["tCKESRc"] =          4; #// tCKESR     tCK   Minimum CKE low width for Self Refresh entry to exit timing
+    params[:tCKSRXc] =          5; #// tCKSRX     tCK   Valid Clock requirement prior to self refresh exit (SRX)
+    params[:tCKESRc] =          4; #// tCKESR     tCK   Minimum CKE low width for Self Refresh entry to exit timing
     #// ODT
-    params["tAOFc"] =                 0.7; #// tAOF       tCK   RTT turn-off from ODTLoff reference
+    params[:tAOFc] =                 0.7; #// tAOF       tCK   RTT turn-off from ODTLoff reference
     tAONPD =                  8500; #// tAONPD     ps    Asynchronous RTT turn-on delay (Power-Down with DLL frozen)
     tAOFPD =                  8500; #// tAONPD     ps    Asynchronous RTT turn-off delay (Power-Down with DLL frozen)
-    params["ODTH4c"] =           4; #// ODTH4      tCK   ODT minimum HIGH time after ODT assertion or write (BL4)
-    params["ODTH8c"] =           6; #// ODTH8      tCK   ODT minimum HIGH time after write (BL8)
-    params["tADCc"] =          0.7; #// tADC       tCK   RTT dynamic change skew
+    params[:ODTH4c] =           4; #// ODTH4      tCK   ODT minimum HIGH time after ODT assertion or write (BL4)
+    params[:ODTH8c] =           6; #// ODTH8      tCK   ODT minimum HIGH time after write (BL8)
+    params[:tADCc] =          0.7; #// tADC       tCK   RTT dynamic change skew
     #// Write Levelization
-    params["tWLMRDc"] =         40; #// tWLMRD     tCK   First DQS pulse rising edge after tDQSS margining mode is programmed
-    params["tWLDQSENc"] =       25; #// tWLDQSEN   tCK   DQS/DQS delay after tDQSS margining mode is programmed
+    params[:tWLMRDc] =         40; #// tWLMRD     tCK   First DQS pulse rising edge after tDQSS margining mode is programmed
+    params[:tWLDQSENc] =       25; #// tWLDQSEN   tCK   DQS/DQS delay after tDQSS margining mode is programmed
     tWLOE =                   2000; #// tWLOE      ps    Write levelization output error
 
     #// Size Parameters based on Part Width
 case params[:CONFIGURED_DQ_BITS]
 when "x4"
-    params["DM_BITS"] =                  1; #// Set this set to control how many Data Mask bits are used
-    params["ADDR_BITS"] =               16; #// MAX Address Bits
-    params["ROW_BITS"] =                16; #// Set this parameter to control how many Address bits are used
-    params["COL_BITS"] =                11; #// Set this parameter to control how many Column bits are used
-    params["DQ_BITS"] =                  4; #// Set this parameter to control how many Data bits are used       **Same as part bit width**
-    params["DQS_BITS"] =                 1; #// Set this parameter to control how many Dqs bits are used
+    params[:DM_BITS] =                  1; #// Set this set to control how many Data Mask bits are used
+    params[:ADDR_BITS] =               16; #// MAX Address Bits
+    params[:ROW_BITS] =                16; #// Set this parameter to control how many Address bits are used
+    params[:COL_BITS] =                11; #// Set this parameter to control how many Column bits are used
+    params[:DQ_BITS] =                  4; #// Set this parameter to control how many Data bits are used       **Same as part bit width**
+    params[:DQS_BITS] =                 1; #// Set this parameter to control how many Dqs bits are used
 when "x8"
-    params["DM_BITS"] =                  1; #// Set this parameter to control how many Data Mask bits are used
-    params["ADDR_BITS"] =               16; #// MAX Address Bits
-    params["ROW_BITS"] =                16; #// Set this parameter to control how many Address bits are used
-    params["COL_BITS"] =                10; #// Set this parameter to control how many Column bits are used
-    params["DQ_BITS"] =                  8; #// Set this parameter to control how many Data bits are used       **Same as part bit width**
-    params["DQS_BITS"] =                 1; #// Set this parameter to control how many Dqs bits are used
+    params[:DM_BITS] =                  1; #// Set this parameter to control how many Data Mask bits are used
+    params[:ADDR_BITS] =               16; #// MAX Address Bits
+    params[:ROW_BITS] =                16; #// Set this parameter to control how many Address bits are used
+    params[:COL_BITS] =                10; #// Set this parameter to control how many Column bits are used
+    params[:DQ_BITS] =                  8; #// Set this parameter to control how many Data bits are used       **Same as part bit width**
+    params[:DQS_BITS] =                 1; #// Set this parameter to control how many Dqs bits are used
 when "x16"
-    params["DM_BITS"] =                  2; #// Set this parameter to control how many Data Mask bits are used
-    params["ADDR_BITS"] =               15; #// MAX Address Bits
-    params["ROW_BITS"] =                15; #// Set this parameter to control how many Address bits are used
-    params["COL_BITS"] =                10; #// Set this parameter to control how many Column bits are used
-    params["DQ_BITS"] =                 16; #// Set this parameter to control how many Data bits are used       **Same as part bit width**
-    params["DQS_BITS"] =                 2; #// Set this parameter to control how many Dqs bits are used
+    params[:DM_BITS] =                  2; #// Set this parameter to control how many Data Mask bits are used
+    params[:ADDR_BITS] =               15; #// MAX Address Bits
+    params[:ROW_BITS] =                15; #// Set this parameter to control how many Address bits are used
+    params[:COL_BITS] =                10; #// Set this parameter to control how many Column bits are used
+    params[:DQ_BITS] =                 16; #// Set this parameter to control how many Data bits are used       **Same as part bit width**
+    params[:DQS_BITS] =                 2; #// Set this parameter to control how many Dqs bits are used
 end
 
     #// Size Parameters
-    params["BA_BITS"] =          3; #// Set this parmaeter to control how many Bank Address bits are used
+    params[:BA_BITS] =          3; #// Set this parmaeter to control how many Bank Address bits are used
     # MEM_BITS =                  10; #// Set this parameter to control how many write data bursts can be stored in memory.  The default is 2^10 1024.
     # AP =                        10; #// the address bit that controls auto-precharge and precharge-all
     # BC =                        12; #// the address bit that controls burst chop
@@ -573,26 +573,26 @@ end
 
     #// monika : added parameters
     tREFI =                      7800000 ;# 7.8 us
-    params["tWR_MPRc"] =         tMODc
-    params["tRPc"] =             ParamInClks(tRP, tCK_MIN)      ; #// tRP        tCK    Precharge command period
-    params["tFAWc"] =            ParamInClks(tFAW, tCK_MIN)     ; #// tFAW       tCK    Four Bank Activate window
-    params["tRFCc"] =            ParamInClks(tRFC_MIN, tCK_MIN) ; #// tRFC_MIN   tCK    Refresh to Refresh Command interval
-    params["tRCDc"] =            ParamInClks(tRCD, tCK_MIN)     ; #// tRCD       tCK    Active to Read/Write command time
-    params["tRCc"] =             ParamInClks(tRC, tCK_MIN)      ; #// tRC        tCK    Active to Active/Auto Refresh command time
-    params["tWRc"] =             ParamInClks(tWR, tCK_MIN)      ; #// tWR        tCK    Write recovery
+    params[:tWR_MPRc] =         tMODc
+    params[:tRPc] =             ParamInClks(tRP, tCK_MIN)      ; #// tRP        tCK    Precharge command period
+    params[:tFAWc] =            ParamInClks(tFAW, tCK_MIN)     ; #// tFAW       tCK    Four Bank Activate window
+    params[:tRFCc] =            ParamInClks(tRFC_MIN, tCK_MIN) ; #// tRFC_MIN   tCK    Refresh to Refresh Command interval
+    params[:tRCDc] =            ParamInClks(tRCD, tCK_MIN)     ; #// tRCD       tCK    Active to Read/Write command time
+    params[:tRCc] =             ParamInClks(tRC, tCK_MIN)      ; #// tRC        tCK    Active to Active/Auto Refresh command time
+    params[:tWRc] =             ParamInClks(tWR, tCK_MIN)      ; #// tWR        tCK    Write recovery
     tRAS_max =                   9*tREFI
-    params["tRASc_min"] =        ParamInClks(tRAS_MIN, tCK_MIN) ; #// tRAS       tCK    Minimum Active to Precharge command time
-    params["tRAS_max"] =         tRAS_max
-    params["tRASc_max"] =        ParamInClks(tRAS_max, tCK_MIN); #// tRAS  tCK    Maximun Active to Precharge command time
-    params["tREFIc"] =           ParamInClks(tREFI, tCK_MIN)
+    params[:tRASc_min] =        ParamInClks(tRAS_MIN, tCK_MIN) ; #// tRAS       tCK    Minimum Active to Precharge command time
+    params[:tRAS_max] =         tRAS_max
+    params[:tRASc_max] =        ParamInClks(tRAS_max, tCK_MIN); #// tRAS  tCK    Maximun Active to Precharge command time
+    params[:tREFIc] =           ParamInClks(tREFI, tCK_MIN)
 
 
     ################################################################################################
 
     ################################################################################################
     ## CAS latency : binay value for mode register
-    params["CLc"] = nCLc
-    case params["CLc"]
+    params[:CLc] = nCLc
+    case params[:CLc]
     when 5
        mr0_CL =      "0010"
     when 6
@@ -626,7 +626,7 @@ end
     $l.debug "mr0_A2 is #{mr0_A2} and mr0_A6_A4 is #{mr0_A6_A4}"
 
     ## Write Recovery : binay value for mode register
-    case params["tWRc"]
+    case params[:tWRc]
     when 16
        mr0_WR =      "000"
     when 5
@@ -646,11 +646,11 @@ end
     else
         raise "Error: 4Gb_ddr3_timing_parameter.tcl:: Incorrect Write recovery"
     end
-    $l.debug "WR_bin is #{mr0_WR} and WRc is #{params["tWRc"]}"
+    $l.debug "WR_bin is #{mr0_WR} and WRc is #{params[:tWRc]}"
 
     # ## Write CAS latency : binay value for mode register
-    params["CWLc"] = nCWLc
-    case params["CWLc"]
+    params[:CWLc] = nCWLc
+    case params[:CWLc]
     when 5
        mr2_CWL =      "000"
     when 6
@@ -670,33 +670,33 @@ end
     else
         error "Error: 4Gb_ddr3_timing_parameter.tcl:: Incorrect Write CAS latency"
     end
-    $l.debug "CWLc_bin is #{mr2_CWL} and CWLc is #{params["CWLc"]}"
+    $l.debug "CWLc_bin is #{mr2_CWL} and CWLc is #{params[:CWLc]}"
 
     case tMODc
     when 12
-      params["tMOD"] = 0
+      params[:tMOD] = 0
     when 13
-      params["tMOD"] = 1
+      params[:tMOD] = 1
     when 14
-      params["tMOD"] = 2
+      params[:tMOD] = 2
     when 15
-      params["tMOD"] = 3
+      params[:tMOD] = 3
     when 16
-      params["tMOD"] = 4
+      params[:tMOD] = 4
     when 17
-      params["tMOD"] = 5
+      params[:tMOD] = 5
     else
         raise "Error: Reserved tMOD #{tMODc}"
     end
 
-    params["AL"] =     0 ; #CLc - 2;       # FIX ME : Additive Latency in binary
-    params["BL"] =     8 ; # Burst Length : FIX ME, Burst length in binary 8(fixed) for
+    params[:AL] =     0 ; #CLc - 2;       # FIX ME : Additive Latency in binary
+    params[:BL] =     8 ; # Burst Length : FIX ME, Burst length in binary 8(fixed) for
 
     # Write Latency = AL + CWL
-    params["WL"] =     params["AL"] + params["CWLc"]; #// WL         tCK           write Latency
+    params[:WL] =     params[:AL] + params[:CWLc]; #// WL         tCK           write Latency
 
     # Read Latency  = AL + CL
-    params["RL"] =     params["AL"] + params["CLc"];  #// RL         tCK           read Latency
+    params[:RL] =     params[:AL] + params[:CLc];  #// RL         tCK           read Latency
 
     ###############################################################################################
     # Configure MODE Register based on JEDEC DDR3
