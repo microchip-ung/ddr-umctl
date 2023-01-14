@@ -717,7 +717,7 @@ end
     mr0_A1_A0 =                   "00"; # // mr0[1:0]  : Burst length
 
     mr0_bits = mr0_A15_A13 + mr0_A12 + mr0_A11_A9 + mr0_A8 + mr0_A7 + mr0_A6_A4 + mr0_A3 + mr0_A2 + mr0_A1_A0
-    params[:reg_ddrc_mr] = sprintf("0x%08x", mr0_bits.to_i(2))
+    params[:reg_ddrc_mr] = mr0_bits.to_i(2)
     $l.debug "mr0_bits is .......... #{mr0_bits}"
     $l.debug "reg_ddrc_mr is ....... #{params[:reg_ddrc_mr]}"
 
@@ -735,7 +735,7 @@ end
     mr1_A0 =                      "0" ; # // mr1[0]    : 0 = DLL enable, 1 = DLL disable
 
     mr1_bits = mr1_A15_A11 + mr1_A10_A8 + mr1_A7 + mr1_A6 + mr1_A5 + mr1_A4_A3 + mr1_A2 + mr1_A1 + mr1_A0
-    params[:reg_ddrc_emr] = sprintf("0x%08x", mr1_bits.to_i(2))
+    params[:reg_ddrc_emr] = mr1_bits.to_i(2)
     $l.debug "reg_ddrc_emr is ...... #{params[:reg_ddrc_emr]}"
 
     ########################################
@@ -751,7 +751,7 @@ end
     mr2_A2_A0 =                "000" ; # // mr2[2:0]   : Partial array self refresh
 
     mr2_bits = mr2_A15_A13 + mr2_A12 + mr2_A11 + mr2_A10_A9 + mr2_A8 + mr2_A7_A6 + mr2_A5_A3 + mr2_A2_A0
-    params[:reg_ddrc_emr2] = sprintf("0x%08x", mr2_bits.to_i(2))
+    params[:reg_ddrc_emr2] = mr2_bits.to_i(2)
     $l.debug "reg_ddrc_emr2 is ..... #{params[:reg_ddrc_emr2]}"
 
     ########################################
@@ -762,7 +762,7 @@ end
     mr3_A1_A0 =                  "00"; # // mr3[1:0]    : MPR Page Selection
 
     mr3_bits = mr3_A15_A3+ mr3_A2 + mr3_A1_A0
-    params[:reg_ddrc_emr3] = sprintf("0x%08x", mr3_bits.to_i(2))
+    params[:reg_ddrc_emr3] = mr3_bits.to_i(2)
     $l.debug "reg_ddrc_emr3 is ..... #{params[:reg_ddrc_emr3]}"
 
     return params
