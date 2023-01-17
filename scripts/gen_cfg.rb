@@ -207,8 +207,13 @@ reg_settings["INIT4"] = {
     "EMR3"			=> params[:reg_ddrc_emr3],
 }
 # init5
+reg_settings["INIT5"] = {
+    "DEV_ZQINIT_X32"		=> ((params[:tZQinitc] / 2.0) / 32).ceil() + 1,
+}
 # init6
+reg_settings["INIT6"]["MR5"] = params[:reg_ddrc_mr5]
 # init7
+reg_settings["INIT7"]["MR6"] = params[:reg_ddrc_mr6]
 # mstr
 reg_settings["MSTR"] = {
     "DDR3"		=> params[:mem_type] == "DDR3" ? 1 : 0,
@@ -230,7 +235,163 @@ if params[:dq_bits_used] == "x16"
 end
 # pwrctl
 # rfshctl0
+reg_settings["RFSHCTL0"]["REFRESH_BURST"] = 1
 # rfshctl3
+# dramtmg0
+if params[:mem_type] == "DDR4"
+    if params[:write_preamble] == 1
+        wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc] + 2 ) / 2.0).to_i() + params[:_2T_mode]
+    else
+        if params[:write_crc] == 1 && params[:dm_en] == 1
+            wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc_CRC_DM] + 2 ) / 2.0).to_i() + params[:_2T_mode]
+        else
+            wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc]) / 2.0).to_i() + params[:_2T_mode]
+        end
+    end
+else
+    wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc]) / 2.0).to_i() + params[:_2T_mode]
+end
+reg_settings["DRAMTMG0"] = {
+    "WR2PRE"		=> wr2pre,
+    "T_FAW"		=> (params[:tFAWc] / 2.0).ceil(),
+    "T_RAS_MIN"		=> (params[:tRASc_min] / 2.0).to_i() + params[:_2T_mode],
+    "T_RAS_MAX"		=> ((params[:tRASc_max] - 1) / (2.0 * 1024)).to_i(),
+}
+#  dramtmg1
+reg_settings["DRAMTMG1"]["T_RC"] = (params[:tRCc] / 2.0).ceil()
+if params[:mem_type] == "DDR4"
+    if params[:ca_parity_en] == 0
+        reg_settings["DRAMTMG1"]["T_XP"] = (params[:tXPc] / 2.0).ceil()
+    else
+        reg_settings["DRAMTMG1"]["T_XP"] = ((params[:tXPc] + params[:tPLc]) / 2.0).ceil()
+    end
+else
+    reg_settings["DRAMTMG1"]["T_XP"] = (params[:tXPc] / 2.0).ceil()
+end
+reg_settings["DRAMTMG1"]["RD2PRE"] = ((params[:AL] + params[:tRTPc]) / 2.0).to_i() + params[:_2T_mode]
+# dramtmg12
+# dramtmg2
+if params[:mem_type] == "DDR4"
+    val_rd2wr = params[:RL] + (params[:BL] / 2.0).to_i() + 1 + params[:WR_PREAMBLE] - params[:WL]
+    if params[:write_crc] == 1 && params[:dm_en] == 1
+        val_wr2rd = params[:CWLc] + params[:tPLc] + (params[:BL] / 2.0).to_i() + params[:tWTRc_L_CRC_DM] + params[:write_preamble]
+    else
+        val_wr2rd = params[:CWLc] + params[:tPLc] + (params[:BL] / 2.0).to_i() + params[:tWTRc] + params[:write_preamble]
+    end
+    val_tCCD = (params[:tCCDc_L] / 2.0).ceil()
+    val_tRRD = (params[:tRRDc_L] / 2.0).ceil()
+else
+    val_rd2wr = params[:RL] + (params[:BL] / 2.0).to_i() + 2 - params[:WL]
+    val_wr2rd = params[:CWLc] + (params[:BL] / 2.0).to_i() + params[:tWTRc]
+    val_tCCD = (params[:tCCDc] / 2.0).ceil()
+    val_tRRD = (params[:tRRDc] / 2.0).ceil()
+end
+reg_settings["DRAMTMG2"] = {
+    "WR2RD"		=> (val_wr2rd / 2.0).ceil(),
+    "RD2WR"		=> (val_rd2wr / 2.0).ceil(),
+}
+if params[:mem_type] != "DDR3"
+    reg_settings["DRAMTMG2"]["WRITE_LATENCY"] = (params[:WL] / 2.0).ceil()
+    reg_settings["DRAMTMG2"]["READ_LATENCY"] = (params[:RL] / 2.0).ceil()
+end
+# dramtmg3
+# dramtmg4
+reg_settings["DRAMTMG4"] = {
+  "T_RCD"		=> ((params[:tRCDc] - params[:AL]) / 2.0).ceil(),
+  "T_RP"		=> (params[:tRPc] / 2.0).floor() + 1,
+  "T_CCD"		=> val_tCCD,
+  "T_RRD"		=> val_tRRD,
+}
+# dramtmg5
+reg_settings["DRAMTMG5"] = {
+  "T_CKSRX"		=> (params[:tCKSRXc] / 2.0).ceil(),
+  "T_CKSRE"		=> (params[:tCKSREc] / 2.0).ceil(),
+  "T_CKESR"		=> ((params[:tCKEc] + 1) / 2.0).ceil(),
+  "T_CKE"		=> (params[:tCKEc] / 2.0).ceil(),
+}
+# dramtmg8
+reg_settings["DRAMTMG8"] = {
+    "T_XS_DLL_X32"	=> (params[:tDLLKc] / (2.0 * 32)).ceil(),
+    "T_XS_X32"		=> (params[:tXS_tRFCc] / (2.0 * 32)).ceil(),
+}
+if params[:mem_type] == "DDR4"
+    reg_settings["DRAMTMG8"]["T_XS_FAST_X32"] = (params[:tXS_tRFC4c] / (2.0 * 32)).ceil() + 1
+    reg_settings["DRAMTMG8"]["T_XS_ABORT_X32"] = (params[:tXS_tRFC4c] / (2.0 * 32)).ceil()
+end
+# dramtmg9
+if params[:mem_type] == "DDR4"
+    reg_settings["DRAMTMG9"] = {
+        "DDR4_WR_PREAMBLE"	=> params[:write_preamble],
+        "T_CCD_S"		=> ((params[:tCCDc_S] + 1) / 2.0).ceil(),
+        "T_RRD_S"		=> (params[:tRRDc_S] / 2.0).ceil(),
+    }
+    if params[:write_crc] == 1 && params[:dm_en] == 1
+        reg_settings["DRAMTMG0"]["WR2RD_S"] = ((params[:CWLc] + params[:tPLc] + int(params[:BL] / 2.0)  + params[:tWTRc_S_CRC_DM] + params[:write_preamble]) / 2.0).ceil()
+    else
+        reg_settings["DRAMTMG9"]["WR2RD_S"] = ((params[:CWLc] + params[:tPLc] + (params[:BL] / 2.0).to_i() + params[:tWTRc_S] + params[:write_preamble]) / 2.0).ceil()
+    end
+end
+# odtcfg
+if params[:mem_type] == "DDR4"
+    reg_settings["ODTCFG"] = {
+        "WR_ODT_HOLD"	=> 5 + params[:WR_PREAMBLE] + params[:write_crc],
+        "WR_ODT_DELAY"	=> params[:tCAL],
+        "RD_ODT_HOLD"	=> 5 + params[:RD_PREAMBLE],
+        "RD_ODT_DELAY"	=> params[:CLc] - params[:CWLc] - params[:RD_PREAMBLE] + params[:WR_PREAMBLE] + params[:tCAL],
+    }
+else
+    reg_settings["ODTCFG"] = {
+        "WR_ODT_HOLD" 	=> 0x6,
+        "WR_ODT_DELAY"	=> 0x0,
+        "RD_ODT_HOLD"	=> 0x6,
+        "RD_ODT_DELAY"	=> params[:CLc] - params[:CWLc],
+    }
+end
+# rfshtmg
+if params[:mem_type] == "DDR4"
+    reg_settings["RFSHTMG"]["T_RFC_NOM_X32"] = (params[:tREFIc] / (2.0 * 32)).to_i() # tRFEI (7.8 us) ((7800000 / itck) / (2 * 32))
+else
+    reg_settings["RFSHTMG"]["T_RFC_NOM_X32"] = 0x82 # tRFEI (7.8 us) ((7800000 / 2) / itck * 32) where itck = 938 ps
+end
+reg_settings["RFSHTMG"]["T_RFC_MIN"] = (params[:tRFCc] / 2.0).ceil()
+# addrmap0
+# addrmap1
+# addrmap2
+# addrmap3
+# addrmap4
+# addrmap5
+# addrmap6
+# addrmap7
+# addrmap8
+# dxccr
+# dsgcr
+# dcr
+# dtcr0
+# dtcr1
+# pgcr2
+# schcr1
+# zq0pr
+# zq1pr
+# zq2pr
+# zqcr
+# ptr0
+# ptr1
+# ptr2
+# ptr3
+# ptr4
+# dtpr0
+# dtpr1
+# dtpr2
+# dtpr3
+# dtpr4
+# dtpr5
+# mr0
+# mr1
+# mr2
+# mr3
+# mr4
+# mr5
+# mr6
 
 # Feed the chicken and go home
 hex_values = convert_hex(cfg_regs, reg_settings)
