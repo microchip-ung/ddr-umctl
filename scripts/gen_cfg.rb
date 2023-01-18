@@ -11,6 +11,11 @@ require_relative 'ddr/ddr_process.rb'
 require_relative 'ddr/ddr3.rb'
 require_relative 'ddr/ddr4.rb'
 
+def get_memory_profile(profile)
+    profile = YAML::load_file(__dir__ + "/profiles/#{profile}.yaml")
+    return profile
+end
+
 def calc_value(reg, params)
     val = 0
     reg[:fields].each do|f|
@@ -94,13 +99,13 @@ cfg_regs.keys.map {|r| reg_settings[r.upcase] = Hash.new }
 params = YAML::load_file(__dir__ + "/profiles/#{$option[:platform]}.yaml")
 params.merge!(YAML::load_file(__dir__ + "/profiles/#{$option[:memory]}.yaml"))
 
-if params[:clock_speed] >= (4 * 625)
+if params[:clock_speed] >= (4 * 625) # 2500
     params[:clk_div] = 4
-elsif params[:clock_speed] >= (4 * 500)
+elsif params[:clock_speed] >= (4 * 500) # 2000
     params[:clk_div] = 5
-elsif params[:clock_speed] >= (4 * 416)
+elsif params[:clock_speed] >= (4 * 416) # 1664
     params[:clk_div] = 6
-elsif params[:clock_speed] >= (4 * 312)
+elsif params[:clock_speed] >= (4 * 312) # 1248
     params[:clk_div] = 8
 elsif params[:clock_speed] >= (4 * 250)
     params[:clk_div] = 10
@@ -115,6 +120,8 @@ else
 end
 
 params[:dq_bits_per_mem] = params[:CONFIGURED_DQ_BITS]
+
+$l.debug "params = #{params}"
 
 case params[:mem_type]
 when "DDR3"
@@ -354,15 +361,8 @@ else
     reg_settings["RFSHTMG"]["T_RFC_NOM_X32"] = 0x82 # tRFEI (7.8 us) ((7800000 / 2) / itck * 32) where itck = 938 ps
 end
 reg_settings["RFSHTMG"]["T_RFC_MIN"] = (params[:tRFCc] / 2.0).ceil()
-# addrmap0
-# addrmap1
-# addrmap2
-# addrmap3
-# addrmap4
-# addrmap5
-# addrmap6
-# addrmap7
-# addrmap8
+# addrmap*
+# - Defined by memory type profile
 # dxccr
 # dsgcr
 # dcr
@@ -395,5 +395,12 @@ reg_settings["RFSHTMG"]["T_RFC_MIN"] = (params[:tRFCc] / 2.0).ceil()
 
 # Feed the chicken and go home
 hex_values = convert_hex(cfg_regs, reg_settings)
+p = get_memory_profile(params[:mem_profile])
+p.each do |r,v|
+    if hex_values[r]
+        $l.warn "#{r}: Overide #{hex_values[r]} to #{v}"
+    end
+    hex_values[r] = v
+end
 renderer = ERB.new(File.read(__dir__ + "/templates/#{$option[:format]}.erb"), nil, '-')
 puts renderer.result(binding)
