@@ -1,0 +1,14 @@
+---
+zqcr:
+  - ASYM_DRV_EN: 1
+  - PU_ODT_ONLY: 1
+  - DIS_NON_LIN_COMP: 0
+zq0pr:
+  - ZQDIV: 9
+zq1pr:
+  - ZQDIV: 43
+  - ZPROG_ASYM_DRV_PD: 15
+zq2pr:
+  - ZQDIV: 43
+  - ZPROG_ASYM_DRV_PD: 15
+

@@ -12,7 +12,7 @@ require_relative 'ddr/ddr3.rb'
 require_relative 'ddr/ddr4.rb'
 
 def get_memory_profile(profile)
-    profile = YAML::load_file(__dir__ + "/profiles/#{profile}.yaml")
+    profile = YAML::load_file(__dir__ + "/../configs/memory/#{profile}.yaml")
     return profile
 end
 
@@ -22,10 +22,15 @@ def calc_value(reg, params)
         fname = f[:name].upcase
         fval = f[:default]
         if params.has_key?(fname)
-            $l.debug "#{reg[:name]}: Set #{fname} = #{params[fname]}"
+            $l.debug "#{reg[:name]}: Set #{fname} = #{params[fname]} (default #{f[:default]})"
             fval = params[fname]
+            params.delete(fname)
         end
         val += (fval << f[:pos])
+    end
+    # Check all fields used
+    if params.length > 0
+        raise "Unused fields for register #{reg[:name]}: #{params}"
     end
     return sprintf("0x%08x", val)
 end
@@ -73,6 +78,9 @@ OptionParser.new do |opts|
     end
     opts.on("-m", "--memory <memory>", "Generate for given memory parameters set") do |m|
         $option[:memory] = m
+    end
+    opts.on("-b", "--board <board>", "Use board tweak file") do |b|
+        $option[:board] = b
     end
     opts.on("-d", "--debug", "Enable debug messages") do
         $option[:debug] = true
@@ -134,9 +142,6 @@ end
 
 # Calculate derived settings
 params = ddr_process(params)
-
-# Static settings
-params[:_2T_mode] = 1
 
 # Now, generate actual register values
 # crcparctl1
@@ -364,16 +369,33 @@ reg_settings["RFSHTMG"]["T_RFC_MIN"] = (params[:tRFCc] / 2.0).ceil()
 # addrmap*
 # - Defined by memory type profile
 # dxccr
+if params[:active_ranks] == 1
+    reg_settings["DXCCR"]["RKLOOP"] = 0 # Not needed if only 1 rank
+end
 # dsgcr
 # dcr
+reg_settings["DCR"]["DDRMD"] = (params[:mem_type] == "DDR4" ? 4 : 3) # DDR3 = 3'b011 and DDR4 = 3'b100
+reg_settings["DCR"]["DDR2T"] = params[:_2T_mode]
 # dtcr0
+reg_settings["DTCR0"]["DTRPTN"] = 15
+reg_settings["DTCR0"]["DTMPR"] = 1
 # dtcr1
+reg_settings["DTCR1"]["RANKEN"] = params[:active_ranks]
 # pgcr2
+reg_settings["PGCR2"]["TREFPRD"] = params[:tRASc_max] - 400
 # schcr1
+if params[:active_ranks] > 1
+    reg_settings["SCHCR1"]["ALLRANK"] = 1
+end
 # zq0pr
 # zq1pr
 # zq2pr
 # zqcr
+if ((params[:tCK_min] * 2) <= 2000)
+    reg_settings["ZQCR"]["PGWAIT"] = 7;
+else
+    reg_settings["ZQCR"]["PGWAIT"] = 6;
+end
 # ptr0
 # ptr1
 # ptr2
@@ -392,6 +414,21 @@ reg_settings["RFSHTMG"]["T_RFC_MIN"] = (params[:tRFCc] / 2.0).ceil()
 # mr4
 # mr5
 # mr6
+
+if $option[:board]
+    board = YAML::load_file(__dir__ + "/../configs/boards/#{$option[:board]}.yaml")
+    board.each do |rname, flds|
+        r = rname.upcase
+        flds.each do |t|
+            t.each do |f, v|
+                if reg_settings[r][f]
+                    $l.warn "#{r}: Board override #{f} from #{reg_settings[r][f]} => #{v}"
+                end
+                reg_settings[r][f] = v
+            end
+        end
+    end
+end
 
 # Feed the chicken and go home
 hex_values = convert_hex(cfg_regs, reg_settings)
