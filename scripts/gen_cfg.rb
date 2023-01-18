@@ -402,11 +402,41 @@ end
 # ptr3
 # ptr4
 # dtpr0
+reg_settings["DTPR0"] = {
+    "TRTP"		=> params[:tRTPc],
+    "TRP"		=> params[:tRPc],
+    "TRAS"		=> params[:tRASc_min],
+    "TRRD"		=> params[:tRRDc],
+}
 # dtpr1
+reg_settings["DTPR1"] = {
+    "TMRD"		=> params[:tMRDc],
+    "TMOD"		=> params[:tMOD],
+    "TFAW"		=> params[:tFAWc],
+    "TWLMRD"		=> params[:tWLMRDc],
+}
 # dtpr2
+reg_settings["DTPR2"]["TXS"] = params[:tXS_tRFCc]
+if params[:mem_type] == "DDR4"
+    reg_settings["DTPR2"]["TCKE"] = params[:tCKEc]
+else
+    reg_settings["DTPR2"]["TCKE"] = params[:tCKEc] + 1
+end
 # dtpr3
+reg_settings["DTPR3"]["TDLLK"] = params[:tDLLKc]
 # dtpr4
+if params[:mem_type] == "DDR4"
+    reg_settings["DTPR4"]["TXP"] = params[:tXPc]
+else
+    reg_settings["DTPR4"]["TXP"] = params[:tXPDLLc]
+end
+reg_settings["DTPR4"]["TRFC"] = params[:tRFCc]
 # dtpr5
+reg_settings["DTPR5"] = {
+    "TWTR"		=> params[:tWTRc],
+    "TRCD"		=> params[:tRCDc],
+    "TRC"		=> params[:tRCc],
+}
 # mr0
 # mr1
 # mr2
