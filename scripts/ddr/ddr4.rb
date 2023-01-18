@@ -102,7 +102,7 @@ ddr4_speed_grade = params[:speed_grade]
     itWTRc_L_CRC_DM =       [    4,       4,         4,        5,      5,      5,       5,       6,       6][ddr4_speed_grade]
     itWR =                  [15000,   15000,     15000,    15000,  15000,  15000,   15000,   15000,   15000][ddr4_speed_grade]
     itWR_CRC_DM =           [    4,       4,         4,        5,      5,      5,       5,       6,       6][ddr4_speed_grade]
-    itMOD =                 [45000,   36000,     30000,    22728,  24000,  20000,   19200,   16368,   15000][ddr4_speed_grade]
+    itMOD =                 [45000,   36000,     30000,    25728,  24000,  20000,   19200,   16368,   15000][ddr4_speed_grade]
     itRCD =                 [17000,   16000,     15000,    13920,  15000,  12750,   13500,   12500,   12500][ddr4_speed_grade]
     itRC =                  [56000,   55000,     50000,    49000,  48000,  44500,   45500,   44960,   44500][ddr4_speed_grade]
     itRP =                  [17000,   15000,     12500,    12850,  15000,  12750,   13500,   12575,   12500][ddr4_speed_grade]
@@ -587,7 +587,7 @@ end
     when 30
         params[:tMOD] = 6
     else
-        error "Error: Reserved tMOD "
+        raise "Error: Reserved tMOD '#{tMODc}'"
     end
 
     case params[:tCCDc_L]
