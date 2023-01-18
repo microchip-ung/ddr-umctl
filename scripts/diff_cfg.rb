@@ -83,8 +83,14 @@ if ARGV.length != 2
   raise "Usage: #{$0} [options] <CFG1> <CFG2>"
 end
 
-cfg1 = YAML::load_file(ARGV.shift)
-cfg2 = YAML::load_file(ARGV.shift)
+f1 = ARGV.shift
+cfg1 = YAML::load_file(f1)
+f2 = ARGV.shift
+cfg2 = YAML::load_file(f2)
+
+printf("Comparing                                 %s %s\n",
+       File.basename(f1, ".yaml"),
+       File.basename(f2, ".yaml"))
 
 $config.groups.each do |rg|
   puts "Group: #{rg[:name]}"
@@ -95,8 +101,8 @@ $config.groups.each do |rg|
       reg_diff(rname, cfg1[rname], cfg2[rname])
     else
       printf(" %-10s: %s %s\n", rname,
-             cfg1[rname] ? sprintf("%08x", cfg1[rname]) : ("---------"),
-             cfg2[rname] ? sprintf("%08x", cfg2[rname]) : ("---------"))
+             cfg1[rname] ? sprintf("%08x", cfg1[rname]) : ("--------"),
+             cfg2[rname] ? sprintf("%08x", cfg2[rname]) : ("--------"))
     end
   end
 end
