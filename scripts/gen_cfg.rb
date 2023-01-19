@@ -500,7 +500,9 @@ end
 # Feed the chicken and go home
 hex_values = convert_hex(cfg_regs, reg_settings)
 p = get_memory_profile(params[:mem_profile])
-p.each do |r,v|
+p.each do |r, v|
+    r = r.upcase
+    v = sprintf("0x%08x", v)
     if hex_values[r]
         $l.warn "#{r}: Overide #{hex_values[r]} to #{v}"
     end
