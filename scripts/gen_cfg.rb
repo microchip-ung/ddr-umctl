@@ -444,6 +444,21 @@ reg_settings["DTPR5"] = {
 # mr4
 # mr5
 # mr6
+mr = Hash.new
+if params[:mem_type] == "DDR4"
+    mr["MR0"] = params[:reg_ddrc_mr]
+    mr["MR1"] = params[:reg_ddrc_emr]
+    mr["MR2"] = params[:reg_ddrc_emr2]
+    mr["MR3"] = params[:reg_ddrc_emr3]
+    mr["MR4"] = params[:reg_ddrc_mr4]
+    mr["MR5"] = params[:reg_ddrc_mr5]
+    mr["MR6"] = params[:reg_ddrc_mr6]
+else
+    mr["MR0"] = params[:reg_ddrc_mr]
+    mr["MR1"] = params[:reg_ddrc_emr]
+    mr["MR2"] = params[:reg_ddrc_emr2]
+    mr["MR3"] = params[:reg_ddrc_emr3]
+end
 
 if $option[:board]
     board = YAML::load_file(__dir__ + "/../configs/boards/#{$option[:board]}.yaml")
@@ -469,5 +484,8 @@ p.each do |r,v|
     end
     hex_values[r] = v
 end
+# Add MR registers
+hex_values = hex_values.merge(mr)
+
 renderer = ERB.new(File.read(__dir__ + "/templates/#{$option[:format]}.erb"), nil, '-')
 puts renderer.result(binding)
