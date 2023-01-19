@@ -397,10 +397,18 @@ else
     reg_settings["ZQCR"]["PGWAIT"] = 6;
 end
 # ptr0
+reg_settings["PTR0"]["TPLLGS"] = params[:tpllgs]; #[format "%.0f" [expr int(4000/$params(ctl_clk_period))]] ; # 4 us
+reg_settings["PTR0"]["TPLLPD"] = params[:tpllpd]; #[format "%.0f" [expr int(1000/$params(ctl_clk_period))]] ; # 1 us
 # ptr1
+reg_settings["PTR1"]["TPLLLOCK"] = params[:tplllock]; #[format "%.0f" [expr int(100000/$params(ctl_clk_period))]] ; # 100 us
+reg_settings["PTR1"]["TPLLRST"] = params[:tpllrst]; #[format "%.0f" [expr int(9000/$params(ctl_clk_period)])] ; # 9 us
 # ptr2
 # ptr3
+reg_settings["PTR3"]["TDINIT0"] = params[:tdinit0]; # 500 us
+reg_settings["PTR3"]["TDINIT1"] = params[:tXS_tRFCc];# (tRFC + 10 ns)
 # ptr4
+reg_settings["PTR4"]["TDINIT2"] = params[:tdinit2]; # 200 us
+reg_settings["PTR4"]["TDINIT3"] = params[:tZQinitc]; # tZQinit
 # dtpr0
 reg_settings["DTPR0"] = {
     "TRTP"		=> params[:tRTPc],
