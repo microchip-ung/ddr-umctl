@@ -107,26 +107,6 @@ cfg_regs.keys.map {|r| reg_settings[r.upcase] = Hash.new }
 params = YAML::load_file(__dir__ + "/profiles/#{$option[:platform]}.yaml")
 params.merge!(YAML::load_file(__dir__ + "/profiles/#{$option[:memory]}.yaml"))
 
-if params[:clock_speed] >= (4 * 625) # 2500
-    params[:clk_div] = 4
-elsif params[:clock_speed] >= (4 * 500) # 2000
-    params[:clk_div] = 5
-elsif params[:clock_speed] >= (4 * 416) # 1664
-    params[:clk_div] = 6
-elsif params[:clock_speed] >= (4 * 312) # 1248
-    params[:clk_div] = 8
-elsif params[:clock_speed] >= (4 * 250)
-    params[:clk_div] = 10
-elsif params[:clock_speed] >= (4 * 208)
-    params[:clk_div] = 12
-elsif params[:clock_speed] >= (4 * 156)
-    params[:clk_div] = 16
-elsif params[:clock_speed] >= (4 * 125)
-    params[:clk_div] = 20
-else
-    raise "Invalid clock: #{params[:clock_speed]}"
-end
-
 params[:dq_bits_per_mem] = params[:CONFIGURED_DQ_BITS]
 
 $l.debug "params = #{params}"
