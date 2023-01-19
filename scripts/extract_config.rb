@@ -1,3 +1,5 @@
+#!/bin/env ruby
+
 require 'optparse'
 require 'pp'
 require 'erb'

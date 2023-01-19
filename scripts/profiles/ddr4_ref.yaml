@@ -1,6 +1,6 @@
 ---
 :mem_type:		DDR4
-:CONFIGURED_DENSITY:	4G
+:CONFIGURED_DENSITY:	2G
 :CONFIGURED_DQ_BITS:	x8
 :device_config:		0x1
 :active_ranks:		0x1

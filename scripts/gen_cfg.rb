@@ -140,6 +140,20 @@ else
     raise "Unsupported memory type: #{params[:mem_type]}"
 end
 
+case params[:CONFIGURED_DENSITY]
+when "2G"
+    capacity = 2
+when "4G"
+    capacity = 4
+when "8G"
+    capacity = 8
+when "16G"
+    capacity = 16
+else
+    raise "Invalid CONFIGURED_DENSITY: #{params[:CONFIGURED_DENSITY]}"
+end
+params[:mem_size] = capacity * 1024 * 1024 * 1024
+
 # Calculate derived settings
 params = ddr_process(params)
 
@@ -454,18 +468,18 @@ reg_settings["DTPR5"] = {
 # mr6
 mr = Hash.new
 if params[:mem_type] == "DDR4"
-    mr["MR0"] = params[:reg_ddrc_mr]
-    mr["MR1"] = params[:reg_ddrc_emr]
-    mr["MR2"] = params[:reg_ddrc_emr2]
-    mr["MR3"] = params[:reg_ddrc_emr3]
-    mr["MR4"] = params[:reg_ddrc_mr4]
-    mr["MR5"] = params[:reg_ddrc_mr5]
-    mr["MR6"] = params[:reg_ddrc_mr6]
+    mr["MR0"] = sprintf("0x%08x", params[:reg_ddrc_mr])
+    mr["MR1"] = sprintf("0x%08x", params[:reg_ddrc_emr])
+    mr["MR2"] = sprintf("0x%08x", params[:reg_ddrc_emr2])
+    mr["MR3"] = sprintf("0x%08x", params[:reg_ddrc_emr3])
+    mr["MR4"] = sprintf("0x%08x", params[:reg_ddrc_mr4])
+    mr["MR5"] = sprintf("0x%08x", params[:reg_ddrc_mr5])
+    mr["MR6"] = sprintf("0x%08x", params[:reg_ddrc_mr6])
 else
-    mr["MR0"] = params[:reg_ddrc_mr]
-    mr["MR1"] = params[:reg_ddrc_emr]
-    mr["MR2"] = params[:reg_ddrc_emr2]
-    mr["MR3"] = params[:reg_ddrc_emr3]
+    mr["MR0"] = sprintf("0x%08x", params[:reg_ddrc_mr])
+    mr["MR1"] = sprintf("0x%08x", params[:reg_ddrc_emr])
+    mr["MR2"] = sprintf("0x%08x", params[:reg_ddrc_emr2])
+    mr["MR3"] = sprintf("0x%08x", params[:reg_ddrc_emr3])
 end
 
 if $option[:board]
@@ -494,6 +508,10 @@ p.each do |r,v|
 end
 # Add MR registers
 hex_values = hex_values.merge(mr)
+
+params[:version] = $option[:board] + " " +
+                   Time.now.utc.strftime("%Y-%m-%d-%H:%M:%S") + " " +
+                   %x( git describe --always --dirty --tags ).chop
 
 renderer = ERB.new(File.read(__dir__ + "/templates/#{$option[:format]}.erb"), nil, '-')
 puts renderer.result(binding)
