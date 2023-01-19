@@ -92,13 +92,19 @@ printf("Comparing                                 %s %s\n",
        File.basename(f1, ".yaml"),
        File.basename(f2, ".yaml"))
 
+$is_ddr4 = (cfg1["mstr"] & (1 << 4)) != 0 # BIT(4)
 $config.groups.each do |rg|
   puts "Group: #{rg[:name]}"
   rg[:regs].sort.each do |rname|
     rname.downcase!
+    if $is_ddr4 && rname.match(/^mr/)
+      prname = rname + "_ddr4"
+    else
+      prname = rname
+    end
     if cfg1[rname] && cfg2[rname]
-      printf(" %-10s: %08x %08x\n", rname, cfg1[rname], cfg2[rname])
-      reg_diff(rname, cfg1[rname], cfg2[rname])
+      printf(" %-10s: %08x %08x\n", prname, cfg1[rname], cfg2[rname])
+      reg_diff(prname, cfg1[rname], cfg2[rname])
     else
       printf(" %-10s: %s %s\n", rname,
              cfg1[rname] ? sprintf("%08x", cfg1[rname]) : ("--------"),
