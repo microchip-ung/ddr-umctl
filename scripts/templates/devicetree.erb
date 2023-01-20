@@ -7,7 +7,7 @@
 &ddr {
 	microchip,mem-name = "<%= params[:version] %>";
 	microchip,mem-speed = <<%= params[:clock_speed] %>>;
-	microchip,mem-size = <<%= sprintf("0x%08x", params[:mem_size]) %>>;
+	microchip,mem-size = <<%= sprintf("0x%08x", params[:mem_size_mbytes] * 1024 * 1024) %>>;
 	microchip,mem-dq-bits = <<%= params[:dq_bits_used] %>>;
 
 <%- $config.groups.each do |rg| -%>

@@ -1,5 +1,8 @@
 ---
+# Total Memory Size (in Mbytes)
+:mem_size_mbytes:	2048
 :mem_type:		DDR3
+# Density of the individual DDR chips used
 :CONFIGURED_DENSITY:	4G
 :CONFIGURED_DQ_BITS:	x16
 :device_config:		0x1
@@ -8,3 +11,7 @@
 :speed_grade:		sg093
 :mem_profile:		issi_ddr3_512Mx8
 :_2T_mode:		1
+# DDR Clock of platform (Data Bus)
+:clock_speed:		1664
+# Board ODT setup etc
+:board:			pcb135

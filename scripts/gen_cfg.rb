@@ -61,7 +61,7 @@ end
 # Parse options
 $option = {
     :platform	=> "sparx5",
-    :memory	=> "ddr4_ref",
+    :memory	=> "pcb134_ddr4",
     :debug	=> false,
     :verbose	=> false,
     :format	=> "devicetree",
@@ -78,9 +78,6 @@ OptionParser.new do |opts|
     end
     opts.on("-m", "--memory <memory>", "Generate for given memory parameters set") do |m|
         $option[:memory] = m
-    end
-    opts.on("-b", "--board <board>", "Use board tweak file") do |b|
-        $option[:board] = b
     end
     opts.on("-d", "--debug", "Enable debug messages") do
         $option[:debug] = true
@@ -104,8 +101,7 @@ reg_settings = Hash.new
 cfg_regs.keys.map {|r| reg_settings[r.upcase] = Hash.new }
 
 # Load platform/memory parameters
-params = YAML::load_file(__dir__ + "/profiles/#{$option[:platform]}.yaml")
-params.merge!(YAML::load_file(__dir__ + "/profiles/#{$option[:memory]}.yaml"))
+params = YAML::load_file(__dir__ + "/profiles/#{$option[:memory]}.yaml")
 
 params[:dq_bits_per_mem] = params[:CONFIGURED_DQ_BITS]
 
@@ -467,8 +463,8 @@ else
     mr["MR3"] = sprintf("0x%08x", params[:reg_ddrc_emr3])
 end
 
-if $option[:board]
-    board = YAML::load_file(__dir__ + "/../configs/boards/#{$option[:board]}.yaml")
+if params[:board]
+    board = YAML::load_file(__dir__ + "/../configs/boards/#{params[:board]}.yaml")
     board.each do |rname, flds|
         r = rname.upcase
         flds.each do |t|
@@ -496,7 +492,7 @@ end
 # Add MR registers
 hex_values = hex_values.merge(mr)
 
-params[:version] = $option[:board] + " " +
+params[:version] = $option[:memory] + " " +
                    Time.now.utc.strftime("%Y-%m-%d-%H:%M:%S") + " " +
                    %x( git describe --always --dirty --tags ).chop
 
