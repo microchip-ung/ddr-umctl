@@ -120,6 +120,7 @@ else
     raise "Unsupported memory type: #{params[:mem_type]}"
 end
 
+# CONFIGURED_DENSITY is in "Gbit"
 case params[:CONFIGURED_DENSITY]
 when "2G"
     capacity = 2
@@ -132,7 +133,7 @@ when "16G"
 else
     raise "Invalid CONFIGURED_DENSITY: #{params[:CONFIGURED_DENSITY]}"
 end
-params[:mem_size] = capacity * 1024 * 1024 * 1024
+params[:mem_size] = capacity * 1024 * 1024 * 1024 / 8
 
 # Calculate derived settings
 params = ddr_process(params)
