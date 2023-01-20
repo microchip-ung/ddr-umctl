@@ -1,13 +1,11 @@
 ---
 :mem_type:		DDR4
-:CONFIGURED_DENSITY:	2G
+:CONFIGURED_DENSITY:	4G
 :CONFIGURED_DQ_BITS:	x8
 :device_config:		0x1
 :active_ranks:		0x1
 :dq_bits_used:		40
-:addrmap_row_bits:	15
-:addrmap_bank_group_bits: 2
 :ecc_mode:		4
 :speed_grade:		3
-:mem_profile:		micron_2M_8
+:mem_profile:		micron_ddr4_512Mx8
 :_2T_mode:		0

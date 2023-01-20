@@ -217,9 +217,13 @@ reg_settings["INIT5"] = {
     "DEV_ZQINIT_X32"		=> ((params[:tZQinitc] / 2.0) / 32).ceil() + 1,
 }
 # init6
-reg_settings["INIT6"]["MR5"] = params[:reg_ddrc_mr5]
+if params[:mem_type] == "DDR4"
+    reg_settings["INIT6"]["MR5"] = params[:reg_ddrc_mr5]
+end
 # init7
-reg_settings["INIT7"]["MR6"] = params[:reg_ddrc_mr6]
+if params[:mem_type] == "DDR4"
+    reg_settings["INIT7"]["MR6"] = params[:reg_ddrc_mr6]
+end
 # mstr
 reg_settings["MSTR"] = {
     "DDR3"		=> params[:mem_type] == "DDR3" ? 1 : 0,
