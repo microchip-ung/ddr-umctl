@@ -43,6 +43,26 @@ def convert_hex(regs, settings)
     return values
 end
 
+def extract_field(f, val)
+  v = (val >> f[:pos]) & ((1 << f[:width]) - 1)
+  return v
+end
+
+def set_register(regs, settings, r, v)
+    a = $chip.find(r.upcase)
+    if a
+        reg = a[2]
+    else
+        raise "Unknown reg #{r}"
+    end
+    reg[:fields].each do|f|
+        fname = f[:name].upcase
+        fval = extract_field(f, v)
+        settings[r][fname] = fval
+        $l.debug "Set register: #{r}.#{fname} = #{fval}"
+    end
+end
+
 def get_config_regs()
     regs = Hash.new
     $config.groups.each do|rg|
@@ -474,6 +494,11 @@ else
     mr["MR3"] = sprintf("0x%08x", params[:reg_ddrc_emr3])
 end
 
+# MR registers are then split up into fields (to facilitate per-field override)
+mr.each do|r, v|
+    set_register(cfg_regs, reg_settings, r, v.to_i(16))
+end
+
 if params[:board]
     board = YAML::load_file(__dir__ + "/../configs/boards/#{params[:board]}.yaml")
     board.each do |rname, flds|
@@ -500,8 +525,6 @@ p.each do |r, v|
     end
     hex_values[r] = v
 end
-# Add MR registers
-hex_values = hex_values.merge(mr)
 
 params[:version] = $option[:memory] + " " +
                    Time.now.utc.strftime("%Y-%m-%d-%H:%M:%S") + " " +

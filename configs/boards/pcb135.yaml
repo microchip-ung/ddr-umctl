@@ -11,3 +11,5 @@ zq1pr:
 zq2pr:
   - ZQDIV: 45
   - ZPROG_ASYM_DRV_PD: 11
+mr1:
+  - RTT_2: 1
