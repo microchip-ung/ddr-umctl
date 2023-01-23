@@ -647,6 +647,7 @@ end
     ## Write Recovery : binay value for mode register
     case params[:tWRc]
     when 16
+    when 15
        mr0_WR =      "000"
     when 5
        mr0_WR =      "001"
@@ -657,13 +658,15 @@ end
     when 8
        mr0_WR =      "100"
     when 10
+    when 9
        mr0_WR =      "101"
     when 12
+    when 11
        mr0_WR =      "110"
     when 14
        mr0_WR =      "111"
     else
-        raise "Error: 4Gb_ddr3_timing_parameter.tcl:: Incorrect Write recovery"
+        raise "Error: 4Gb_ddr3_timing_parameter.tcl:: Incorrect Write recovery: #{params[:tWRc]}"
     end
     $l.debug "WR_bin is #{mr0_WR} and WRc is #{params[:tWRc]}"
 
