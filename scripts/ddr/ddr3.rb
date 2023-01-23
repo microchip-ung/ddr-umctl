@@ -541,10 +541,10 @@ end
     params[:tXSDLLc] = params[:tDLLKc]; #// tXSRD      tCK   Exit self refresh to a read or write command
     #tISXR =                  tTIS; #// tISXR      ps    CKE setup time during self refresh exit.
     tCKSRE =                 10000; #// tCKSRE     ps    Valid Clock requirement after self refresh entry (SRE)
-    params[:tCKSREc] =          5; #// tCKSRE     tCK   Valid Clock requirement after self refresh entry (SRE)
+    params[:tCKSREc] = ParamInClks(tCKSRE, tCK_MIN) ; #// tCKSRE     tCK   Valid Clock requirement after self refresh entry (SRE)
+
     tCKSRX =                 10000; #// tCKSRX     ps    Valid Clock requirement prior to self refresh exit (SRX)
-    params[:tCKSRXc] =          5; #// tCKSRX     tCK   Valid Clock requirement prior to self refresh exit (SRX)
-    params[:tCKESRc] =          4; #// tCKESR     tCK   Minimum CKE low width for Self Refresh entry to exit timing
+    params[:tCKSRXc] = ParamInClks(tCKSRX, tCK_MIN); #// tCKSRX     tCK   Valid Clock requirement prior to self refresh exit (SRX)
     #// ODT
     params[:tAOFc] =                 0.7; #// tAOF       tCK   RTT turn-off from ODTLoff reference
     tAONPD =                  8500; #// tAONPD     ps    Asynchronous RTT turn-on delay (Power-Down with DLL frozen)

@@ -321,10 +321,10 @@ reg_settings["DRAMTMG4"] = {
 }
 # dramtmg5
 reg_settings["DRAMTMG5"] = {
-  "T_CKSRX"		=> (params[:tCKSRXc] / 2.0).ceil(),
-  "T_CKSRE"		=> (params[:tCKSREc] / 2.0).ceil(),
-  "T_CKESR"		=> ((params[:tCKEc] + 1) / 2.0).ceil(),
-  "T_CKE"		=> (params[:tCKEc] / 2.0).ceil(),
+  "T_CKSRX"		=> max(3, (params[:tCKSRXc] / 2.0).ceil()),
+  "T_CKSRE"		=> max(3, (params[:tCKSREc] / 2.0).ceil()),
+  "T_CKESR"		=> max(3, ((params[:tCKEc] + 1) / 2.0).ceil()),
+  "T_CKE"		=> max(3, (params[:tCKEc] / 2.0).ceil()),
 }
 # dramtmg8
 reg_settings["DRAMTMG8"] = {
@@ -334,6 +334,7 @@ reg_settings["DRAMTMG8"] = {
 if params[:mem_type] == "DDR4"
     reg_settings["DRAMTMG8"]["T_XS_FAST_X32"] = (params[:tXS_tRFC4c] / (2.0 * 32)).ceil() + 1
     reg_settings["DRAMTMG8"]["T_XS_ABORT_X32"] = (params[:tXS_tRFC4c] / (2.0 * 32)).ceil()
+    # Note currently unsure of the two above params for DDR3 - left as default for now
 end
 # dramtmg9
 if params[:mem_type] == "DDR4"
