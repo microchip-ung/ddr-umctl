@@ -197,7 +197,9 @@ reg_settings["DFIUPD1"]["DFI_T_CTRLUPD_INTERVAL_MIN_X1024"] = 0x40
 reg_settings["DFIUPD1"]["DFI_T_CTRLUPD_INTERVAL_MAX_X1024"] = 0XFF
 # ecccfg0
 # ECC Mode. 0x0 = ECC disabled, 0x4 = SECDED over 1 beat, 0x5 = Advance ECC
-reg_settings["ECCCFG0"]["ECC_MODE"] = 4
+if params[:ecc_mode]
+    reg_settings["ECCCFG0"]["ECC_MODE"] = params[:ecc_mode]
+end
 # init0
 reg_settings["INIT0"] = {
     "PRE_CKE_X1024"		=> params[:pre_cke_x1024],
