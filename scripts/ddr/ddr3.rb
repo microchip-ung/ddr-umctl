@@ -16,6 +16,25 @@ def ParamInClks(param_in_ps, tCK_in_ps)
     return (param_in_ps / (1.0 * tCK_in_ps)).ceil
 end
 
+def ddr3_find_speed_grade(clock_speed)
+    # find the best suitable DDR3 speed grade given the platform DDR
+    # clock speed
+    if (clock_speed <= 800)
+        return "sg25"
+    elsif (clock_speed <= 1066)
+        return "sg187"
+    elsif (clock_speed <= 1333)
+        return "sg15"
+    elsif (clock_speed <= 1600)
+        return "sg125"
+    elsif (clock_speed <= 1866)
+        return "sg107"
+    elsif (clock_speed <= 2133)
+        return "sg093"
+    end
+    raise "Unsupported clock speed: #{clock_speed}"
+end
+
 def ddr3(params)
 
     #// Timing parameters based on 4Gb_DDR3_SDRAM.pdf - Rev. L 2/13 EN

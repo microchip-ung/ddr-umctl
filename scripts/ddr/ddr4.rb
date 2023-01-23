@@ -77,6 +77,31 @@ def ParamInClks(param_in_ps, tCK_in_ps)
     return (param_in_ps / (1.0 * tCK_in_ps)).ceil
 end
 
+def ddr4_find_speed_grade(clock_speed)
+    # find the best suitable DDR4 speed grade given the platform DDR
+    # clock speed
+    if (clock_speed <= 1066)
+        return 0
+    elsif (clock_speed <= 1333)
+        return 1
+    elsif (clock_speed <= 1600)
+        return 2
+    elsif (clock_speed <= 1866)
+        return 3
+    elsif (clock_speed <= 2133)
+        return 4
+    elsif (clock_speed <= 2400)
+        return 5
+    elsif (clock_speed <= 2667)
+        return 6
+    elsif (clock_speed <= 2934)
+        return 7
+    elsif (clock_speed <= 3200)
+        return 8
+    end
+    raise "Unsupported clock speed: #{clock_speed}"
+end
+
 def ddr4(params)
 
 ddr4_speed_grade = params[:speed_grade]

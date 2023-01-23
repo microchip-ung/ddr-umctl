@@ -9,7 +9,6 @@
 :active_ranks:		0x1
 :dq_bits_used:		40
 :ecc_mode:		4
-:speed_grade:		3
 :mem_profile:		micron_ddr4_512Mx8
 :_2T_mode:		0
 # DDR Clock of platform (Data Bus)

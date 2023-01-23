@@ -109,8 +109,16 @@ $l.debug "params = #{params}"
 
 case params[:mem_type]
 when "DDR3"
+    if !params[:speed_grade]
+        params[:speed_grade] = ddr3_find_speed_grade(params[:clock_speed])
+        $l.debug "Found speed grade #{params[:speed_grade]} for speed #{params[:clock_speed]}"
+    end
     params = ddr3(params)
 when "DDR4"
+    if !params[:speed_grade]
+        params[:speed_grade] = ddr4_find_speed_grade(params[:clock_speed])
+        $l.debug "Found speed grade #{params[:speed_grade]} for speed #{params[:clock_speed]}"
+    end
     params = ddr4(params)
 else
     raise "Unsupported memory type: #{params[:mem_type]}"
