@@ -646,8 +646,7 @@ end
 
     ## Write Recovery : binay value for mode register
     case params[:tWRc]
-    when 16
-    when 15
+    when 15, 16
        mr0_WR =      "000"
     when 5
        mr0_WR =      "001"
@@ -657,11 +656,9 @@ end
        mr0_WR =      "011"
     when 8
        mr0_WR =      "100"
-    when 10
-    when 9
+    when 9, 10
        mr0_WR =      "101"
-    when 12
-    when 11
+    when 11, 12
        mr0_WR =      "110"
     when 14
        mr0_WR =      "111"
@@ -695,7 +692,7 @@ end
     $l.debug "CWLc_bin is #{mr2_CWL} and CWLc is #{params[:CWLc]}"
 
     case tMODc
-    when 12
+    when 10..12
       params[:tMOD] = 0
     when 13
       params[:tMOD] = 1
