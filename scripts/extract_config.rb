@@ -17,6 +17,9 @@ OptionParser.new do |opts|
     opts.on("-p", "--platform <platform>", "Use given platform") do |p|
         $option[:platform] = p
     end
+    opts.on("-d", "--debug", "Enable debug messages") do
+        $l.level = Logger::DEBUG
+    end
 end.order!
 
 def get_config_regs()
@@ -42,10 +45,10 @@ def record_writes(chip, tracefile)
             reg = data[1].downcase
             r = chip.find_by_address(reg.hex)
             if r
-                #puts "#{line} (#{r[:name]})"
+                $l.debug "#{line} (#{r[:name]})"
                 reg_use[r[:name]] = data[2]
             else
-                puts line
+                $l.debug "Not found: #{line}"
             end
         end
     end
