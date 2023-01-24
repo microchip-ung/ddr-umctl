@@ -1,6 +1,5 @@
 require 'pp'
 require_relative 'soc/chip.rb'
-require_relative 'config_registers.rb'
 
 def record_writes(chip, tracefile)
     reg_use = Hash.new
@@ -23,7 +22,6 @@ def record_writes(chip, tracefile)
 end
 
 chip = Chip.new("sparx5")
-#config = Config.new()
 
 ref = ARGV.shift
 new = ARGV.shift

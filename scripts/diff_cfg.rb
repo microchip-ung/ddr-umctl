@@ -5,7 +5,6 @@ require 'erb'
 require 'logger'
 require 'pp'
 
-require_relative 'config_registers.rb'
 require_relative 'soc/chip.rb'
 
 # Parse options
@@ -35,7 +34,6 @@ OptionParser.new do |opts|
 end.order!
 
 # Prepare default values, registers, etc.
-$config = Config.new()
 $chip = Chip.new($option[:platform])
 
 def extract_field(f, val)
@@ -62,23 +60,6 @@ def reg_diff(r, reg1, reg2)
   end
 end
 
-def get_config_regs()
-    regs = Hash.new
-    $config.groups.each do|rg|
-        rg[:regs].each do|r|
-            a = $chip.find(r)
-            if a
-                regs[r] = a[2]
-            else
-                raise "Unknown reg #{r}"
-            end
-        end
-    end
-    return regs
-end
-
-cfg_regs = get_config_regs()
-
 if ARGV.length != 2
   raise "Usage: #{$0} [options] <CFG1> <CFG2>"
 end
@@ -93,7 +74,7 @@ printf("Comparing                                 %s %s\n",
        File.basename(f2, ".yaml"))
 
 $is_ddr4 = (cfg1["mstr"] & (1 << 4)) != 0 # BIT(4)
-$config.groups.each do |rg|
+$chip.config.groups.each do |rg|
   puts "Group: #{rg[:name]}"
   rg[:regs].sort.each do |rname|
     rname.downcase!

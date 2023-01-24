@@ -5,7 +5,6 @@ require 'erb'
 require 'logger'
 require 'pp'
 
-require_relative 'config_registers.rb'
 require_relative 'soc/chip.rb'
 require_relative 'ddr/ddr_process.rb'
 require_relative 'ddr/ddr3.rb'
@@ -113,12 +112,9 @@ OptionParser.new do |opts|
 end.order!
 
 # Prepare default values, registers, etc.
-$config = Config.new()
 $chip = Chip.new($option[:platform])
 
-cfg_regs = get_config_regs()
-reg_settings = Hash.new
-cfg_regs.keys.map {|r| reg_settings[r.upcase] = Hash.new }
+reg_settings = $chip.config.register_value_set()
 
 # Load platform/memory parameters
 params = YAML::load_file(__dir__ + "/profiles/#{$option[:memory]}.yaml")
@@ -496,7 +492,7 @@ end
 
 # MR registers are then split up into fields (to facilitate per-field override)
 mr.each do|r, v|
-    set_register(cfg_regs, reg_settings, r, v.to_i(16))
+    set_register($chip.config.chip_registers, reg_settings, r, v.to_i(16))
 end
 
 if params[:board]
@@ -515,7 +511,7 @@ if params[:board]
 end
 
 # Feed the chicken and go home
-hex_values = convert_hex(cfg_regs, reg_settings)
+hex_values = convert_hex($chip.config.chip_registers, reg_settings)
 p = get_memory_profile(params[:mem_profile])
 p.each do |r, v|
     r = r.upcase

@@ -1,6 +1,5 @@
 require 'pp'
 require_relative 'soc/chip.rb'
-require_relative 'config_registers.rb'
 
 comments = {
     'dramtmg9' => "Should this be configured even for DDR3?",
@@ -116,7 +115,6 @@ def read_tcl(file)
 end
 
 chip = Chip.new("sparx5")
-config = Config.new()
 
 reguse = Hash.new
 reguse["stm32mp1"] = %w(
@@ -140,7 +138,7 @@ reguse["fa ddr3"] = read_trace("trace/fireant_ddr3.txt")
 reguse["fa ddr4"] = read_trace("trace/fireant_ddr4.txt")
 
 platforms = reguse.keys.sort
-config.groups.each do |rg|
+chip.config.groups.each do |rg|
     puts "=== #{rg[:grp]}"
     puts
 
@@ -166,7 +164,7 @@ reguse.delete("stm32mp1")
 platforms.delete("stm32mp1")
 
 totused = platforms.map{|p| reguse[p]}.flatten.uniq.sort
-refregs = config.groups.map{|rg| rg[:regs]}.flatten
+refregs = chip.config.groups.map{|rg| rg[:regs]}.flatten
 puts "=== Sparx5 DDR registers not depending on configuration"
 puts
 puts "[cols=\"1,5*^\"]"

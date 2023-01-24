@@ -3,8 +3,11 @@
 require 'optparse'
 require 'pp'
 require 'erb'
+require 'logger'
 require_relative 'soc/chip.rb'
-require_relative 'config_registers.rb'
+
+$l = Logger.new(STDERR)
+$l.level = Logger::WARN
 
 $option = { :platform   => "sparx5", };
 
@@ -24,7 +27,7 @@ def get_config_regs()
             if a
                 regs[r] = a[2]
             else
-                raise "Unknown reg #{r}"
+                $l.warn "Unknown reg #{r}"
             end
         end
     end
@@ -49,16 +52,13 @@ def record_writes(chip, tracefile)
     reg_use
 end
 
-$config = Config.new()
 $chip = Chip.new($option[:platform])
 
 log = ARGV.shift
 
 writes = record_writes($chip, log)
 
-cfg_regs = get_config_regs()
-reg_settings = Hash.new
-cfg_regs.keys.map {|r| reg_settings[r.upcase] = Hash.new }
+cfg_regs = $chip.config.register_value_set()
 
 #pp writes
 #pp cfg_regs

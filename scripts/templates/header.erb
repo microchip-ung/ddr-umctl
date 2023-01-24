@@ -19,7 +19,7 @@ struct ddr_config {
 <%- config.groups.each do |rg| -%>
 	struct config_ddr_<%= rg[:name] %> {
 <%- rg[:regs].sort.each do |rname| -%>
-		uint32_t <%= rname %>;
+		uint32_t <%= rname.downcase %>;
 <%- end -%>
 	} <%= rg[:name] %>;
 <%- end -%>

@@ -15,12 +15,54 @@ class SoC
 
 end
 
+class Config
+
+    attr_reader :groups, :registers, :chip_registers
+
+    @@ddr4 = %w(CRCPARCTL1 DBICTL INIT6 INIT7 DRAMTMG9 DRAMTMG12
+                ADDRMAP7 ADDRMAP8 DTCR0 DTCR1 SCHCR1 ZQ0PR ZQ1PR ZQ2PR ZQCR DTPR3
+                DTPR4 DTPR5 MR4 MR5 MR6)
+
+    def initialize(soc, file)
+        @soc = soc
+        @groups = YAML::load_file(file)
+        if soc.name == "lan966x"
+            @groups.each do |g|
+                @@ddr4.each do |reg|
+                    g[:regs].delete(reg.downcase)
+                end
+            end
+        end
+        @registers = @groups.map{|g| g[:regs]}.flatten
+        @chip_registers = Hash.new
+        @groups.each do|rg|
+            rg[:regs].each do|r|
+                a = @soc.find(r)
+                if a
+                    @chip_registers[r] = a[2]
+                else
+                    raise "Unknown reg #{r}"
+                end
+            end
+        end
+    end
+
+    def register_value_set()
+        reg_settings = Hash.new
+        @chip_registers.keys.map {|r| reg_settings[r.upcase] = Hash.new }
+        return reg_settings
+    end
+
+end
+
 class Chip
 
-    attr_reader :chip
+    attr_reader :chip, :config, :name
 
     def initialize(chipname)
+        @name = chipname
         @chip = SoC.new("#{chipname}.yaml")
+        @config = Config.new(self, __dir__ + "/ddr_config.yaml")
     end
 
     def find(regname)
