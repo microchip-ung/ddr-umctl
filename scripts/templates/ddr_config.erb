@@ -16,7 +16,7 @@ struct ddr_config {
 		size_t size;		/* Memory size in byte = col * row * width */
 		uint32_t dq_bits_used;	/* dq bits used */
 	} info;
-<%- config.groups.each do |rg| -%>
+<%- soc.config.groups.each do |rg| -%>
 	struct config_ddr_<%= rg[:name] %> {
 <%- rg[:regs].sort.each do |rname| -%>
 		uint32_t <%= rname.downcase %>;
