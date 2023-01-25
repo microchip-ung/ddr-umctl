@@ -7,6 +7,7 @@
 #ifndef _DDR_CONFIG_H
 #define _DDR_CONFIG_H
 
+#include <stddef.h>
 #include <stdint.h>
 
 struct ddr_config {
