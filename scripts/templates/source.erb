@@ -1,0 +1,24 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+ *
+ */
+
+#include <ddr_config.h>
+
+const struct ddr_config <%= $option[:memory] -%>_ddr_config = {
+	.info = {
+		.name = "<%= params[:version] %>",
+		.speed = <%= params[:clock_speed] %>,
+		.size = <%= sprintf("0x%08x", params[:mem_size_mbytes] * 1024 * 1024) %>,
+		.dq_bits_used = <%= params[:dq_bits_used] %>,
+	},
+<%- $soc.config.groups.each do |rg| -%>
+	.<%= rg[:name] %> = {
+<%- rg[:regs].sort.each do |rname| -%>
+		.<%= rname.downcase %> = <%= hex_values[rname] %>,
+<%- end -%>
+	},
+
+<%- end -%>
+};
