@@ -204,6 +204,8 @@ def process_file(soc, file)
             target = get_target(fullreg)
             rep = "#{fullreg}_#{fldname}_X(mmio_read_32(#{fullreg}(#{target})))"
             line[data.begin(0)..(data.end(0)-1)] = rep
+        elsif line.match(/\/\/ wr fld/i)
+            line = nil
         end
         puts line unless line == nil
     end
