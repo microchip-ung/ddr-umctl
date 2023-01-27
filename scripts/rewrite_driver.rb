@@ -21,6 +21,7 @@ class RegWrite
     end
 
     def to_s(indent)
+        indent.gsub!("\t", " " * 8)
         args = @fields.values.uniq
         if args.size == 1 && (args[0] == "0" || args[0] == "0x0")
             op = "clrbits"
@@ -29,11 +30,13 @@ class RegWrite
         else
             op = "clrsetbits"
         end
-        line = indent + "mmio_#{op}_32(#{@name}(#{@target}),\n		"
-        line += @fields.keys.map{|t| "#{@name}_#{t}_M" }.join(" |\n		");
+        line = indent + "mmio_#{op}_32(#{@name}(#{@target}),\n"
+        indent = " " * (1 + line.index('('))
+        line += indent
+        line += @fields.keys.map{|t| "#{@name}_#{t}_M" }.join(" |\n" + indent);
         if op == "clrsetbits"
-            line += ",\n		"
-            line += @fields.map{|n, v| "#{@name}_#{n}(#{v})" }.join(" |\n		");
+            line += ",\n" + indent
+            line += @fields.map{|n, v| "#{@name}_#{n}(#{v})" }.join(" |\n" + indent);
         end
         line += ");"
         return line
@@ -189,8 +192,9 @@ def process_file(soc, file)
             fullreg = make_full_name(target, regname)
             target = get_target(fullreg)
             indent = line.scan(/^(\s+)/).flatten[0]
-            fldname = "#{fullreg}_#{fldname}"
-            line = indent + "mmio_clrsetbits_32(#{fullreg}(#{target}), #{fldname}_M, #{fldname}(#{value}));"
+            regw = RegWrite.new(target, fullreg)
+            regw.setfield(fldname, value)
+            line = regw.to_s(indent)
         elsif data = line.match(/rd_fld_r\((.+)\)/)
             elm = data[1].split(/,/).map{|e| e.strip}
             target = elm[0]
