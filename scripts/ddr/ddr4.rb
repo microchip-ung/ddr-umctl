@@ -315,7 +315,7 @@ ddr4_speed_grade = params[:speed_grade]
     tCRC_ALERT_PWc_max =             10
     params[:tCRC_ALERT_PWc] =       7
 
-    case params[:CONFIGURED_DQ_BITS]
+    case params[:configured_dq_bits]
     when "x8"
         params[:tFAW] =     itFAW_1k
         params[:tRRDc_S] =  ParamInClks(itRRDc_S_1k, itCK_min)
@@ -350,7 +350,7 @@ ddr4_speed_grade = params[:speed_grade]
     tCKSRE =         10000; # in ps
     params[:tCKSREc] = ParamInClks(tCKSRE, itCK_min)
 
-    case params[:CONFIGURED_DENSITY]
+    case params[:configured_density]
     when "2G"
         tRFC1 =    160000
         tRFC2 =    110000
@@ -368,7 +368,7 @@ ddr4_speed_grade = params[:speed_grade]
         tRFC2 =    350000
         tRFC4 =    260000
     else
-        raise "Invalid CONFIGURED_DENSITY: #{params[:CONFIGURED_DENSITY]}"
+        raise "Invalid configured_density: #{params[:configured_density]}"
     end
 
     tRFC =      tRFC1
@@ -431,7 +431,7 @@ ddr4_speed_grade = params[:speed_grade]
     #tWLOE_nominal =     (tWLOE_min + tWLOE_max)/2
 
 #######################################################################################
-case params[:CONFIGURED_DQ_BITS]
+case params[:configured_dq_bits]
 when "x4"
     params[:DM_BITS] =                  1; #// this =   to =   control how many Data Mask bits are used
     params[:ADDR_BITS] =               17; #// MAX Address Bits

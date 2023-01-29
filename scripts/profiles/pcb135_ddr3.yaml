@@ -2,9 +2,8 @@
 # Total Memory Size (in Mbytes)
 :mem_size_mbytes:	2048
 :mem_type:		DDR3
-# Density of the individual DDR chips used
-:CONFIGURED_DENSITY:	4G
-:CONFIGURED_DQ_BITS:	x16
+:configured_dq_bits:	x16
+# MSTR.DEVICE_CONFIG (DDR4 only?)
 :device_config:		0x1
 :active_ranks:		0x1
 :dq_bits_used:		40

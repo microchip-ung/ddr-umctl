@@ -144,8 +144,6 @@ reg = RegSettings.new($soc)
 # Load platform/memory parameters
 params = YAML::load_file(__dir__ + "/profiles/#{$option[:memory]}.yaml")
 
-params[:dq_bits_per_mem] = params[:CONFIGURED_DQ_BITS]
-
 $l.debug "params = #{params}"
 
 case params[:mem_type]
@@ -164,21 +162,6 @@ when "DDR4"
 else
     raise "Unsupported memory type: #{params[:mem_type]}"
 end
-
-# CONFIGURED_DENSITY is in "Gbit"
-case params[:CONFIGURED_DENSITY]
-when "2G"
-    capacity = 2
-when "4G"
-    capacity = 4
-when "8G"
-    capacity = 8
-when "16G"
-    capacity = 16
-else
-    raise "Invalid CONFIGURED_DENSITY: #{params[:CONFIGURED_DENSITY]}"
-end
-params[:mem_size] = capacity * 1024 * 1024 * 1024 / 8
 
 # Calculate derived settings
 params = ddr_process(params)

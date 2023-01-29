@@ -423,7 +423,7 @@ end
 
 tDQSCK_DLLDIS =        tDQSCK;      #// tDQSCK     ps    for DLLDIS mode, timing not guaranteed
 
-case params[:CONFIGURED_DQ_BITS]
+case params[:configured_dq_bits]
 when "x16"
     case params[:speed_grade]
     when "sg093"
@@ -558,7 +558,7 @@ end
     tWLOE =                   2000; #// tWLOE      ps    Write levelization output error
 
     #// Size Parameters based on Part Width
-case params[:CONFIGURED_DQ_BITS]
+case params[:configured_dq_bits]
 when "x4"
     params[:DM_BITS] =                  1; #// Set this set to control how many Data Mask bits are used
     params[:ADDR_BITS] =               16; #// MAX Address Bits
