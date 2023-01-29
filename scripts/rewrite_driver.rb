@@ -100,7 +100,9 @@ def process_file(soc, file)
     stack = Hash.new
     File.open(file).each do |line|
         line.chomp!
-        if data = line.match(/var = wr_fld_r_s\((.+)\);/)
+        if line.match(/^\s*\/\//)
+            # $l.debug "Skip comment"
+        elsif data = line.match(/var = wr_fld_r_s\s*\((.+)\);/)
             elm = data[1].split(/,/).map{|e| e.strip}
             target = elm[0]
             regname = elm[2]
@@ -121,13 +123,13 @@ def process_file(soc, file)
                 stack[fullreg] = RegWrite.new(target, fullreg)
                 stack[fullreg].setfield(fldname, value)
             end
-        elsif cur_reg && data = line.match(/wr_fld_s_s\((.+)\);/)
+        elsif cur_reg && data = line.match(/wr_fld_s_s\s*\((.+)\);/)
             elm = data[1].split(/,/).map{|e| e.strip}
             regname = elm[3]
             raise "#{regname}: Already working on #{cur_reg}" if cur_reg != regname
             $l.debug "Gobble: " + line
             line = nil
-        elsif cur_reg && data = line.match(/wr_fld_s_r\((.+)\);/)
+        elsif cur_reg && data = line.match(/wr_fld_s_r\s*\((.+)\);/)
             elm = data[1].split(/,/).map{|e| e.strip}
             target = elm[1]
             regname = elm[3]
@@ -141,7 +143,7 @@ def process_file(soc, file)
             else
                 raise "#{regname}: Working on #{cur_reg}, but not found?"
             end
-        elsif data = line.match(/var = wr_fld_s_s\((.+)\);/)
+        elsif data = line.match(/var = wr_fld_s_s\s*\((.+)\);/)
             elm = data[1].split(/,/).map{|e| e.strip}
             target = elm[1]
             regname = elm[3]
@@ -152,7 +154,7 @@ def process_file(soc, file)
             raise "Mismatch #{fullreg} vs #{stack[fullreg].name}" if fullreg != stack[fullreg].name
             stack[fullreg].setfield(fldname, value)
             line = nil
-        elsif data = line.match(/wr_fld_s_r\((.+)\);/)
+        elsif data = line.match(/wr_fld_s_r\s*\((.+)\);/)
             elm = data[1].split(/,/).map{|e| e.strip}
             target = elm[1]
             regname = elm[3]
