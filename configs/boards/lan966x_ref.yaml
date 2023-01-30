@@ -1,6 +1,4 @@
 ---
-dfimisc:
-  - DFI_INIT_COMPLETE_EN: 1
 dfitmg0:
   - DFI_T_CTRL_DELAY: 4
   - DFI_RDDATA_USE_DFI_PHY_CLK: 0
