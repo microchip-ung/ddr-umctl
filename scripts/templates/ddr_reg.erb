@@ -22,12 +22,4 @@
 <%- end -%>
 <%- end -%>
 
-<%- soc.config.groups.each do |rg| -%>
-#define XLIST_DDR_<%= rg[:name].upcase %> \
-<%- rg[:regs].sort.each do |rname| -%>
-        X(<%= rname.downcase %>, <%= soc.target(rname.upcase).upcase %>_<%= rname.upcase %>, <%= rg[:name] %>)	\
-<%- end -%>
-
-<%- end -%>
-
 #endif /* __DDR_REG_H */

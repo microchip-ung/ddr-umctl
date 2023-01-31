@@ -11,7 +11,7 @@ top = __dir__ + "/../include"
 
 %w(lan966x sparx5).each do|p|
     soc = Chip.new(p)
-    %w(ddr_config ddr_reg).each do|f|
+    %w(ddr_config ddr_reg ddr_xlist).each do|f|
         renderer = ERB.new(File.read(__dir__ + "/templates/#{f}.erb"), nil, '-')
         content = renderer.result(binding)
         outfile = "#{top}/#{p}/#{f}.h"

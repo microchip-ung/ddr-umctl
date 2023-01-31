@@ -8,6 +8,7 @@
 
 #include <ddr_init.h>
 #include <ddr_reg.h>
+#include <ddr_xlist.h>
 
 extern void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert);
 
