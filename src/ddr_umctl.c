@@ -78,7 +78,6 @@ static bool wait_reg_set(uintptr_t reg, uint32_t mask, int usec)
 			return true;
 		}
 	}
-	timeout_completed(&t);
 	return false;
 }
 
@@ -91,7 +90,6 @@ static bool wait_reg_clr(uintptr_t reg, uint32_t mask, int usec)
 			return true;
 		}
 	}
-	timeout_completed(&t);
 	return false;
 }
 
@@ -105,7 +103,6 @@ static void wait_operating_mode(uint32_t mode, int usec)
 			PANIC("wait_operating_mode");
 		}
 	}
-	timeout_completed(&t);
 }
 
 static void set_regs(const struct ddr_config *ddr_cfg,
@@ -279,7 +276,6 @@ static void wait_phy_idone(const struct umctl_drv *drv, int tmo)
 		}
 
 	} while((pgsr & PGSR0_IDONE) == 0 && error == 0);
-	timeout_completed(&t);
 }
 
 static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode, int usec_timout)
@@ -344,12 +340,12 @@ static void ddr_disable_refresh(const struct umctl_drv *drv)
 	sw_done_ack();
 }
 
-static void ddr_restore_refresh(const struct umctl_drv *drv, uint32_t rfshctl3)
+static void ddr_restore_refresh(const struct umctl_drv *drv, uint32_t rfshctl3, uint32_t pwrctl)
 {
 	sw_done_start();
 	if ((rfshctl3 & RFSHCTL3_DIS_AUTO_REFRESH) == 0)
 		mmio_clrbits_32(DDR_UMCTL2_RFSHCTL3, RFSHCTL3_DIS_AUTO_REFRESH);
-	if (rfshctl3 & PWRCTL_POWERDOWN_EN)
+	if (pwrctl & PWRCTL_POWERDOWN_EN)
 		mmio_setbits_32(DDR_UMCTL2_PWRCTL, PWRCTL_POWERDOWN_EN);
 	mmio_setbits_32(DDR_UMCTL2_DFIMISC, DFIMISC_DFI_INIT_COMPLETE_EN);
 	sw_done_ack();
@@ -473,7 +469,7 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 		PANIC("data training error");
 	}
 
-	ddr_restore_refresh(drv, cfg->main.rfshctl3);
+	ddr_restore_refresh(drv, cfg->main.rfshctl3, cfg->main.pwrctl);
 
 	/* Reenabling uMCTL2 initiated update request after executing
 	 * DDR initization. Reference: DDR4 MultiPHY PUB databook
