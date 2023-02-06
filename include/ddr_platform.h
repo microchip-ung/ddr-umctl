@@ -10,6 +10,8 @@
 #include <assert.h>
 #include <stdint.h>
 #include <stdarg.h>
+#include <stdio.h>
+#include <stdbool.h>
 
 #if !defined(ARRAY_SIZE)
 # define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
@@ -25,10 +27,6 @@
 
 #if !defined(NOTICE)
 # define NOTICE(x...) printf(x)
-#endif
-
-#if !defined(TRACE)
-# define TRACE(s) puts(s)
 #endif
 
 #if !defined(PANIC)
@@ -70,14 +68,18 @@ static inline void ddr_usleep(int usec)
 	/* NOP */
 }
 
-typedef uint32_t ddr_timeout_t;
+static uint32_t _timeout;
 
-static inline ddr_timeout_t timeout_set_us(uint32_t val)
+typedef uint32_t *ddr_timeout_t;
+
+static inline ddr_timeout_t timeout_init_us(uint32_t val)
 {
-	return (ddr_timeout_t) val;
+	ddr_timeout_t t = &_timeout;
+	*t = val;
+	return t;
 }
 
-static inline bool timeout_elapsed(ddr_timeout_t *timeout)
+static inline bool timeout_elapsed(ddr_timeout_t timeout)
 {
 	if (*timeout == 0)
 		return true;

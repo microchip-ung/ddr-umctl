@@ -6,6 +6,7 @@
 
 #include <stddef.h>
 
+#include <ddr_platform.h>
 #include <ddr_init.h>
 #include <ddr_reg.h>
 #include <ddr_xlist.h>
@@ -71,10 +72,10 @@ static inline bool ddr4_only_register(uintptr_t reg)
 
 static bool wait_reg_set(uintptr_t reg, uint32_t mask, int usec)
 {
-	ddr_timeout_t t = timeout_set_us(usec);
+	ddr_timeout_t t = timeout_init_us(usec);
 	while ((mmio_read_32(reg) & mask) == 0) {
-		if (timeout_elapsed(&t)) {
-			VERBOSE("Timeout waiting for %p mask %08x set\n", (void*)reg, mask);
+		if (timeout_elapsed(t)) {
+			NOTICE("Timeout waiting for %p mask %08x set\n", (void*)reg, mask);
 			return true;
 		}
 	}
@@ -83,10 +84,10 @@ static bool wait_reg_set(uintptr_t reg, uint32_t mask, int usec)
 
 static bool wait_reg_clr(uintptr_t reg, uint32_t mask, int usec)
 {
-	ddr_timeout_t t = timeout_set_us(usec);
+	ddr_timeout_t t = timeout_init_us(usec);
 	while ((mmio_read_32(reg) & mask) != 0) {
-		if (timeout_elapsed(&t)) {
-			VERBOSE("Timeout waiting for %p mask %08x clr\n", (void*)reg, mask);
+		if (timeout_elapsed(t)) {
+			NOTICE("Timeout waiting for %p mask %08x clr\n", (void*)reg, mask);
 			return true;
 		}
 	}
@@ -95,10 +96,10 @@ static bool wait_reg_clr(uintptr_t reg, uint32_t mask, int usec)
 
 static void wait_operating_mode(uint32_t mode, int usec)
 {
-	ddr_timeout_t t = timeout_set_us(usec);
+	ddr_timeout_t t = timeout_init_us(usec);
 	while ((FIELD_GET(STAT_OPERATING_MODE,
 			  mmio_read_32(DDR_UMCTL2_STAT))) != mode) {
-		if (timeout_elapsed(&t)) {
+		if (timeout_elapsed(t)) {
 			VERBOSE("Timeout waiting for mode %d\n", mode);
 			PANIC("wait_operating_mode");
 		}
@@ -186,7 +187,7 @@ static void set_static_phy(const struct ddr_config *cfg)
 
 static void ecc_enable_scrubbing(const struct umctl_drv *drv)
 {
-	TRACE("Enable ECC scrubbing\n");
+	VERBOSE("Enable ECC scrubbing\n");
 
         /* 1.  Disable AXI port. port_en = 0 */
 	mmio_clrbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
@@ -226,7 +227,7 @@ static void ecc_enable_scrubbing(const struct umctl_drv *drv)
         /* 12. Enable AXI port */
 	mmio_setbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
 
-	TRACE("Enabled ECC scrubbing\n");
+	VERBOSE("Enabled ECC scrubbing\n");
 }
 
 static void phy_fifo_reset(void)
@@ -259,12 +260,12 @@ static void wait_phy_idone(const struct umctl_drv *drv, int tmo)
 		{ PGSR0_SRDERR, "Static Read Error" },
 	};
 
-	t = timeout_set_us(tmo);
+	t = timeout_init_us(tmo);
 
 	do {
 		pgsr = mmio_read_32(DDR_PHY_PGSR0);
 
-		if (timeout_elapsed(&t)) {
+		if (timeout_elapsed(t)) {
 			PANIC("PHY IDONE timeout\n");
 		}
 
@@ -282,7 +283,7 @@ static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode, int usec_ti
 {
 	mode |= PIR_INIT;
 
-	TRACE("ddr_phy_init:start\n");
+	VERBOSE("ddr_phy_init:start\n");
 
 	/* Now, kick PHY */
 	mmio_write_32(DDR_PHY_PIR, mode);
@@ -294,7 +295,7 @@ static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode, int usec_ti
 
 	wait_phy_idone(drv, usec_timout);
 
-	TRACE("ddr_phy_init:done\n");
+	VERBOSE("ddr_phy_init:done\n");
 }
 
 static void PHY_initialization(const struct umctl_drv *drv)
@@ -319,7 +320,7 @@ static void sw_done_start(void)
 
 static void sw_done_ack(void)
 {
-	TRACE("sw_done_ack:enter\n");
+	VERBOSE("sw_done_ack:enter\n");
 
 	/* Signal we're done */
 	mmio_write_32(DDR_UMCTL2_SWCTL, SWCTL_SW_DONE);
@@ -328,7 +329,7 @@ static void sw_done_ack(void)
 	if (wait_reg_set(DDR_UMCTL2_SWSTAT, SWSTAT_SW_DONE_ACK, 50))
 		PANIC("Timout SWSTAT.sw_done_ack set");
 
-	TRACE("sw_done_ack:exit\n");
+	VERBOSE("sw_done_ack:exit\n");
 }
 
 static void ddr_disable_refresh(const struct umctl_drv *drv)
@@ -394,7 +395,7 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 	bool ddr4 = !!(cfg->main.mstr & MSTR_DDR4);
 	uint32_t w, m;
 
-	TRACE("do_data_training:enter\n");
+	VERBOSE("do_data_training:enter\n");
 
 	/* Disable Auto refresh and power down before training */
 	ddr_disable_refresh(drv);
@@ -491,12 +492,12 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 	/* Settle */
 	ddr_usleep(1);
 
-	TRACE("do_data_training:exit\n");
+	VERBOSE("do_data_training:exit\n");
 }
 
 int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 {
-	TRACE("ddr_init:start\n");
+	VERBOSE("ddr_init:start\n");
 
         VERBOSE("name = %s\n", cfg->info.name);
         VERBOSE("speed = %d kHz\n", cfg->info.speed);
@@ -547,7 +548,7 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	if (cfg->main.ecccfg0 & ECCCFG0_ECC_MODE)
 		ecc_enable_scrubbing(drv);
 
-	TRACE("ddr_init:done\n");
+	VERBOSE("ddr_init:done\n");
 
 	return 0;
 }
