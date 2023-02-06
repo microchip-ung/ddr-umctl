@@ -11,8 +11,6 @@
 #include <ddr_reg.h>
 #include <ddr_xlist.h>
 
-extern void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert);
-
 struct reg_desc {
         const char *name;
 	uintptr_t reg_addr;
@@ -185,7 +183,7 @@ static void set_static_phy(const struct ddr_config *cfg)
 	mmio_setbits_32(DDR_PHY_IOVCR1, IOVCR1_ZQVREFPEN);
 }
 
-static void ecc_enable_scrubbing(const struct umctl_drv *drv)
+static void ecc_enable_scrubbing(void)
 {
 	VERBOSE("Enable ECC scrubbing\n");
 
@@ -237,7 +235,7 @@ static void phy_fifo_reset(void)
 	mmio_setbits_32(DDR_PHY_PGCR0, PGCR0_PHYFRST);
 }
 
-static void wait_phy_idone(const struct umctl_drv *drv, int tmo)
+static void wait_phy_idone(int tmo)
 {
 	uint32_t pgsr;
         int i, error = 0;
@@ -279,7 +277,7 @@ static void wait_phy_idone(const struct umctl_drv *drv, int tmo)
 	} while((pgsr & PGSR0_IDONE) == 0 && error == 0);
 }
 
-static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode, int usec_timout)
+static void ddr_phy_init(uint32_t mode, int usec_timout)
 {
 	mode |= PIR_INIT;
 
@@ -293,23 +291,23 @@ static void ddr_phy_init(const struct umctl_drv *drv, uint32_t mode, int usec_ti
         /* Need to wait 10 configuration clock before start polling */
         ddr_nsleep(10);
 
-	wait_phy_idone(drv, usec_timout);
+	wait_phy_idone(usec_timout);
 
 	VERBOSE("ddr_phy_init:done\n");
 }
 
-static void PHY_initialization(const struct umctl_drv *drv)
+static void PHY_initialization(void)
 {
 	/* PHY initialization: PLL initialization, Delay line
 	 * calibration, PHY reset and Impedance Calibration
 	 */
-	ddr_phy_init(drv, PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST, 600);
+	ddr_phy_init(PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST, 600);
 }
 
-static void DRAM_initialization_by_memctrl(const struct umctl_drv *drv)
+static void DRAM_initialization_by_memctrl(void)
 {
 	/* write PHY initialization register for SDRAM initialization */
-	ddr_phy_init(drv, PIR_CTLDINIT, 100);
+	ddr_phy_init(PIR_CTLDINIT, 100);
 }
 
 static void sw_done_start(void)
@@ -332,7 +330,7 @@ static void sw_done_ack(void)
 	VERBOSE("sw_done_ack:exit\n");
 }
 
-static void ddr_disable_refresh(const struct umctl_drv *drv)
+static void ddr_disable_refresh(void)
 {
 	sw_done_start();
 	mmio_setbits_32(DDR_UMCTL2_RFSHCTL3, RFSHCTL3_DIS_AUTO_REFRESH);
@@ -341,7 +339,7 @@ static void ddr_disable_refresh(const struct umctl_drv *drv)
 	sw_done_ack();
 }
 
-static void ddr_restore_refresh(const struct umctl_drv *drv, uint32_t rfshctl3, uint32_t pwrctl)
+static void ddr_restore_refresh(uint32_t rfshctl3, uint32_t pwrctl)
 {
 	sw_done_start();
 	if ((rfshctl3 & RFSHCTL3_DIS_AUTO_REFRESH) == 0)
@@ -390,7 +388,7 @@ static void VREF_Training_Setup(void)
 			   VTCR1_ENUM | FIELD_PREP(VTCR1_HVSS, 1) | FIELD_PREP(VTCR1_VWCR, 0xF));
 }
 
-static void do_data_training(const struct umctl_drv *drv, const struct ddr_config *cfg)
+static void do_data_training(const struct ddr_config *cfg)
 {
 	bool ddr4 = !!(cfg->main.mstr & MSTR_DDR4);
 	uint32_t w, m;
@@ -398,7 +396,7 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 	VERBOSE("do_data_training:enter\n");
 
 	/* Disable Auto refresh and power down before training */
-	ddr_disable_refresh(drv);
+	ddr_disable_refresh();
 
 	/* Write leveling, DQS gate training, Write_latency adjustment must be executed in
 	 * asynchronous read mode. After these training are finished, then static read mode
@@ -442,7 +440,7 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 	/* write PHY initialization register for Write leveling, DQS
 	 * gate training, Write_latency adjustment
 	 */
-	ddr_phy_init(drv,  PIR_WL | PIR_QSGATE | PIR_WLADJ, 200);
+	ddr_phy_init(PIR_WL | PIR_QSGATE | PIR_WLADJ, 200);
 
 	/* Static read training must be performed in static read mode.
 	 * read/write bit Deskew, read/write Eye Centering training,
@@ -459,7 +457,7 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 		w |= PIR_VREF;
 		VREF_Training_Setup();
 	}
-	ddr_phy_init(drv, w, 800);
+	ddr_phy_init(w, 800);
 
 	w = mmio_read_32(DDR_PHY_PGSR0);
 	m = GENMASK_32(11, 0) | PGSR0_SRDDONE | PGSR0_APLOCK; /* *DONE ex CADONE, VDONE */
@@ -470,7 +468,7 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 		PANIC("data training error");
 	}
 
-	ddr_restore_refresh(drv, cfg->main.rfshctl3, cfg->main.pwrctl);
+	ddr_restore_refresh(cfg->main.rfshctl3, cfg->main.pwrctl);
 
 	/* Reenabling uMCTL2 initiated update request after executing
 	 * DDR initization. Reference: DDR4 MultiPHY PUB databook
@@ -495,7 +493,7 @@ static void do_data_training(const struct umctl_drv *drv, const struct ddr_confi
 	VERBOSE("do_data_training:exit\n");
 }
 
-int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
+int ddr_init(const struct ddr_config *cfg)
 {
 	VERBOSE("ddr_init:start\n");
 
@@ -504,7 +502,7 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
         VERBOSE("size  = %zdM\n", cfg->info.size / 1024 / 1024);
 
 	/* Reset, start clocks at desired speed */
-	drv->reset(drv, cfg, true);
+	ddr_reset(cfg, true);
 
 	/* Set up controller registers */
 	set_regs(cfg, &cfg->main, ddr_main_reg, ARRAY_SIZE(ddr_main_reg));
@@ -515,7 +513,7 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	set_static_ctl();
 
 	/* Release reset */
-	drv->reset(drv, cfg, false);
+	ddr_reset(cfg, false);
 
 	/* Set PHY registers */
 	set_regs(cfg, &cfg->phy, ddr_phy_reg, ARRAY_SIZE(ddr_phy_reg));
@@ -527,9 +525,9 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	/* PHY FIFO reset (???) */
 	phy_fifo_reset();
 
-	PHY_initialization(drv);
+	PHY_initialization();
 
-	DRAM_initialization_by_memctrl(drv);
+	DRAM_initialization_by_memctrl();
 
 	/* Start quasi-dynamic programming */
 	sw_done_start();
@@ -543,10 +541,10 @@ int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg)
 	/* wait for STAT.operating_mode to become "normal" */
 	wait_operating_mode(1, 2000);
 
-	do_data_training(drv, cfg);
+	do_data_training(cfg);
 
 	if (cfg->main.ecccfg0 & ECCCFG0_ECC_MODE)
-		ecc_enable_scrubbing(drv);
+		ecc_enable_scrubbing();
 
 	VERBOSE("ddr_init:done\n");
 

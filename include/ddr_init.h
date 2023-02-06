@@ -13,10 +13,8 @@
 
 #include <ddr_config.h>
 
-struct umctl_drv {
-	void     (*reset)	      (const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert);
-};
+void ddr_reset(const struct ddr_config *cfg , bool assert);
 
-int ddr_init(const struct umctl_drv *drv, const struct ddr_config *cfg);
+int ddr_init(const struct ddr_config *cfg);
 
 #endif /* _DDR_INIT_H */

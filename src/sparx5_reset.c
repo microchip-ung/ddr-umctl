@@ -27,7 +27,7 @@ static int clk_div(uint32_t speed)
 	return 20;
 }
 
-void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert)
+void ddr_reset(const struct ddr_config *cfg , bool assert)
 {
 	if (assert) {
 		VERBOSE("reset:assert\n");

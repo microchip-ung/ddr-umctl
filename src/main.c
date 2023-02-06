@@ -12,10 +12,6 @@
 
 #include <common.h>
 
-extern void ddr_reset(const struct umctl_drv *drv, const struct ddr_config *cfg , bool assert);
-
-static struct umctl_drv drv = { .reset = ddr_reset, };
-
 extern const struct ddr_config pcb134_ddr4_ddr_config;
 extern const struct ddr_config pcb135_ddr3_ddr_config;
 
@@ -27,5 +23,5 @@ int ddr_setup(bool pcb134)
 #endif
 {
 	const struct ddr_config *cfg = pcb134 ? &pcb134_ddr4_ddr_config : &pcb135_ddr3_ddr_config;
-	return ddr_init(&drv, cfg);
+	return ddr_init(cfg);
 }
