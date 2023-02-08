@@ -50,28 +50,41 @@ def show_reg(soc, reg, value)
     else
         raise "No #{reg} register found"
     end
-    printf "%s: 0x%08x\n", reg, value
+    # printf "%s: 0x%08x\n", reg, value
+    keys = Hash.new
     rdef[:fields].each do|f|
         v = extract_field(f, value)
         if (!$option[:zero] && v == 0) || v != 0
-            sym = "#{t[:name]}_#{reg}_#{f[:name]}"
-            printf "%s(%d)\n", sym, v
+            #sym = "#{t[:name]}_#{reg}_#{f[:name]}"
+            #printf "%s(%d)\n", sym, v
+            keys[f[:name].to_sym()] = v
         end
     end
+    return keys
 end
 
 # Prepare default values, registers, etc.
 $soc = Chip.new($option[:platform])
 
-while ARGV.length > 0
-    reg = ARGV.shift
-    if ARGV.length
-        value = ARGV.shift
-        if value.match(/^0x/)
-            value = value.to_i(16)
-        else
-            value = value.to_i
-        end
+regs = Hash.new
+if ARGV.length == 1 && File.exists?(ARGV[0])
+    file = ARGV.shift
+    data = YAML::load_file(file)
+    data.each do |reg, value|
+        regs[reg] = show_reg($soc, reg.upcase, value)
     end
-    show_reg($soc, reg.upcase, value)
+else
+    while ARGV.length > 0
+        reg = ARGV.shift
+        if ARGV.length
+            value = ARGV.shift
+            if value.match(/^0x/)
+                value = value.to_i(16)
+            else
+                value = value.to_i
+            end
+        end
+        regs[reg] = show_reg($soc, reg.upcase, value)
+    end
 end
+puts regs.to_yaml()
