@@ -55,9 +55,34 @@ class RegSettings
     end
 end
 
-def get_memory_profile(profile)
-    profile = YAML::load_file(__dir__ + "/../configs/memory/#{profile}.yaml")
-    return profile
+def apply_reg_settings(what, reg, r, f, v)
+    if reg.setting(r, f)
+        $l.warn "#{r}: #{what} #{f} from #{reg.setting(r, f)} => #{v}"
+    else
+        $l.debug "#{r}: #{what} #{f} => #{v}"
+    end
+    reg.set(r, f, v)
+end
+
+def apply_settings(file, what, reg)
+    data = YAML::load_file(file)
+    $l.debug "#{what}: Read #{file}"
+    data.each do |rname, flds|
+        r = rname.upcase
+        if flds.is_a?(Array)
+            flds.each do |t|
+                t.each do |f, v|
+                    apply_reg_settings(what, reg, r, f, v)
+                end
+            end
+        elsif flds.is_a?(Hash)
+            flds.each do |f, v|
+                apply_reg_settings(what, reg, r, f, v)
+            end
+        else
+            raise "#{what}: #{r}: Wrong type #{flds.class}"
+        end
+    end
 end
 
 def calc_value(reg, params)
@@ -498,31 +523,15 @@ else
 end
 
 if params[:board]
-    board = YAML::load_file(__dir__ + "/../configs/boards/#{params[:board]}.yaml")
-    board.each do |rname, flds|
-        r = rname.upcase
-        flds.each do |t|
-            t.each do |f, v|
-                if reg.setting(r, f)
-                    $l.warn "#{r}: Board override #{f} from #{reg.setting(r, f)} => #{v}"
-                end
-                reg.set(r, f, v)
-            end
-        end
-    end
+    apply_settings(__dir__ + "/../configs/boards/#{params[:board]}.yaml", "Board override", reg)
+end
+
+if params[:mem_profile]
+    apply_settings(__dir__ + "/../configs/memory/#{params[:mem_profile]}.yaml", "Memory setup", reg)
 end
 
 # Feed the chicken and go home
 hex_values = convert_hex($soc.config.chip_registers, reg.settings)
-p = get_memory_profile(params[:mem_profile])
-p.each do |r, v|
-    r = r.upcase
-    v = sprintf("0x%08x", v)
-    if hex_values[r]
-        $l.warn "#{r}: Overide #{hex_values[r]} to #{v}"
-    end
-    hex_values[r] = v
-end
 
 params[:version] = $option[:memory] + " " +
                    Time.now.utc.strftime("%Y-%m-%d-%H:%M:%S") + " " +
