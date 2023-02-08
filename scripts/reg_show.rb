@@ -57,7 +57,7 @@ def show_reg(soc, reg, value)
         if (!$option[:zero] && v == 0) || v != 0
             #sym = "#{t[:name]}_#{reg}_#{f[:name]}"
             #printf "%s(%d)\n", sym, v
-            keys[f[:name].to_sym()] = v
+            keys[f[:name]] = v
         end
     end
     return keys
