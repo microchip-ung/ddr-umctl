@@ -3,8 +3,8 @@
 :mem_size_mbytes:	1024
 :mem_type:		DDR3
 :configured_dq_bits:	x16
-:active_ranks:		0x1
-:dq_bits_used:		40
+:active_ranks:		1
+:dq_bits_used:		16
 :ecc_mode:		0
 :mem_profile:		issi_ddr3_512Mx8
 :_2T_mode:		0

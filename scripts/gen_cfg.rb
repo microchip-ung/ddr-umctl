@@ -288,11 +288,11 @@ reg.set_h("MSTR", {
               "EN_2T_TIMING_MODE"	=> params[:_2T_mode],
               "DEVICE_CONFIG"		=> params[:device_config],
           })
-if params[:dq_bits_used] == "x16"
+if params[:dq_bits_used] == 16
     reg.set("MSTR", "DATA_BUS_WIDTH", 1)
 end
 # pccfg
-if params[:dq_bits_used] == "x16"
+if params[:dq_bits_used] == 16
     # For optimum utilization of SDRAM, Burst length expansion mode is
     # enabled in case of Half bus width mode and UMCTL2_PARTIAL_WR =
     # 1, as per recommendation given in the uMCTL2 data book v2.70a
