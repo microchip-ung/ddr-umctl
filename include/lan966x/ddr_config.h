@@ -58,6 +58,7 @@ struct ddr_config {
 	struct config_ddr_phy {
 		uint32_t dcr;
 		uint32_t dsgcr;
+		uint32_t dtcr;
 		uint32_t dxccr;
 		uint32_t pgcr2;
 	} phy;

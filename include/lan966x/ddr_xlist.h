@@ -48,6 +48,7 @@
 #define XLIST_DDR_PHY \
         X(dcr, DDR_PHY_DCR, phy)	\
         X(dsgcr, DDR_PHY_DSGCR, phy)	\
+        X(dtcr, DDR_PHY_DTCR, phy)	\
         X(dxccr, DDR_PHY_DXCCR, phy)	\
         X(pgcr2, DDR_PHY_PGCR2, phy)	\
 

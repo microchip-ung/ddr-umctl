@@ -36,15 +36,22 @@ class Config
         @registers = @groups.map{|g| g[:regs]}.flatten
         @chip_registers = Hash.new
         @groups.each do|rg|
+            delete = []
             rg[:regs].each do|r|
                 a = @soc.find(r)
                 if a
                     @chip_registers[r] = a[2]
                 else
-                    raise "Unknown reg #{r}"
+                    STDERR.puts "Unknown reg #{r}, skipping"
+                    delete << r
                 end
             end
+            # Zap out n/a regs
+            delete.each do|r|
+                rg[:regs].delete(r)
+            end
         end
+
     end
 
     def register_value_set()

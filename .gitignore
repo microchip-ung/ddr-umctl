@@ -5,3 +5,4 @@
 # Ignore build directory
 build/
 doc/*.html
+*.txt
