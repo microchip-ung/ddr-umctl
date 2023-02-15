@@ -431,11 +431,20 @@ end
 # dcr
 reg.set("DCR", "DDRMD", (params[:mem_type] == "DDR4" ? 4 : 3)) # DDR3 = 3'b011 and DDR4 = 3'b100
 reg.set("DCR", "DDR2T", params[:_2T_mode])
-# dtcr0
-reg.set("DTCR0", "DTRPTN", 15)
-reg.set("DTCR0", "DTMPR", 1)
-# dtcr1
-reg.set("DTCR1", "RANKEN", params[:active_ranks])
+# Set DTCR
+if $soc.find("DTCR")
+    $l.debug "Using simple PUB"
+    reg.set("DTCR", "DTRPTN", 7)
+    reg.set("DTCR", "DTMPR", 1)
+    reg.set("DTCR", "RANKEN", params[:active_ranks])
+else
+    $l.debug "Using simple PUB training spans two registers"
+    # dtcr0
+    reg.set("DTCR0", "DTRPTN", 15)
+    reg.set("DTCR0", "DTMPR", 1)
+    # dtcr1
+    reg.set("DTCR1", "RANKEN", params[:active_ranks])
+end
 # pgcr2
 reg.set("PGCR2", "TREFPRD", params[:tRASc_max] - 400)
 # schcr1
