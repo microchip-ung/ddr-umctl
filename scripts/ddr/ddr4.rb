@@ -316,13 +316,13 @@ ddr4_speed_grade = params[:speed_grade]
     params[:tCRC_ALERT_PWc] =       7
 
     case params[:configured_dq_bits]
-    when "x8"
+    when 8
         params[:tFAW] =     itFAW_1k
         params[:tRRDc_S] =  ParamInClks(itRRDc_S_1k, itCK_min)
         params[:tRRDc_L] =  ParamInClks(itRRDc_L_1k, itCK_min)
         params[:tRRD_S] =   itRRD_S_1k
         params[:tRRD_L] =   itRRD_L_1k
-    when  "x4"
+    when 4
         params[:tFAW] =     itFAW_512
         params[:tRRDc_S] =  ParamInClks(itRRDc_S_512, itCK_min)
         params[:tRRDc_L] =  ParamInClks(itRRDc_L_512, itCK_min)
@@ -432,7 +432,7 @@ ddr4_speed_grade = params[:speed_grade]
 
 #######################################################################################
 case params[:configured_dq_bits]
-when "x4"
+when 4
     params[:DM_BITS] =                  1; #// this =   to =   control how many Data Mask bits are used
     params[:ADDR_BITS] =               17; #// MAX Address Bits
     params[:BG_BITS] =                  2; #// this =   parameter to control how many Bank groups bits are used
@@ -441,7 +441,7 @@ when "x4"
     params[:COL_BITS] =                10; #// this =   parameter to control how many Column bits are used
     params[:DQ_BITS] =                  4; #// this =   parameter to control how many Data bits are used       **Same as part bit width**
     params[:DQS_BITS] =                 1; #// this =   parameter to control how many Dqs bits are used
-when "x8"
+when 8
     params[:DM_BITS] =                  1; #// this =   parameter to control how many Data Mask bits are used
     params[:ADDR_BITS] =               16; #// MAX Address Bits
     params[:BG_BITS] =                  2; #// this =   parameter to control how many Bank groups bits are used
@@ -450,7 +450,7 @@ when "x8"
     params[:COL_BITS] =                10; #// this =   parameter to control how many Column bits are used
     params[:DQ_BITS] =                  8; #// this =   parameter to control how many Data bits are used       **Same as part bit width**
     params[:DQS_BITS] =                 1; #// this =   parameter to control how many Dqs bits are used
-when "x16"
+when 16
     params[:DM_BITS] =                  2; #// this =   parameter to control how many Data Mask bits are used
     params[:ADDR_BITS] =               16; #// MAX Address Bits
     params[:BG_BITS] =                  1; #// this =   parameter to control how many Bank groups bits are used

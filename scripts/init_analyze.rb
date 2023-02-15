@@ -32,7 +32,7 @@ end.order!
 def record_writes(chip, tracefile)
     reg_use = Hash.new
     File.open(tracefile).each do |line|
-        if data = line.match(/[WwRr]([0-9a-f]{8,10})[,=]([0-9a-f]{8})/)
+        if data = line.match(/[Ww]([0-9a-f]{8,10})[,]([0-9a-f]{8})/)
             reg = data[1].downcase
             r = chip.find_by_address(reg.hex)
             if r

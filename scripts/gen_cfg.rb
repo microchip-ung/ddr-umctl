@@ -288,11 +288,11 @@ reg.set_h("MSTR", {
               "EN_2T_TIMING_MODE"	=> params[:_2T_mode],
               "DEVICE_CONFIG"		=> params[:device_config],
           })
-if params[:dq_bits_used] == 16
+if params[:dq_bits_used] % 16 == 0 &&
+   params[:configured_dq_bits] == (params[:dq_bits_used] / 2)
+    $l.debug "Configuring half bus width dq_bits_used, configured_dq_bits = #{params[:dq_bits_used]}, #{params[:configured_dq_bits]}"
     reg.set("MSTR", "DATA_BUS_WIDTH", 1)
-end
-# pccfg
-if params[:dq_bits_used] == 16
+    # pccfg
     # For optimum utilization of SDRAM, Burst length expansion mode is
     # enabled in case of Half bus width mode and UMCTL2_PARTIAL_WR =
     # 1, as per recommendation given in the uMCTL2 data book v2.70a
@@ -436,14 +436,14 @@ if $soc.find("DTCR")
     $l.debug "Using simple PUB"
     reg.set("DTCR", "DTRPTN", 7)
     reg.set("DTCR", "DTMPR", 1)
-    reg.set("DTCR", "RANKEN", params[:active_ranks])
+    reg.set("DTCR", "RANKEN", (1 << params[:active_ranks]) - 1)
 else
     $l.debug "Using simple PUB training spans two registers"
     # dtcr0
     reg.set("DTCR0", "DTRPTN", 15)
     reg.set("DTCR0", "DTMPR", 1)
     # dtcr1
-    reg.set("DTCR1", "RANKEN", params[:active_ranks])
+    reg.set("DTCR1", "RANKEN", (1 << params[:active_ranks]) - 1)
 end
 # pgcr2
 reg.set("PGCR2", "TREFPRD", params[:tRASc_max] - 400)

@@ -4,7 +4,7 @@
 :mem_type:		DDR4
 # Density of the individual DDR chips used (DDR4 only)
 :configured_density:	8G
-:configured_dq_bits:	x16
+:configured_dq_bits:	16
 # MSTR.DEVICE_CONFIG (DDR4 only)
 :device_config:		1
 :active_ranks:		1

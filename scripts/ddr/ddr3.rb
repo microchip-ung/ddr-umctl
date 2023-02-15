@@ -424,7 +424,7 @@ end
 tDQSCK_DLLDIS =        tDQSCK;      #// tDQSCK     ps    for DLLDIS mode, timing not guaranteed
 
 case params[:configured_dq_bits]
-when "x16"
+when 16
     case params[:speed_grade]
     when "sg093"
       tRRD =                    6000; #// tRRD       ps     (2KB page size) Active bank a to Active bank b command time
@@ -559,21 +559,21 @@ end
 
     #// Size Parameters based on Part Width
 case params[:configured_dq_bits]
-when "x4"
+when 4
     params[:DM_BITS] =                  1; #// Set this set to control how many Data Mask bits are used
     params[:ADDR_BITS] =               16; #// MAX Address Bits
     params[:ROW_BITS] =                16; #// Set this parameter to control how many Address bits are used
     params[:COL_BITS] =                11; #// Set this parameter to control how many Column bits are used
     params[:DQ_BITS] =                  4; #// Set this parameter to control how many Data bits are used       **Same as part bit width**
     params[:DQS_BITS] =                 1; #// Set this parameter to control how many Dqs bits are used
-when "x8"
+when 8
     params[:DM_BITS] =                  1; #// Set this parameter to control how many Data Mask bits are used
     params[:ADDR_BITS] =               16; #// MAX Address Bits
     params[:ROW_BITS] =                16; #// Set this parameter to control how many Address bits are used
     params[:COL_BITS] =                10; #// Set this parameter to control how many Column bits are used
     params[:DQ_BITS] =                  8; #// Set this parameter to control how many Data bits are used       **Same as part bit width**
     params[:DQS_BITS] =                 1; #// Set this parameter to control how many Dqs bits are used
-when "x16"
+when 16
     params[:DM_BITS] =                  2; #// Set this parameter to control how many Data Mask bits are used
     params[:ADDR_BITS] =               15; #// MAX Address Bits
     params[:ROW_BITS] =                15; #// Set this parameter to control how many Address bits are used

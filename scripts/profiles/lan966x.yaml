@@ -2,7 +2,7 @@
 # Total Memory Size (in Mbytes)
 :mem_size_mbytes:	1024
 :mem_type:		DDR3
-:configured_dq_bits:	x16
+:configured_dq_bits:	16
 :active_ranks:		1
 :dq_bits_used:		16
 :ecc_mode:		0
