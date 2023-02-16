@@ -147,9 +147,9 @@ static void set_static_phy(const struct ddr_config *cfg)
 	 * initialization */
 	mmio_clrbits_32(DDR_PHY_DSGCR, DSGCR_PUREN);
 	// # Disable un-used byte lanes by writing DXnGCR0[0] = 1'b0 (DXEN).
-	if (cfg->info.dq_bits_used == 32) {
+	if (cfg->info.bus_width == 32) {
 		mmio_clrbits_32(DDR_PHY_DX4GCR0, DX4GCR0_DXEN);
-	} else if (cfg->info.dq_bits_used == 16) {
+	} else if (cfg->info.bus_width == 16) {
 		mmio_clrbits_32(DDR_PHY_DX2GCR0, DX2GCR0_DXEN);
 		mmio_clrbits_32(DDR_PHY_DX3GCR0, DX3GCR0_DXEN);
 		mmio_clrbits_32(DDR_PHY_DX4GCR0, DX4GCR0_DXEN);
@@ -420,7 +420,7 @@ static void do_data_training(const struct ddr_config *cfg)
 	mmio_write_32(DDR_PHY_DX1BDLR0, 0x08080808);
 	mmio_write_32(DDR_PHY_DX1BDLR1, 0x08080808);
 	mmio_write_32(DDR_PHY_DX1BDLR2, 0x080808);
-	if (cfg->info.dq_bits_used == 32 || cfg->info.dq_bits_used == 40) {
+	if (cfg->info.bus_width == 32) {
 		mmio_write_32(DDR_PHY_DX2BDLR0, 0x08080808);
 		mmio_write_32(DDR_PHY_DX2BDLR1, 0x08080808);
 		mmio_write_32(DDR_PHY_DX2BDLR2, 0x080808);
@@ -428,7 +428,8 @@ static void do_data_training(const struct ddr_config *cfg)
 		mmio_write_32(DDR_PHY_DX3BDLR1, 0x08080808);
 		mmio_write_32(DDR_PHY_DX3BDLR2, 0x080808);
 	}
-	if (cfg->info.dq_bits_used == 40) {
+	/* ECC lane enabled? */
+	if (cfg->main.ecccfg0 & ECCCFG0_ECC_MODE) {
 		mmio_write_32(DDR_PHY_DX4BDLR0, 0x08080808);
 		mmio_write_32(DDR_PHY_DX4BDLR1, 0x08080808);
 		mmio_write_32(DDR_PHY_DX4BDLR2, 0x080808);

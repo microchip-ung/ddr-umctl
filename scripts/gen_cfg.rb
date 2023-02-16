@@ -45,7 +45,10 @@ class RegSettings
 
     def set_r(reg, value)
         creg = @soc.config.chip_registers[reg]
-        raise "Unknown reg #{reg}" unless creg
+        if !creg
+            $l.warn "Unknown reg #{reg}"
+            return
+        end
         creg[:fields].each do|f|
             fname = f[:name].upcase
             fval = extract_field(f, value)
