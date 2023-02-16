@@ -4,11 +4,10 @@
 :mem_type:		DDR4
 # Density of the individual DDR chips used (DDR4 only)
 :configured_density:	4G
-:configured_dq_bits:	8
+:device_bus_width:	x8
 # MSTR.DEVICE_CONFIG (DDR4 only)
 :device_config:		0x1
 :active_ranks:		0x1
-:dq_bits_used:		40
 :ecc_mode:		4
 :mem_profile:		micron_ddr4_512Mx8
 :_2T_mode:		0

@@ -4,8 +4,8 @@ class SoC
 
     attr_reader :targets
 
-    def initialize(filename)
-        @targets = YAML::load_file(__dir__ + "/" + filename)
+    def initialize(name)
+        @targets = YAML::load_file(__dir__ + "/#{name}.yaml")
     end
 
     def regaddr(t, g, r)
@@ -26,7 +26,7 @@ class Config
     def initialize(soc, file)
         @soc = soc
         @groups = YAML::load_file(file)
-        if soc.name == "lan966x"
+        if soc.only_ddr3
             @groups.each do |g|
                 @@ddr4.each do |reg|
                     g[:regs].delete(reg.downcase)
@@ -51,7 +51,6 @@ class Config
                 rg[:regs].delete(r)
             end
         end
-
     end
 
     def register_value_set()
@@ -64,12 +63,25 @@ end
 
 class Chip
 
-    attr_reader :chip, :config, :name
+    attr_reader :chip, :config, :name, :bus_width, :only_ddr3
 
     def initialize(chipname)
         @name = chipname
-        @chip = SoC.new("#{chipname}.yaml")
+        @chip = SoC.new(chipname)
         @config = Config.new(self, __dir__ + "/ddr_config.yaml")
+        case @name
+        when "lan966x"
+            @bus_width = 16
+            @only_ddr3 = true
+        when "lan969x"
+            @bus_width = 16
+            @only_ddr3 = false
+        when "sparx5"
+            @bus_width = 32
+            @only_ddr3 = false
+        else
+            raise "Need to know details of platform #{name}"
+        end
     end
 
     def find(regname)

@@ -288,16 +288,17 @@ reg.set_h("MSTR", {
               "EN_2T_TIMING_MODE"	=> params[:_2T_mode],
               "DEVICE_CONFIG"		=> params[:device_config],
           })
-if params[:dq_bits_used] % 16 == 0 &&
-   params[:configured_dq_bits] == (params[:dq_bits_used] / 2)
-    $l.debug "Configuring half bus width dq_bits_used, configured_dq_bits = #{params[:dq_bits_used]}, #{params[:configured_dq_bits]}"
+if ($soc.bus_width % 16) == 0 && params[:enable_half_bus]
+    $l.debug "Configuring half bus width"
     reg.set("MSTR", "DATA_BUS_WIDTH", 1)
-    # pccfg
-    # For optimum utilization of SDRAM, Burst length expansion mode is
-    # enabled in case of Half bus width mode and UMCTL2_PARTIAL_WR =
-    # 1, as per recommendation given in the uMCTL2 data book v2.70a
-    # (pg. no. 122).
-    reg.set("PCCFG", "BL_EXP_MODE", 1)
+    if params[:mem_type] == "DDR4"
+        # pccfg
+        # For optimum utilization of SDRAM, Burst length expansion mode is
+        # enabled in case of Half bus width mode and UMCTL2_PARTIAL_WR =
+        # 1, as per recommendation given in the uMCTL2 data book v2.70a
+        # (pg. no. 122).
+        reg.set("PCCFG", "BL_EXP_MODE", 1)
+    end
 end
 # pwrctl
 # rfshctl0

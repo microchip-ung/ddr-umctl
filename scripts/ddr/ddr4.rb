@@ -315,25 +315,21 @@ ddr4_speed_grade = params[:speed_grade]
     tCRC_ALERT_PWc_max =             10
     params[:tCRC_ALERT_PWc] =       7
 
-    case params[:configured_dq_bits]
-    when 8
+    case params[:device_bus_width]
+    when "x8"
         params[:tFAW] =     itFAW_1k
         params[:tRRDc_S] =  ParamInClks(itRRDc_S_1k, itCK_min)
         params[:tRRDc_L] =  ParamInClks(itRRDc_L_1k, itCK_min)
         params[:tRRD_S] =   itRRD_S_1k
         params[:tRRD_L] =   itRRD_L_1k
-    when 4
-        params[:tFAW] =     itFAW_512
-        params[:tRRDc_S] =  ParamInClks(itRRDc_S_512, itCK_min)
-        params[:tRRDc_L] =  ParamInClks(itRRDc_L_512, itCK_min)
-        params[:tRRD_S] =   itRRD_S_512
-        params[:tRRD_L] =   itRRD_L_512
-    else
+    when "x16"
         params[:tFAW] =     itFAW_2k
         params[:tRRDc_S] =  ParamInClks(itRRDc_S_2k, itCK_min)
         params[:tRRDc_L] =  ParamInClks(itRRDc_L_2k, itCK_min)
         params[:tRRD_S] =   itRRD_S_2k
         params[:tRRD_L] =   itRRD_L_2k
+    else
+        raise "Invalid device_bus_width: #{params[:device_bus_width]}"
     end
 
     tRRDc_dlr =      4
@@ -431,17 +427,8 @@ ddr4_speed_grade = params[:speed_grade]
     #tWLOE_nominal =     (tWLOE_min + tWLOE_max)/2
 
 #######################################################################################
-case params[:configured_dq_bits]
-when 4
-    params[:DM_BITS] =                  1; #// this =   to =   control how many Data Mask bits are used
-    params[:ADDR_BITS] =               17; #// MAX Address Bits
-    params[:BG_BITS] =                  2; #// this =   parameter to control how many Bank groups bits are used
-    params[:BA_BITS] =                  2; #// this =   parameter to control how many Bank Address bits are used
-    params[:ROW_BITS] =                17; #// this =   parameter to control how many Address bits are used
-    params[:COL_BITS] =                10; #// this =   parameter to control how many Column bits are used
-    params[:DQ_BITS] =                  4; #// this =   parameter to control how many Data bits are used       **Same as part bit width**
-    params[:DQS_BITS] =                 1; #// this =   parameter to control how many Dqs bits are used
-when 8
+case params[:device_bus_width]
+when "x8"
     params[:DM_BITS] =                  1; #// this =   parameter to control how many Data Mask bits are used
     params[:ADDR_BITS] =               16; #// MAX Address Bits
     params[:BG_BITS] =                  2; #// this =   parameter to control how many Bank groups bits are used
@@ -450,7 +437,7 @@ when 8
     params[:COL_BITS] =                10; #// this =   parameter to control how many Column bits are used
     params[:DQ_BITS] =                  8; #// this =   parameter to control how many Data bits are used       **Same as part bit width**
     params[:DQS_BITS] =                 1; #// this =   parameter to control how many Dqs bits are used
-when 16
+when "x16"
     params[:DM_BITS] =                  2; #// this =   parameter to control how many Data Mask bits are used
     params[:ADDR_BITS] =               16; #// MAX Address Bits
     params[:BG_BITS] =                  1; #// this =   parameter to control how many Bank groups bits are used
@@ -459,6 +446,8 @@ when 16
     params[:COL_BITS] =                10; #// this =   parameter to control how many Column bits are used
     params[:DQ_BITS] =                 16; #// this =   parameter to control how many Data bits are used       **Same as part bit width**
     params[:DQS_BITS] =                 2; #// this =   parameter to control how many Dqs bits are used
+else
+    raise "Invalid device_bus_width: #{params[:device_bus_width]}"
 end
 
 

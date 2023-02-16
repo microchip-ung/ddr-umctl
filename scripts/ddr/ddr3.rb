@@ -423,8 +423,8 @@ end
 
 tDQSCK_DLLDIS =        tDQSCK;      #// tDQSCK     ps    for DLLDIS mode, timing not guaranteed
 
-case params[:configured_dq_bits]
-when 16
+case params[:device_bus_width]
+when "x16"
     case params[:speed_grade]
     when "sg093"
       tRRD =                    6000; #// tRRD       ps     (2KB page size) Active bank a to Active bank b command time
@@ -445,7 +445,7 @@ when 16
       tRRD =                   10000; #// tRRD       ps     (2KB page size) Active bank a to Active bank b command time
       tFAW =                   50000; #// tFAW       ps     (2KB page size) Four Bank Activate window
     end
-else #// x4, x8
+when "x8"
     case params[:speed_grade]
     when "sg093"
       tRRD =                    5000; #// tRRD       ps     (1KB page size) Active bank a to Active bank b command time
@@ -472,6 +472,8 @@ else #// x4, x8
       tRRD =                   10000; #// tRRD       ps     (1KB page size) Active bank a to Active bank b command time
       tFAW =                   40000; #// tFAW       ps     (1KB page size) Four Bank Activate window
     end
+else
+    raise "Invalid device_bus_width: #{params[:device_bus_width]}"
 end
 
     #// Timing Parameters
@@ -558,28 +560,23 @@ end
     tWLOE =                   2000; #// tWLOE      ps    Write levelization output error
 
     #// Size Parameters based on Part Width
-case params[:configured_dq_bits]
-when 4
-    params[:DM_BITS] =                  1; #// Set this set to control how many Data Mask bits are used
-    params[:ADDR_BITS] =               16; #// MAX Address Bits
-    params[:ROW_BITS] =                16; #// Set this parameter to control how many Address bits are used
-    params[:COL_BITS] =                11; #// Set this parameter to control how many Column bits are used
-    params[:DQ_BITS] =                  4; #// Set this parameter to control how many Data bits are used       **Same as part bit width**
-    params[:DQS_BITS] =                 1; #// Set this parameter to control how many Dqs bits are used
-when 8
+case params[:device_bus_width]
+when "x8"
     params[:DM_BITS] =                  1; #// Set this parameter to control how many Data Mask bits are used
     params[:ADDR_BITS] =               16; #// MAX Address Bits
     params[:ROW_BITS] =                16; #// Set this parameter to control how many Address bits are used
     params[:COL_BITS] =                10; #// Set this parameter to control how many Column bits are used
     params[:DQ_BITS] =                  8; #// Set this parameter to control how many Data bits are used       **Same as part bit width**
     params[:DQS_BITS] =                 1; #// Set this parameter to control how many Dqs bits are used
-when 16
+when "x16"
     params[:DM_BITS] =                  2; #// Set this parameter to control how many Data Mask bits are used
     params[:ADDR_BITS] =               15; #// MAX Address Bits
     params[:ROW_BITS] =                15; #// Set this parameter to control how many Address bits are used
     params[:COL_BITS] =                10; #// Set this parameter to control how many Column bits are used
     params[:DQ_BITS] =                 16; #// Set this parameter to control how many Data bits are used       **Same as part bit width**
     params[:DQS_BITS] =                 2; #// Set this parameter to control how many Dqs bits are used
+else
+    raise "Invalid device_bus_width: #{params[:device_bus_width]}"
 end
 
     #// Size Parameters

@@ -11,7 +11,7 @@ const struct ddr_config <%= $option[:memory] -%>_ddr_config = {
 		.name = "<%= params[:version] %>",
 		.speed = <%= params[:clock_speed] %>,
 		.size = <%= sprintf("0x%08x", params[:mem_size_mbytes] * 1024 * 1024) %>,
-		.dq_bits_used = <%= params[:dq_bits_used] %>,
+		.bus_width = <%= $soc.bus_width %>,
 	},
 <%- $soc.config.groups.each do |rg| -%>
 	.<%= rg[:name] %> = {
