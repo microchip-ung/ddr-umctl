@@ -11,18 +11,41 @@
 #include <ddr_reg.h>
 #include <ddr_xlist.h>
 
+#define PGSR_ERR_MASK		GENMASK_32(30, 19)
+#define PGSR_ALL_DONE		GENMASK_32(11, 0)
+
+#define PHY_TIMEOUT_US_1S	1000000U
+
+static const struct {
+	uint32_t mask;
+	const char *desc;
+} phyerr[] = {
+	{ PGSR0_VERR, "VREF Training Error" },
+	{ PGSR0_ZCERR, "Impedance Calibration Error" },
+	{ PGSR0_WLERR, "Write Leveling Error" },
+	{ PGSR0_QSGERR, "DQS Gate Training Error" },
+	{ PGSR0_WLAERR, "Write Leveling Adjustment Error" },
+	{ PGSR0_RDERR, "Read Bit Deskew Error" },
+	{ PGSR0_WDERR, "Write Bit Deskew Error" },
+	{ PGSR0_REERR, "Read Eye Training Error" },
+	{ PGSR0_WEERR, "Write Eye Training Error" },
+	{ PGSR0_CAERR, "CA Training Error" },
+	// { PGSR0_CAWRN, "CA Training Warning" },
+	{ PGSR0_SRDERR, "Static Read Error" },
+};
+
 struct reg_desc {
-        const char *name;
+	const char *name;
 	uintptr_t reg_addr;
-        uint8_t par_offset;     /* Offset for parameter array */
+	uint8_t par_offset;	/* Offset for parameter array */
 };
 
 #define X(x, y, z)							\
-        {                                               		\
-                .name = #x,                             		\
+	{								\
+		.name = #x,						\
 		.reg_addr  = y,						\
 		.par_offset = offsetof(struct config_ddr_##z, x),	\
-        },
+	},
 
 static const struct reg_desc ddr_main_reg[] = {
 XLIST_DDR_MAIN
@@ -148,12 +171,21 @@ static void set_static_phy(const struct ddr_config *cfg)
 	mmio_clrbits_32(DDR_PHY_DSGCR, DSGCR_PUREN);
 	// # Disable un-used byte lanes by writing DXnGCR0[0] = 1'b0 (DXEN).
 	if (cfg->info.bus_width == 32) {
-		mmio_clrbits_32(DDR_PHY_DX4GCR0, DX4GCR0_DXEN);
+		mmio_setbits_32(DDR_PHY_DX0GCR0, DX0GCR0_DXEN);
+		mmio_setbits_32(DDR_PHY_DX1GCR0, DX1GCR0_DXEN);
+		mmio_setbits_32(DDR_PHY_DX2GCR0, DX2GCR0_DXEN);
+		mmio_setbits_32(DDR_PHY_DX3GCR0, DX3GCR0_DXEN);
 	} else if (cfg->info.bus_width == 16) {
+		mmio_setbits_32(DDR_PHY_DX0GCR0, DX0GCR0_DXEN);
+		mmio_setbits_32(DDR_PHY_DX1GCR0, DX1GCR0_DXEN);
 		mmio_clrbits_32(DDR_PHY_DX2GCR0, DX2GCR0_DXEN);
 		mmio_clrbits_32(DDR_PHY_DX3GCR0, DX3GCR0_DXEN);
-		mmio_clrbits_32(DDR_PHY_DX4GCR0, DX4GCR0_DXEN);
 	}
+	/* Disable ECC lane according to config */
+	if (cfg->main.ecccfg0 & ECCCFG0_ECC_MODE)
+		mmio_setbits_32(DDR_PHY_DX4GCR0, DX4GCR0_DXEN);
+	else
+		mmio_clrbits_32(DDR_PHY_DX4GCR0, DX4GCR0_DXEN);
 
 	/* To capture valid read data for rank0 */
 	mmio_clrsetbits_32(DDR_PHY_RANKIDR, RANKIDR_RANKWID,
@@ -187,42 +219,43 @@ static void ecc_enable_scrubbing(void)
 {
 	VERBOSE("Enable ECC scrubbing\n");
 
-        /* 1.  Disable AXI port. port_en = 0 */
+	/* 1.  Disable AXI port. port_en = 0 */
 	mmio_clrbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
 
-        /* 2. scrub_mode = 1 */
+	/* 2. scrub_mode = 1 */
 	mmio_setbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_MODE);
 
-        /* 3. scrub_interval = 0 */
+	/* 3. scrub_interval = 0 */
 	mmio_clrbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_INTERVAL);
 
-        /* 4. Data pattern = 0 */
+	/* 4. Data pattern = 0 */
 	mmio_write_32(DDR_UMCTL2_SBRWDATA0, 0);
 
-        /* 5. (skip) */
+	/* 5. (skip) */
 
-        /* 6. Enable SBR programming */
+	/* 6. Enable SBR programming */
 	mmio_setbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
 
-        /* 7. Poll SBRSTAT.scrub_done */
+	/* 7. Poll SBRSTAT.scrub_done */
 	if (wait_reg_set(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_DONE, 1000000))
 		PANIC("Timeout SBRSTAT.scrub_done set");
 
-        /* 8. Poll SBRSTAT.scrub_busy */
+	/* 8. Poll SBRSTAT.scrub_busy */
 	if (wait_reg_clr(DDR_UMCTL2_SBRSTAT, SBRSTAT_SCRUB_BUSY, 50))
 		PANIC("Timeout SBRSTAT.scrub_busy clear");
 
-        /* 9. Disable SBR programming */
+	/* 9. Disable SBR programming */
 	mmio_clrbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
 #if 0
-        /* 10. Normal scrub operation, mode = 0, interval = 100 */
-        wr_fld_r_r (DDR_UMCTL2, UMCTL2_MP, SBRCTL, SCRUB_MODE, 0);
-        wr_fld_r_r (DDR_UMCTL2, UMCTL2_MP, SBRCTL, SCRUB_INTERVAL, 100);
-        /* 11. Enable SBR progeramming again  */
-        wr_fld_r_r (DDR_UMCTL2, UMCTL2_MP, SBRCTL, SCRUB_EN, 1);
+	/* 10. Normal scrub operation, mode = 0, interval = 100 */
+	/* 11. Enable SBR progeramming again  */
+	mmio_clrsetbits_32(DDR_UMCTL2_SBRCTL,
+			   SBRCTL_SCRUB_MODE | SBRCTL_SCRUB_INTERVAL,
+			   FIELD_PREP(SBRCTL_SCRUB_INTERVAL, 100) |
+			   FIELD_PREP(SBRCTL_SCRUB_EN, 1));
 #endif
 
-        /* 12. Enable AXI port */
+	/* 12. Enable AXI port */
 	mmio_setbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
 
 	VERBOSE("Enabled ECC scrubbing\n");
@@ -231,50 +264,35 @@ static void ecc_enable_scrubbing(void)
 static void phy_fifo_reset(void)
 {
 	mmio_clrbits_32(DDR_PHY_PGCR0, PGCR0_PHYFRST);
-	ddr_usleep(1);
+	ddr_nsleep(1);
 	mmio_setbits_32(DDR_PHY_PGCR0, PGCR0_PHYFRST);
 }
 
 static void wait_phy_idone(int tmo)
 {
 	uint32_t pgsr;
-        int i, error = 0;
+	int i;
 	ddr_timeout_t t;
-	static const struct {
-		uint32_t mask;
-		const char *desc;
-	} phyerr[] = {
-		{ PGSR0_VERR, "VREF Training Error" },
-		{ PGSR0_ZCERR, "Impedance Calibration Error" },
-		{ PGSR0_WLERR, "Write Leveling Error" },
-		{ PGSR0_QSGERR, "DQS Gate Training Error" },
-		{ PGSR0_WLAERR, "Write Leveling Adjustment Error" },
-		{ PGSR0_RDERR, "Read Bit Deskew Error" },
-		{ PGSR0_WDERR, "Write Bit Deskew Error" },
-		{ PGSR0_REERR, "Read Eye Training Error" },
-		{ PGSR0_WEERR, "Write Eye Training Error" },
-		{ PGSR0_CAERR, "CA Training Error" },
-		// { PGSR0_CAWRN, "CA Training Warning" },
-		{ PGSR0_SRDERR, "Static Read Error" },
-	};
 
 	t = timeout_init_us(tmo);
 
 	do {
 		pgsr = mmio_read_32(DDR_PHY_PGSR0);
 
-		if (timeout_elapsed(t)) {
-			PANIC("PHY IDONE timeout\n");
-		}
-
-		for (i = 0; i < ARRAY_SIZE(phyerr); i++) {
-			if (pgsr & phyerr[i].mask) {
-				NOTICE("PHYERR: %s", phyerr[i].desc);
-				error++;
+		if (pgsr & PGSR_ERR_MASK) {
+			for (i = 0; i < ARRAY_SIZE(phyerr); i++) {
+				if (pgsr & phyerr[i].mask) {
+					NOTICE("PHYERR: %s Error\n", phyerr[i].desc);
+					/* Keep going */
+				}
 			}
 		}
 
-	} while((pgsr & PGSR0_IDONE) == 0 && error == 0);
+		if (pgsr & PGSR0_IDONE)
+			return;
+
+	} while(!timeout_elapsed(&t));
+	PANIC("PHY IDONE timeout\n");
 }
 
 static void ddr_phy_init(uint32_t mode, int usec_timout)
@@ -288,8 +306,8 @@ static void ddr_phy_init(uint32_t mode, int usec_timout)
 
 	VERBOSE("pir = 0x%x -> 0x%x\n", mode, mmio_read_32(DDR_PHY_PIR));
 
-        /* Need to wait 10 configuration clock before start polling */
-        ddr_nsleep(10);
+	/* Need to wait 10 configuration clock before start polling */
+	ddr_nsleep(10);
 
 	wait_phy_idone(usec_timout);
 
@@ -301,13 +319,13 @@ static void PHY_initialization(void)
 	/* PHY initialization: PLL initialization, Delay line
 	 * calibration, PHY reset and Impedance Calibration
 	 */
-	ddr_phy_init(PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST, 600);
+	ddr_phy_init(PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST, PHY_TIMEOUT_US_1S);
 }
 
 static void DRAM_initialization_by_memctrl(void)
 {
 	/* write PHY initialization register for SDRAM initialization */
-	ddr_phy_init(PIR_CTLDINIT, 100);
+	ddr_phy_init(PIR_CTLDINIT, PHY_TIMEOUT_US_1S);
 }
 
 static void sw_done_start(void)
@@ -435,13 +453,13 @@ static void do_data_training(const struct ddr_config *cfg)
 		mmio_write_32(DDR_PHY_DX4BDLR2, 0x080808);
 	}
 
-	/* PHY FIFO reset (???) */
+	/* PHY FIFO reset - as recommended in PUB databook */
 	phy_fifo_reset();
 
 	/* write PHY initialization register for Write leveling, DQS
 	 * gate training, Write_latency adjustment
 	 */
-	ddr_phy_init(PIR_WL | PIR_QSGATE | PIR_WLADJ, 200);
+	ddr_phy_init(PIR_WL | PIR_QSGATE | PIR_WLADJ, PHY_TIMEOUT_US_1S);
 
 	/* Static read training must be performed in static read mode.
 	 * read/write bit Deskew, read/write Eye Centering training,
@@ -449,7 +467,7 @@ static void do_data_training(const struct ddr_config *cfg)
 	 * asynchronous read mode.
 	 */
 	mmio_clrsetbits_32(DDR_PHY_PGCR3, PGCR3_RDMODE,
-			   FIELD_PREP(PGCR3_RDMODE, 1)); /* XXX: PGCR3.RDMODE = 2'b011 ??? */
+			   FIELD_PREP(PGCR3_RDMODE, 1));
 
 	/* Now, actual data training */
 	w = PIR_SRD | PIR_WREYE | PIR_RDEYE | PIR_WRDSKW | PIR_RDDSKW;
@@ -458,10 +476,10 @@ static void do_data_training(const struct ddr_config *cfg)
 		w |= PIR_VREF;
 		VREF_Training_Setup();
 	}
-	ddr_phy_init(w, 800);
+	ddr_phy_init(w, PHY_TIMEOUT_US_1S);
 
 	w = mmio_read_32(DDR_PHY_PGSR0);
-	m = GENMASK_32(11, 0) | PGSR0_SRDDONE | PGSR0_APLOCK; /* *DONE ex CADONE, VDONE */
+	m = PGSR_ALL_DONE | PGSR0_SRDDONE | PGSR0_APLOCK; /* *DONE ex CADONE, VDONE */
 	if (ddr4)
 		m |= PGSR0_VDONE;
 	if ((w & m) != m) {
@@ -498,9 +516,9 @@ int ddr_init(const struct ddr_config *cfg)
 {
 	VERBOSE("ddr_init:start\n");
 
-        VERBOSE("name = %s\n", cfg->info.name);
-        VERBOSE("speed = %d kHz\n", cfg->info.speed);
-        VERBOSE("size  = %zdM\n", cfg->info.size / 1024 / 1024);
+	VERBOSE("name = %s\n", cfg->info.name);
+	VERBOSE("speed = %d kHz\n", cfg->info.speed);
+	VERBOSE("size  = %zdM\n", cfg->info.size / 1024 / 1024);
 
 	/* Reset, start clocks at desired speed */
 	ddr_reset(cfg, true);
@@ -523,7 +541,7 @@ int ddr_init(const struct ddr_config *cfg)
 	/* Static PHY settings */
 	set_static_phy(cfg);
 
-	/* PHY FIFO reset (???) */
+	/* PHY FIFO reset - as recommended in PUB databook */
 	phy_fifo_reset();
 
 	PHY_initialization();
