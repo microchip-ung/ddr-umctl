@@ -145,13 +145,6 @@ static void set_regs(const struct ddr_config *ddr_cfg,
 
 static void set_static_ctl(void)
 {
-	mmio_write_32(DDR_UMCTL2_RFSHCTL1,
-		      FIELD_PREP(RFSHCTL1_REFRESH_TIMER0_START_VALUE_X32, 0x20) |
-		      FIELD_PREP(RFSHCTL1_REFRESH_TIMER1_START_VALUE_X32, 0x40));
-	mmio_clrsetbits_32(DDR_UMCTL2_RANKCTL,
-			   RANKCTL_DIFF_RANK_RD_GAP | RANKCTL_DIFF_RANK_WR_GAP,
-			   FIELD_PREP(RANKCTL_DIFF_RANK_RD_GAP, 2) |
-			   FIELD_PREP(RANKCTL_DIFF_RANK_WR_GAP, 2));
 	/* Disabling update request initiated by DDR controller during
 	 * DDR initialization */
 	mmio_setbits_32(DDR_UMCTL2_DFIUPD0,
@@ -160,12 +153,12 @@ static void set_static_ctl(void)
 
 static void set_static_phy(const struct ddr_config *cfg)
 {
+	bool ddr4 = !!(cfg->main.mstr & MSTR_DDR4);
+
+	/* Configure IO's according to mode */
 	mmio_clrsetbits_32(DDR_PHY_PGCR1,
 			   PGCR1_IODDRM,
-			   FIELD_PREP(PGCR1_IODDRM, 1));
-	mmio_clrsetbits_32(DDR_PHY_PGCR7,
-			   PGCR7_WRPSTEX,
-			   FIELD_PREP(PGCR7_WRPSTEX, 1));
+			   FIELD_PREP(PGCR1_IODDRM, ddr4));
 	/* Disabling PHY initiated update request during DDR
 	 * initialization */
 	mmio_clrbits_32(DDR_PHY_DSGCR, DSGCR_PUREN);
@@ -215,12 +208,21 @@ static void set_static_phy(const struct ddr_config *cfg)
 	mmio_setbits_32(DDR_PHY_IOVCR1, IOVCR1_ZQVREFPEN);
 }
 
+static void axi_enable_ports(bool enable)
+{
+	if (enable) {
+		mmio_setbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
+	} else {
+		mmio_clrbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
+	}
+}
+
 static void ecc_enable_scrubbing(void)
 {
 	VERBOSE("Enable ECC scrubbing\n");
 
 	/* 1.  Disable AXI port. port_en = 0 */
-	mmio_clrbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
+	axi_enable_ports(false);
 
 	/* 2. scrub_mode = 1 */
 	mmio_setbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_MODE);
@@ -256,7 +258,7 @@ static void ecc_enable_scrubbing(void)
 #endif
 
 	/* 12. Enable AXI port */
-	mmio_setbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
+	axi_enable_ports(true);
 
 	VERBOSE("Enabled ECC scrubbing\n");
 }
@@ -291,7 +293,7 @@ static void wait_phy_idone(int tmo)
 		if (pgsr & PGSR0_IDONE)
 			return;
 
-	} while(!timeout_elapsed(&t));
+	} while(!timeout_elapsed(t));
 	PANIC("PHY IDONE timeout\n");
 }
 
@@ -503,8 +505,8 @@ static void do_data_training(const struct ddr_config *cfg)
 	 */
 	mmio_setbits_32(DDR_PHY_DSGCR, DSGCR_PUREN);
 
-	/* Enable AXI port */
-	mmio_setbits_32(DDR_UMCTL2_PCTRL_0, PCTRL_0_PORT_EN);
+	/* Enable AXI port(s) */
+	axi_enable_ports(true);
 
 	/* Settle */
 	ddr_usleep(1);
