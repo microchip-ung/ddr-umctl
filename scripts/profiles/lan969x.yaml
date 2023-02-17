@@ -5,8 +5,6 @@
 # Density of the individual DDR chips used (DDR4 only)
 :configured_density:	8G
 :device_bus_width:	x16
-# MSTR.DEVICE_CONFIG (DDR4 only)
-:device_config:		1
 :active_ranks:		1
 :ecc_mode:		0
 :mem_profile:		alliance_ddr4_512Mx16

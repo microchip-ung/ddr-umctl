@@ -289,8 +289,14 @@ reg.set_h("MSTR", {
               "DDR4"			=> params[:mem_type] == "DDR4" ? 1 : 0,
               "ACTIVE_RANKS"		=> params[:active_ranks],
               "EN_2T_TIMING_MODE"	=> params[:_2T_mode],
-              "DEVICE_CONFIG"		=> params[:device_config],
           })
+if params[:mem_type] == "DDR4"
+    devc_map = { "x8" => 1, "x16" => 2, "x32" => 3 }
+    if devc = devc_map[params[:device_bus_width]]
+        # MSTR.DEVICE_CONFIG only applies to DDR4
+        reg.set("MSTR", "DEVICE_CONFIG", devc)
+    end
+end
 if ($soc.bus_width % 16) == 0 && params[:enable_half_bus]
     $l.debug "Configuring half bus width"
     reg.set("MSTR", "DATA_BUS_WIDTH", 1)

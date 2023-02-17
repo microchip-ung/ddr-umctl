@@ -1,5 +1,5 @@
 ---
-mstr: 0x41040401
+mstr: 0x01040401
 pwrctl: 0x00000000
 rfshctl0: 0x00210010
 rfshctl3: 0x00000000
