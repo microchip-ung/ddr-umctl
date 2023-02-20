@@ -5,15 +5,15 @@
  */
 
 &ddr {
-	microchip,mem-name = "<%= params[:version] %>";
-	microchip,mem-speed = <<%= params[:clock_speed] %>>;
-	microchip,mem-size = <<%= sprintf("0x%08x", params[:mem_size_mbytes] * 1024 * 1024) %>>;
-	microchip,mem-bus-width = <<%= $soc.bus_width %>>;
+	microchip,mem-name = "<%= data["info"]["version"] %>";
+	microchip,mem-speed = <<%= data["info"]["speed"] %>>;
+	microchip,mem-size = <<%= sprintf("0x%08x", data["info"]["mem_size_mb"] * 1024 * 1024) %>>;
+	microchip,mem-bus-width = <<%= data["info"]["bus_width"] %>>;
 
 <%- $soc.config.groups.each do |rg| -%>
 	microchip,<%= rg[:name] %>-reg = <
-<%- rg[:regs].sort.each do |rname| -%>
-		<%= hex_values[rname] %>	/* <%= rname.downcase %> */
+<%- rg[:regs].map(&:downcase).sort.each do |rname| -%>
+		<%= sprintf("0x%08x", data["config"][rname]) %>	/* <%= rname %> */
 <%- end -%>
 	>;
 

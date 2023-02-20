@@ -104,10 +104,10 @@ def calc_value(reg, params)
     if params.length > 0
         $l.debug "Unused fields for register #{reg[:name]}: #{params}"
     end
-    return sprintf("0x%08x", val)
+    return val
 end
 
-def convert_hex(regs, settings)
+def convert_to_val(regs, settings)
     values = Hash.new
     regs.each do|r, f|
         values[r] = calc_value(f, settings[r])
@@ -550,11 +550,18 @@ if params[:mem_profile]
 end
 
 # Feed the chicken and go home
-hex_values = convert_hex($soc.config.chip_registers, reg.settings)
+reg_values = convert_to_val($soc.config.chip_registers, reg.settings)
 
 params[:version] = $option[:memory] + " " +
                    Time.now.utc.strftime("%Y-%m-%d-%H:%M:%S") + " " +
                    %x( git describe --always --dirty --tags ).chop
 
+info = { 'version'   => params[:version],
+         'speed'     => params[:clock_speed],
+         'mem_size_mb' => params[:mem_size_mbytes],
+         'bus_width' => $soc.bus_width,
+         'platform'  => $soc.name,
+       }
+data = { 'info' => info, 'config' => reg_values.transform_keys(&:downcase) }
 renderer = ERB.new(File.read(__dir__ + "/templates/#{$option[:format]}.erb"), nil, '-')
 puts renderer.result(binding)

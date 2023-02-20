@@ -1,50 +1,57 @@
 ---
-mstr: 0x01040000
-pwrctl: 0x00000000
-rfshctl0: 0x00210010
-rfshctl3: 0x00000000
-dfitmg0: 0x038c820a
-dfitmg1: 0x00040201
-dfiupd0: 0x40400003
-dfiupd1: 0x004000ff
-pccfg: 0x00000000
-dfimisc: 0x00000000
-ecccfg0: 0x003f7f40
-init0: 0x00020248
-init1: 0x00e80000
-init3: 0x0a340501
-init4: 0x00180200
-init5: 0x00110000
-rfshtmg: 0x006200d3
-dramtmg0: 0x11132913
-dramtmg1: 0x0004051b
-dramtmg2: 0x0000050d
-dramtmg3: 0x0000400c
-dramtmg4: 0x08030409
-dramtmg5: 0x07070404
-dramtmg8: 0x00000c07
-odtcfg: 0x06000610
-addrmap0: 0x0000001f
-addrmap1: 0x003f1818
-addrmap2: 0x00000000
-addrmap3: 0x00000000
-addrmap4: 0x00001f1f
-addrmap5: 0x04040404
-addrmap6: 0x04040404
-dxccr: 0x44181884
-dsgcr: 0xf000641f
-dcr: 0x0000040c
-dtcr: 0x910035c7
-pgcr2: 0x00f147a2
-ptr0: 0x4ae25710
-ptr1: 0xe9e9150e
-ptr2: 0x00083def
-ptr3: 0x1b192000
-ptr4: 0x1003a000
-dtpr0: 0xca27f08a
-dtpr1: 0x228bb4bd
-dtpr2: 0x1003e9b1
-mr0: 0x00000a34
-mr1: 0x00000501
-mr2: 0x00000018
-mr3: 0x00000200
+info:
+  version: lan969x 2023-02-20-08:48:51 735ea6656433-dirty
+  speed: 2400
+  mem_size_mb: 1024
+  bus_width: 16
+  platform: lan966x
+config:
+  mstr: 0x01040000
+  pwrctl: 0x00000000
+  rfshctl0: 0x00210010
+  rfshctl3: 0x00000000
+  dfitmg0: 0x038c820a
+  dfitmg1: 0x00040201
+  dfiupd0: 0x40400003
+  dfiupd1: 0x004000ff
+  pccfg: 0x00000000
+  dfimisc: 0x00000000
+  ecccfg0: 0x003f7f40
+  init0: 0x00020248
+  init1: 0x00e80000
+  init3: 0x0a340501
+  init4: 0x00180200
+  init5: 0x00110000
+  rfshtmg: 0x006200d3
+  dramtmg0: 0x11132913
+  dramtmg1: 0x0004051b
+  dramtmg2: 0x0000050d
+  dramtmg3: 0x0000400c
+  dramtmg4: 0x08030409
+  dramtmg5: 0x07070404
+  dramtmg8: 0x00000c07
+  odtcfg: 0x06000610
+  addrmap0: 0x0000001f
+  addrmap1: 0x003f1818
+  addrmap2: 0x00000000
+  addrmap3: 0x00000000
+  addrmap4: 0x00001f1f
+  addrmap5: 0x04040404
+  addrmap6: 0x04040404
+  dxccr: 0x44181884
+  dsgcr: 0xf000641f
+  dcr: 0x0000040c
+  dtcr: 0x910035c7
+  pgcr2: 0x00f147a2
+  ptr0: 0x4ae25710
+  ptr1: 0xe9e9150e
+  ptr2: 0x00083def
+  ptr3: 0x1b192000
+  ptr4: 0x1003a000
+  dtpr0: 0xca27f08a
+  dtpr1: 0x228bb4bd
+  dtpr2: 0x1003e9b1
+  mr0: 0x00000a34
+  mr1: 0x00000501
+  mr2: 0x00000018
+  mr3: 0x00000200

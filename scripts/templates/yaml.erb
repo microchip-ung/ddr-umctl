@@ -1,4 +1,9 @@
 ---
-<%- hex_values.each do |n,v| -%>
-<%= n.downcase %>: <%= v %>
+info:
+<%- data["info"].each do |n,v| -%>
+  <%= n %>: <%= v %>
+<%- end -%>
+config:
+<%- data["config"].each do |n,v| -%>
+  <%= n.downcase %>: <%= sprintf("0x%08x", v) %>
 <%- end -%>

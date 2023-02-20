@@ -33,9 +33,6 @@ OptionParser.new do |opts|
     end
 end.order!
 
-# Prepare default values, registers, etc.
-$chip = Chip.new($option[:platform])
-
 def extract_field(f, val)
   v = (val >> f[:pos]) & ((1 << f[:width]) - 1)
   return v
@@ -69,9 +66,16 @@ cfg1 = YAML::load_file(f1)
 f2 = ARGV.shift
 cfg2 = YAML::load_file(f2)
 
+# Prepare default values, registers, etc.
+platform = $option[:platform] ? $option[:platform] : cfg1['info']['platform']
+$chip = Chip.new(platform)
+
 printf("Comparing                                 %s %s\n",
        File.basename(f1, ".yaml"),
        File.basename(f2, ".yaml"))
+
+cfg1 = cfg1['config']
+cfg2 = cfg2['config']
 
 $is_ddr4 = (cfg1["mstr"] & (1 << 4)) != 0 # BIT(4)
 $chip.config.groups.each do |rg|
