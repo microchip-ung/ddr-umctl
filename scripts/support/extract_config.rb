@@ -4,7 +4,7 @@ require 'optparse'
 require 'pp'
 require 'erb'
 require 'logger'
-require_relative 'soc/chip.rb'
+require_relative '../soc/chip.rb'
 
 $l = Logger.new(STDERR)
 $l.level = Logger::WARN
@@ -79,5 +79,5 @@ info = { 'version'   => "Extracted from #{log}",
          'platform'  => $soc.name,
        }
 data = { 'info' => info, 'config' => reg_values.transform_keys(&:downcase) }
-renderer = ERB.new(File.read(__dir__ + "/templates/yaml.erb"), nil, '-')
+renderer = ERB.new(File.read(__dir__ + "/../templates/yaml.erb"), nil, '-')
 puts renderer.result(binding)

@@ -5,7 +5,7 @@ require 'erb'
 require 'logger'
 require 'pp'
 
-require_relative 'soc/chip.rb'
+require_relative '../soc/chip.rb'
 
 class RegWrite
     attr_reader :target, :name

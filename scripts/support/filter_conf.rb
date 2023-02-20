@@ -1,6 +1,6 @@
 require 'optparse'
 require 'pp'
-require_relative 'soc/chip.rb'
+require_relative '../soc/chip.rb'
 
 $option = { :platform   => "lan966x", };
 

@@ -1,5 +1,5 @@
 require 'pp'
-require_relative 'soc/chip.rb'
+require_relative '../soc/chip.rb'
 
 comments = {
     'dramtmg9' => "Should this be configured even for DDR3?",
