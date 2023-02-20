@@ -55,25 +55,29 @@ def record_writes(chip, tracefile)
     reg_use
 end
 
-$chip = Chip.new($option[:platform])
+$soc = Chip.new($option[:platform])
 
 log = ARGV.shift
 
-writes = record_writes($chip, log)
+writes = record_writes($soc, log)
 
-cfg_regs = $chip.config.register_value_set()
+cfg_regs = $soc.config.register_value_set()
 
-#pp writes
-#pp cfg_regs
-
-hex_values = Hash.new
+reg_values = Hash.new
 writes.each do |r, v|
     if cfg_regs[r]
-        hex_values[r] = "0x" + v
+        reg_values[r] = v.to_i(16)
     end
 end
 
 #pp hex_values
 
+info = { 'version'   => "Extracted from #{log}",
+         'speed'     => 0,
+         'mem_size_mb' => 0,
+         'bus_width' => $soc.bus_width,
+         'platform'  => $soc.name,
+       }
+data = { 'info' => info, 'config' => reg_values.transform_keys(&:downcase) }
 renderer = ERB.new(File.read(__dir__ + "/templates/yaml.erb"), nil, '-')
 puts renderer.result(binding)
