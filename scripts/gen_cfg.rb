@@ -170,7 +170,7 @@ $soc = Chip.new($option[:platform])
 reg = RegSettings.new($soc)
 
 # Load platform/memory parameters
-params = YAML::load_file(__dir__ + "/profiles/#{$option[:memory]}.yaml")
+params = YAML::load_file(__dir__ + "/../configs/profiles/#{$option[:memory]}.yaml")
 
 $l.debug "params = #{params}"
 
