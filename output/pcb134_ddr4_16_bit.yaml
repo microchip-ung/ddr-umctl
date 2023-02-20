@@ -1,12 +1,12 @@
 ---
 info:
-  version: pcb134_ddr4 2023-02-20-15:46:46 218c936b3467-dirty
+  version: pcb134_ddr4_16bit 2023-02-20-15:46:46 218c936b3467-dirty
   speed: 1667
-  mem_size_mb: 2048
+  mem_size_mb: 1024
   bus_width: 32
   platform: sparx5
 config:
-  mstr: 0x41040010
+  mstr: 0x41041010
   pwrctl: 0x00000000
   rfshctl0: 0x00210010
   rfshctl3: 0x00000000
@@ -14,11 +14,11 @@ config:
   dfitmg1: 0x00040201
   dfiupd0: 0x40400003
   dfiupd1: 0x004000ff
-  pccfg: 0x00000000
+  pccfg: 0x00000100
   crcparctl1: 0x00001000
   dbictl: 0x00000001
   dfimisc: 0x00000000
-  ecccfg0: 0x00000004
+  ecccfg0: 0x00000000
   init0: 0x00020196
   init1: 0x00a20000
   init3: 0x04200501
@@ -39,13 +39,13 @@ config:
   odtcfg: 0x0600060c
   addrmap0: 0x0000001f
   addrmap1: 0x003f1717
-  addrmap2: 0x00000000
-  addrmap3: 0x00000000
+  addrmap2: 0x00000007
+  addrmap3: 0x1f000000
   addrmap4: 0x00001f1f
   addrmap5: 0x04040404
   addrmap6: 0x0f040404
   addrmap7: 0x00000f0f
-  addrmap8: 0x00001919
+  addrmap8: 0x00001800
   dxccr: 0x00c01884
   dsgcr: 0x0064401b
   dcr: 0x0000040c

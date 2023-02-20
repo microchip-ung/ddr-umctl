@@ -1,0 +1,17 @@
+---
+# Total Memory Size (in Mbytes)
+:mem_size_mbytes:	1024
+:mem_type:		DDR4
+# Density of the individual DDR chips used (DDR4 only)
+:configured_density:	4G
+:device_bus_width:	x8
+:active_ranks:		1
+:ecc_mode:		0
+:mem_profile:		micron_ddr4_16bit
+:_2T_mode:		0
+# DDR Clock of platform (Data Bus)
+:clock_speed:		1667
+# Board ODT setup etc
+:board:			pcb134
+# Half bus width
+:enable_half_bus:	true

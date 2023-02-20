@@ -19,7 +19,7 @@ add_dependencies(sparx5_ddr_umctl gen_configs)
 add_custom_command(
   DEPENDS
   ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb
-  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/profiles/lan966x.yaml
+  ${CMAKE_CURRENT_SOURCE_DIR}/configs/profiles/lan966x.yaml
   OUTPUT
   ${CMAKE_CURRENT_SOURCE_DIR}/output/maserati.yaml
   COMMAND
@@ -29,7 +29,7 @@ add_custom_command(
 add_custom_command(
   DEPENDS
   ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb
-  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/profiles/lan969x.yaml
+  ${CMAKE_CURRENT_SOURCE_DIR}/configs/profiles/lan969x.yaml
   OUTPUT
   ${CMAKE_CURRENT_SOURCE_DIR}/output/laguna.yaml
   COMMAND
@@ -39,7 +39,7 @@ add_custom_command(
 add_custom_command(
   DEPENDS
   ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb
-  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/profiles/pcb134_ddr4.yaml
+  ${CMAKE_CURRENT_SOURCE_DIR}/configs/profiles/pcb134_ddr4.yaml
   OUTPUT
   ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb134_ddr4.yaml
   COMMAND
@@ -49,7 +49,17 @@ add_custom_command(
 add_custom_command(
   DEPENDS
   ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb
-  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/profiles/pcb134_ddr4.yaml
+  ${CMAKE_CURRENT_SOURCE_DIR}/configs/profiles/pcb134_ddr4_16bit.yaml
+  OUTPUT
+  ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb134_ddr4_16bit.yaml
+  COMMAND
+  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb -p sparx5  -m pcb134_ddr4_16bit -f yaml > ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb134_ddr4_16_bit.yaml
+  )
+
+add_custom_command(
+  DEPENDS
+  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb
+  ${CMAKE_CURRENT_SOURCE_DIR}/configs/profiles/pcb134_ddr4.yaml
   OUTPUT
   ${CMAKE_CURRENT_SOURCE_DIR}/src/pcb134_config.c
   COMMAND
@@ -59,7 +69,7 @@ add_custom_command(
 add_custom_command(
   DEPENDS
   ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb
-  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/profiles/pcb135_ddr3.yaml
+  ${CMAKE_CURRENT_SOURCE_DIR}/configs/profiles/pcb135_ddr3.yaml
   OUTPUT
   ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb135_ddr3.yaml
   COMMAND
@@ -69,7 +79,7 @@ add_custom_command(
 add_custom_command(
   DEPENDS
   ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb
-  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/profiles/pcb135_ddr3.yaml
+  ${CMAKE_CURRENT_SOURCE_DIR}/configs/profiles/pcb135_ddr3.yaml
   OUTPUT
   ${CMAKE_CURRENT_SOURCE_DIR}/src/pcb135_config.c
   COMMAND
@@ -82,6 +92,7 @@ add_custom_target(
   ${CMAKE_CURRENT_SOURCE_DIR}/output/maserati.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/output/laguna.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb134_ddr4.yaml
+  ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb134_ddr4_16bit.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb135_ddr3.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/src/pcb134_config.c
   ${CMAKE_CURRENT_SOURCE_DIR}/src/pcb135_config.c
