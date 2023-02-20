@@ -23,14 +23,16 @@ class Config
                 ADDRMAP7 ADDRMAP8 DTCR0 DTCR1 SCHCR1 ZQ0PR ZQ1PR ZQ2PR ZQCR DTPR3
                 DTPR4 DTPR5 MR4 MR5 MR6)
 
+    @@ddr3 = %w(DTCR)
+
     def initialize(soc, file)
         @soc = soc
         @groups = YAML::load_file(file)
-        if soc.only_ddr3
-            @groups.each do |g|
-                @@ddr4.each do |reg|
-                    g[:regs].delete(reg.downcase)
-                end
+        zap = soc.only_ddr3 ? @@ddr4 : @@ddr3
+        # Zap unwanted regs
+        @groups.each do |g|
+            zap.each do |reg|
+                g[:regs].delete(reg.downcase)
             end
         end
         @registers = @groups.map{|g| g[:regs]}.flatten
@@ -67,8 +69,6 @@ class Chip
 
     def initialize(chipname)
         @name = chipname
-        @chip = SoC.new(chipname)
-        @config = Config.new(self, __dir__ + "/ddr_config.yaml")
         case @name
         when "lan966x"
             @bus_width = 16
@@ -82,6 +82,8 @@ class Chip
         else
             raise "Need to know details of platform #{name}"
         end
+        @chip = SoC.new(chipname)
+        @config = Config.new(self, __dir__ + "/ddr_config.yaml")
     end
 
     def find(regname)
