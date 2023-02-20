@@ -14,7 +14,8 @@
 #define PGSR_ERR_MASK		GENMASK_32(30, 19)
 #define PGSR_ALL_DONE		GENMASK_32(11, 0)
 
-#define PHY_TIMEOUT_US_1S	1000000U
+#define TIME_MS_TO_US(ms)	(ms * 1000U)
+#define PHY_TIMEOUT_US_1S	TIME_MS_TO_US(1000U)
 
 static const struct {
 	uint32_t mask;
@@ -559,8 +560,8 @@ int ddr_init(const struct ddr_config *cfg)
 	/* Signal quasi-dynamic phase end, await ack */
 	sw_done_ack();
 
-	/* wait for STAT.operating_mode to become "normal" */
-	wait_operating_mode(1, 2000);
+	/* wait 2ms for STAT.operating_mode to become "normal" */
+	wait_operating_mode(1, TIME_MS_TO_US(2U));
 
 	do_data_training(cfg);
 
