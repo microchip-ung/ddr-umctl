@@ -1,12 +1,12 @@
 ---
 info:
-  version: pcb135_ddr3 2023-02-20-16:14:56 050ab9d10ec1-dirty
+  version: pcb135_ddr3_16bit 2023-02-20-16:14:57 050ab9d10ec1-dirty
   speed: 1667
-  mem_size_mb: 2048
+  mem_size_mb: 1024
   bus_width: 32
   platform: sparx5
 config:
-  mstr: 0x01040401
+  mstr: 0x01041401
   pwrctl: 0x00000000
   rfshctl0: 0x00210010
   rfshctl3: 0x00000000
@@ -18,7 +18,7 @@ config:
   crcparctl1: 0x00001000
   dbictl: 0x00000001
   dfimisc: 0x00000000
-  ecccfg0: 0x00000004
+  ecccfg0: 0x00000000
   init0: 0x00020196
   init1: 0x00a20000
   init3: 0x11140000
@@ -38,12 +38,12 @@ config:
   dramtmg12: 0x00000010
   odtcfg: 0x06000610
   addrmap0: 0x0000001f
-  addrmap1: 0x00181818
+  addrmap1: 0x00171717
   addrmap2: 0x00000000
-  addrmap3: 0x00000000
+  addrmap3: 0x1f000000
   addrmap4: 0x00001f1f
-  addrmap5: 0x04040404
-  addrmap6: 0x04040404
+  addrmap5: 0x03030303
+  addrmap6: 0x03030303
   addrmap7: 0x00000f0f
   addrmap8: 0x00003f3f
   dxccr: 0x00c01884

@@ -79,6 +79,16 @@ add_custom_command(
 add_custom_command(
   DEPENDS
   ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb
+  ${CMAKE_CURRENT_SOURCE_DIR}/configs/profiles/pcb135_ddr3_16bit.yaml
+  OUTPUT
+  ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb135_ddr3_16bit.yaml
+  COMMAND
+  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb -p sparx5  -m pcb135_ddr3_16bit -f yaml > ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb135_ddr3_16bit.yaml
+  )
+
+add_custom_command(
+  DEPENDS
+  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb
   ${CMAKE_CURRENT_SOURCE_DIR}/configs/profiles/pcb135_ddr3.yaml
   OUTPUT
   ${CMAKE_CURRENT_SOURCE_DIR}/src/pcb135_config.c
@@ -94,6 +104,7 @@ add_custom_target(
   ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb134_ddr4.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb134_ddr4_16bit.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb135_ddr3.yaml
+  ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb135_ddr3_16bit.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/src/pcb134_config.c
   ${CMAKE_CURRENT_SOURCE_DIR}/src/pcb135_config.c
 )
