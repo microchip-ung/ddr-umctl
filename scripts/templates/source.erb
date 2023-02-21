@@ -6,7 +6,7 @@
 
 #include <ddr_config.h>
 
-const struct ddr_config <%= $option[:memory] -%>_ddr_config = {
+const struct ddr_config <%= file_basename -%>_ddr_config = {
 	.info = {
 		.name = "<%= data["info"]["version"] %>",
 		.speed = <%= data["info"]["speed"] %>,

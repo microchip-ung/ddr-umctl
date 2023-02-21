@@ -33,9 +33,10 @@ OptionParser.new do |opts|
     end
 end.order!
 
-while ARGV.length > 0
+ARGV.each do |file|
+    file_basename = File.basename(file, ".*")
     # Load platform/memory parameters
-    data = YAML::load_file(ARGV.shift)
+    data = YAML::load_file(file)
     # Prepare default values, registers, etc.
     $soc = Chip.new(data["info"]["platform"])
     renderer = ERB.new(File.read(__dir__ + "/templates/#{$option[:format]}.erb"), nil, '-')

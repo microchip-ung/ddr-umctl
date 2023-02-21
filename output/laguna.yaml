@@ -1,12 +1,12 @@
 ---
 info:
-  version: lan969x 2023-02-20-16:14:56 050ab9d10ec1-dirty
+  version: lan969x 2023-02-21-08:52:59 db89086fa317-dirty
   speed: 2400
   mem_size_mb: 1024
   bus_width: 16
-  platform: lan966x
+  platform: lan969x
 config:
-  mstr: 0x01040000
+  mstr: 0x81040010
   pwrctl: 0x00000000
   rfshctl0: 0x00210010
   rfshctl3: 0x00000000
@@ -15,21 +15,27 @@ config:
   dfiupd0: 0x40400003
   dfiupd1: 0x004000ff
   pccfg: 0x00000000
-  dfimisc: 0x00000000
+  crcparctl1: 0x00001000
+  dbictl: 0x00000001
+  dfimisc: 0x00000040
   ecccfg0: 0x003f7f40
   init0: 0x00020248
   init1: 0x00e80000
   init3: 0x0a340501
   init4: 0x00180200
   init5: 0x00110000
+  init6: 0x00000400
+  init7: 0x00000899
   rfshtmg: 0x006200d3
   dramtmg0: 0x11132913
   dramtmg1: 0x0004051b
-  dramtmg2: 0x0000050d
+  dramtmg2: 0x0608050d
   dramtmg3: 0x0000400c
   dramtmg4: 0x08030409
   dramtmg5: 0x07070404
-  dramtmg8: 0x00000c07
+  dramtmg8: 0x05040c07
+  dramtmg9: 0x0003040a
+  dramtmg12: 0x1a000010
   odtcfg: 0x06000610
   addrmap0: 0x0000001f
   addrmap1: 0x003f1818
@@ -38,20 +44,34 @@ config:
   addrmap4: 0x00001f1f
   addrmap5: 0x04040404
   addrmap6: 0x04040404
-  dxccr: 0x44181884
-  dsgcr: 0xf000641f
+  addrmap7: 0x00000f0f
+  addrmap8: 0x00003f1a
+  dxccr: 0x00c01884
+  dsgcr: 0x0064401b
   dcr: 0x0000040c
-  dtcr: 0x910035c7
-  pgcr2: 0x00f147a2
+  dtcr0: 0x8000b0cf
+  dtcr1: 0x00010a37
+  pgcr2: 0x000147a2
+  schcr1: 0x00000000
+  zq0pr: 0x0007bb00
+  zq1pr: 0x0007bb00
+  zq2pr: 0x00000000
+  zqcr: 0x00058f00
   ptr0: 0x4ae25710
-  ptr1: 0xe9e9150e
+  ptr1: 0x74f4950e
   ptr2: 0x00083def
   ptr3: 0x1b192000
   ptr4: 0x1003a000
-  dtpr0: 0xca27f08a
-  dtpr1: 0x228bb4bd
-  dtpr2: 0x1003e9b1
+  dtpr0: 0x0827100a
+  dtpr1: 0x28250119
+  dtpr2: 0x000701b1
+  dtpr3: 0x03000101
+  dtpr4: 0x01a50808
+  dtpr5: 0x00361009
   mr0: 0x00000a34
   mr1: 0x00000501
   mr2: 0x00000018
   mr3: 0x00000200
+  mr4: 0x00000800
+  mr5: 0x00000400
+  mr6: 0x00000899

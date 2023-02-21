@@ -1,6 +1,6 @@
 ---
 info:
-  version: pcb134_ddr4_16bit 2023-02-20-16:14:56 050ab9d10ec1-dirty
+  version: pcb134_ddr4_16bit 2023-02-21-08:52:59 db89086fa317-dirty
   speed: 1667
   mem_size_mb: 1024
   bus_width: 32

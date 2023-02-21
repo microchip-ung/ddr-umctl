@@ -1,4 +1,6 @@
 ---
+# SoC platform
+:platform:		sparx5
 # Total Memory Size (in Mbytes)
 :mem_size_mbytes:	1024
 :mem_type:		DDR3
