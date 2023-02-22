@@ -163,17 +163,34 @@ static void set_static_phy(const struct ddr_config *cfg)
 	/* Disabling PHY initiated update request during DDR
 	 * initialization */
 	mmio_clrbits_32(DDR_PHY_DSGCR, DSGCR_PUREN);
-	// # Disable un-used byte lanes by writing DXnGCR0[0] = 1'b0 (DXEN).
-	if (cfg->info.bus_width == 32) {
+	/* Enable data lanes according to configured bus width */
+	switch (cfg->info.bus_width) {
+	case 32:
+		/* Add full 32 bit lanes */
 		mmio_setbits_32(DDR_PHY_DX0GCR0, DX0GCR0_DXEN);
 		mmio_setbits_32(DDR_PHY_DX1GCR0, DX1GCR0_DXEN);
 		mmio_setbits_32(DDR_PHY_DX2GCR0, DX2GCR0_DXEN);
 		mmio_setbits_32(DDR_PHY_DX3GCR0, DX3GCR0_DXEN);
-	} else if (cfg->info.bus_width == 16) {
+		break;
+	case 16:
+		/* Enable two first lanes */
 		mmio_setbits_32(DDR_PHY_DX0GCR0, DX0GCR0_DXEN);
 		mmio_setbits_32(DDR_PHY_DX1GCR0, DX1GCR0_DXEN);
+		/* Disable un-used upper byte lanes */
 		mmio_clrbits_32(DDR_PHY_DX2GCR0, DX2GCR0_DXEN);
 		mmio_clrbits_32(DDR_PHY_DX3GCR0, DX3GCR0_DXEN);
+		break;
+	case 8:
+		/* Enable first lane */
+		mmio_setbits_32(DDR_PHY_DX0GCR0, DX0GCR0_DXEN);
+		/* Disable un-used upper byte lanes */
+		mmio_clrbits_32(DDR_PHY_DX1GCR0, DX1GCR0_DXEN);
+		mmio_clrbits_32(DDR_PHY_DX2GCR0, DX2GCR0_DXEN);
+		mmio_clrbits_32(DDR_PHY_DX3GCR0, DX3GCR0_DXEN);
+		break;
+	default:
+		PANIC("Unsupported bus width: %d\n", cfg->info.bus_width);
+		break;
 	}
 	/* Disable ECC lane according to config */
 	if (cfg->main.ecccfg0 & ECCCFG0_ECC_MODE)
