@@ -7,7 +7,7 @@
    viewBox="0 0 210 297"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.1 (eb90963e84, 2021-10-02)"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
    sodipodi:docname="ddr_config.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -25,14 +25,16 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.75187991"
-     inkscape:cx="429.58988"
-     inkscape:cy="420.94488"
-     inkscape:window-width="1848"
+     inkscape:cx="164.25495"
+     inkscape:cy="528.67485"
+     inkscape:window-width="1846"
      inkscape:window-height="1016"
-     inkscape:window-x="1992"
+     inkscape:window-x="1994"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs2">
     <marker
@@ -190,22 +192,13 @@
        y="22.068649" />
     <use
        xlink:href="#Document"
-       style="fill:#aaccee;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
-       id="use3975"
-       x="0"
-       y="0"
-       width="100%"
-       height="100%"
-       transform="translate(118.4268,8.010925)" />
-    <use
-       xlink:href="#Document"
        style="fill:#aaccee;stroke:#000000"
        id="use3975-5"
        x="0"
        y="0"
        width="100%"
        height="100%"
-       transform="translate(118.4268,32.881762)" />
+       transform="translate(122.76373,22.368544)" />
     <use
        xlink:href="#Document"
        style="fill:#aaccee;stroke:#000000"
@@ -214,7 +207,7 @@
        y="0"
        width="100%"
        height="100%"
-       transform="translate(123.93833,39.690492)" />
+       transform="translate(128.27526,29.177274)" />
     <use
        xlink:href="#Document"
        style="fill:#aaccee;stroke:#000000"
@@ -223,7 +216,7 @@
        y="0"
        width="100%"
        height="100%"
-       transform="translate(130.27363,44.853701)" />
+       transform="translate(134.61056,34.340483)" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#c4cce5;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -248,36 +241,25 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="158.68387"
-       y="29.451584"
-       id="text139044"><tspan
-         sodipodi:role="line"
-         id="tspan139042"
-         style="font-size:6.35px;stroke-width:0.264583"
-         x="158.68387"
-         y="29.451584">Parameters</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="158.25018"
-       y="47.234371"
+       x="162.58711"
+       y="36.721153"
        id="text171302"><tspan
          sodipodi:role="line"
          id="tspan171300"
          style="font-size:6.35px;stroke-width:0.264583"
-         x="158.25018"
-         y="47.234371">Profiles</tspan></text>
+         x="162.58711"
+         y="36.721153">Profiles</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="44.131512"
-       y="89.143867"
+       x="47.977879"
+       y="82.380806"
        id="text171302-7"><tspan
          sodipodi:role="line"
          id="tspan171300-6"
          style="font-size:6.35px;stroke-width:0.264583"
-         x="44.131512"
-         y="89.143867">Output</tspan></text>
+         x="47.977879"
+         y="82.380806">Output</tspan></text>
     <use
        xlink:href="#Document"
        style="fill:#aaccee;stroke:#000000"
@@ -286,10 +268,10 @@
        y="0"
        width="100%"
        height="100%"
-       transform="translate(38.41599,82.408797)" />
+       transform="translate(42.262358,75.645736)" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.26458299;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:0.26458299,0.79374896;stroke-dashoffset:0"
-       d="M 13.802457,126.65094 198.40592,126.22701"
+       style="fill:none;stroke:#000000;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.264583, 0.793749;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 16.746663,118.1943 201.35013,117.77037"
        id="path196470" />
     <text
        xml:space="preserve"
@@ -305,59 +287,59 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="93.175415"
-       y="142.21317"
+       x="97.512856"
+       y="136.75359"
        id="text204052"><tspan
          sodipodi:role="line"
          id="tspan204050"
          style="stroke-width:0.264583"
-         x="93.175415"
-         y="142.21317">Target environment</tspan></text>
+         x="97.512856"
+         y="136.75359">Target environment</tspan></text>
     <rect
-       style="fill:#ffcc00;fill-rule:evenodd;stroke-width:0.264583;stroke:#42654c;stroke-opacity:1"
+       style="fill:#ffcc00;fill-rule:evenodd;stroke:#42654c;stroke-width:0.264583;stroke-opacity:1"
        id="rect208662"
        width="50.684284"
        height="32.645348"
-       x="37.079357"
-       y="145.72394" />
+       x="36.122295"
+       y="139.1713" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#483e37;fill-opacity:1;stroke:#42654c;stroke-width:0.264583;stroke-opacity:1"
-       x="62.741379"
-       y="159.09972"
+       x="61.784317"
+       y="152.54707"
        id="text212664"><tspan
          sodipodi:role="line"
          style="font-size:6.35px;text-align:center;text-anchor:middle;fill:#483e37;fill-opacity:1;stroke:#42654c;stroke-width:0.264583;stroke-opacity:1"
-         x="62.741379"
-         y="159.09972"
+         x="61.784317"
+         y="152.54707"
          id="tspan212662">Glue</tspan><tspan
          sodipodi:role="line"
          style="font-size:6.35px;text-align:center;text-anchor:middle;fill:#483e37;fill-opacity:1;stroke:#42654c;stroke-width:0.264583;stroke-opacity:1"
-         x="62.741379"
-         y="167.03722"
+         x="61.784317"
+         y="160.48457"
          id="tspan214361">Layer</tspan></text>
     <rect
        style="fill:#ffcc00;fill-rule:evenodd;stroke:#42654c;stroke-width:0.264583;stroke-opacity:1"
        id="rect226233"
        width="50.684284"
        height="32.645348"
-       x="37.079357"
-       y="195.99409" />
+       x="36.122295"
+       y="189.44145" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#483e37;fill-opacity:1;stroke:#42654c;stroke-width:0.264583;stroke-opacity:1"
-       x="62.741379"
-       y="209.89903"
+       x="61.784317"
+       y="203.34639"
        id="text226239"><tspan
          sodipodi:role="line"
          style="font-size:6.35px;text-align:center;text-anchor:middle;fill:#483e37;fill-opacity:1;stroke:#42654c;stroke-width:0.264583;stroke-opacity:1"
-         x="62.741379"
-         y="209.89903"
+         x="61.784317"
+         y="203.34639"
          id="tspan226237">DDR</tspan><tspan
          sodipodi:role="line"
          style="font-size:6.35px;text-align:center;text-anchor:middle;fill:#483e37;fill-opacity:1;stroke:#42654c;stroke-width:0.264583;stroke-opacity:1"
-         x="62.741379"
-         y="217.83653"
+         x="61.784317"
+         y="211.28389"
          id="tspan229119">driver</tspan></text>
     <use
        xlink:href="#DownArrow"
@@ -367,10 +349,10 @@
        y="0"
        width="100%"
        height="100%"
-       transform="translate(52.056754,178.25503)" />
+       transform="translate(51.099694,171.70239)" />
     <g
        id="g3891"
-       transform="matrix(0,0.79288045,-1,0,129.68432,21.92007)">
+       transform="matrix(0,0.51381359,-1,0,129.68432,34.25107)">
       <g
          id="path1031"
          transform="translate(-29.809546,-9.4529238)">
@@ -399,38 +381,8 @@
       </g>
     </g>
     <g
-       id="g3914"
-       transform="matrix(0.92959234,0,0,1,8.2435862,1.1659983)">
-      <g
-         id="path1031-5"
-         transform="matrix(-1,0,0,1,194.69959,-49.910953)">
-        <path
-           style="color:#000000;fill:#000000;stroke-width:0.4;stroke-linecap:round;-inkscape-stroke:none"
-           d="M 74.195521,77.27162 107.21851,77.118654"
-           id="path1238-9" />
-        <path
-           style="color:#000000;fill:#000000;stroke-linecap:round;-inkscape-stroke:none"
-           d="m 107.2168,76.917969 -33.021488,0.154297 a 0.2,0.2 0 0 0 -0.199218,0.201171 0.2,0.2 0 0 0 0.201172,0.197266 l 33.021484,-0.152344 a 0.2,0.2 0 0 0 0.19922,-0.201172 0.2,0.2 0 0 0 -0.20117,-0.199218 z"
-           id="path1240-4" />
-        <g
-           id="g1228-9">
-          <g
-             id="path1230-0">
-            <path
-               style="color:#000000;fill:#000000;fill-rule:evenodd;stroke-width:0.32pt;-inkscape-stroke:none"
-               d="m 103.21855,77.137182 -1.59257,1.607394 5.59253,-1.625922 -5.60735,-1.574043 z"
-               id="path1234-9" />
-            <path
-               style="color:#000000;fill:#000000;fill-rule:evenodd;-inkscape-stroke:none"
-               d="m 100.87695,75.117187 2.03907,2.021485 -2.02149,2.041015 7.09961,-2.064453 z m 1.47071,0.855469 4.09375,1.150391 -4.08399,1.185547 1.16211,-1.171875 -0.15039,-0.150391 z"
-               id="path1236-1" />
-          </g>
-        </g>
-      </g>
-    </g>
-    <g
        id="g5945"
-       transform="matrix(0,0.79288045,-1,0,130.4717,79.566418)">
+       transform="matrix(0,0.79288045,-1,0,130.28802,71.959916)">
       <g
          id="g5943"
          transform="translate(-29.809546,-9.4529238)">
@@ -460,7 +412,7 @@
     </g>
     <g
        id="g17463"
-       transform="matrix(0.92959234,0,0,1,8.2435862,17.57017)">
+       transform="matrix(0.92959234,0,0,1,12.580512,7.056952)">
       <g
          id="g17461"
          transform="matrix(-1,0,0,1,194.69959,-49.910953)">
@@ -484,6 +436,74 @@
                style="color:#000000;fill:#000000;fill-rule:evenodd;-inkscape-stroke:none"
                d="m 100.87695,75.117187 2.03907,2.021485 -2.02149,2.041015 7.09961,-2.064453 z m 1.47071,0.855469 4.09375,1.150391 -4.08399,1.185547 1.16211,-1.171875 -0.15039,-0.150391 z"
                id="path17455" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <use
+       xlink:href="#Document"
+       style="fill:#aaccee;stroke:#000000"
+       id="use267"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%"
+       transform="translate(122.76373,22.368544)" />
+    <use
+       xlink:href="#Document"
+       style="fill:#aaccee;stroke:#000000"
+       id="use269"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%"
+       transform="translate(128.27526,29.177274)" />
+    <use
+       xlink:href="#Document"
+       style="fill:#aaccee;stroke:#000000"
+       id="use271"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%"
+       transform="translate(134.61056,34.340483)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:6.35px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="162.58711"
+       y="36.721153"
+       id="text275"><tspan
+         sodipodi:role="line"
+         id="tspan273"
+         style="font-size:6.35px;stroke-width:0.264583"
+         x="162.58711"
+         y="36.721153">Profiles</tspan></text>
+    <g
+       id="g291"
+       transform="matrix(0.92959234,0,0,1,12.580512,7.056952)">
+      <g
+         id="g289"
+         transform="matrix(-1,0,0,1,194.69959,-49.910953)">
+        <path
+           style="color:#000000;fill:#000000;stroke-width:0.4;stroke-linecap:round;-inkscape-stroke:none"
+           d="M 74.195521,77.27162 107.21851,77.118654"
+           id="path277" />
+        <path
+           style="color:#000000;fill:#000000;stroke-linecap:round;-inkscape-stroke:none"
+           d="m 107.2168,76.917969 -33.021488,0.154297 a 0.2,0.2 0 0 0 -0.199218,0.201171 0.2,0.2 0 0 0 0.201172,0.197266 l 33.021484,-0.152344 a 0.2,0.2 0 0 0 0.19922,-0.201172 0.2,0.2 0 0 0 -0.20117,-0.199218 z"
+           id="path279" />
+        <g
+           id="g287">
+          <g
+             id="g285">
+            <path
+               style="color:#000000;fill:#000000;fill-rule:evenodd;stroke-width:0.32pt;-inkscape-stroke:none"
+               d="m 103.21855,77.137182 -1.59257,1.607394 5.59253,-1.625922 -5.60735,-1.574043 z"
+               id="path281" />
+            <path
+               style="color:#000000;fill:#000000;fill-rule:evenodd;-inkscape-stroke:none"
+               d="m 100.87695,75.117187 2.03907,2.021485 -2.02149,2.041015 7.09961,-2.064453 z m 1.47071,0.855469 4.09375,1.150391 -4.08399,1.185547 1.16211,-1.171875 -0.15039,-0.150391 z"
+               id="path283" />
           </g>
         </g>
       </g>

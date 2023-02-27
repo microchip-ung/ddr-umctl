@@ -1,0 +1,9 @@
+// Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
+// SPDX-License-Identifier: MIT
+
+= DDR UMCTL README
+
+See the doc/ddr-umctl.adoc file for
+introduction, getting started documentation and more information.
+
+License information, see LICENSE.
