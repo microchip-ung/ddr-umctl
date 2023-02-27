@@ -1,6 +1,6 @@
 ---
 info:
-  version: pcb134_ddr4_16bit 2023-02-23-14:41:07 30d3845a56ea-dirty
+  version: pcb134_ddr4_16bit 2023-02-27-14:19:57 d66ca1fcc1ec-dirty
   speed: 1667
   mem_size_mb: 1024
   bus_width: 32

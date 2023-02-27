@@ -188,6 +188,140 @@ mr1:
 All supported registers and sub-fields can be defined. See the full
 list of supported registers below.
 
+== Generating a DDR configuration file
+
+When generating a DDR configuration file, you will be using the
+_./scripts/gen_cfg.rb_ script, and supplying the input profile file name as the first argument.
+
+.cfg_gen.rb argument syntax
+[source]
+$ ./scripts/gen_cfg.rb --help
+Usage: cfg_gen.rb [options] [config-file]
+    -d, --debug                      Enable debug messages
+    -v, --verbose                    Enable verbose messages
+    -f, --format <format>            Use format (devicetree, yaml, source)
+
+An example run could be:
+
+.cfg_gen.rb example run
+----
+./scripts/gen_cfg.rb -f source configs/profiles/lan969x.yaml > config.c
+----
+
+And the output would be:
+
+[source,C]
+----
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+ *
+ */
+
+#include <ddr_config.h>
+
+const struct ddr_config lan969x_ddr_config = {
+	.info = {
+		.name = "lan969x 2023-02-27-14:45:24 d66ca1fcc1ec-dirty",
+		.speed = 2400,
+		.size = 0x40000000,
+		.bus_width = 16,
+	},
+	.main = {
+		.crcparctl1 = 0x00001000,
+		.dbictl = 0x00000001,
+		.dfimisc = 0x00000040,
+		.dfitmg0 = 0x038c820a,
+		.dfitmg1 = 0x00040201,
+		.dfiupd0 = 0x40400003,
+		.dfiupd1 = 0x004000ff,
+		.ecccfg0 = 0x003f7f40,
+		.init0 = 0x00020248,
+		.init1 = 0x00e80000,
+		.init3 = 0x0a340501,
+		.init4 = 0x00180200,
+		.init5 = 0x00110000,
+		.init6 = 0x00000400,
+		.init7 = 0x00000899,
+		.mstr = 0x81040010,
+		.pccfg = 0x00000000,
+		.pwrctl = 0x00000000,
+		.rfshctl0 = 0x00210010,
+		.rfshctl3 = 0x00000000,
+	},
+
+	.timing = {
+		.dramtmg0 = 0x11132913,
+		.dramtmg1 = 0x0004051b,
+		.dramtmg12 = 0x1a000010,
+		.dramtmg2 = 0x0608050d,
+		.dramtmg3 = 0x0000400c,
+		.dramtmg4 = 0x08030409,
+		.dramtmg5 = 0x07070404,
+		.dramtmg8 = 0x05040c07,
+		.dramtmg9 = 0x0003040a,
+		.odtcfg = 0x06000610,
+		.rfshtmg = 0x006200d3,
+	},
+
+	.mapping = {
+		.addrmap0 = 0x0000001f,
+		.addrmap1 = 0x003f1818,
+		.addrmap2 = 0x00000000,
+		.addrmap3 = 0x00000000,
+		.addrmap4 = 0x00001f1f,
+		.addrmap5 = 0x04040404,
+		.addrmap6 = 0x04040404,
+		.addrmap7 = 0x00000f0f,
+		.addrmap8 = 0x00003f1a,
+	},
+
+	.phy = {
+		.dcr = 0x0000040c,
+		.dsgcr = 0x0064401b,
+		.dtcr0 = 0x8000b0cf,
+		.dtcr1 = 0x00010a37,
+		.dxccr = 0x00c01884,
+		.pgcr2 = 0x000147a2,
+		.schcr1 = 0x00000000,
+		.zq0pr = 0x0007bb00,
+		.zq1pr = 0x0007bb00,
+		.zq2pr = 0x00000000,
+		.zqcr = 0x00058f00,
+	},
+
+	.phy_timing = {
+		.dtpr0 = 0x0827100a,
+		.dtpr1 = 0x28250119,
+		.dtpr2 = 0x000701b1,
+		.dtpr3 = 0x03000101,
+		.dtpr4 = 0x01a50808,
+		.dtpr5 = 0x00361009,
+		.mr0 = 0x00000a34,
+		.mr1 = 0x00000501,
+		.mr2 = 0x00000018,
+		.mr3 = 0x00000200,
+		.mr4 = 0x00000800,
+		.mr5 = 0x00000400,
+		.mr6 = 0x00000899,
+		.ptr0 = 0x4ae25710,
+		.ptr1 = 0x74f4950e,
+		.ptr2 = 0x00083def,
+		.ptr3 = 0x1b192000,
+		.ptr4 = 0x1003a000,
+	},
+
+};
+----
+
+Some platforms use the alternative `devicetree` format, but the
+procedure is the same as for `C` source.
+
+You can also use the `yaml` format. It is especially useful for
+comparing alternate configurations using the _diff_cfg.rb_
+script. YAML configurations can also be output to `source` or
+`devicetree` configurations later with the _fmt_cfg.rb_ script.
+
 == Supported DDR configuration registers
 
 The supported DDR configuration registers are a subset of the full

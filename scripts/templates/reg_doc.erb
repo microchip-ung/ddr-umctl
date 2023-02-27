@@ -1,0 +1,68 @@
+[cols="1s,1,1,1"]
+|===
+| register
+<%- soc.keys.each do |p| -%>
+^| <%= p -%>
+
+<%- end -%>
+
+<%- conf_regs.sort.each do |r| -%>
+| <<<%= r %>>>
+<%- soc.keys.each do |p| -%>
+<% if cfg[p][r.upcase] -%>
+^| yes
+<% else -%>
+^s| no
+<%- end -%>
+<%- end -%>
+
+<%- end -%>
+
+|===
+
+<%- conf_regs.sort.each do |r| -%>
+=== <%= r %>
+
+Applies to: <%- cfg.each do |p, k| -%>
+<%- if cfg[p][r.upcase] -%>
+<%= p -%>
+<%- end -%>
+
+<%- end -%>
+
+[cols="1s,1,1,1"]
+|===
+| Field
+<%- fields = Hash.new -%>
+<%- all = Array.new -%>
+<%- soc.keys.each do |p| -%>
+<%- fields[p] = soc[p].fields(r) -%>
+<%- if fields[p] -%>
+<%- all += fields[p].map{|f| f[:name]} -%>
+<%- end -%>
+^s| <%= p %>
+<%- end %>
+
+<%- all.uniq.each do |fname| -%>
+| <%= fname -%>
+ <%- fields.keys.each do |p| -%>
+  <%- if fields[p] -%>
+   <%- f = fields[p].find{|h| h[:name] == fname} -%>
+    <%- if f -%>
+
+^| bit <%= f[:pos]+f[:width]-1 -%>..<%= f[:pos] -%> default <%= f[:default] -%>
+
+    <%- else -%>
+
+^| 
+    <%- end -%>
+  <%- else -%>
+
+^| 
+  <%- end -%>
+ <%- end -%>
+<%- end -%>
+
+|===
+
+<%- end -%>

@@ -141,7 +141,7 @@ $l = Logger.new(STDERR)
 $l.level = Logger::WARN
 
 OptionParser.new do |opts|
-    opts.banner = "Usage: cfg_gen.rb [options]"
+    opts.banner = "Usage: cfg_gen.rb [options] [config-file]"
     opts.version = 0.1
     opts.on("-d", "--debug", "Enable debug messages") do
         $option[:debug] = true

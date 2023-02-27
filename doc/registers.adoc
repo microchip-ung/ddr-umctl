@@ -1,1 +1,4286 @@
-bla bla bla bla
+[cols="1s,1,1,1"]
+|===
+| register
+^| lan966x
+^| lan969x
+^| sparx5
+
+| <<ADDRMAP0>>
+^| yes
+^| yes
+^| yes
+
+| <<ADDRMAP1>>
+^| yes
+^| yes
+^| yes
+
+| <<ADDRMAP2>>
+^| yes
+^| yes
+^| yes
+
+| <<ADDRMAP3>>
+^| yes
+^| yes
+^| yes
+
+| <<ADDRMAP4>>
+^| yes
+^| yes
+^| yes
+
+| <<ADDRMAP5>>
+^| yes
+^| yes
+^| yes
+
+| <<ADDRMAP6>>
+^| yes
+^| yes
+^| yes
+
+| <<ADDRMAP7>>
+^s| no
+^| yes
+^| yes
+
+| <<ADDRMAP8>>
+^s| no
+^| yes
+^| yes
+
+| <<CRCPARCTL1>>
+^s| no
+^| yes
+^| yes
+
+| <<DBICTL>>
+^s| no
+^| yes
+^| yes
+
+| <<DCR>>
+^| yes
+^| yes
+^| yes
+
+| <<DFIMISC>>
+^| yes
+^| yes
+^| yes
+
+| <<DFITMG0>>
+^| yes
+^| yes
+^| yes
+
+| <<DFITMG1>>
+^| yes
+^| yes
+^| yes
+
+| <<DFIUPD0>>
+^| yes
+^| yes
+^| yes
+
+| <<DFIUPD1>>
+^| yes
+^| yes
+^| yes
+
+| <<DRAMTMG0>>
+^| yes
+^| yes
+^| yes
+
+| <<DRAMTMG1>>
+^| yes
+^| yes
+^| yes
+
+| <<DRAMTMG12>>
+^s| no
+^| yes
+^| yes
+
+| <<DRAMTMG2>>
+^| yes
+^| yes
+^| yes
+
+| <<DRAMTMG3>>
+^| yes
+^| yes
+^| yes
+
+| <<DRAMTMG4>>
+^| yes
+^| yes
+^| yes
+
+| <<DRAMTMG5>>
+^| yes
+^| yes
+^| yes
+
+| <<DRAMTMG8>>
+^| yes
+^| yes
+^| yes
+
+| <<DRAMTMG9>>
+^s| no
+^| yes
+^| yes
+
+| <<DSGCR>>
+^| yes
+^| yes
+^| yes
+
+| <<DTCR>>
+^| yes
+^s| no
+^s| no
+
+| <<DTCR0>>
+^s| no
+^| yes
+^| yes
+
+| <<DTCR1>>
+^s| no
+^| yes
+^| yes
+
+| <<DTPR0>>
+^| yes
+^| yes
+^| yes
+
+| <<DTPR1>>
+^| yes
+^| yes
+^| yes
+
+| <<DTPR2>>
+^| yes
+^| yes
+^| yes
+
+| <<DTPR3>>
+^s| no
+^| yes
+^| yes
+
+| <<DTPR4>>
+^s| no
+^| yes
+^| yes
+
+| <<DTPR5>>
+^s| no
+^| yes
+^| yes
+
+| <<DXCCR>>
+^| yes
+^| yes
+^| yes
+
+| <<ECCCFG0>>
+^| yes
+^| yes
+^| yes
+
+| <<INIT0>>
+^| yes
+^| yes
+^| yes
+
+| <<INIT1>>
+^| yes
+^| yes
+^| yes
+
+| <<INIT3>>
+^| yes
+^| yes
+^| yes
+
+| <<INIT4>>
+^| yes
+^| yes
+^| yes
+
+| <<INIT5>>
+^| yes
+^| yes
+^| yes
+
+| <<INIT6>>
+^s| no
+^| yes
+^| yes
+
+| <<INIT7>>
+^s| no
+^| yes
+^| yes
+
+| <<MR0>>
+^| yes
+^| yes
+^| yes
+
+| <<MR1>>
+^| yes
+^| yes
+^| yes
+
+| <<MR2>>
+^| yes
+^| yes
+^| yes
+
+| <<MR3>>
+^| yes
+^| yes
+^| yes
+
+| <<MR4>>
+^s| no
+^| yes
+^| yes
+
+| <<MR5>>
+^s| no
+^| yes
+^| yes
+
+| <<MR6>>
+^s| no
+^| yes
+^| yes
+
+| <<MSTR>>
+^| yes
+^| yes
+^| yes
+
+| <<ODTCFG>>
+^| yes
+^| yes
+^| yes
+
+| <<PCCFG>>
+^| yes
+^| yes
+^| yes
+
+| <<PGCR2>>
+^| yes
+^| yes
+^| yes
+
+| <<PTR0>>
+^| yes
+^| yes
+^| yes
+
+| <<PTR1>>
+^| yes
+^| yes
+^| yes
+
+| <<PTR2>>
+^| yes
+^| yes
+^| yes
+
+| <<PTR3>>
+^| yes
+^| yes
+^| yes
+
+| <<PTR4>>
+^| yes
+^| yes
+^| yes
+
+| <<PWRCTL>>
+^| yes
+^| yes
+^| yes
+
+| <<RFSHCTL0>>
+^| yes
+^| yes
+^| yes
+
+| <<RFSHCTL3>>
+^| yes
+^| yes
+^| yes
+
+| <<RFSHTMG>>
+^| yes
+^| yes
+^| yes
+
+| <<SCHCR1>>
+^s| no
+^| yes
+^| yes
+
+| <<ZQ0PR>>
+^s| no
+^| yes
+^| yes
+
+| <<ZQ1PR>>
+^s| no
+^| yes
+^| yes
+
+| <<ZQ2PR>>
+^s| no
+^| yes
+^| yes
+
+| <<ZQCR>>
+^s| no
+^| yes
+^| yes
+
+
+|===
+
+=== ADDRMAP0
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ADDRMAP_CS_BIT0
+^| bit 4..0 default 0
+
+^| bit 4..0 default 0
+
+^| bit 4..0 default 0
+
+|===
+
+=== ADDRMAP1
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ADDRMAP_BANK_B2
+^| bit 21..16 default 0
+
+^| bit 21..16 default 0
+
+^| bit 21..16 default 0
+| ADDRMAP_BANK_B1
+^| bit 13..8 default 0
+
+^| bit 13..8 default 0
+
+^| bit 13..8 default 0
+| ADDRMAP_BANK_B0
+^| bit 5..0 default 0
+
+^| bit 5..0 default 0
+
+^| bit 5..0 default 0
+
+|===
+
+=== ADDRMAP2
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ADDRMAP_COL_B5
+^| bit 27..24 default 0
+
+^| bit 27..24 default 0
+
+^| bit 27..24 default 0
+| ADDRMAP_COL_B4
+^| bit 19..16 default 0
+
+^| bit 19..16 default 0
+
+^| bit 19..16 default 0
+| ADDRMAP_COL_B3
+^| bit 12..8 default 0
+
+^| bit 12..8 default 0
+
+^| bit 11..8 default 0
+| ADDRMAP_COL_B2
+^| bit 3..0 default 0
+
+^| bit 3..0 default 0
+
+^| bit 3..0 default 0
+
+|===
+
+=== ADDRMAP3
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ADDRMAP_COL_B9
+^| bit 28..24 default 0
+
+^| bit 28..24 default 0
+
+^| bit 28..24 default 0
+| ADDRMAP_COL_B8
+^| bit 20..16 default 0
+
+^| bit 20..16 default 0
+
+^| bit 20..16 default 0
+| ADDRMAP_COL_B7
+^| bit 12..8 default 0
+
+^| bit 12..8 default 0
+
+^| bit 12..8 default 0
+| ADDRMAP_COL_B6
+^| bit 4..0 default 0
+
+^| bit 4..0 default 0
+
+^| bit 3..0 default 0
+
+|===
+
+=== ADDRMAP4
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ADDRMAP_COL_B11
+^| bit 12..8 default 0
+
+^| bit 12..8 default 0
+
+^| bit 12..8 default 0
+| ADDRMAP_COL_B10
+^| bit 4..0 default 0
+
+^| bit 4..0 default 0
+
+^| bit 4..0 default 0
+
+|===
+
+=== ADDRMAP5
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ADDRMAP_ROW_B11
+^| bit 27..24 default 0
+
+^| bit 27..24 default 0
+
+^| bit 27..24 default 0
+| ADDRMAP_ROW_B2_10
+^| bit 19..16 default 0
+
+^| bit 19..16 default 0
+
+^| bit 19..16 default 0
+| ADDRMAP_ROW_B1
+^| bit 11..8 default 0
+
+^| bit 11..8 default 0
+
+^| bit 11..8 default 0
+| ADDRMAP_ROW_B0
+^| bit 3..0 default 0
+
+^| bit 3..0 default 0
+
+^| bit 3..0 default 0
+
+|===
+
+=== ADDRMAP6
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ADDRMAP_ROW_B15
+^| bit 27..24 default 0
+
+^| bit 27..24 default 0
+
+^| bit 27..24 default 0
+| ADDRMAP_ROW_B14
+^| bit 19..16 default 0
+
+^| bit 19..16 default 0
+
+^| bit 19..16 default 0
+| ADDRMAP_ROW_B13
+^| bit 11..8 default 0
+
+^| bit 11..8 default 0
+
+^| bit 11..8 default 0
+| ADDRMAP_ROW_B12
+^| bit 3..0 default 0
+
+^| bit 3..0 default 0
+
+^| bit 3..0 default 0
+| LPDDR3_6GB_12GB
+^| 
+
+^| 
+
+^| bit 31..31 default 0
+
+|===
+
+=== ADDRMAP7
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ADDRMAP_ROW_B16
+^| 
+
+^| bit 3..0 default 0
+
+^| bit 3..0 default 0
+| ADDRMAP_ROW_B17
+^| 
+
+^| bit 11..8 default 0
+
+^| bit 11..8 default 0
+
+|===
+
+=== ADDRMAP8
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ADDRMAP_BG_B0
+^| 
+
+^| bit 5..0 default 0
+
+^| bit 5..0 default 0
+| ADDRMAP_BG_B1
+^| 
+
+^| bit 13..8 default 0
+
+^| bit 13..8 default 0
+
+|===
+
+=== CRCPARCTL1
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| PARITY_ENABLE
+^| 
+
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+| CRC_ENABLE
+^| 
+
+^| bit 4..4 default 0
+
+^| bit 4..4 default 0
+| CRC_INC_DM
+^| 
+
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+| CAPARITY_DISABLE_BEFORE_SR
+^| 
+
+^| bit 12..12 default 1
+
+^| bit 12..12 default 1
+
+|===
+
+=== DBICTL
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DM_EN
+^| 
+
+^| bit 0..0 default 1
+
+^| bit 0..0 default 1
+| WR_DBI_EN
+^| 
+
+^| bit 1..1 default 0
+
+^| bit 1..1 default 0
+| RD_DBI_EN
+^| 
+
+^| bit 2..2 default 0
+
+^| bit 2..2 default 0
+
+|===
+
+=== DCR
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| UDIMM
+^| bit 29..29 default 0
+
+^| bit 29..29 default 0
+
+^| bit 29..29 default 0
+| DDR2T
+^| bit 28..28 default 0
+
+^| bit 28..28 default 0
+
+^| bit 28..28 default 0
+| NOSRA
+^| bit 27..27 default 0
+
+^| bit 27..27 default 0
+
+^| bit 27..27 default 0
+| BYTEMASK
+^| bit 17..10 default 1
+
+^| bit 17..10 default 1
+
+^| bit 17..10 default 1
+| MPRDQ
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+| PDQ
+^| bit 6..4 default 0
+
+^| bit 6..4 default 0
+
+^| bit 6..4 default 0
+| DDR8BNK
+^| bit 3..3 default 1
+
+^| bit 3..3 default 1
+
+^| bit 3..3 default 1
+| DDRMD
+^| bit 2..0 default 3
+
+^| bit 2..0 default 3
+
+^| bit 2..0 default 3
+| DDRTYPE
+^| 
+
+^| bit 9..8 default 0
+
+^| bit 9..8 default 0
+| RESERVED_26_18
+^| 
+
+^| bit 26..18 default 0
+
+^| bit 26..18 default 0
+| UBG
+^| 
+
+^| bit 30..30 default 0
+
+^| bit 30..30 default 0
+| RESERVED_31
+^| 
+
+^| bit 31..31 default 0
+
+^| bit 31..31 default 0
+
+|===
+
+=== DFIMISC
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DFI_FREQUENCY
+^| bit 12..8 default 0
+
+^| bit 12..8 default 0
+
+^| bit 12..8 default 0
+| DFI_INIT_START
+^| bit 5..5 default 0
+
+^| bit 5..5 default 0
+
+^| bit 5..5 default 0
+| CTL_IDLE_EN
+^| bit 4..4 default 0
+
+^| bit 4..4 default 0
+
+^| bit 4..4 default 0
+| DFI_INIT_COMPLETE_EN
+^| bit 0..0 default 1
+
+^| bit 0..0 default 1
+
+^| bit 0..0 default 1
+| PHY_DBI_MODE
+^| 
+
+^| bit 1..1 default 0
+
+^| bit 1..1 default 0
+| DIS_DYN_ADR_TRI
+^| 
+
+^| bit 6..6 default 1
+
+^| 
+
+|===
+
+=== DFITMG0
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DFI_T_CTRL_DELAY
+^| bit 28..24 default 7
+
+^| bit 28..24 default 7
+
+^| bit 28..24 default 7
+| DFI_RDDATA_USE_DFI_PHY_CLK
+^| bit 23..23 default 0
+
+^| bit 23..23 default 0
+
+^| bit 23..23 default 0
+| DFI_T_RDDATA_EN
+^| bit 22..16 default 2
+
+^| bit 22..16 default 2
+
+^| bit 22..16 default 2
+| DFI_WRDATA_USE_DFI_PHY_CLK
+^| bit 15..15 default 0
+
+^| bit 15..15 default 0
+
+^| bit 15..15 default 0
+| DFI_TPHY_WRDATA
+^| bit 13..8 default 0
+
+^| bit 13..8 default 0
+
+^| bit 13..8 default 0
+| DFI_TPHY_WRLAT
+^| bit 5..0 default 2
+
+^| bit 5..0 default 2
+
+^| bit 5..0 default 2
+
+|===
+
+=== DFITMG1
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DFI_T_PARIN_LAT
+^| bit 25..24 default 0
+
+^| bit 25..24 default 0
+
+^| bit 25..24 default 0
+| DFI_T_WRDATA_DELAY
+^| bit 20..16 default 0
+
+^| bit 20..16 default 0
+
+^| bit 20..16 default 0
+| DFI_T_DRAM_CLK_DISABLE
+^| bit 12..8 default 4
+
+^| bit 12..8 default 4
+
+^| bit 12..8 default 4
+| DFI_T_DRAM_CLK_ENABLE
+^| bit 4..0 default 4
+
+^| bit 4..0 default 4
+
+^| bit 4..0 default 4
+| DFI_T_CMD_LAT
+^| 
+
+^| bit 31..28 default 0
+
+^| bit 31..28 default 0
+
+|===
+
+=== DFIUPD0
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DIS_AUTO_CTRLUPD
+^| bit 31..31 default 0
+
+^| bit 31..31 default 0
+
+^| bit 31..31 default 0
+| DIS_AUTO_CTRLUPD_SRX
+^| bit 30..30 default 0
+
+^| bit 30..30 default 0
+
+^| bit 30..30 default 0
+| CTRLUPD_PRE_SRX
+^| bit 29..29 default 0
+
+^| bit 29..29 default 0
+
+^| bit 29..29 default 0
+| DFI_T_CTRLUP_MAX
+^| bit 25..16 default 64
+
+^| bit 25..16 default 64
+
+^| bit 25..16 default 64
+| DFI_T_CTRLUP_MIN
+^| bit 9..0 default 3
+
+^| bit 9..0 default 3
+
+^| bit 9..0 default 3
+
+|===
+
+=== DFIUPD1
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DFI_T_CTRLUPD_INTERVAL_MIN_X1024
+^| bit 23..16 default 1
+
+^| bit 23..16 default 1
+
+^| bit 23..16 default 1
+| DFI_T_CTRLUPD_INTERVAL_MAX_X1024
+^| bit 7..0 default 1
+
+^| bit 7..0 default 1
+
+^| bit 7..0 default 1
+
+|===
+
+=== DRAMTMG0
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| WR2PRE
+^| bit 30..24 default 15
+
+^| bit 30..24 default 15
+
+^| bit 30..24 default 15
+| T_FAW
+^| bit 21..16 default 16
+
+^| bit 21..16 default 16
+
+^| bit 21..16 default 16
+| T_RAS_MAX
+^| bit 14..8 default 27
+
+^| bit 14..8 default 27
+
+^| bit 14..8 default 27
+| T_RAS_MIN
+^| bit 5..0 default 15
+
+^| bit 5..0 default 15
+
+^| bit 5..0 default 15
+
+|===
+
+=== DRAMTMG1
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| T_XP
+^| bit 20..16 default 8
+
+^| bit 20..16 default 8
+
+^| bit 20..16 default 8
+| RD2PRE
+^| bit 13..8 default 4
+
+^| bit 13..8 default 4
+
+^| bit 13..8 default 4
+| T_RC
+^| bit 6..0 default 20
+
+^| bit 6..0 default 20
+
+^| bit 6..0 default 20
+
+|===
+
+=== DRAMTMG12
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| T_MRD_PDA
+^| 
+
+^| bit 4..0 default 16
+
+^| bit 4..0 default 16
+| T_WR_MPR
+^| 
+
+^| bit 29..24 default 26
+
+^| 
+
+|===
+
+=== DRAMTMG2
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RD2WR
+^| bit 13..8 default 6
+
+^| bit 13..8 default 6
+
+^| bit 13..8 default 6
+| WR2RD
+^| bit 5..0 default 13
+
+^| bit 5..0 default 13
+
+^| bit 5..0 default 13
+| READ_LATENCY
+^| 
+
+^| bit 21..16 default 5
+
+^| bit 21..16 default 5
+| WRITE_LATENCY
+^| 
+
+^| bit 29..24 default 3
+
+^| bit 29..24 default 3
+
+|===
+
+=== DRAMTMG3
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| T_MRD
+^| bit 17..12 default 4
+
+^| bit 17..12 default 4
+
+^| bit 17..12 default 4
+| T_MOD
+^| bit 9..0 default 12
+
+^| bit 9..0 default 12
+
+^| bit 9..0 default 12
+| T_MRW
+^| 
+
+^| 
+
+^| bit 29..20 default 5
+
+|===
+
+=== DRAMTMG4
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| T_RCD
+^| bit 28..24 default 5
+
+^| bit 28..24 default 5
+
+^| bit 28..24 default 5
+| T_CCD
+^| bit 19..16 default 4
+
+^| bit 19..16 default 4
+
+^| bit 19..16 default 4
+| T_RRD
+^| bit 11..8 default 4
+
+^| bit 11..8 default 4
+
+^| bit 11..8 default 4
+| T_RP
+^| bit 4..0 default 5
+
+^| bit 4..0 default 5
+
+^| bit 4..0 default 5
+
+|===
+
+=== DRAMTMG5
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| T_CKSRX
+^| bit 27..24 default 5
+
+^| bit 27..24 default 5
+
+^| bit 27..24 default 5
+| T_CKSRE
+^| bit 22..16 default 5
+
+^| bit 23..16 default 5
+
+^| bit 19..16 default 5
+| T_CKESR
+^| bit 13..8 default 4
+
+^| bit 15..8 default 4
+
+^| bit 13..8 default 4
+| T_CKE
+^| bit 4..0 default 3
+
+^| bit 4..0 default 3
+
+^| bit 4..0 default 3
+
+|===
+
+=== DRAMTMG8
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| T_XS_DLL_X32
+^| bit 14..8 default 68
+
+^| bit 14..8 default 68
+
+^| bit 14..8 default 68
+| T_XS_X32
+^| bit 6..0 default 5
+
+^| bit 6..0 default 5
+
+^| bit 6..0 default 5
+| T_XS_ABORT_X32
+^| 
+
+^| bit 22..16 default 3
+
+^| bit 22..16 default 3
+| T_XS_FAST_X32
+^| 
+
+^| bit 30..24 default 3
+
+^| bit 30..24 default 3
+
+|===
+
+=== DRAMTMG9
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| WR2RD_S
+^| 
+
+^| bit 5..0 default 13
+
+^| bit 5..0 default 13
+| T_RRD_S
+^| 
+
+^| bit 11..8 default 4
+
+^| bit 11..8 default 4
+| T_CCD_S
+^| 
+
+^| bit 18..16 default 4
+
+^| bit 18..16 default 4
+| DDR4_WR_PREAMBLE
+^| 
+
+^| bit 30..30 default 0
+
+^| bit 30..30 default 0
+
+|===
+
+=== DSGCR
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| CKEOE
+^| bit 31..31 default 1
+
+^| 
+
+^| 
+| RSTOE
+^| bit 30..30 default 1
+
+^| bit 21..21 default 1
+
+^| bit 21..21 default 1
+| ODTOE
+^| bit 29..29 default 1
+
+^| 
+
+^| 
+| CKOE
+^| bit 28..28 default 1
+
+^| 
+
+^| 
+| ODTPDD
+^| bit 27..24 default 0
+
+^| 
+
+^| 
+| CKEPDD
+^| bit 23..20 default 0
+
+^| 
+
+^| 
+| SDRMODE
+^| bit 19..19 default 0
+
+^| bit 20..19 default 0
+
+^| bit 20..19 default 0
+| RRMODE
+^| bit 18..18 default 0
+
+^| 
+
+^| 
+| ATOAE
+^| bit 17..17 default 0
+
+^| bit 17..17 default 0
+
+^| bit 17..17 default 0
+| DTOOE
+^| bit 16..16 default 0
+
+^| bit 16..16 default 0
+
+^| bit 16..16 default 0
+| DTOIOM
+^| bit 15..15 default 0
+
+^| bit 15..15 default 0
+
+^| bit 15..15 default 0
+| DTOPDR
+^| bit 14..14 default 1
+
+^| bit 14..14 default 1
+
+^| bit 14..14 default 1
+| DTOPDD
+^| bit 13..13 default 1
+
+^| 
+
+^| 
+| DTOODT
+^| bit 12..12 default 0
+
+^| bit 12..12 default 0
+
+^| bit 12..12 default 0
+| PUAD
+^| bit 11..8 default 4
+
+^| bit 11..8 default 0
+
+^| bit 11..8 default 0
+| BRRMODE
+^| bit 7..7 default 0
+
+^| 
+
+^| 
+| DQSGX
+^| bit 6..6 default 0
+
+^| bit 7..6 default 0
+
+^| bit 7..6 default 0
+| CUAEN
+^| bit 5..5 default 0
+
+^| bit 5..5 default 0
+
+^| bit 5..5 default 0
+| LPPLLPD
+^| bit 4..4 default 1
+
+^| bit 4..4 default 1
+
+^| bit 4..4 default 1
+| LPIOPD
+^| bit 3..3 default 1
+
+^| bit 3..3 default 1
+
+^| bit 3..3 default 1
+| ZUEN
+^| bit 2..2 default 1
+
+^| 
+
+^| 
+| BDISEN
+^| bit 1..1 default 1
+
+^| bit 1..1 default 1
+
+^| bit 1..1 default 1
+| PUREN
+^| bit 0..0 default 1
+
+^| bit 0..0 default 1
+
+^| bit 0..0 default 1
+| CTLZUEN
+^| 
+
+^| bit 2..2 default 0
+
+^| bit 2..2 default 0
+| RESERVED_13
+^| 
+
+^| bit 13..13 default 0
+
+^| bit 13..13 default 0
+| WRRMODE
+^| 
+
+^| bit 18..18 default 1
+
+^| bit 18..18 default 1
+| RRRMODE
+^| 
+
+^| bit 22..22 default 1
+
+^| bit 22..22 default 1
+| PHYZUEN
+^| 
+
+^| bit 23..23 default 0
+
+^| bit 23..23 default 0
+| LPACIOPD
+^| 
+
+^| bit 24..24 default 0
+
+^| 
+| RESERVED_31_25
+^| 
+
+^| bit 31..25 default 0
+
+^| 
+| RESERVED_31_24
+^| 
+
+^| 
+
+^| bit 31..24 default 0
+
+|===
+
+=== DTCR
+
+Applies to: lan966x
+
+
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RFSHDT
+^| bit 31..28 default 9
+
+^| 
+
+^| 
+| RANKEN
+^| bit 27..24 default 15
+
+^| 
+
+^| 
+| DTEXD
+^| bit 22..22 default 0
+
+^| 
+
+^| 
+| DTDSTP
+^| bit 21..21 default 0
+
+^| 
+
+^| 
+| DTDEN
+^| bit 20..20 default 0
+
+^| 
+
+^| 
+| DTDBS
+^| bit 19..16 default 0
+
+^| 
+
+^| 
+| DTWDQMO
+^| bit 14..14 default 0
+
+^| 
+
+^| 
+| DTBDC
+^| bit 13..13 default 1
+
+^| 
+
+^| 
+| DTWBDDM
+^| bit 12..12 default 1
+
+^| 
+
+^| 
+| DTWDQM
+^| bit 11..8 default 5
+
+^| 
+
+^| 
+| DTCMPD
+^| bit 7..7 default 1
+
+^| 
+
+^| 
+| DTMPR
+^| bit 6..6 default 0
+
+^| 
+
+^| 
+| DTRANK
+^| bit 5..4 default 0
+
+^| 
+
+^| 
+| DTRPTN
+^| bit 3..0 default 7
+
+^| 
+
+^| 
+
+|===
+
+=== DTCR0
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DTRPTN
+^| 
+
+^| bit 3..0 default 7
+
+^| bit 3..0 default 7
+| RESERVED_5_4
+^| 
+
+^| bit 5..4 default 0
+
+^| bit 5..4 default 0
+| DTMPR
+^| 
+
+^| bit 6..6 default 0
+
+^| bit 6..6 default 0
+| DTCMPD
+^| 
+
+^| bit 7..7 default 1
+
+^| bit 7..7 default 1
+| RESERVED_10_8
+^| 
+
+^| bit 10..8 default 0
+
+^| bit 10..8 default 0
+| DTDBS4
+^| 
+
+^| bit 11..11 default 0
+
+^| bit 11..11 default 0
+| DTWBDDM
+^| 
+
+^| bit 12..12 default 1
+
+^| bit 12..12 default 1
+| DTBDC
+^| 
+
+^| bit 13..13 default 1
+
+^| bit 13..13 default 1
+| DTRDBITR
+^| 
+
+^| bit 15..14 default 2
+
+^| bit 15..14 default 2
+| DTDBS
+^| 
+
+^| bit 19..16 default 0
+
+^| bit 19..16 default 0
+| DTDEN
+^| 
+
+^| bit 20..20 default 0
+
+^| bit 20..20 default 0
+| DTDSTP
+^| 
+
+^| bit 21..21 default 0
+
+^| bit 21..21 default 0
+| DTEXD
+^| 
+
+^| bit 22..22 default 0
+
+^| bit 22..22 default 0
+| RESERVED_23
+^| 
+
+^| bit 23..23 default 0
+
+^| 
+| DTDRS
+^| 
+
+^| bit 25..24 default 0
+
+^| bit 25..24 default 0
+| RESERVED_27_26
+^| 
+
+^| bit 27..26 default 0
+
+^| bit 27..26 default 0
+| RFSHDT
+^| 
+
+^| bit 31..28 default 8
+
+^| bit 31..28 default 8
+| DTEXG
+^| 
+
+^| 
+
+^| bit 23..23 default 0
+
+|===
+
+=== DTCR1
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| BSTEN
+^| 
+
+^| bit 0..0 default 1
+
+^| bit 0..0 default 1
+| RDLVLEN
+^| 
+
+^| bit 1..1 default 1
+
+^| bit 1..1 default 1
+| RDPRMBL_TRN
+^| 
+
+^| bit 2..2 default 1
+
+^| bit 2..2 default 1
+| RESERVED_3
+^| 
+
+^| bit 3..3 default 0
+
+^| bit 3..3 default 0
+| RDLVLGS
+^| 
+
+^| bit 6..4 default 3
+
+^| bit 6..4 default 3
+| RESERVED_7
+^| 
+
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+| RDLVLGDIFF
+^| 
+
+^| bit 10..8 default 2
+
+^| bit 10..8 default 2
+| WLVLDPRD
+^| 
+
+^| bit 11..11 default 1
+
+^| 
+| DTRANK
+^| 
+
+^| bit 13..12 default 0
+
+^| bit 13..12 default 0
+| RESERVED_15_14
+^| 
+
+^| bit 15..14 default 0
+
+^| bit 15..14 default 0
+| RANKEN
+^| 
+
+^| bit 17..16 default 3
+
+^| bit 17..16 default 3
+| RANKEN_RSVD
+^| 
+
+^| bit 31..18 default 0
+
+^| bit 31..18 default 0
+| RESERVED_11
+^| 
+
+^| 
+
+^| bit 11..11 default 0
+
+|===
+
+=== DTPR0
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| TRC
+^| bit 31..26 default 50
+
+^| 
+
+^| 
+| TRRD
+^| bit 25..22 default 7
+
+^| bit 29..24 default 7
+
+^| bit 29..24 default 7
+| TRAS
+^| bit 21..16 default 36
+
+^| bit 22..16 default 36
+
+^| bit 22..16 default 36
+| TRCD
+^| bit 15..12 default 14
+
+^| 
+
+^| 
+| TRP
+^| bit 11..8 default 14
+
+^| bit 14..8 default 14
+
+^| bit 14..8 default 14
+| TWTR
+^| bit 7..4 default 8
+
+^| 
+
+^| 
+| TRTP
+^| bit 3..0 default 8
+
+^| bit 3..0 default 8
+
+^| bit 3..0 default 8
+| RESERVED_7_4
+^| 
+
+^| bit 7..4 default 0
+
+^| bit 7..4 default 0
+| RESERVED_15
+^| 
+
+^| bit 15..15 default 0
+
+^| bit 15..15 default 0
+| RESERVED_23
+^| 
+
+^| bit 23..23 default 0
+
+^| bit 23..23 default 0
+| RESERVED_31_30
+^| 
+
+^| bit 31..30 default 0
+
+^| bit 31..30 default 0
+
+|===
+
+=== DTPR1
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| TAON_OFF_D
+^| bit 31..30 default 0
+
+^| 
+
+^| 
+| TWLO
+^| bit 29..26 default 8
+
+^| 
+
+^| 
+| TWLMRD
+^| bit 25..20 default 40
+
+^| bit 29..24 default 40
+
+^| bit 29..24 default 40
+| TRFC
+^| bit 19..11 default 374
+
+^| 
+
+^| 
+| TFAW
+^| bit 10..5 default 38
+
+^| bit 23..16 default 38
+
+^| bit 23..16 default 38
+| TMOD
+^| bit 4..2 default 4
+
+^| bit 10..8 default 4
+
+^| bit 10..8 default 4
+| TMRD
+^| bit 1..0 default 2
+
+^| bit 4..0 default 6
+
+^| bit 4..0 default 6
+| RESERVED_7_5
+^| 
+
+^| bit 7..5 default 0
+
+^| bit 7..5 default 0
+| RESERVED_15_11
+^| 
+
+^| bit 15..11 default 0
+
+^| bit 15..11 default 0
+| RESERVED_31_30
+^| 
+
+^| bit 31..30 default 0
+
+^| bit 31..30 default 0
+
+|===
+
+=== DTPR2
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| TCCD
+^| bit 31..31 default 0
+
+^| 
+
+^| 
+| TRTW
+^| bit 30..30 default 0
+
+^| bit 28..28 default 0
+
+^| bit 28..28 default 0
+| TRTODT
+^| bit 29..29 default 0
+
+^| bit 24..24 default 0
+
+^| bit 24..24 default 0
+| TDLLK
+^| bit 28..19 default 512
+
+^| 
+
+^| 
+| TCKE
+^| bit 18..15 default 6
+
+^| bit 19..16 default 6
+
+^| bit 19..16 default 6
+| TXP
+^| bit 14..10 default 26
+
+^| 
+
+^| 
+| TXS
+^| bit 9..0 default 512
+
+^| bit 9..0 default 512
+
+^| bit 9..0 default 512
+| RESERVED_15_10
+^| 
+
+^| bit 15..10 default 0
+
+^| bit 15..10 default 0
+| RESERVED_23_20
+^| 
+
+^| bit 23..20 default 0
+
+^| bit 23..20 default 0
+| RESERVED_27_25
+^| 
+
+^| bit 27..25 default 0
+
+^| bit 27..25 default 0
+| RESERVED_31_29
+^| 
+
+^| bit 31..29 default 0
+
+^| bit 31..29 default 0
+
+|===
+
+=== DTPR3
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| TDQSCK
+^| 
+
+^| bit 2..0 default 1
+
+^| bit 2..0 default 1
+| RESERVED_7_3
+^| 
+
+^| bit 7..3 default 0
+
+^| bit 7..3 default 0
+| TDQSCKMAX
+^| 
+
+^| bit 10..8 default 1
+
+^| bit 10..8 default 1
+| RESERVED_15_11
+^| 
+
+^| bit 15..11 default 0
+
+^| bit 15..11 default 0
+| TDLLK
+^| 
+
+^| bit 25..16 default 384
+
+^| bit 25..16 default 384
+| TCCD
+^| 
+
+^| bit 28..26 default 0
+
+^| bit 28..26 default 0
+| TOFDX
+^| 
+
+^| bit 31..29 default 0
+
+^| bit 31..29 default 0
+
+|===
+
+=== DTPR4
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| TXP
+^| 
+
+^| bit 4..0 default 26
+
+^| bit 4..0 default 26
+| RESERVED_7_5
+^| 
+
+^| bit 7..5 default 0
+
+^| bit 7..5 default 0
+| TWLO
+^| 
+
+^| bit 11..8 default 8
+
+^| bit 11..8 default 8
+| RESERVED_15_12
+^| 
+
+^| bit 15..12 default 0
+
+^| bit 15..12 default 0
+| TRFC
+^| 
+
+^| bit 25..16 default 374
+
+^| bit 25..16 default 374
+| RESERVED_27_26
+^| 
+
+^| bit 27..26 default 0
+
+^| bit 27..26 default 0
+| TAOND_TAOFD
+^| 
+
+^| bit 29..28 default 0
+
+^| bit 29..28 default 0
+| RESERVED_31_30
+^| 
+
+^| bit 31..30 default 0
+
+^| bit 31..30 default 0
+
+|===
+
+=== DTPR5
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| TWTR
+^| 
+
+^| bit 4..0 default 8
+
+^| bit 4..0 default 8
+| RESERVED_7_5
+^| 
+
+^| bit 7..5 default 0
+
+^| bit 7..5 default 0
+| TRCD
+^| 
+
+^| bit 14..8 default 14
+
+^| bit 14..8 default 14
+| RESERVED_15
+^| 
+
+^| bit 15..15 default 0
+
+^| bit 15..15 default 0
+| TRC
+^| 
+
+^| bit 23..16 default 50
+
+^| bit 23..16 default 50
+| RESERVED_31_24
+^| 
+
+^| bit 31..24 default 0
+
+^| bit 31..24 default 0
+
+|===
+
+=== DXCCR
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DDPDRCDO
+^| bit 31..28 default 4
+
+^| 
+
+^| 
+| DDPDDCDO
+^| bit 27..24 default 4
+
+^| 
+
+^| 
+| DYNDXPDR
+^| bit 23..23 default 0
+
+^| 
+
+^| 
+| DYNDXPDD
+^| bit 22..22 default 0
+
+^| 
+
+^| 
+| UDQIOM
+^| bit 21..21 default 0
+
+^| bit 21..21 default 0
+
+^| bit 21..21 default 0
+| UDQPDR
+^| bit 20..20 default 1
+
+^| 
+
+^| 
+| UDQPDD
+^| bit 19..19 default 1
+
+^| 
+
+^| 
+| UDQODT
+^| bit 18..18 default 0
+
+^| 
+
+^| 
+| MSBUDQ
+^| bit 17..15 default 0
+
+^| bit 17..15 default 0
+
+^| bit 17..15 default 0
+| DQSNRES
+^| bit 12..9 default 12
+
+^| bit 12..9 default 12
+
+^| bit 12..9 default 12
+| DQSRES
+^| bit 8..5 default 4
+
+^| bit 8..5 default 4
+
+^| bit 8..5 default 4
+| DXPDR
+^| bit 4..4 default 0
+
+^| 
+
+^| 
+| DXPDD
+^| bit 3..3 default 0
+
+^| 
+
+^| 
+| MDLEN
+^| bit 2..2 default 1
+
+^| bit 2..2 default 1
+
+^| bit 2..2 default 1
+| DXIOM
+^| bit 1..1 default 0
+
+^| bit 1..1 default 0
+
+^| bit 1..1 default 0
+| DXODT
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+| DQSGLB
+^| 
+
+^| bit 4..3 default 0
+
+^| bit 4..3 default 0
+| DXSR
+^| 
+
+^| bit 14..13 default 0
+
+^| bit 14..13 default 0
+| RESERVED_19_18
+^| 
+
+^| bit 19..18 default 0
+
+^| 
+| QSCNTENCTL
+^| 
+
+^| bit 20..20 default 0
+
+^| 
+| QSCNTEN
+^| 
+
+^| bit 22..22 default 1
+
+^| bit 22..22 default 1
+| DXDCCBYP
+^| 
+
+^| bit 23..23 default 1
+
+^| bit 23..23 default 1
+| RESERVED_28_24
+^| 
+
+^| bit 28..24 default 0
+
+^| bit 28..24 default 0
+| RKLOOP
+^| 
+
+^| bit 29..29 default 1
+
+^| bit 29..29 default 1
+| X4DQSMD
+^| 
+
+^| bit 30..30 default 0
+
+^| bit 30..30 default 0
+| X4MODE
+^| 
+
+^| bit 31..31 default 0
+
+^| bit 31..31 default 0
+| RESERVED_20_18
+^| 
+
+^| 
+
+^| bit 20..18 default 0
+
+|===
+
+=== ECCCFG0
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ECC_REGION_MAP_GRANU
+^| bit 31..30 default 0
+
+^| bit 31..30 default 0
+
+^| 
+| ECC_REGION_MAP_OTHER
+^| bit 29..29 default 0
+
+^| bit 29..29 default 0
+
+^| 
+| ECC_AP_ERR_THRESHOLD
+^| bit 24..24 default 0
+
+^| bit 24..24 default 0
+
+^| 
+| BLK_CHANNEL_IDLE_TIME_X32
+^| bit 21..16 default 63
+
+^| bit 21..16 default 63
+
+^| 
+| ECC_REGION_MAP
+^| bit 14..8 default 127
+
+^| bit 14..8 default 127
+
+^| 
+| ECC_REGION_REMAP_EN
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+
+^| 
+| ECC_AP_EN
+^| bit 6..6 default 1
+
+^| bit 6..6 default 1
+
+^| 
+| DIS_SCRUB
+^| bit 4..4 default 0
+
+^| bit 4..4 default 0
+
+^| bit 4..4 default 0
+| ECC_MODE
+^| bit 2..0 default 0
+
+^| bit 2..0 default 0
+
+^| bit 2..0 default 0
+
+|===
+
+=== INIT0
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| SKIP_DRAM_INIT
+^| bit 31..30 default 0
+
+^| bit 31..30 default 0
+
+^| bit 31..30 default 0
+| POST_CKE_X1024
+^| bit 25..16 default 2
+
+^| bit 25..16 default 2
+
+^| bit 25..16 default 2
+| PRE_CKE_X1024
+^| bit 11..0 default 78
+
+^| bit 11..0 default 78
+
+^| bit 11..0 default 78
+
+|===
+
+=== INIT1
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DRAM_RSTN_X1024
+^| bit 24..16 default 0
+
+^| bit 24..16 default 0
+
+^| bit 24..16 default 0
+| PRE_OCD_X32
+^| bit 3..0 default 0
+
+^| bit 3..0 default 0
+
+^| bit 3..0 default 0
+
+|===
+
+=== INIT3
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| MR
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+| EMR
+^| bit 15..0 default 1296
+
+^| bit 15..0 default 1296
+
+^| bit 15..0 default 1296
+
+|===
+
+=== INIT4
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| EMR2
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+| EMR3
+^| bit 15..0 default 0
+
+^| bit 15..0 default 0
+
+^| bit 15..0 default 0
+
+|===
+
+=== INIT5
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DEV_ZQINIT_X32
+^| bit 23..16 default 16
+
+^| bit 23..16 default 16
+
+^| bit 23..16 default 16
+| MAX_AUTO_INIT_X1024
+^| 
+
+^| 
+
+^| bit 9..0 default 4
+
+|===
+
+=== INIT6
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| MR5
+^| 
+
+^| bit 15..0 default 0
+
+^| bit 15..0 default 0
+| MR4
+^| 
+
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+
+|===
+
+=== INIT7
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| MR6
+^| 
+
+^| bit 15..0 default 0
+
+^| bit 15..0 default 0
+
+|===
+
+=== MR0
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RSVD_15_13
+^| bit 15..13 default 0
+
+^| bit 15..13 default 0
+
+^| bit 15..13 default 0
+| PD
+^| bit 12..12 default 0
+
+^| bit 12..12 default 0
+
+^| bit 12..12 default 0
+| WR
+^| bit 11..9 default 5
+
+^| bit 11..9 default 5
+
+^| bit 11..9 default 5
+| DR
+^| bit 8..8 default 0
+
+^| bit 8..8 default 0
+
+^| bit 8..8 default 0
+| TM
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+| CL_6_4
+^| bit 6..4 default 5
+
+^| bit 6..4 default 5
+
+^| bit 6..4 default 5
+| BT
+^| bit 3..3 default 0
+
+^| bit 3..3 default 0
+
+^| bit 3..3 default 0
+| CL_2
+^| bit 2..2 default 0
+
+^| bit 2..2 default 0
+
+^| bit 2..2 default 0
+| BL
+^| bit 1..0 default 2
+
+^| bit 1..0 default 2
+
+^| bit 1..0 default 2
+| RESERVED_31_16
+^| 
+
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+
+|===
+
+=== MR1
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RSVD_15_13
+^| bit 15..13 default 0
+
+^| bit 15..13 default 0
+
+^| bit 15..13 default 0
+| QOFF
+^| bit 12..12 default 0
+
+^| bit 12..12 default 0
+
+^| bit 12..12 default 0
+| TDQS
+^| bit 11..11 default 0
+
+^| bit 11..11 default 0
+
+^| bit 11..11 default 0
+| RSVD_10
+^| bit 10..10 default 0
+
+^| bit 10..10 default 0
+
+^| bit 10..10 default 0
+| RTT_9
+^| bit 9..9 default 0
+
+^| bit 9..9 default 0
+
+^| bit 9..9 default 0
+| DE_RSVD_8
+^| bit 8..8 default 0
+
+^| 
+
+^| 
+| LEVEL
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+| RTT_6
+^| bit 6..6 default 0
+
+^| bit 6..6 default 0
+
+^| bit 6..6 default 0
+| DIC_5
+^| bit 5..5 default 0
+
+^| bit 5..5 default 0
+
+^| bit 5..5 default 0
+| AL
+^| bit 4..3 default 0
+
+^| bit 4..3 default 0
+
+^| bit 4..3 default 0
+| RTT_2
+^| bit 2..2 default 0
+
+^| bit 2..2 default 0
+
+^| bit 2..2 default 0
+| DIC_1
+^| bit 1..1 default 0
+
+^| bit 1..1 default 0
+
+^| bit 1..1 default 0
+| DE
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+| RSVD_8
+^| 
+
+^| bit 8..8 default 0
+
+^| bit 8..8 default 0
+| RESERVED_31_16
+^| 
+
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+
+|===
+
+=== MR2
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RSVD_15_11
+^| bit 15..11 default 0
+
+^| bit 15..11 default 0
+
+^| bit 15..11 default 0
+| RTT_WR
+^| bit 10..9 default 0
+
+^| bit 10..9 default 0
+
+^| bit 10..9 default 0
+| RSVD_8
+^| bit 8..8 default 0
+
+^| bit 8..8 default 0
+
+^| bit 8..8 default 0
+| SRT
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+| ASR
+^| bit 6..6 default 0
+
+^| bit 6..6 default 0
+
+^| bit 6..6 default 0
+| CWL
+^| bit 5..3 default 0
+
+^| bit 5..3 default 0
+
+^| bit 5..3 default 0
+| PASR
+^| bit 2..0 default 0
+
+^| bit 2..0 default 0
+
+^| bit 2..0 default 0
+| RESERVED_31_16
+^| 
+
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+
+|===
+
+=== MR3
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RSVD_15_3
+^| bit 15..3 default 0
+
+^| bit 15..3 default 0
+
+^| bit 15..3 default 0
+| MPR
+^| bit 2..2 default 0
+
+^| bit 2..2 default 0
+
+^| bit 2..2 default 0
+| MPRLOC
+^| bit 1..0 default 0
+
+^| bit 1..0 default 0
+
+^| bit 1..0 default 0
+| RESERVED_31_16
+^| 
+
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+
+|===
+
+=== MR4
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RSVD_15_0
+^| 
+
+^| bit 15..0 default 0
+
+^| bit 15..0 default 0
+| RESERVED_31_16
+^| 
+
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+
+|===
+
+=== MR5
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RSVD_15_0
+^| 
+
+^| bit 15..0 default 1024
+
+^| bit 15..0 default 1024
+| RESERVED_31_16
+^| 
+
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+
+|===
+
+=== MR6
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RSVD_15_0
+^| 
+
+^| bit 15..0 default 1024
+
+^| bit 15..0 default 1024
+| RESERVED_31_16
+^| 
+
+^| bit 31..16 default 0
+
+^| bit 31..16 default 0
+
+|===
+
+=== MSTR
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ACTIVE_RANKS
+^| bit 25..24 default 3
+
+^| bit 25..24 default 3
+
+^| bit 25..24 default 3
+| BURST_RDWR
+^| bit 19..16 default 4
+
+^| bit 19..16 default 4
+
+^| bit 19..16 default 4
+| DLL_OFF_MODE
+^| bit 15..15 default 0
+
+^| bit 15..15 default 0
+
+^| bit 15..15 default 0
+| DATA_BUS_WIDTH
+^| bit 13..12 default 0
+
+^| bit 13..12 default 0
+
+^| bit 13..12 default 0
+| EN_2T_TIMING_MODE
+^| bit 10..10 default 0
+
+^| bit 10..10 default 0
+
+^| bit 10..10 default 0
+| BURSTCHOP
+^| bit 9..9 default 0
+
+^| bit 9..9 default 0
+
+^| bit 9..9 default 0
+| DDR3
+^| bit 0..0 default 1
+
+^| bit 0..0 default 1
+
+^| bit 0..0 default 1
+| DDR4
+^| 
+
+^| bit 4..4 default 0
+
+^| bit 4..4 default 0
+| GEARDOWN_MODE
+^| 
+
+^| bit 11..11 default 0
+
+^| bit 11..11 default 0
+| DEVICE_CONFIG
+^| 
+
+^| bit 31..30 default 0
+
+^| bit 31..30 default 0
+| LPDDR2
+^| 
+
+^| 
+
+^| bit 2..2 default 0
+| LPDDR3
+^| 
+
+^| 
+
+^| bit 3..3 default 0
+
+|===
+
+=== ODTCFG
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| WR_ODT_HOLD
+^| bit 27..24 default 4
+
+^| bit 27..24 default 4
+
+^| bit 27..24 default 4
+| WR_ODT_DELAY
+^| bit 20..16 default 0
+
+^| bit 20..16 default 0
+
+^| bit 20..16 default 0
+| RD_ODT_HOLD
+^| bit 11..8 default 4
+
+^| bit 11..8 default 4
+
+^| bit 11..8 default 4
+| RD_ODT_DELAY
+^| bit 6..2 default 0
+
+^| bit 6..2 default 0
+
+^| bit 6..2 default 0
+
+|===
+
+=== PCCFG
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| BL_EXP_MODE
+^| bit 8..8 default 0
+
+^| bit 8..8 default 0
+
+^| bit 8..8 default 0
+| PAGEMATCH_LIMIT
+^| bit 4..4 default 0
+
+^| bit 4..4 default 0
+
+^| bit 4..4 default 0
+| GO2CRITICAL_EN
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+
+|===
+
+=== PGCR2
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DYNACPDD
+^| bit 31..31 default 0
+
+^| 
+
+^| 
+| LPMSTRC0
+^| bit 30..30 default 0
+
+^| 
+
+^| 
+| ACPDDC
+^| bit 29..29 default 0
+
+^| 
+
+^| 
+| SHRAC
+^| bit 28..28 default 0
+
+^| 
+
+^| 
+| DTPMXTMR
+^| bit 27..20 default 15
+
+^| bit 27..20 default 0
+
+^| bit 27..20 default 0
+| FXDLAT
+^| bit 19..19 default 0
+
+^| bit 19..19 default 0
+
+^| bit 19..19 default 0
+| NOBUB
+^| bit 18..18 default 0
+
+^| 
+
+^| 
+| TREFPRD
+^| bit 17..0 default 74880
+
+^| bit 17..0 default 74880
+
+^| bit 17..0 default 74880
+| CSNCIDMUX
+^| 
+
+^| bit 18..18 default 0
+
+^| bit 18..18 default 0
+| FXDLATINCR
+^| 
+
+^| bit 28..28 default 0
+
+^| bit 28..28 default 0
+| RFSHMODE
+^| 
+
+^| bit 30..29 default 0
+
+^| bit 30..29 default 0
+| RESERVED_31
+^| 
+
+^| bit 31..31 default 0
+
+^| bit 31..31 default 0
+
+|===
+
+=== PTR0
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| TPLLPD
+^| bit 31..21 default 534
+
+^| bit 31..21 default 534
+
+^| bit 31..21 default 534
+| TPLLGS
+^| bit 20..6 default 2134
+
+^| bit 20..6 default 2134
+
+^| bit 20..6 default 2134
+| TPHYRST
+^| bit 5..0 default 16
+
+^| bit 5..0 default 16
+
+^| bit 5..0 default 16
+
+|===
+
+=== PTR1
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| TPLLLOCK
+^| bit 31..16 default 53334
+
+^| bit 31..15 default 53334
+
+^| bit 31..15 default 53334
+| TPLLRST
+^| bit 12..0 default 4800
+
+^| bit 12..0 default 4800
+
+^| bit 12..0 default 4800
+| RESERVED_14_13
+^| 
+
+^| bit 14..13 default 0
+
+^| bit 14..13 default 0
+
+|===
+
+=== PTR2
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| TWLDLYS
+^| bit 19..15 default 16
+
+^| bit 19..15 default 16
+
+^| bit 19..15 default 16
+| TCALH
+^| bit 14..10 default 15
+
+^| bit 14..10 default 15
+
+^| bit 14..10 default 15
+| TCALS
+^| bit 9..5 default 15
+
+^| bit 9..5 default 15
+
+^| bit 9..5 default 15
+| TCALON
+^| bit 4..0 default 15
+
+^| bit 4..0 default 15
+
+^| bit 4..0 default 15
+| RESERVED_31_20
+^| 
+
+^| bit 31..20 default 0
+
+^| bit 31..20 default 0
+
+|===
+
+=== PTR3
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| TDINIT1
+^| bit 29..20 default 384
+
+^| bit 29..20 default 384
+
+^| bit 29..20 default 384
+| TDINIT0
+^| bit 19..0 default 533334
+
+^| bit 19..0 default 533334
+
+^| bit 19..0 default 533334
+| RESERVED_31_30
+^| 
+
+^| bit 31..30 default 0
+
+^| bit 31..30 default 0
+
+|===
+
+=== PTR4
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| TDINIT3
+^| bit 27..18 default 683
+
+^| bit 28..18 default 800
+
+^| bit 28..18 default 800
+| TDINIT2
+^| bit 17..0 default 213334
+
+^| bit 17..0 default 213334
+
+^| bit 17..0 default 213334
+| RESERVED_31_29
+^| 
+
+^| bit 31..29 default 0
+
+^| bit 31..29 default 0
+
+|===
+
+=== PWRCTL
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| DIS_CAM_DRAIN_SELFREF
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+
+^| bit 7..7 default 0
+| SELFREF_SW
+^| bit 5..5 default 0
+
+^| bit 5..5 default 0
+
+^| bit 5..5 default 0
+| EN_DFI_DRAM_CLK_DISABLE
+^| bit 3..3 default 0
+
+^| bit 3..3 default 0
+
+^| bit 3..3 default 0
+| POWERDOWN_EN
+^| bit 1..1 default 0
+
+^| bit 1..1 default 0
+
+^| bit 1..1 default 0
+| SELFREF_EN
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+| MPSM_EN
+^| 
+
+^| bit 4..4 default 0
+
+^| bit 4..4 default 0
+| DEEPPOWERDOWN_EN
+^| 
+
+^| 
+
+^| bit 2..2 default 0
+
+|===
+
+=== RFSHCTL0
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| REFRESH_MARGIN
+^| bit 23..20 default 2
+
+^| bit 23..20 default 2
+
+^| bit 23..20 default 2
+| REFRESH_TO_X1_X32
+^| bit 16..12 default 16
+
+^| bit 16..12 default 16
+
+^| 
+| REFRESH_BURST
+^| bit 9..4 default 0
+
+^| bit 9..4 default 0
+
+^| bit 8..4 default 0
+| PER_BANK_REFRESH
+^| 
+
+^| 
+
+^| bit 2..2 default 0
+| REFRESH_TO_X32
+^| 
+
+^| 
+
+^| bit 16..12 default 16
+
+|===
+
+=== RFSHCTL3
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| REFRESH_UPDATE_LEVEL
+^| bit 1..1 default 0
+
+^| bit 1..1 default 0
+
+^| bit 1..1 default 0
+| DIS_AUTO_REFRESH
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+| REFRESH_MODE
+^| 
+
+^| bit 6..4 default 0
+
+^| bit 6..4 default 0
+
+|===
+
+=== RFSHTMG
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| T_RFC_NOM_X1_X32
+^| bit 27..16 default 98
+
+^| bit 27..16 default 98
+
+^| 
+| T_RFC_MIN
+^| bit 9..0 default 140
+
+^| bit 9..0 default 140
+
+^| bit 9..0 default 140
+| LPDDR3_TREFBW_EN
+^| 
+
+^| 
+
+^| bit 15..15 default 0
+| T_RFC_NOM_X32
+^| 
+
+^| 
+
+^| bit 27..16 default 98
+
+|===
+
+=== SCHCR1
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RESERVED_1_0
+^| 
+
+^| bit 1..0 default 0
+
+^| bit 1..0 default 0
+| ALLRANK
+^| 
+
+^| bit 2..2 default 0
+
+^| bit 2..2 default 0
+| RESERVED_3
+^| 
+
+^| bit 3..3 default 0
+
+^| bit 3..3 default 0
+| SCBK
+^| 
+
+^| bit 5..4 default 0
+
+^| bit 5..4 default 0
+| SCBG
+^| 
+
+^| bit 7..6 default 0
+
+^| bit 7..6 default 0
+| SCADDR
+^| 
+
+^| bit 27..8 default 0
+
+^| bit 27..8 default 0
+| SCRNK
+^| 
+
+^| bit 31..28 default 0
+
+^| bit 31..28 default 0
+
+|===
+
+=== ZQ0PR
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RESERVED_7_0
+^| 
+
+^| bit 7..0 default 0
+
+^| 
+| ZPROG_ASYM_DRV_PU
+^| 
+
+^| bit 11..8 default 11
+
+^| bit 11..8 default 11
+| ZPROG_ASYM_DRV_PD
+^| 
+
+^| bit 15..12 default 11
+
+^| bit 15..12 default 11
+| ZPROG_PU_ODT_ONLY
+^| 
+
+^| bit 19..16 default 7
+
+^| bit 19..16 default 7
+| PU_DRV_ADJUST
+^| 
+
+^| bit 21..20 default 0
+
+^| bit 21..20 default 0
+| PD_DRV_ADJUST
+^| 
+
+^| bit 23..22 default 0
+
+^| bit 23..22 default 0
+| RESERVED_27_24
+^| 
+
+^| bit 27..24 default 0
+
+^| 
+| PU_ODT_ONLY
+^| 
+
+^| bit 28..28 default 0
+
+^| 
+| ZSEGBYP
+^| 
+
+^| bit 29..29 default 0
+
+^| 
+| ODT_ZDEN
+^| 
+
+^| bit 30..30 default 0
+
+^| 
+| DRV_ZDEN
+^| 
+
+^| bit 31..31 default 0
+
+^| 
+| ZQDIV
+^| 
+
+^| 
+
+^| bit 7..0 default 123
+| ZCTRL_UPPER
+^| 
+
+^| 
+
+^| bit 27..24 default 0
+| RESERVED_31_28
+^| 
+
+^| 
+
+^| bit 31..28 default 0
+
+|===
+
+=== ZQ1PR
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RESERVED_7_0
+^| 
+
+^| bit 7..0 default 0
+
+^| 
+| ZPROG_ASYM_DRV_PU
+^| 
+
+^| bit 11..8 default 11
+
+^| bit 11..8 default 11
+| ZPROG_ASYM_DRV_PD
+^| 
+
+^| bit 15..12 default 11
+
+^| bit 15..12 default 11
+| ZPROG_PU_ODT_ONLY
+^| 
+
+^| bit 19..16 default 7
+
+^| bit 19..16 default 7
+| PU_DRV_ADJUST
+^| 
+
+^| bit 21..20 default 0
+
+^| bit 21..20 default 0
+| PD_DRV_ADJUST
+^| 
+
+^| bit 23..22 default 0
+
+^| bit 23..22 default 0
+| RESERVED_27_24
+^| 
+
+^| bit 27..24 default 0
+
+^| 
+| PU_ODT_ONLY
+^| 
+
+^| bit 28..28 default 0
+
+^| 
+| ZSEGBYP
+^| 
+
+^| bit 29..29 default 0
+
+^| 
+| ODT_ZDEN
+^| 
+
+^| bit 30..30 default 0
+
+^| 
+| DRV_ZDEN
+^| 
+
+^| bit 31..31 default 0
+
+^| 
+| ZQDIV
+^| 
+
+^| 
+
+^| bit 7..0 default 123
+| ZCTRL_UPPER
+^| 
+
+^| 
+
+^| bit 27..24 default 0
+| RESERVED_31_28
+^| 
+
+^| 
+
+^| bit 31..28 default 0
+
+|===
+
+=== ZQ2PR
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RESERVED_7_0
+^| 
+
+^| bit 7..0 default 0
+
+^| 
+| ZPROG_ASYM_DRV_PU
+^| 
+
+^| bit 11..8 default 0
+
+^| bit 11..8 default 11
+| ZPROG_ASYM_DRV_PD
+^| 
+
+^| bit 15..12 default 0
+
+^| bit 15..12 default 11
+| ZPROG_PU_ODT_ONLY
+^| 
+
+^| bit 19..16 default 0
+
+^| bit 19..16 default 7
+| PU_DRV_ADJUST
+^| 
+
+^| bit 21..20 default 0
+
+^| bit 21..20 default 0
+| PD_DRV_ADJUST
+^| 
+
+^| bit 23..22 default 0
+
+^| bit 23..22 default 0
+| RESERVED_27_24
+^| 
+
+^| bit 27..24 default 0
+
+^| 
+| PU_ODT_ONLY
+^| 
+
+^| bit 28..28 default 0
+
+^| 
+| ZSEGBYP
+^| 
+
+^| bit 29..29 default 0
+
+^| 
+| ODT_ZDEN
+^| 
+
+^| bit 30..30 default 0
+
+^| 
+| DRV_ZDEN
+^| 
+
+^| bit 31..31 default 0
+
+^| 
+| ZQDIV
+^| 
+
+^| 
+
+^| bit 7..0 default 123
+| ZCTRL_UPPER
+^| 
+
+^| 
+
+^| bit 27..24 default 0
+| RESERVED_31_28
+^| 
+
+^| 
+
+^| bit 31..28 default 0
+
+|===
+
+=== ZQCR
+
+Applies to: 
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| RESERVED_0
+^| 
+
+^| bit 0..0 default 0
+
+^| bit 0..0 default 0
+| TERM_OFF
+^| 
+
+^| bit 1..1 default 0
+
+^| bit 1..1 default 0
+| ZQPD
+^| 
+
+^| bit 2..2 default 0
+
+^| bit 2..2 default 0
+| RESERVED_7_3
+^| 
+
+^| bit 7..3 default 0
+
+^| bit 7..3 default 0
+| PGWAIT
+^| 
+
+^| bit 10..8 default 5
+
+^| bit 10..8 default 5
+| ZCALT
+^| 
+
+^| bit 13..11 default 1
+
+^| bit 13..11 default 1
+| AVGMAX
+^| 
+
+^| bit 15..14 default 2
+
+^| bit 15..14 default 2
+| AVGEN
+^| 
+
+^| bit 16..16 default 1
+
+^| bit 16..16 default 1
+| IODLMT
+^| 
+
+^| bit 24..17 default 2
+
+^| bit 23..17 default 2
+| RESERVED_26_25
+^| 
+
+^| bit 26..25 default 0
+
+^| 
+| FORCE_ZCAL_VT_UPDATE
+^| 
+
+^| bit 27..27 default 0
+
+^| bit 27..27 default 0
+| RESERVED_31_28
+^| 
+
+^| bit 31..28 default 0
+
+^| 
+| ASYM_DRV_EN
+^| 
+
+^| 
+
+^| bit 24..24 default 0
+| PU_ODT_ONLY
+^| 
+
+^| 
+
+^| bit 25..25 default 0
+| DIS_NON_LIN_COMP
+^| 
+
+^| 
+
+^| bit 26..26 default 1
+| ZCTRL_UPPER
+^| 
+
+^| 
+
+^| bit 31..28 default 0
+
+|===
+

@@ -100,6 +100,14 @@ class Chip
         return nil
     end
 
+    def fields(regname)
+        a = find(regname.upcase)
+        if a
+            return a[2][:fields]
+        end
+        return nil
+    end
+
     def find_by_address(addr)
         #printf("Look up: 0x%08x\n", addr)
         @chip.targets.each do|t|
