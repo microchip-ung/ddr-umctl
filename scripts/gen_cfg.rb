@@ -243,7 +243,11 @@ def generate(file)
     reg.set("DFIUPD1", "DFI_T_CTRLUPD_INTERVAL_MAX_X1024", 0XFF)
     # ecccfg0
     # ECC Mode. 0x0 = ECC disabled, 0x4 = SECDED over 1 beat, 0x5 = Advance ECC
-    if params[:ecc_mode]
+    if params[:ecc_mode] != 0
+        if $soc.ecc_inline
+            $l.debug "Inline ECC: Reducing memory to 7/8 of #{params[:mem_size_mbytes]}"
+            params[:mem_size_mbytes] = 7 * (params[:mem_size_mbytes] / 8)
+        end
         reg.set("ECCCFG0", "ECC_MODE", params[:ecc_mode])
     end
     # init0

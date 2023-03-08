@@ -8,8 +8,8 @@
 :configured_density:	8G
 :device_bus_width:	x16
 :active_ranks:		1
-:ecc_mode:		0
-:mem_profile:		alliance_ddr4_512Mx16
+:ecc_mode:		4
+:mem_profile:		alliance_ddr4_512Mx16_inline_ecc
 :_2T_mode:		0
 # DDR Clock of platform (Data Bus)
 :clock_speed:		2400

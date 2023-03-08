@@ -65,7 +65,7 @@ end
 
 class Chip
 
-    attr_reader :chip, :config, :name, :bus_width, :only_ddr3
+    attr_reader :chip, :config, :name, :bus_width, :only_ddr3, :ecc_sideband, :ecc_inline
 
     def initialize(chipname)
         @name = chipname
@@ -73,12 +73,18 @@ class Chip
         when "lan966x"
             @bus_width = 16
             @only_ddr3 = true
+            @ecc_sideband = false
+            @ecc_inline = true
         when "lan969x"
             @bus_width = 16
             @only_ddr3 = false
+            @ecc_sideband = false
+            @ecc_inline = true
         when "sparx5"
             @bus_width = 32
             @only_ddr3 = false
+            @ecc_sideband = true
+            @ecc_inline = false
         else
             raise "Need to know details of platform #{name}"
         end

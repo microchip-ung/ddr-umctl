@@ -9,7 +9,6 @@ require_relative 'soc/chip.rb'
 
 # Parse options
 $option = {
-    :platform	=> "sparx5",
     :debug	=> false,
     :verbose	=> false,
 }
