@@ -63,6 +63,10 @@
   - zq1pr
   - zq2pr
   - zqcr
+  - zq0cr0
+  - zq0cr1
+  - zq1cr0
+  - zq1cr1
 - :grp: DDR PHY timing registers
   :name: phy_timing
   :regs:

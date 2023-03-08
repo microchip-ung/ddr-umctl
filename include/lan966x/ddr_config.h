@@ -61,6 +61,10 @@ struct ddr_config {
 		uint32_t dtcr;
 		uint32_t dxccr;
 		uint32_t pgcr2;
+		uint32_t zq0cr0;
+		uint32_t zq0cr1;
+		uint32_t zq1cr0;
+		uint32_t zq1cr1;
 	} phy;
 	struct config_ddr_phy_timing {
 		uint32_t dtpr0;

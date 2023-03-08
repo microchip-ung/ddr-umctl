@@ -51,6 +51,10 @@
         X(dtcr, DDR_PHY_DTCR, phy)	\
         X(dxccr, DDR_PHY_DXCCR, phy)	\
         X(pgcr2, DDR_PHY_PGCR2, phy)	\
+        X(zq0cr0, DDR_PHY_ZQ0CR0, phy)	\
+        X(zq0cr1, DDR_PHY_ZQ0CR1, phy)	\
+        X(zq1cr0, DDR_PHY_ZQ1CR0, phy)	\
+        X(zq1cr1, DDR_PHY_ZQ1CR1, phy)	\
 
 #define XLIST_DDR_PHY_TIMING \
         X(dtpr0, DDR_PHY_DTPR0, phy_timing)	\

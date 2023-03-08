@@ -335,10 +335,30 @@
 ^| yes
 ^| yes
 
+| <<ZQ0CR0>>
+^| yes
+^s| no
+^s| no
+
+| <<ZQ0CR1>>
+^| yes
+^s| no
+^s| no
+
 | <<ZQ0PR>>
 ^s| no
 ^| yes
 ^| yes
+
+| <<ZQ1CR0>>
+^| yes
+^s| no
+^s| no
+
+| <<ZQ1CR1>>
+^| yes
+^s| no
+^s| no
 
 | <<ZQ1PR>>
 ^s| no
@@ -4786,6 +4806,117 @@ sparx5
 
 |===
 
+=== ZQ0CR0
+
+Applies to: lan966x
+
+
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ZQ0_ZQPD
+^| bit 31 (0)
+
+
+^| 
+
+^| 
+| ZQ0_ZCALEN
+^| bit 30 (1)
+
+
+^| 
+
+^| 
+| ZQ0_ZCALBYP
+^| bit 29 (0)
+
+
+^| 
+
+^| 
+| ZQ0_ZDEN
+^| bit 28 (0)
+
+
+^| 
+
+^| 
+| ZQ0_ZDATA
+^| bit 27..0 (330)
+
+
+^| 
+
+^| 
+
+|===
+
+=== ZQ0CR1
+
+Applies to: lan966x
+
+
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ZQ0_DFIPU1
+^| bit 17 (0)
+
+
+^| 
+
+^| 
+| ZQ0_DFIPU0
+^| bit 16 (0)
+
+
+^| 
+
+^| 
+| ZQ0_DFICCU
+^| bit 14 (0)
+
+
+^| 
+
+^| 
+| ZQ0_DFICU1
+^| bit 13 (0)
+
+
+^| 
+
+^| 
+| ZQ0_DFICU0
+^| bit 12 (1)
+
+
+^| 
+
+^| 
+| ZQ0_ZPROG
+^| bit 7..0 (123)
+
+
+^| 
+
+^| 
+
+|===
+
 === ZQ0PR
 
 Applies to: 
@@ -4903,6 +5034,117 @@ sparx5
 
 ^| bit 3..28 (0)
 
+
+|===
+
+=== ZQ1CR0
+
+Applies to: lan966x
+
+
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ZQ1_ZQPD
+^| bit 31 (0)
+
+
+^| 
+
+^| 
+| ZQ1_ZCALEN
+^| bit 30 (1)
+
+
+^| 
+
+^| 
+| ZQ1_ZCALBYP
+^| bit 29 (0)
+
+
+^| 
+
+^| 
+| ZQ1_ZDEN
+^| bit 28 (0)
+
+
+^| 
+
+^| 
+| ZQ1_ZDATA
+^| bit 27..0 (330)
+
+
+^| 
+
+^| 
+
+|===
+
+=== ZQ1CR1
+
+Applies to: lan966x
+
+
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| ZQ1_DFIPU1
+^| bit 17 (0)
+
+
+^| 
+
+^| 
+| ZQ1_DFIPU0
+^| bit 16 (0)
+
+
+^| 
+
+^| 
+| ZQ1_DFICCU
+^| bit 14 (0)
+
+
+^| 
+
+^| 
+| ZQ1_DFICU1
+^| bit 13 (0)
+
+
+^| 
+
+^| 
+| ZQ1_DFICU0
+^| bit 12 (1)
+
+
+^| 
+
+^| 
+| ZQ1_ZPROG
+^| bit 7..0 (123)
+
+
+^| 
+
+^| 
 
 |===
 
