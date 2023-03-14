@@ -30,6 +30,7 @@ class RegSettings
     end
 
     def set(reg, field, value)
+        $l.debug "Set field: #{reg}.#{field} = #{value}"
         if @settings.has_key?(reg)
             @settings[reg][field] = value
         else
@@ -53,7 +54,7 @@ class RegSettings
             fname = f[:name].upcase
             fval = extract_field(f, value)
             set(reg, fname, fval)
-            $l.debug "Set register: #{reg}.#{fname} = #{fval}"
+            $l.debug "Set field: #{reg}.#{fname} = #{fval}"
         end
     end
 end
@@ -456,7 +457,7 @@ def generate(file)
         reg.set("DTCR1", "RANKEN", (1 << params[:active_ranks]) - 1)
     end
     # pgcr2
-    reg.set("PGCR2", "TREFPRD", params[:tRASc_max] - 400)
+    reg.set("PGCR2", "TREFPRD", params[:tREFIc] - 400)
     # schcr1
     if params[:active_ranks] > 1
         reg.set("SCHCR1", "ALLRANK", 1)

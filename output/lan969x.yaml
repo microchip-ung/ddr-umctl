@@ -1,6 +1,6 @@
 ---
 info:
-  version: lan969x 2023-03-14-14:15:59 2abb4212857a-dirty
+  version: lan969x 2023-03-14-15:42:17 120d62b90a9c-dirty
   speed: 2400
   mem_size_mb: 896
   bus_width: 16
@@ -26,8 +26,8 @@ config:
   init5: 0x00110000
   init6: 0x00000400
   init7: 0x00000899
-  rfshtmg: 0x009200d3
-  dramtmg0: 0x11132913
+  rfshtmg: 0x004900d3
+  dramtmg0: 0x11131413
   dramtmg1: 0x0004051b
   dramtmg2: 0x0608050d
   dramtmg3: 0x0000400c
@@ -51,7 +51,7 @@ config:
   dcr: 0x0000040c
   dtcr0: 0x8000b0cf
   dtcr1: 0x00010a37
-  pgcr2: 0x000147a2
+  pgcr2: 0x000010ba
   schcr1: 0x00000000
   zq0pr: 0x0007bb00
   zq1pr: 0x0007bb00

@@ -1,6 +1,6 @@
 ---
 info:
-  version: pcb134_ddr4 2023-03-14-14:16:00 2abb4212857a-dirty
+  version: pcb134_ddr4 2023-03-14-15:42:18 120d62b90a9c-dirty
   speed: 1667
   mem_size_mb: 2048
   bus_width: 32
@@ -27,7 +27,7 @@ config:
   init6: 0x00000400
   init7: 0x00000499
   rfshtmg: 0x0062007a
-  dramtmg0: 0x0e0b1f10
+  dramtmg0: 0x0e0b0f10
   dramtmg1: 0x00030317
   dramtmg2: 0x0507050b
   dramtmg3: 0x0050400c
@@ -51,7 +51,7 @@ config:
   dcr: 0x0000040c
   dtcr0: 0x8000b0cf
   dtcr1: 0x00010237
-  pgcr2: 0x0000fe3e
+  pgcr2: 0x00000ca7
   schcr1: 0x00000000
   zq0pr: 0x0007bb09
   zq1pr: 0x0007fb2b

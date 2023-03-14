@@ -588,7 +588,8 @@ end
     # BO_BITS =                    2; #// the number of Burst Order Bits
 
     #// monika : added parameters
-    tREFI =                      7800000 ;# 7.8 us
+    # tREFI =                   7800000 ;# 7.8 us
+    tREFI =                     3900000 ;# 3.9 us - ROWHAMMER recommendation
     params[:tWR_MPRc] =         tMODc
     params[:tRPc] =             ParamInClks(tRP, tCK_MIN)      ; #// tRP        tCK    Precharge command period
     params[:tFAWc] =            ParamInClks(tFAW, tCK_MIN)     ; #// tFAW       tCK    Four Bank Activate window

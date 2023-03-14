@@ -288,7 +288,8 @@ ddr4_speed_grade = params[:speed_grade]
     else
       params[:tCCDc_L] =     itCCDc_L;
     end
-    tREFI =                   7800000 ;# 7.8 us
+    # tREFI =                   7800000 ;# 7.8 us
+    tREFI =                  3900000 ;# 3.9 us - ROWHAMMER recommendation
     params[:tREFIc] =        ParamInClks(tREFI, itCK_min)
     tRAS_min =                itRAS_min
     tRAS_max =                9*tREFI
