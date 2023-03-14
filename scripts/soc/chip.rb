@@ -114,6 +114,17 @@ class Chip
         return nil
     end
 
+    def get_field_alternative(regname, names)
+        flds = fields(regname)
+        return nil unless flds
+        names.each do |fname|
+            f = flds.select{|h| h[:name] == fname}
+            return fname if f
+        end
+        raise "#{rname}: No matching alternatives for #{names}"
+        return nil
+    end
+
     def find_by_address(addr)
         #printf("Look up: 0x%08x\n", addr)
         @chip.targets.each do|t|

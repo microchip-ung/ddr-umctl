@@ -33,7 +33,7 @@ class RegSettings
         if @settings.has_key?(reg)
             @settings[reg][field] = value
         else
-            $l.warn "Trying to set value #{reg}.#{field} in unknown register"
+            $l.error "Trying to set value #{reg}.#{field} in unknown register"
         end
     end
 
@@ -423,10 +423,12 @@ def generate(file)
                   })
     end
     # rfshtmg
+    # This parameter has different names in different soc's
+    fname = $soc.get_field_alternative("RFSHTMG", %w(T_RFC_NOM_X1_X32 T_RFC_NOM_X32))
     if params[:mem_type] == "DDR4"
-        reg.set("RFSHTMG", "T_RFC_NOM_X32", (params[:tREFIc] / (2.0 * 32)).to_i()) # tRFEI (7.8 us) ((7800000 / itck) / (2 * 32))
+        reg.set("RFSHTMG", fname, (params[:tREFIc] / (2.0 * 32)).to_i()) # tRFEI (7.8 us) ((7800000 / itck) / (2 * 32))
     else
-        reg.set("RFSHTMG", "T_RFC_NOM_X32", 0x82) # tRFEI (7.8 us) ((7800000 / 2) / itck * 32) where itck = 938 ps
+        reg.set("RFSHTMG", fname, 0x82) # tRFEI (7.8 us) ((7800000 / 2) / itck * 32) where itck = 938 ps
     end
     reg.set("RFSHTMG", "T_RFC_MIN", (params[:tRFCc] / 2.0).ceil())
     # addrmap*

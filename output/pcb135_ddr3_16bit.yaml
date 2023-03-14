@@ -1,6 +1,6 @@
 ---
 info:
-  version: pcb135_ddr3_16bit 2023-03-08-10:34:49 6452916c97ad-dirty
+  version: pcb135_ddr3_16bit 2023-03-14-14:16:00 2abb4212857a-dirty
   speed: 1667
   mem_size_mb: 1024
   bus_width: 32
@@ -26,7 +26,7 @@ config:
   init5: 0x000b0004
   init6: 0x00000000
   init7: 0x00000000
-  rfshtmg: 0x0082007a
+  rfshtmg: 0x0062007a
   dramtmg0: 0x0f112011
   dramtmg1: 0x00030517
   dramtmg2: 0x0305050b
