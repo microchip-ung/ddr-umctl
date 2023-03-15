@@ -8,16 +8,16 @@
 
 const struct ddr_config pcb134_ddr4_ddr_config = {
 	.info = {
-		.name = "pcb134_ddr4 2023-03-15-11:59:49 29b025dc300f-dirty",
+		.name = "pcb134_ddr4 2023-03-15-12:12:09 ad50d0b35d2d-dirty",
 		.speed = 1667,
 		.size = 0x80000000,
 		.bus_width = 32,
 	},
 	.main = {
-		.crcparctl1 = 0x00001090,
+		.crcparctl1 = 0x00001091,
 		.dbictl = 0x00000001,
 		.dfimisc = 0x00000000,
-		.dfitmg0 = 0x03898208,
+		.dfitmg0 = 0x038d820c,
 		.dfitmg1 = 0x00040201,
 		.dfiupd0 = 0x40400003,
 		.dfiupd1 = 0x004000ff,
@@ -27,7 +27,7 @@ const struct ddr_config pcb134_ddr4_ddr_config = {
 		.init3 = 0x0a200501,
 		.init4 = 0x10080200,
 		.init5 = 0x00110004,
-		.init6 = 0x00000400,
+		.init6 = 0x00000401,
 		.init7 = 0x00000499,
 		.mstr = 0x41040010,
 		.pccfg = 0x00000000,
@@ -37,10 +37,10 @@ const struct ddr_config pcb134_ddr4_ddr_config = {
 	},
 
 	.timing = {
-		.dramtmg0 = 0x110b0f10,
-		.dramtmg1 = 0x00030317,
+		.dramtmg0 = 0x130b0f10,
+		.dramtmg1 = 0x00050317,
 		.dramtmg12 = 0x00000010,
-		.dramtmg2 = 0x0507050d,
+		.dramtmg2 = 0x0709050f,
 		.dramtmg3 = 0x0050400c,
 		.dramtmg4 = 0x07030307,
 		.dramtmg5 = 0x05050303,
@@ -78,7 +78,7 @@ const struct ddr_config pcb134_ddr4_ddr_config = {
 
 	.phy_timing = {
 		.dtpr0 = 0x05200c07,
-		.dtpr1 = 0x28160018,
+		.dtpr1 = 0x2816041c,
 		.dtpr2 = 0x000500fc,
 		.dtpr3 = 0x02550101,
 		.dtpr4 = 0x00f30806,
@@ -88,7 +88,7 @@ const struct ddr_config pcb134_ddr4_ddr_config = {
 		.mr2 = 0x00001008,
 		.mr3 = 0x00000200,
 		.mr4 = 0x00000800,
-		.mr5 = 0x00000400,
+		.mr5 = 0x00000401,
 		.mr6 = 0x00000499,
 		.ptr0 = 0x3421a0d0,
 		.ptr1 = 0x51618ea6,

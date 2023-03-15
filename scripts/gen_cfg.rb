@@ -187,6 +187,8 @@ def generate(file)
         end
         # Always enable write CRC on DDR4
         params[:write_crc_en] = 1
+        # Always enable CA parity on DDR4
+        params[:ca_parity_mode] = 1
         params = ddr4(params)
     else
         raise "Unsupported memory type: #{params[:mem_type]}"
@@ -199,8 +201,8 @@ def generate(file)
     # crcparctl1
     if params[:mem_type] == "DDR4"
         reg.set_h("CRCPARCTL1", {
-                      "CRC_INC_DM"		=> params[:write_crc],
-                      "CRC_ENABLE"		=> params[:write_crc],
+                      "CRC_INC_DM"	=> params[:write_crc],
+                      "CRC_ENABLE"	=> params[:write_crc],
                       "PARITY_ENABLE"	=> params[:ca_parity_en],
                   })
     end
@@ -208,8 +210,8 @@ def generate(file)
     if params[:mem_type] == "DDR4"
         reg.set_h("DBICTL", {
                       "DM_EN"		=> params[:dm_en],
-                      "WR_DBI_EN"		=> params[:wr_dbi_en],
-                      "RD_DBI_EN"		=> params[:rd_dbi_en],
+                      "WR_DBI_EN"	=> params[:wr_dbi_en],
+                      "RD_DBI_EN"	=> params[:rd_dbi_en],
                   })
     end
     # dfimisc

@@ -1,6 +1,6 @@
 ---
 info:
-  version: pcb135_ddr3 2023-03-15-11:59:49 29b025dc300f-dirty
+  version: pcb135_ddr3 2023-03-15-12:12:08 ad50d0b35d2d-dirty
   speed: 1667
   mem_size_mb: 2048
   bus_width: 32
