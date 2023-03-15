@@ -268,10 +268,28 @@ def generate(file)
     reg.set_h("INIT1", {
                   "DRAM_RSTN_X1024"		=> params[:dram_rstn_x1024],
               })
+    # init3
+    reg.set_h("INIT3", {
+                  "MR"			=> params[:reg_ddrc_mr],
+                  "EMR"			=> params[:reg_ddrc_emr],
+              })
+    # init4
+    reg.set_h("INIT4", {
+                  "EMR2"			=> params[:reg_ddrc_emr2],
+                  "EMR3"			=> params[:reg_ddrc_emr3],
+              })
     # init5
     reg.set_h("INIT5", {
                   "DEV_ZQINIT_X32"		=> ((params[:tZQinitc] / 2.0) / 32).ceil() + 1,
               })
+    # init6
+    if params[:mem_type] == "DDR4"
+        reg.set("INIT6", "MR5", params[:reg_ddrc_mr5])
+    end
+    # init7
+    if params[:mem_type] == "DDR4"
+        reg.set("INIT7", "MR6", params[:reg_ddrc_mr6])
+    end
     # mstr
     reg.set_h("MSTR", {
                   "DDR3"			=> params[:mem_type] == "DDR3" ? 1 : 0,

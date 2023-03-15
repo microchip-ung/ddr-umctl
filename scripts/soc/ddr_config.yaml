@@ -17,7 +17,11 @@
   - ecccfg0
   - init0
   - init1
+  - init3
+  - init4
   - init5
+  - init6
+  - init7
 - :grp: Timing configuration registers
   :name: timing
   :regs:

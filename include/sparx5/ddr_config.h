@@ -28,7 +28,11 @@ struct ddr_config {
 		uint32_t ecccfg0;
 		uint32_t init0;
 		uint32_t init1;
+		uint32_t init3;
+		uint32_t init4;
 		uint32_t init5;
+		uint32_t init6;
+		uint32_t init7;
 		uint32_t mstr;
 		uint32_t pccfg;
 		uint32_t pwrctl;

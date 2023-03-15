@@ -1,6 +1,6 @@
 ---
 info:
-  version: pcb134_ddr4_16bit 2023-03-15-12:57:46 c4cf097f8a3e-dirty
+  version: pcb134_ddr4_16bit 2023-03-15-15:57:48 bbc46b0afae5-dirty
   speed: 1667
   mem_size_mb: 1024
   bus_width: 32
@@ -21,7 +21,11 @@ config:
   ecccfg0: 0x00000000
   init0: 0x00020196
   init1: 0x00a20000
+  init3: 0x0a200501
+  init4: 0x10080200
   init5: 0x00110004
+  init6: 0x00000401
+  init7: 0x00000499
   rfshtmg: 0x0062007a
   dramtmg0: 0x130b0f10
   dramtmg1: 0x00050317
