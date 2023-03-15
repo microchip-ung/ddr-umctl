@@ -139,6 +139,10 @@ $option = {
 }
 
 $l = Logger.new(STDERR)
+$l.formatter = proc do |severity, datetime, progname, msg|
+    "#{severity}: #{msg}\n"
+end
+
 $l.level = Logger::WARN
 
 OptionParser.new do |opts|
@@ -181,6 +185,8 @@ def generate(file)
             params[:speed_grade] = ddr4_find_speed_grade(params[:clock_speed])
             $l.debug "Found speed grade #{params[:speed_grade]} for speed #{params[:clock_speed]}"
         end
+        # Always enable write CRC on DDR4
+        params[:write_crc_en] = 1
         params = ddr4(params)
     else
         raise "Unsupported memory type: #{params[:mem_type]}"
@@ -402,7 +408,7 @@ def generate(file)
                       "T_RRD_S"		=> (params[:tRRDc_S] / 2.0).ceil(),
                   })
         if params[:write_crc] == 1 && params[:dm_en] == 1
-            reg.set("DRAMTMG0", "WR2RD_S", ((params[:CWLc] + params[:tPLc] + int(params[:BL] / 2.0)  + params[:tWTRc_S_CRC_DM] + params[:write_preamble]) / 2.0).ceil())
+            reg.set("DRAMTMG0", "WR2RD_S", ((params[:CWLc] + params[:tPLc] + (params[:BL] / 2.0).to_i()  + params[:tWTRc_S_CRC_DM] + params[:write_preamble]) / 2.0).ceil())
         else
             reg.set("DRAMTMG9", "WR2RD_S", ((params[:CWLc] + params[:tPLc] + (params[:BL] / 2.0).to_i() + params[:tWTRc_S] + params[:write_preamble]) / 2.0).ceil())
         end

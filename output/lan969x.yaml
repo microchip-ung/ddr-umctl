@@ -1,6 +1,6 @@
 ---
 info:
-  version: lan969x 2023-03-14-15:42:17 120d62b90a9c-dirty
+  version: lan969x 2023-03-15-11:59:48 29b025dc300f-dirty
   speed: 2400
   mem_size_mb: 896
   bus_width: 16
@@ -15,28 +15,28 @@ config:
   dfiupd0: 0x40400003
   dfiupd1: 0x004000ff
   pccfg: 0x00000000
-  crcparctl1: 0x00001000
+  crcparctl1: 0x00001090
   dbictl: 0x00000001
   dfimisc: 0x00000040
   ecccfg0: 0x003f7f44
   init0: 0x00020248
   init1: 0x00e80000
-  init3: 0x0a340501
-  init4: 0x00180200
+  init3: 0x0c340501
+  init4: 0x10180200
   init5: 0x00110000
   init6: 0x00000400
   init7: 0x00000899
   rfshtmg: 0x004900d3
-  dramtmg0: 0x11131413
+  dramtmg0: 0x15131413
   dramtmg1: 0x0004051b
-  dramtmg2: 0x0608050d
+  dramtmg2: 0x0608050f
   dramtmg3: 0x0000400c
   dramtmg4: 0x08030409
   dramtmg5: 0x07070404
   dramtmg8: 0x05040c07
-  dramtmg9: 0x0003040a
+  dramtmg9: 0x0003040d
   dramtmg12: 0x1a000010
-  odtcfg: 0x06000610
+  odtcfg: 0x07000610
   addrmap0: 0x0000001f
   addrmap1: 0x003f0606
   addrmap2: 0x00000000
@@ -68,9 +68,9 @@ config:
   dtpr3: 0x03000101
   dtpr4: 0x01a50808
   dtpr5: 0x00361009
-  mr0: 0x00000a34
+  mr0: 0x00000c34
   mr1: 0x00000501
-  mr2: 0x00000018
+  mr2: 0x00001018
   mr3: 0x00000200
   mr4: 0x00000800
   mr5: 0x00000400
