@@ -205,28 +205,8 @@
 ^| yes
 ^| yes
 
-| <<INIT3>>
-^| yes
-^| yes
-^| yes
-
-| <<INIT4>>
-^| yes
-^| yes
-^| yes
-
 | <<INIT5>>
 ^| yes
-^| yes
-^| yes
-
-| <<INIT6>>
-^s| no
-^| yes
-^| yes
-
-| <<INIT7>>
-^s| no
 ^| yes
 ^| yes
 
@@ -3294,76 +3274,6 @@ sparx5
 
 |===
 
-=== INIT3
-
-Applies to: lan966x
-lan969x
-sparx5
-
-[cols="1s,1,1,1"]
-|===
-| Field
-^s| lan966x
-^s| lan969x
-^s| sparx5
-
-
-| MR
-^| bit 15..16 (0)
-
-
-^| bit 15..16 (0)
-
-
-^| bit 15..16 (0)
-
-| EMR
-^| bit 15..0 (1296)
-
-
-^| bit 15..0 (1296)
-
-
-^| bit 15..0 (1296)
-
-
-|===
-
-=== INIT4
-
-Applies to: lan966x
-lan969x
-sparx5
-
-[cols="1s,1,1,1"]
-|===
-| Field
-^s| lan966x
-^s| lan969x
-^s| sparx5
-
-
-| EMR2
-^| bit 15..16 (0)
-
-
-^| bit 15..16 (0)
-
-
-^| bit 15..16 (0)
-
-| EMR3
-^| bit 15..0 (0)
-
-
-^| bit 15..0 (0)
-
-
-^| bit 15..0 (0)
-
-
-|===
-
 === INIT5
 
 Applies to: lan966x
@@ -3393,64 +3303,6 @@ sparx5
 ^| 
 
 ^| bit 9..0 (4)
-
-
-|===
-
-=== INIT6
-
-Applies to: 
-lan969x
-sparx5
-
-[cols="1s,1,1,1"]
-|===
-| Field
-^s| lan966x
-^s| lan969x
-^s| sparx5
-
-
-| MR5
-^| 
-
-^| bit 15..0 (0)
-
-
-^| bit 15..0 (0)
-
-| MR4
-^| 
-
-^| bit 15..16 (0)
-
-
-^| bit 15..16 (0)
-
-
-|===
-
-=== INIT7
-
-Applies to: 
-lan969x
-sparx5
-
-[cols="1s,1,1,1"]
-|===
-| Field
-^s| lan966x
-^s| lan969x
-^s| sparx5
-
-
-| MR6
-^| 
-
-^| bit 15..0 (0)
-
-
-^| bit 15..0 (0)
 
 
 |===

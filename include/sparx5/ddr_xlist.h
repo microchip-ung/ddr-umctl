@@ -18,11 +18,7 @@
         X(ecccfg0, DDR_UMCTL2_ECCCFG0, main)	\
         X(init0, DDR_UMCTL2_INIT0, main)	\
         X(init1, DDR_UMCTL2_INIT1, main)	\
-        X(init3, DDR_UMCTL2_INIT3, main)	\
-        X(init4, DDR_UMCTL2_INIT4, main)	\
         X(init5, DDR_UMCTL2_INIT5, main)	\
-        X(init6, DDR_UMCTL2_INIT6, main)	\
-        X(init7, DDR_UMCTL2_INIT7, main)	\
         X(mstr, DDR_UMCTL2_MSTR, main)	\
         X(pccfg, DDR_UMCTL2_PCCFG, main)	\
         X(pwrctl, DDR_UMCTL2_PWRCTL, main)	\

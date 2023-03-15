@@ -1,6 +1,6 @@
 ---
 info:
-  version: lan966x 2023-03-15-12:21:17 ad50d0b35d2d-dirty
+  version: lan966x 2023-03-15-12:57:45 c4cf097f8a3e-dirty
   speed: 1200
   mem_size_mb: 1024
   bus_width: 16
@@ -19,8 +19,6 @@ config:
   ecccfg0: 0x003f7f40
   init0: 0x00020124
   init1: 0x00740000
-  init3: 0x1b600000
-  init4: 0x00100000
   init5: 0x00080000
   rfshtmg: 0x00820057
   dramtmg0: 0x0a0f0b0c
