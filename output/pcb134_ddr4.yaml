@@ -1,6 +1,6 @@
 ---
 info:
-  version: pcb134_ddr4 2023-03-16-08:36:56 2c56e1fb74b3-dirty
+  version: pcb134_ddr4 2023-03-16-13:37:15 41f4dd1ec3ff-dirty
   speed: 1667
   mem_size_mb: 2048
   bus_width: 32
@@ -8,7 +8,7 @@ info:
 config:
   mstr: 0x41040010
   pwrctl: 0x00000000
-  rfshctl0: 0x00210010
+  rfshctl0: 0x00210020
   rfshctl3: 0x00000000
   dfitmg0: 0x038d820c
   dfitmg1: 0x00040201

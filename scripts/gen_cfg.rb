@@ -319,7 +319,14 @@ def generate(file)
     end
     # pwrctl
     # rfshctl0
-    reg.set("RFSHCTL0", "REFRESH_BURST", 1)
+    case params[:platform]
+    when "sparx5", "lan969x"
+        reg.set("RFSHCTL0", "REFRESH_BURST", 2)
+    when "lan966x"
+        reg.set("RFSHCTL0", "REFRESH_BURST", 1)
+    else
+        raise "Unknown platform: #{params[:platform]}"
+    end
     # rfshctl3
     # dramtmg0
     if params[:mem_type] == "DDR4"
