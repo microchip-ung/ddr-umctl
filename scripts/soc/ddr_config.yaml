@@ -22,6 +22,7 @@
   - init5
   - init6
   - init7
+  - sbrctl
 - :grp: Timing configuration registers
   :name: timing
   :regs:

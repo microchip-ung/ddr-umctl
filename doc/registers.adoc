@@ -295,6 +295,11 @@
 ^| yes
 ^| yes
 
+| <<SBRCTL>>
+^| yes
+^| yes
+^| yes
+
 | <<SCHCR1>>
 ^s| no
 ^| yes
@@ -4201,6 +4206,68 @@ sparx5
 ^| 
 
 ^| bit 11..16 (98)
+
+
+|===
+
+=== SBRCTL
+
+Applies to: lan966x
+lan969x
+sparx5
+
+[cols="1s,1,1,1"]
+|===
+| Field
+^s| lan966x
+^s| lan969x
+^s| sparx5
+
+
+| SCRUB_INTERVAL
+^| bit 12..8 (255)
+
+
+^| bit 12..8 (255)
+
+
+^| bit 12..8 (255)
+
+| SCRUB_BURST
+^| bit 2..4 (1)
+
+
+^| bit 2..4 (1)
+
+
+^| bit 2..4 (1)
+
+| SCRUB_MODE
+^| bit 2 (0)
+
+
+^| bit 2 (0)
+
+
+^| bit 2 (0)
+
+| SCRUB_DURING_LOWPOWER
+^| bit 1 (0)
+
+
+^| bit 1 (0)
+
+
+^| bit 1 (0)
+
+| SCRUB_EN
+^| bit 0 (0)
+
+
+^| bit 0 (0)
+
+
+^| bit 0 (0)
 
 
 |===

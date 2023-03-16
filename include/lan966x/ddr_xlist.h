@@ -24,6 +24,7 @@
         X(pwrctl, DDR_UMCTL2_PWRCTL, main)	\
         X(rfshctl0, DDR_UMCTL2_RFSHCTL0, main)	\
         X(rfshctl3, DDR_UMCTL2_RFSHCTL3, main)	\
+        X(sbrctl, DDR_UMCTL2_SBRCTL, main)	\
 
 #define XLIST_DDR_TIMING \
         X(dramtmg0, DDR_UMCTL2_DRAMTMG0, timing)	\

@@ -1,6 +1,6 @@
 ---
 info:
-  version: lan966x 2023-03-16-13:37:14 41f4dd1ec3ff-dirty
+  version: lan966x 2023-03-16-14:12:59 5b294f62581f-dirty
   speed: 1200
   mem_size_mb: 1024
   bus_width: 16
@@ -22,6 +22,7 @@ config:
   init3: 0x1b600000
   init4: 0x00100000
   init5: 0x00080000
+  sbrctl: 0x0000ff10
   rfshtmg: 0x00820057
   dramtmg0: 0x0a0f0b0c
   dramtmg1: 0x00020211

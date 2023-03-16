@@ -8,7 +8,7 @@
 
 const struct ddr_config pcb134_ddr4_ddr_config = {
 	.info = {
-		.name = "pcb134_ddr4 2023-03-16-13:37:16 41f4dd1ec3ff-dirty",
+		.name = "pcb134_ddr4 2023-03-16-14:13:00 5b294f62581f-dirty",
 		.speed = 1667,
 		.size = 0x80000000,
 		.bus_width = 32,
@@ -34,6 +34,7 @@ const struct ddr_config pcb134_ddr4_ddr_config = {
 		.pwrctl = 0x00000000,
 		.rfshctl0 = 0x00210020,
 		.rfshctl3 = 0x00000000,
+		.sbrctl = 0x0000ff10,
 	},
 
 	.timing = {

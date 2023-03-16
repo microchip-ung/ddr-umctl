@@ -69,6 +69,11 @@ static const struct reg_desc ddr_phy_timing_reg[] = {
 XLIST_DDR_PHY_TIMING
 };
 
+static inline bool deferred_register(uintptr_t reg)
+{
+	return reg == DDR_UMCTL2_SBRCTL; /* Only one special register so far */
+}
+
 static inline bool ddr4_only_register(uintptr_t reg)
 {
 	static uintptr_t ddr4_only[] = {
@@ -135,6 +140,8 @@ static void set_regs(const struct ddr_config *ddr_cfg,
 	int i;
 
 	for (i = 0; i < ct; i++) {
+		if (deferred_register(reg[i].reg_addr))
+			continue;
 		if (ddr3 && ddr4_only_register(reg[i].reg_addr))
 			continue;
 		uint32_t val = ((const uint32_t *)cfg)[reg[i].par_offset >> 2];
@@ -259,7 +266,7 @@ static void axi_enable_ports(bool enable)
 	}
 }
 
-static void ecc_enable_scrubbing(void)
+static void ecc_enable_scrubbing(const struct ddr_config *cfg)
 {
 	VERBOSE("Enable ECC scrubbing\n");
 
@@ -290,19 +297,24 @@ static void ecc_enable_scrubbing(void)
 
 	/* 9. Disable SBR programming */
 	mmio_clrbits_32(DDR_UMCTL2_SBRCTL, SBRCTL_SCRUB_EN);
-#if 0
-	/* 10. Normal scrub operation, mode = 0, interval = 100 */
-	/* 11. Enable SBR progeramming again  */
-	mmio_clrsetbits_32(DDR_UMCTL2_SBRCTL,
-			   SBRCTL_SCRUB_MODE | SBRCTL_SCRUB_INTERVAL,
-			   FIELD_PREP(SBRCTL_SCRUB_INTERVAL, 100) |
-			   FIELD_PREP(SBRCTL_SCRUB_EN, 1));
+
+	VERBOSE("Initial ECC scrubbing done\n");
+
+	/* Only enable background scrubbing when not using inline ECC.
+	 * 'ECCCFG1_ECC_REGION_PARITY_LOCK' is defined only when having
+	 * inline ECC configured in controller.
+	 */
+#if !defined(ECCCFG1_ECC_REGION_PARITY_LOCK)
+	/* 10+11: Enable SBR programming again if enabled and interval != 0 */
+	if (cfg->main.sbrctl & SBRCTL_SCRUB_EN &&
+	    FIELD_GET(SBRCTL_SCRUB_INTERVAL, cfg->main.sbrctl) != 0) {
+		mmio_write_32(DDR_UMCTL2_SBRCTL, cfg->main.sbrctl);
+		VERBOSE("Enabled ECC scrubbing\n");
+	}
 #endif
 
 	/* 12. Enable AXI port */
 	axi_enable_ports(true);
-
-	VERBOSE("Enabled ECC scrubbing\n");
 }
 
 static void phy_fifo_reset(void)
@@ -626,7 +638,7 @@ int ddr_init(const struct ddr_config *cfg)
 		PANIC("Data training failed\n");
 
 	if (cfg->main.ecccfg0 & ECCCFG0_ECC_MODE)
-		ecc_enable_scrubbing();
+		ecc_enable_scrubbing(cfg);
 
 	VERBOSE("ddr_init:done\n");
 
