@@ -783,7 +783,7 @@ end
   ########################################
   mr4_A5_A13 =                  "000"; # // mr4[15:13] :
   mr4_A12 =   params[:write_preamble].to_s; # // mr4[12]    : write preamble
-  mr4_A11 =    params[:read_preamble].to_s ? "1" : "0"; # // mr4[11]    : read preamble
+  mr4_A11 =    params[:read_preamble].to_s; # // mr4[11]    : read preamble
   mr4_A10 =                       "0"; # // mr4[10]    : read preamble training mode
   mr4_A9 =                        "0"; # // mr4[9]     : self refresh abort
   mr4_A8_A6 =              mr4_CAL; # // mr4[8:6]   : CS to CMD/ADDR latency mode

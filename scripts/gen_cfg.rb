@@ -284,6 +284,7 @@ def generate(file)
               })
     # init6
     if params[:mem_type] == "DDR4"
+        reg.set("INIT6", "MR4", params[:reg_ddrc_mr4])
         reg.set("INIT6", "MR5", params[:reg_ddrc_mr5])
     end
     # init7
