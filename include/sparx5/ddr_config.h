@@ -83,13 +83,6 @@ struct ddr_config {
 		uint32_t dtpr3;
 		uint32_t dtpr4;
 		uint32_t dtpr5;
-		uint32_t mr0;
-		uint32_t mr1;
-		uint32_t mr2;
-		uint32_t mr3;
-		uint32_t mr4;
-		uint32_t mr5;
-		uint32_t mr6;
 		uint32_t ptr0;
 		uint32_t ptr1;
 		uint32_t ptr2;

@@ -1,6 +1,6 @@
 ---
 info:
-  version: lan966x 2023-03-15-16:06:57 b8a9c781c36c-dirty
+  version: lan966x 2023-03-16-08:36:55 2c56e1fb74b3-dirty
   speed: 1200
   mem_size_mb: 1024
   bus_width: 16
@@ -55,7 +55,3 @@ config:
   dtpr0: 0xc958ea85
   dtpr1: 0x228bb3c4
   dtpr2: 0x1002e8b4
-  mr0: 0x00001b60
-  mr1: 0x00000004
-  mr2: 0x00000010
-  mr3: 0x00000000

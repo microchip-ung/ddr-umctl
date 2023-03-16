@@ -1,6 +1,6 @@
 ---
 info:
-  version: lan969x 2023-03-15-16:06:57 b8a9c781c36c-dirty
+  version: lan969x 2023-03-16-08:36:56 2c56e1fb74b3-dirty
   speed: 2400
   mem_size_mb: 896
   bus_width: 16
@@ -68,10 +68,3 @@ config:
   dtpr3: 0x03000101
   dtpr4: 0x01a50808
   dtpr5: 0x00361009
-  mr0: 0x00000c34
-  mr1: 0x00000501
-  mr2: 0x00001018
-  mr3: 0x00000200
-  mr4: 0x00000000
-  mr5: 0x00000402
-  mr6: 0x00000899

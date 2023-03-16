@@ -529,27 +529,6 @@ def generate(file)
                   "TRCD"		=> params[:tRCDc],
                   "TRC"		=> params[:tRCc],
               })
-    # mr0
-    # mr1
-    # mr2
-    # mr3
-    # mr4
-    # mr5
-    # mr6
-    if params[:mem_type] == "DDR4"
-        reg.set_r("MR0", params[:reg_ddrc_mr])
-        reg.set_r("MR1", params[:reg_ddrc_emr])
-        reg.set_r("MR2", params[:reg_ddrc_emr2])
-        reg.set_r("MR3", params[:reg_ddrc_emr3])
-        reg.set_r("MR4", params[:reg_ddrc_mr4])
-        reg.set_r("MR5", params[:reg_ddrc_mr5])
-        reg.set_r("MR6", params[:reg_ddrc_mr6])
-    else
-        reg.set_r("MR0", params[:reg_ddrc_mr])
-        reg.set_r("MR1", params[:reg_ddrc_emr])
-        reg.set_r("MR2", params[:reg_ddrc_emr2])
-        reg.set_r("MR3", params[:reg_ddrc_emr3])
-    end
 
     if params[:board]
         apply_settings(__dir__ + "/../configs/boards/#{params[:board]}.yaml", "Board override", reg)

@@ -60,10 +60,6 @@
         X(dtpr0, DDR_PHY_DTPR0, phy_timing)	\
         X(dtpr1, DDR_PHY_DTPR1, phy_timing)	\
         X(dtpr2, DDR_PHY_DTPR2, phy_timing)	\
-        X(mr0, DDR_PHY_MR0, phy_timing)	\
-        X(mr1, DDR_PHY_MR1, phy_timing)	\
-        X(mr2, DDR_PHY_MR2, phy_timing)	\
-        X(mr3, DDR_PHY_MR3, phy_timing)	\
         X(ptr0, DDR_PHY_PTR0, phy_timing)	\
         X(ptr1, DDR_PHY_PTR1, phy_timing)	\
         X(ptr2, DDR_PHY_PTR2, phy_timing)	\

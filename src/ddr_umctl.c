@@ -5,6 +5,7 @@
  */
 
 #include <stddef.h>
+#include <sys/errno.h>
 
 #include <ddr_platform.h>
 #include <ddr_init.h>
@@ -21,18 +22,18 @@ static const struct {
 	uint32_t mask;
 	const char *desc;
 } phyerr[] = {
-	{ PGSR0_VERR, "VREF Training Error" },
-	{ PGSR0_ZCERR, "Impedance Calibration Error" },
-	{ PGSR0_WLERR, "Write Leveling Error" },
-	{ PGSR0_QSGERR, "DQS Gate Training Error" },
-	{ PGSR0_WLAERR, "Write Leveling Adjustment Error" },
-	{ PGSR0_RDERR, "Read Bit Deskew Error" },
-	{ PGSR0_WDERR, "Write Bit Deskew Error" },
-	{ PGSR0_REERR, "Read Eye Training Error" },
-	{ PGSR0_WEERR, "Write Eye Training Error" },
-	{ PGSR0_CAERR, "CA Training Error" },
+	{ PGSR0_VERR, "VREF Training" },
+	{ PGSR0_ZCERR, "Impedance Calibration" },
+	{ PGSR0_WLERR, "Write Leveling" },
+	{ PGSR0_QSGERR, "DQS Gate Training" },
+	{ PGSR0_WLAERR, "Write Leveling Adjustment" },
+	{ PGSR0_RDERR, "Read Bit Deskew" },
+	{ PGSR0_WDERR, "Write Bit Deskew" },
+	{ PGSR0_REERR, "Read Eye Training" },
+	{ PGSR0_WEERR, "Write Eye Training" },
+	{ PGSR0_CAERR, "CA Training" },
 	// { PGSR0_CAWRN, "CA Training Warning" },
-	{ PGSR0_SRDERR, "Static Read Error" },
+	{ PGSR0_SRDERR, "Static Read" },
 };
 
 struct reg_desc {
@@ -79,9 +80,6 @@ static inline bool ddr4_only_register(uintptr_t reg)
 		DDR_UMCTL2_DRAMTMG12,
 		DDR_UMCTL2_DRAMTMG9,
 		DDR_PHY_SCHCR1,
-		DDR_PHY_MR4,
-		DDR_PHY_MR5,
-		DDR_PHY_MR6,
 		DDR_PHY_PTR2,
 	};
 	int i;
@@ -150,6 +148,32 @@ static void set_static_ctl(void)
 	 * DDR initialization */
 	mmio_setbits_32(DDR_UMCTL2_DFIUPD0,
 			DFIUPD0_DIS_AUTO_CTRLUPD_SRX | DFIUPD0_DIS_AUTO_CTRLUPD);
+}
+
+/*
+ * This mirrors the PHY mrX fields from the controller initX registers
+ * to avoid having both in the configuration strcuture.
+ */
+static void set_mrx_phy(const struct ddr_config *cfg)
+{
+	bool ddr4 = !!(cfg->main.mstr & MSTR_DDR4);
+
+	mmio_write_32(DDR_PHY_MR0,
+		      FIELD_GET(INIT3_MR, cfg->main.init3));
+	mmio_write_32(DDR_PHY_MR1,
+		      FIELD_GET(INIT3_EMR, cfg->main.init3));
+	mmio_write_32(DDR_PHY_MR2,
+		      FIELD_GET(INIT4_EMR2, cfg->main.init4));
+	mmio_write_32(DDR_PHY_MR3,
+		      FIELD_GET(INIT4_EMR3, cfg->main.init4));
+	if (ddr4) {
+		mmio_write_32(DDR_PHY_MR4,
+			      FIELD_GET(INIT6_MR4, cfg->main.init6));
+		mmio_write_32(DDR_PHY_MR5,
+			      FIELD_GET(INIT6_MR5, cfg->main.init6));
+		mmio_write_32(DDR_PHY_MR6,
+			      FIELD_GET(INIT7_MR6, cfg->main.init7));
+	}
 }
 
 static void set_static_phy(const struct ddr_config *cfg)
@@ -288,7 +312,7 @@ static void phy_fifo_reset(void)
 	mmio_setbits_32(DDR_PHY_PGCR0, PGCR0_PHYFRST);
 }
 
-static void wait_phy_idone(int tmo)
+static int wait_phy_idone(int tmo)
 {
 	uint32_t pgsr;
 	int i;
@@ -303,20 +327,24 @@ static void wait_phy_idone(int tmo)
 			for (i = 0; i < ARRAY_SIZE(phyerr); i++) {
 				if (pgsr & phyerr[i].mask) {
 					NOTICE("PHYERR: %s Error\n", phyerr[i].desc);
-					/* Keep going */
+					return -EIO;
 				}
 			}
 		}
 
 		if (pgsr & PGSR0_IDONE)
-			return;
+			return 0;
 
 	} while(!timeout_elapsed(t));
 	PANIC("PHY IDONE timeout\n");
+
+	return -ETIMEDOUT;
 }
 
-static void ddr_phy_init(uint32_t mode, int usec_timout)
+static int ddr_phy_init(uint32_t mode, int usec_timout)
 {
+	int rc;
+
 	mode |= PIR_INIT;
 
 	VERBOSE("ddr_phy_init:start\n");
@@ -329,23 +357,25 @@ static void ddr_phy_init(uint32_t mode, int usec_timout)
 	/* Need to wait 10 configuration clock before start polling */
 	ddr_nsleep(10);
 
-	wait_phy_idone(usec_timout);
+	rc = wait_phy_idone(usec_timout);
 
-	VERBOSE("ddr_phy_init:done\n");
+	VERBOSE("ddr_phy_init:exit = %d\n", rc);
+
+	return rc;
 }
 
-static void PHY_initialization(void)
+static int PHY_initialization(void)
 {
 	/* PHY initialization: PLL initialization, Delay line
 	 * calibration, PHY reset and Impedance Calibration
 	 */
-	ddr_phy_init(PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST, PHY_TIMEOUT_US_1S);
+	return ddr_phy_init(PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST, PHY_TIMEOUT_US_1S);
 }
 
-static void DRAM_initialization_by_memctrl(void)
+static int DRAM_initialization_by_memctrl(void)
 {
 	/* write PHY initialization register for SDRAM initialization */
-	ddr_phy_init(PIR_CTLDINIT, PHY_TIMEOUT_US_1S);
+	return ddr_phy_init(PIR_CTLDINIT, PHY_TIMEOUT_US_1S);
 }
 
 static void sw_done_start(void)
@@ -426,10 +456,11 @@ static void VREF_Training_Setup(void)
 			   VTCR1_ENUM | FIELD_PREP(VTCR1_HVSS, 1) | FIELD_PREP(VTCR1_VWCR, 0xF));
 }
 
-static void do_data_training(const struct ddr_config *cfg)
+static int do_data_training(const struct ddr_config *cfg)
 {
 	bool ddr4 = !!(cfg->main.mstr & MSTR_DDR4);
 	uint32_t w, m;
+	int rc;
 
 	VERBOSE("do_data_training:enter\n");
 
@@ -479,7 +510,9 @@ static void do_data_training(const struct ddr_config *cfg)
 	/* write PHY initialization register for Write leveling, DQS
 	 * gate training, Write_latency adjustment
 	 */
-	ddr_phy_init(PIR_WL | PIR_QSGATE | PIR_WLADJ, PHY_TIMEOUT_US_1S);
+	rc = ddr_phy_init(PIR_WL | PIR_QSGATE | PIR_WLADJ, PHY_TIMEOUT_US_1S);
+	if (rc)
+		return rc;
 
 	/* Static read training must be performed in static read mode.
 	 * read/write bit Deskew, read/write Eye Centering training,
@@ -496,7 +529,9 @@ static void do_data_training(const struct ddr_config *cfg)
 		w |= PIR_VREF;
 		VREF_Training_Setup();
 	}
-	ddr_phy_init(w, PHY_TIMEOUT_US_1S);
+	rc = ddr_phy_init(w, PHY_TIMEOUT_US_1S);
+	if (rc)
+		return rc;
 
 	w = mmio_read_32(DDR_PHY_PGSR0);
 	m = PGSR_ALL_DONE | PGSR0_SRDDONE | PGSR0_APLOCK; /* *DONE ex CADONE, VDONE */
@@ -530,6 +565,8 @@ static void do_data_training(const struct ddr_config *cfg)
 	ddr_usleep(1);
 
 	VERBOSE("do_data_training:exit\n");
+
+	return 0;
 }
 
 int ddr_init(const struct ddr_config *cfg)
@@ -558,15 +595,20 @@ int ddr_init(const struct ddr_config *cfg)
 	set_regs(cfg, &cfg->phy, ddr_phy_reg, ARRAY_SIZE(ddr_phy_reg));
 	set_regs(cfg, &cfg->phy_timing, ddr_phy_timing_reg, ARRAY_SIZE(ddr_phy_timing_reg));
 
+	/* Mirror PHY MRx registers */
+	set_mrx_phy(cfg);
+
 	/* Static PHY settings */
 	set_static_phy(cfg);
 
 	/* PHY FIFO reset - as recommended in PUB databook */
 	phy_fifo_reset();
 
-	PHY_initialization();
+	if (PHY_initialization())
+		PANIC("PHY initization failed\n");
 
-	DRAM_initialization_by_memctrl();
+	if (DRAM_initialization_by_memctrl())
+		PANIC("DDR initization failed\n");
 
 	/* Start quasi-dynamic programming */
 	sw_done_start();
@@ -580,7 +622,8 @@ int ddr_init(const struct ddr_config *cfg)
 	/* wait 2ms for STAT.operating_mode to become "normal" */
 	wait_operating_mode(1, TIME_MS_TO_US(2U));
 
-	do_data_training(cfg);
+	if (do_data_training(cfg))
+		PANIC("Data training failed\n");
 
 	if (cfg->main.ecccfg0 & ECCCFG0_ECC_MODE)
 		ecc_enable_scrubbing();
