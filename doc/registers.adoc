@@ -296,8 +296,8 @@
 ^| yes
 
 | <<SBRCTL>>
-^| yes
-^| yes
+^s| no
+^s| no
 ^| yes
 
 | <<SCHCR1>>
@@ -4212,8 +4212,8 @@ sparx5
 
 === SBRCTL
 
-Applies to: lan966x
-lan969x
+Applies to: 
+
 sparx5
 
 [cols="1s,1,1,1"]

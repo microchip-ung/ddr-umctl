@@ -29,6 +29,7 @@ class Config
         @soc = soc
         @groups = YAML::load_file(file)
         zap = soc.only_ddr3 ? @@ddr4 : @@ddr3
+        zap += %w(SBRCTL) if soc.ecc_inline
         # Zap unwanted regs
         @groups.each do |g|
             zap.each do |reg|

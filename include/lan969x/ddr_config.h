@@ -38,7 +38,6 @@ struct ddr_config {
 		uint32_t pwrctl;
 		uint32_t rfshctl0;
 		uint32_t rfshctl3;
-		uint32_t sbrctl;
 	} main;
 	struct config_ddr_timing {
 		uint32_t dramtmg0;
