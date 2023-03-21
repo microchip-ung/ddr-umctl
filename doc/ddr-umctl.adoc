@@ -83,6 +83,7 @@ available:
 | mem_size | integer | Total Memory Size (in Mbytes)
 | mem_type | DDR3 \| DDR4 | The DDR memory type of the equipped DDR devices.
 | device_bus_width | x8 \| x16 | Bus width of the equipped DDR devices. `x8` support is experimental.
+| enable_half_bus | boolean | Configures the memory topology to use only half of the SoC data bus width
 | active_ranks | integer | The number of (active) ranks in the memory topology.
 | ecc_mode | 0 \| 4 | The ECC mode to employ. ECC mode `0` implies ECC is disabled, mode `4` is "sec/ded over 1 beat"
 | mem_profile | string | The filename of a file defining DDR memory address generation. See later.
@@ -90,6 +91,32 @@ available:
 | board | string | The filename of file containing board specific tuning parameters. See later.
 
 |===
+
+=== Bus width
+
+The bus width of the SoC differs between different platforms. Below is
+an overview of the (maximum) bus width supported per platform.
+
+[cols="1m,1m"]
+|===
+| Platform | Bus Width
+
+| sparx5 | 32 
+| lan966x | 16
+| lan969x | 16
+|===
+
+The effective bus width can optionally be reduced with the
+`enable_half_bus` parameter. Note that this is currently only
+supported on `sparx5`.
+
+The `device_bus_width` parameter describe the bus width of the
+individual DDR chips - of which there may be several. For example, a
+`sparx5` 32-bit topology with ECC will require 5 chips of `x8` width
+to naturally match the 32 bits data plus the ECC bits. Using
+`enable_half_bus` you could use 3 chips of `x16` width, but you would
+be leaving half of the ECC memory device unused - while having a
+simpler physical board layout.
 
 === Clock speed.
 

@@ -69,3 +69,55 @@ Applies to: <%- cfg.each do |p, k| -%>
 |===
 
 <%- end -%>
+
+== Register documentation reference
+
+[cols="1s,1,1,1"]
+|===
+| Register
+<%- soc.keys.each do |p| -%>
+^s| <%= p %>
+<%- end  -%>
+
+<%- conf_regs.sort.each do |r| -%>
+| xref:<%= r %> fields[<%= r %>]
+ <%- soc.keys.each do |p| -%>
+  <%- a = soc[p].find(r.upcase) -%>
+  <%- if a -%>
+   <%- doc = a[2][:doc] %>
+| <%= doc %>
+   <%- else -%>
+| -
+  <%- end -%>
+ <%- end -%>
+<%- end -%>
+|===
+
+== Register fields documentation reference
+
+<%- conf_regs.sort.each do |r| -%>
+
+=== <%= r %> fields
+
+[cols="1s,4,4,4"]
+|===
+| Field
+<%- fields = Hash.new -%>
+<%- all = Array.new -%>
+<%- soc.keys.each do |p| -%>
+^s| <%= p %>
+<%- fields[p] = soc[p].fields(r) -%>
+<%- if fields[p] -%>
+ <%- all += fields[p].map{|f| f[:name]} -%>
+<%- end -%>
+<%- end %>
+
+<%- all.uniq.each do |fname| -%>
+| <%= fname %>
+
+<%= make_row(fields, fname) %>
+
+<%- end -%>
+|===
+
+<%- end  -%>
