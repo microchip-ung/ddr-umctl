@@ -1,6 +1,6 @@
 ---
 info:
-  version: lan966x 2023-03-20-15:05:08 985a509f58b3-dirty
+  version: lan966x 2023-03-21-10:32:36 b01643dcbacd-dirty
   speed: 1200
   mem_size_mb: 1024
   bus_width: 16

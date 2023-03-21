@@ -8,7 +8,7 @@
 
 const struct ddr_config pcb134_ddr4_ddr_config = {
 	.info = {
-		.name = "pcb134_ddr4 2023-03-20-15:05:09 985a509f58b3-dirty",
+		.name = "pcb134_ddr4 2023-03-21-10:32:37 b01643dcbacd-dirty",
 		.speed = 1667,
 		.size = 0x80000000,
 		.bus_width = 32,
