@@ -8,7 +8,7 @@
 
 const struct ddr_config pcb134_ddr4_ddr_config = {
 	.info = {
-		.name = "pcb134_ddr4 2023-03-22-11:01:01 4d836bebbe4a-dirty",
+		.name = "pcb134_ddr4 2023-03-22-14:46:49 cbd547d8d395-dirty",
 		.speed = 1667,
 		.size = 0x80000000,
 		.bus_width = 32,
@@ -24,7 +24,7 @@ const struct ddr_config pcb134_ddr4_ddr_config = {
 		.ecccfg0 = 0x00000004,
 		.init0 = 0x00020196,
 		.init1 = 0x00a20000,
-		.init3 = 0x0a200501,
+		.init3 = 0x08200501,
 		.init4 = 0x10080200,
 		.init5 = 0x00110004,
 		.init6 = 0x00000401,
@@ -38,17 +38,17 @@ const struct ddr_config pcb134_ddr4_ddr_config = {
 	},
 
 	.timing = {
-		.dramtmg0 = 0x130b0f10,
-		.dramtmg1 = 0x00050317,
+		.dramtmg0 = 0x130a0e0e,
+		.dramtmg1 = 0x00050315,
 		.dramtmg12 = 0x00000010,
 		.dramtmg2 = 0x0709050f,
 		.dramtmg3 = 0x0050400c,
-		.dramtmg4 = 0x07030307,
+		.dramtmg4 = 0x06030306,
 		.dramtmg5 = 0x05050303,
 		.dramtmg8 = 0x03020a04,
 		.dramtmg9 = 0x0003020d,
 		.odtcfg = 0x0700060c,
-		.rfshtmg = 0x0062007a,
+		.rfshtmg = 0x0062006d,
 	},
 
 	.mapping = {
@@ -69,7 +69,7 @@ const struct ddr_config pcb134_ddr4_ddr_config = {
 		.dtcr0 = 0x8000b0cf,
 		.dtcr1 = 0x00010237,
 		.dxccr = 0x00c01884,
-		.pgcr2 = 0x00000ca7,
+		.pgcr2 = 0x00000b22,
 		.schcr1 = 0x00000000,
 		.zq0pr = 0x0007bb09,
 		.zq1pr = 0x0007fb2b,
@@ -78,16 +78,16 @@ const struct ddr_config pcb134_ddr4_ddr_config = {
 	},
 
 	.phy_timing = {
-		.dtpr0 = 0x05200c07,
-		.dtpr1 = 0x28160018,
-		.dtpr2 = 0x000500fc,
+		.dtpr0 = 0x051d0b07,
+		.dtpr1 = 0x28140018,
+		.dtpr2 = 0x000500e1,
 		.dtpr3 = 0x02550101,
-		.dtpr4 = 0x00f30806,
-		.dtpr5 = 0x002e0d07,
+		.dtpr4 = 0x00d90805,
+		.dtpr5 = 0x00290c07,
 		.ptr0 = 0x3421a0d0,
 		.ptr1 = 0x51618ea6,
 		.ptr2 = 0x00083def,
-		.ptr3 = 0x0fc65800,
+		.ptr3 = 0x0e165800,
 		.ptr4 = 0x10028800,
 	},
 

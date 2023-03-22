@@ -133,22 +133,20 @@ ddr4_speed_grade = params[:speed_grade]
     itRP_ref =              [30000,   30000,     30000,    30000,  30000,  30000,   30000,   30000,   30000][ddr4_speed_grade]
     itCCDc_S =              [    4,       4,         4,        4,      4,      4,       4,       4,       4][ddr4_speed_grade]
     itCCDc_L =              [    5,       5,         5,        5,      6,      6,       7,       7,       7][ddr4_speed_grade]
+    itCCD_L =               [ 9375,    7500,      6250,     5355,   5355,   5000,    5000,    5000,    5000][ddr4_speed_grade]
     itRAS_min =             [39000,   39000,     35000,    34000,  33000,  32000,   32000,   32000,   32000][ddr4_speed_grade]
-    itRRDc_S_512 =          [ 5000,    5000,      5000,     4200,   4000,   3300,    3200,    2700,    2500][ddr4_speed_grade]
-    itRRDc_S_1k =           [ 5000,    5000,      5000,     4200,   4000,   3300,    3200,    2700,    2500][ddr4_speed_grade]
-    itRRDc_S_2k =           [ 6000,    6000,      6000,     5300,   5300,   5300,    5300,    5300,    5300][ddr4_speed_grade]
-    itRRDc_L_512 =          [ 6000,    6000,      6000,     5300,   5300,   4900,    4900,    4900,    4900][ddr4_speed_grade]
-    itRRDc_L_1k =           [ 6000,    6000,      6000,     5300,   5300,   4900,    4900,    4900,    4900][ddr4_speed_grade]
-    itRRDc_L_2k =           [ 7500,    7500,      7500,     6400,   6400,   6400,    6400,    6400,    6400][ddr4_speed_grade]
-    itRRD_S_512 =           [ 7500,    6000,      5000,     4200,   3700,   3300,    3000,    2500,    2500][ddr4_speed_grade]
-    itRRD_S_1k =            [ 7500,    6000,      5000,     4200,   3700,   3300,    3000,    2500,    2500][ddr4_speed_grade]
+    itRRDc_S_1k =           4
+    itRRDc_S_2k =           4
+    itRRDc_L_1k =           4
+    itRRDc_L_2k =           4
+    itRRD_S_1k =            [ 7500,    6000,      5000,     4200,   3700,   3300,    3000,    2700,    2500][ddr4_speed_grade]
     itRRD_S_2k =            [ 7500,    6000,      6000,     5300,   5300,   5300,    5300,    5300,    5300][ddr4_speed_grade]
-    itRRD_L_512 =           [ 7500,    6000,      6000,     5300,   5300,   4900,    4900,    4900,    4900][ddr4_speed_grade]
     itRRD_L_1k =            [ 7500,    6000,      6000,     5300,   5300,   4900,    4900,    4900,    4900][ddr4_speed_grade]
     itRRD_L_2k =            [ 7500,    7500,      7500,     6400,   6400,   6400,    6400,    6400,    6400][ddr4_speed_grade]
-    itFAW_512 =             [20000,   20000,     20000,    17000,  16000,  13000,   12800,   10875,   10000][ddr4_speed_grade]
     itFAW_1k =              [25000,   25000,     25000,    23000,  21000,  21000,   21000,   21000,   21000][ddr4_speed_grade]
     itFAW_2k =              [35000,   35000,     35000,    30000,  30000,  30000,   30000,   30000,   30000][ddr4_speed_grade]
+    itFAWc_1k =             20
+    itFAWc_2k =             28
     itIS =                  [  170,     170,       170,      170,    170,    170,     170,     170,     170][ddr4_speed_grade]
     itIH =                  [  120,     120,       120,      120,    120,    120,     120,     120,     120][ddr4_speed_grade]
     itDIPW =                [  560,     450,       360,      320,    280,    250,     230,     200,     190][ddr4_speed_grade]
@@ -173,8 +171,12 @@ ddr4_speed_grade = params[:speed_grade]
     itCWLc =                [    9,       9,        11,       10,     14,     12,      14,      16,      16][ddr4_speed_grade] ;# CWL  tCK  CAS write Latency
     itPLc =                 [    4,       4,         4,        4,      4,      5,       6,       6,       6][ddr4_speed_grade] ;# PL   tCK   Parity Latency
 
+# Calculate *real* itCK
+itCK = 1000000 / (params[:clock_speed] / 2)
+$l.debug "clock = #{params[:clock_speed]}, itCK_min = #{itCK_min}, itCK_max = #{itCK_max}, itCK = #{itCK}"
+
 # itMOD = Max(15ns, 24clk) - by JEDEC standard (DDR4 <= 3200 MHz)
-itMOD = max(15000, (24 * itCK_min))
+itMOD = max(15000, (24 * itCK))
 
 ##      DDR4_               [ 1066,    1333,     1600,     1866,    2133,   2400,    2667,    2934,    3200][ddr4_speed_grade]
 ##      UTYPE_TS            [ TS_1875, TS_1500,  TS_1250,  TS_1072, TS_938, TS_833,  TS_750,  TS_682,  TS_625][ddr4_speed_grade]
@@ -237,7 +239,7 @@ itMOD = max(15000, (24 * itCK_min))
     params[:tPLc] =          params[:ca_parity_en] == 1 ? itPLc : 0;
     params[:tDLLKc] =        itDLLKc_min
     tRTP =                    itRTP
-    tRTPc =                   ParamInClks(itRTP, itCK_min)
+    tRTPc =                   ParamInClks(itRTP, itCK)
     params[:tRTPc] =         params[:write_preamble] == 1 ? tRTPc + 1 : tRTPc;
     tRTP_min =                itRTP
     params[:tRTPc_min] =     4
@@ -246,11 +248,11 @@ itMOD = max(15000, (24 * itCK_min))
     params[:tWTRc] =         itWTRc_L ;# added by monika
     params[:tWTRc_L_CRC_DM] = params[:tWTRc] + itWTRc_L_CRC_DM
     tWTR_S_CRC_DM =           3750
-    tWTRc_S_CRC_DM =          ParamInClks(tWTR_S_CRC_DM, itCK_min)
+    tWTRc_S_CRC_DM =          ParamInClks(tWTR_S_CRC_DM, itCK)
     tWTR_L_CRC_DM =           3750
-    tWTRc_L_CRC_DM =          ParamInClks(tWTR_L_CRC_DM, itCK_min)
+    tWTRc_L_CRC_DM =          ParamInClks(tWTR_L_CRC_DM, itCK)
     tWR =                     itWR
-    params[:tWRc] =          ParamInClks(itWR, itCK_min)
+    params[:tWRc] =          ParamInClks(itWR, itCK)
     params[:tWR_CRC_DMc] =   5
     if params[:write_crc_en]
       params[:tWRc_CRC_DM] =   params[:tWRc] + itWR_CRC_DM
@@ -258,11 +260,11 @@ itMOD = max(15000, (24 * itCK_min))
       params[:tWRc_CRC_DM] =   params[:tWRc]
     end
     tMOD =                    itMOD
-    tMODc =                   ParamInClks(itMOD, itCK_min)
+    tMODc =                   ParamInClks(itMOD, itCK)
     params[:tMPRRc] =        1
     tMRD_PDA =                12000;    # in ps
     if params[:pda_en]
-      params[:tMRD_PDAc] =   ParamInClks(tMRD_PDA itCK_min)
+      params[:tMRD_PDAc] =   ParamInClks(tMRD_PDA, itCK)
     end
     if params[:ca_parity_en]
       params[:tMRDc] = tMODc
@@ -274,16 +276,16 @@ itMOD = max(15000, (24 * itCK_min))
     params[:tWR_MPRc] =      tMODc
     $l.debug "params[:tWR_MPRc] = tMODc = #{tMODc}"
     tRCD =                    itRCD
-    params[:tRCDc] =         ParamInClks(itRCD, itCK_min)
+    params[:tRCDc] =         ParamInClks(itRCD, itCK)
     tRP =                     itRP
-    params[:tRPc] =          ParamInClks(itRP, itCK_min)
+    params[:tRPc] =          ParamInClks(itRP, itCK)
     tRP_ref_internal =        itRP_ref
-    tRPc_ref_internal =       ParamInClks(itRP_ref, itCK_min)
+    tRPc_ref_internal =       ParamInClks(itRP_ref, itCK)
     tRC =                     itRC
-    params[:tRCc] =          ParamInClks(itRC, itCK_min)
-    tCCD_S =                  itCCDc_S * itCK_min
+    params[:tRCc] =          ParamInClks(itRC, itCK)
+    tCCD_S =                  itCCDc_S * itCK
     params[:tCCDc_S] =       itCCDc_S
-    tCCD_L =                  itCCDc_L * itCK_min
+    itCCDc_L =               max(itCCDc_L, ParamInClks(itCCD_L, itCK))
     if params[:write_preamble] == 1
       params[:tCCDc_L] =     itCCDc_L + 1
     else
@@ -291,12 +293,12 @@ itMOD = max(15000, (24 * itCK_min))
     end
     # tREFI =                   7800000 ;# 7.8 us
     tREFI =                  3900000 ;# 3.9 us - ROWHAMMER recommendation
-    params[:tREFIc] =        ParamInClks(tREFI, itCK_min)
+    params[:tREFIc] =        ParamInClks(tREFI, itCK)
     tRAS_min =                itRAS_min
     tRAS_max =                9*tREFI
-    params[:tRASc_min] =     ParamInClks(itRAS_min, itCK_min)
+    params[:tRASc_min] =     ParamInClks(itRAS_min, itCK)
     params[:tRAS_max] =      tRAS_max
-    params[:tRASc_max] =     ParamInClks(tRAS_max, itCK_min)
+    params[:tRASc_max] =     ParamInClks(tRAS_max, itCK)
     tPAR_CLOSE_BANKS =        tRAS_max
     tPAR_ALERT_ON =           1400
     tPAR_ALERT_ON_max =       6000
@@ -307,9 +309,9 @@ itMOD = max(15000, (24 * itCK_min))
     params[:tPAR_ALERT_PWc] =       itPAR_ALERT_PWc
     tPAR_ALERT_PWc_min =             itPAR_ALERT_PWc_min
     tPAR_ALERT_PWc_max =             itPAR_ALERT_PWc_max
-    tPAR_ALERT_PW =                  params[:tPAR_ALERT_PWc] * itCK_min
-    tPAR_ALERT_PW_min =              tPAR_ALERT_PWc_min * itCK_min
-    tPAR_ALERT_PW_max =              tPAR_ALERT_PWc_max * itCK_min
+    tPAR_ALERT_PW =                  params[:tPAR_ALERT_PWc] * itCK
+    tPAR_ALERT_PW_min =              tPAR_ALERT_PWc_min * itCK
+    tPAR_ALERT_PW_max =              tPAR_ALERT_PWc_max * itCK
     tCRC_ALERT =                     9000
     tCRC_ALERT_min =                 3000
     tCRC_ALERT_max =                 13000
@@ -319,34 +321,27 @@ itMOD = max(15000, (24 * itCK_min))
 
     case params[:device_bus_width]
     when "x8"
-        params[:tFAW] =     itFAW_1k
-        params[:tRRDc_S] =  ParamInClks(itRRDc_S_1k, itCK_min)
-        params[:tRRDc_L] =  ParamInClks(itRRDc_L_1k, itCK_min)
-        params[:tRRD_S] =   itRRD_S_1k
-        params[:tRRD_L] =   itRRD_L_1k
+        params[:tFAWc] =    max(itFAWc_1k, ParamInClks(itFAW_1k, itCK))
+        params[:tRRDc_S] =  max(itRRDc_S_1k, ParamInClks(itRRD_S_1k, itCK))
+        params[:tRRDc_L] =  max(itRRDc_L_1k, ParamInClks(itRRD_L_1k, itCK))
     when "x16"
-        params[:tFAW] =     itFAW_2k
-        params[:tRRDc_S] =  ParamInClks(itRRDc_S_2k, itCK_min)
-        params[:tRRDc_L] =  ParamInClks(itRRDc_L_2k, itCK_min)
-        params[:tRRD_S] =   itRRD_S_2k
-        params[:tRRD_L] =   itRRD_L_2k
+        params[:tFAWc] =    max(itFAWc_2k, ParamInClks(itFAW_2k, itCK))
+        params[:tRRDc_S] =  max(itRRDc_S_2k, ParamInClks(itRRD_S_2k, itCK))
+        params[:tRRDc_L] =  max(itRRDc_L_2k, ParamInClks(itRRD_L_2k, itCK))
     else
         raise "Invalid device_bus_width: #{params[:device_bus_width]}"
     end
 
-    tRRDc_dlr =      4
-    tFAWc_dlr =      16
-    params[:tRRDc] =       ParamInClks(params[:tRRD_L], itCK_min)
-    params[:tFAWc] =       ParamInClks(params[:tFAW], itCK_min)
+    params[:tRRDc] = params[:tRRDc_L]
     tIS =            itIS
     tIH =            itIH
     tDIPW =          itDIPW
     # Valid Clock Requirement before Self Refresh Exit (SRX) or Power-Down Exit (PDX) or ReExit =
     tCKSRX =         10000; # in ps
-    params[:tCKSRXc] = ParamInClks(tCKSRX, itCK_min)
+    params[:tCKSRXc] = ParamInClks(tCKSRX, itCK)
     # Valid Clock Requirement after Self Refresh Entry (SRE) or Power-Down Entry (PDE) or ReEntry =
     tCKSRE =         10000; # in ps
-    params[:tCKSREc] = ParamInClks(tCKSRE, itCK_min)
+    params[:tCKSREc] = ParamInClks(tCKSRE, itCK)
 
     case params[:configured_density]
     when "2G"
@@ -370,10 +365,10 @@ itMOD = max(15000, (24 * itCK_min))
     end
 
     tRFC =      tRFC1
-    params[:tRFCc] =  ParamInClks(tRFC1, itCK_min)
-    params[:tRFC1c] = ParamInClks(tRFC1, itCK_min)
-    params[:tRFC2c] = ParamInClks(tRFC2, itCK_min)
-    params[:tRFC4c] = ParamInClks(tRFC4, itCK_min)
+    params[:tRFCc] =  ParamInClks(tRFC1, itCK)
+    params[:tRFC1c] = ParamInClks(tRFC1, itCK)
+    params[:tRFC2c] = ParamInClks(tRFC2, itCK)
+    params[:tRFC4c] = ParamInClks(tRFC4, itCK)
 
 
     ##// Retiming =  .
@@ -385,19 +380,18 @@ itMOD = max(15000, (24 * itCK_min))
         tXP =     4 * tCK_min
     else
         tXP =     6000
-        params[:tXPc] = ParamInClks(6000, itCK_min)
+        params[:tXPc] = ParamInClks(tXP, itCK)
     end
     params[:tXS_tRFC4] =  tRFC4 + 10000
-    params[:tXS_tRFC4c] = ParamInClks(params[:tXS_tRFC4], itCK_min)
+    params[:tXS_tRFC4c] = ParamInClks(params[:tXS_tRFC4], itCK)
     params[:tXS_tRFC] =   tRFC + 10000
-    params[:tXS_tRFCc] =  ParamInClks(params[:tXS_tRFC], itCK_min)
+    params[:tXS_tRFCc] =  ParamInClks(params[:tXS_tRFC], itCK)
     tXPDLL =            itXPDLL
-    params[:tXPDLLc] =        ParamInClks(itXPDLL, itCK_min)
-    tCKE =              itCKE
-    params[:tCKEc] =          ParamInClks(itCKE, itCK_min)
+    params[:tXPDLLc] =        ParamInClks(itXPDLL, itCK)
+    params[:tCKEc] =          ParamInClks(itCKE, itCK)
     params[:tCPDEDc] =        itCPDEDc
     tPD =               itCKE
-    params[:tPDc] =           ParamInClks(itCKE, itCK_min)
+    params[:tPDc] =           ParamInClks(tPD, itCK)
 
 
     ## // Initialization timing.
@@ -409,22 +403,20 @@ itMOD = max(15000, (24 * itCK_min))
     params[:tZQoperc] =       itZQoperc
     params[:tZQCSc] =         itZQCSc
     #tZQRTT =                  44_000
-    #params[:tZQRTTc] =        ParamInClks(tZQRTT, itCK_min)
+    #params[:tZQRTTc] =        ParamInClks(tZQRTT, itCK)
 
     ## // Write leveling.
     params[:tWLMRDc] =        40;
     params[:tWLDQSENc] =      25;
-    tWLS =              itWLS
-    params[:tWLSc] =          ParamInClks(itWLS, itCK_min)
-    tWLH =              itWLH
-    params[:tWLHc] =          ParamInClks(itWLH, itCK_min)
+    params[:tWLSc] =          ParamInClks(itWLS, itCK)
+    params[:tWLHc] =          ParamInClks(itWLH, itCK)
     tWLO_min =          0
     tWLOc_min =         0
     tWLO_max =          7500
-    tWLOc_max =         ParamInClks(tWLO_max, itCK_min)
+    tWLOc_max =         ParamInClks(tWLO_max, itCK)
     tWLOE_min =         0
     tWLOEc_min =        0
-    #tWLOEc_max =        ParamInClks(tWLOE_max, itCK_min)
+    #tWLOEc_max =        ParamInClks(tWLOE_max, itCK)
     tWLO_nominal =      (tWLO_min + tWLO_max)/2
     #tWLOE_nominal =     (tWLOE_min + tWLOE_max)/2
 
@@ -510,7 +502,7 @@ end
     mr0_A6_A4 =   mr0_CL[0..2]
     #$l.debug "mr0_A2 is mr0_A2 and mr0_A6_A4 is mr0_A6_A4 "
 
-    #WRc =              ParamInClks(itWR, itCK_min); # Write Recovery is in tCK
+    #WRc =              ParamInClks(itWR, itCK); # Write Recovery is in tCK
     nWRc =              params[:tWRc_CRC_DM]; # Write Recovery is in tCK
     mr0_WR_A13 =       "0"
     case nWRc
@@ -561,7 +553,7 @@ end
     $l.debug "CWLc_bin is #{mr2_CWL} and CWLc is #{params[:CWLc]}"
 
     tCAL_ps =        3748;    # TCAL(min) ps CS_n to Command Address Latency
-    tCAL_tck =       ParamInClks(tCAL_ps, itCK_min) + 1; # TCAL(min) tck CS_n to Command Address Latency
+    tCAL_tck =       ParamInClks(tCAL_ps, itCK) + 1; # TCAL(min) tck CS_n to Command Address Latency
 
     if params[:cal_en]
         params[:tCAL] = tCAL_tck

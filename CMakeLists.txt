@@ -21,6 +21,8 @@ foreach(TRG IN LISTS yaml_config_targets)
 add_custom_command(
   DEPENDS
   ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb
+  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ddr/ddr3.rb
+  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ddr/ddr4.rb
   ${CMAKE_CURRENT_SOURCE_DIR}/configs/profiles/${TRG}.yaml
   OUTPUT
   ${CMAKE_CURRENT_SOURCE_DIR}/output/${TRG}.yaml
@@ -34,6 +36,8 @@ foreach(TRG IN LISTS source_config_targets)
 add_custom_command(
   DEPENDS
   ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gen_cfg.rb
+  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ddr/ddr3.rb
+  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/ddr/ddr4.rb
   ${CMAKE_CURRENT_SOURCE_DIR}/configs/profiles/${TRG}.yaml
   OUTPUT
   ${CMAKE_CURRENT_SOURCE_DIR}/src/${TRG}_config.c
