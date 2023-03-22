@@ -7,6 +7,14 @@ require 'fileutils'
 
 require_relative 'soc/chip.rb'
 
+def soc_fields(soc, rname)
+    fields = soc.map{|p,s| [p, s.fields(rname)]}.to_h
+end
+
+def all_field_names(fields)
+    all = fields.select{|p, flds| flds != nil }.map{|p, flds| flds.map{|f| f[:name]} }.flatten.uniq
+end
+
 def make_row(fields, fname)
     doc = Array.new
     fields.keys.each do |p|

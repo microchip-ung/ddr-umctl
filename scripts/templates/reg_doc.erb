@@ -36,17 +36,11 @@ Applies to: <%- cfg.each do |p, k| -%>
 [cols="1s,1,1,1"]
 |===
 | Field
-<%- fields = Hash.new -%>
-<%- all = Array.new -%>
-<%- soc.keys.each do |p| -%>
-<%- fields[p] = soc[p].fields(r) -%>
-<%- if fields[p] -%>
-<%- all += fields[p].map{|f| f[:name]} -%>
-<%- end -%>
-^s| <%= p %>
-<%- end %>
+<%= "^s| " + soc.keys.join("\n^s| ") %>
 
-<%- all.uniq.each do |fname| -%>
+
+<%- fields = soc_fields(soc, r) -%>
+<%- all_field_names(fields).each do |fname| -%>
 | <%= fname -%>
  <%- fields.keys.each do |p| -%>
   <%- if fields[p] -%>
@@ -102,17 +96,11 @@ Applies to: <%- cfg.each do |p, k| -%>
 [cols="1s,4,4,4"]
 |===
 | Field
-<%- fields = Hash.new -%>
-<%- all = Array.new -%>
-<%- soc.keys.each do |p| -%>
-^s| <%= p %>
-<%- fields[p] = soc[p].fields(r) -%>
-<%- if fields[p] -%>
- <%- all += fields[p].map{|f| f[:name]} -%>
-<%- end -%>
-<%- end %>
+<%= "^s| " + soc.keys.join("\n^s| ") %>
 
-<%- all.uniq.each do |fname| -%>
+
+<%- fields = soc_fields(soc, r) -%>
+<%- all_field_names(fields).each do |fname| -%>
 | <%= fname %>
 
 <%= make_row(fields, fname) %>
