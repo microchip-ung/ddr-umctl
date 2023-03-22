@@ -1,6 +1,6 @@
 ---
 info:
-  version: pcb134_ddr4_16bit 2023-03-21-10:32:37 b01643dcbacd-dirty
+  version: pcb134_ddr4_16bit 2023-03-22-11:01:00 4d836bebbe4a-dirty
   speed: 1667
   mem_size_mb: 1024
   bus_width: 32
@@ -64,7 +64,7 @@ config:
   ptr3: 0x0fc65800
   ptr4: 0x10028800
   dtpr0: 0x05200c07
-  dtpr1: 0x2816041c
+  dtpr1: 0x28160018
   dtpr2: 0x000500fc
   dtpr3: 0x02550101
   dtpr4: 0x00f30806

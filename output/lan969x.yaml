@@ -1,6 +1,6 @@
 ---
 info:
-  version: lan969x 2023-03-21-10:32:36 b01643dcbacd-dirty
+  version: lan969x 2023-03-22-11:01:00 4d836bebbe4a-dirty
   speed: 2400
   mem_size_mb: 896
   bus_width: 16
@@ -63,7 +63,7 @@ config:
   ptr3: 0x1b192000
   ptr4: 0x1003a000
   dtpr0: 0x0827100a
-  dtpr1: 0x2825061e
+  dtpr1: 0x28250018
   dtpr2: 0x000701b1
   dtpr3: 0x03000101
   dtpr4: 0x01a50808

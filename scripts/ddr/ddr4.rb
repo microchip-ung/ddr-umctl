@@ -127,7 +127,6 @@ ddr4_speed_grade = params[:speed_grade]
     itWTRc_L_CRC_DM =       [    4,       4,         4,        5,      5,      5,       5,       6,       6][ddr4_speed_grade]
     itWR =                  [15000,   15000,     15000,    15000,  15000,  15000,   15000,   15000,   15000][ddr4_speed_grade]
     itWR_CRC_DM =           [    4,       4,         4,        5,      5,      5,       5,       6,       6][ddr4_speed_grade]
-    itMOD =                 [45000,   36000,     30000,    25728,  24000,  20000,   19200,   16368,   15000][ddr4_speed_grade]
     itRCD =                 [17000,   16000,     15000,    13920,  15000,  12750,   13500,   12500,   12500][ddr4_speed_grade]
     itRC =                  [56000,   55000,     50000,    49000,  48000,  44500,   45500,   44960,   44500][ddr4_speed_grade]
     itRP =                  [17000,   15000,     12500,    12850,  15000,  12750,   13500,   12575,   12500][ddr4_speed_grade]
@@ -174,6 +173,8 @@ ddr4_speed_grade = params[:speed_grade]
     itCWLc =                [    9,       9,        11,       10,     14,     12,      14,      16,      16][ddr4_speed_grade] ;# CWL  tCK  CAS write Latency
     itPLc =                 [    4,       4,         4,        4,      4,      5,       6,       6,       6][ddr4_speed_grade] ;# PL   tCK   Parity Latency
 
+# itMOD = Max(15ns, 24clk) - by JEDEC standard (DDR4 <= 3200 MHz)
+itMOD = max(15000, (24 * itCK_min))
 
 ##      DDR4_               [ 1066,    1333,     1600,     1866,    2133,   2400,    2667,    2934,    3200][ddr4_speed_grade]
 ##      UTYPE_TS            [ TS_1875, TS_1500,  TS_1250,  TS_1072, TS_938, TS_833,  TS_750,  TS_682,  TS_625][ddr4_speed_grade]
@@ -257,7 +258,7 @@ ddr4_speed_grade = params[:speed_grade]
       params[:tWRc_CRC_DM] =   params[:tWRc]
     end
     tMOD =                    itMOD
-    tMODc =                   ParamInClks(itMOD, itCK_min) + params[:tPLc]
+    tMODc =                   ParamInClks(itMOD, itCK_min)
     params[:tMPRRc] =        1
     tMRD_PDA =                12000;    # in ps
     if params[:pda_en]
