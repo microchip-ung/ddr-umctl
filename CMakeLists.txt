@@ -16,7 +16,7 @@ target_include_directories(sparx5_ddr_umctl PUBLIC
 
 add_dependencies(sparx5_ddr_umctl gen_configs)
 
-set(yaml_config_targets lan966x lan969x pcb134_ddr4 pcb134_ddr4_16bit pcb135_ddr3 pcb135_ddr3_16bit)
+set(yaml_config_targets lan966x lan969x pcb134_ddr4 pcb135_ddr3)
 foreach(TRG IN LISTS yaml_config_targets)
 add_custom_command(
   DEPENDS
@@ -52,9 +52,7 @@ add_custom_target(
   ${CMAKE_CURRENT_SOURCE_DIR}/output/lan966x.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/output/lan969x.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb134_ddr4.yaml
-  ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb134_ddr4_16bit.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb135_ddr3.yaml
-  ${CMAKE_CURRENT_SOURCE_DIR}/output/pcb135_ddr3_16bit.yaml
   ${CMAKE_CURRENT_SOURCE_DIR}/src/pcb134_ddr4_config.c
   ${CMAKE_CURRENT_SOURCE_DIR}/src/pcb135_ddr3_config.c
 )
