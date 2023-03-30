@@ -1,3 +1,12 @@
+# This memory map is for the Micron MT40A512M8 device:
+# - Density : 4G bits
+# - Organization : 32M words x 8 bits x 16 banks
+#  - Bank Address:   BA0 ~ BA1
+#  - Bank Group:     BG0 ~ BG1
+#  - Row Address:    A0 ~ A14
+#  - Column Address: A0 ~ A9
+#  - Page size:      1 KB
+# You can use this for other devices with the same organization.
 ---
 addrmap0:
   ADDRMAP_CS_BIT0: 31

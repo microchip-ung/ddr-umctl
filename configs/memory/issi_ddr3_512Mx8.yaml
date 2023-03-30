@@ -1,3 +1,12 @@
+# This memory map is for the ISSI IS43TR85120AL device:
+# - Density : 4G bits
+# - Organization : 64M words x 8 bits x 8 banks
+#  - Bank Address:   BA0 ~ BA2
+#  - Bank Group:     none (DDR3)
+#  - Row Address:    A0 ~ A15
+#  - Column Address: A0 ~ A9
+#  - Page size:      1 KB
+# You can use this for other devices with the same organization.
 ---
 addrmap0:
   ADDRMAP_CS_BIT0: 31

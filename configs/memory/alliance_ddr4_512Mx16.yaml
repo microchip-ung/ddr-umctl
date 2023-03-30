@@ -1,3 +1,12 @@
+# This memory map is for the Alliance AS4C512M16D4 device:
+# - Density : 8G bits
+# - Organization : 64M words x 16 bits x 8 banks
+#  - Bank Address:   BA0 ~ BA1
+#  - Bank Group:     BG0
+#  - Row Address:    A0 ~ A15
+#  - Column Address: A0 ~ A9
+#  - Page size:      2 KB
+# You can use this for other devices with the same organization.
 ---
 addrmap0:
   ADDRMAP_CS_BIT0: 31
