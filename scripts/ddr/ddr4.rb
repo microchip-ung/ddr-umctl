@@ -816,7 +816,7 @@ end
   mr6_A15_A13 =                 "000"; # // mr6[15:13]  :
   mr6_A12_A10 =         mr6_tCCD_L; # // mr6[12:10]  : tccd_l
   mr6_A9_A8 =                    "00"; # // mr6[9:8]    : RFU
-  mr6_A7 =                        "1"; # // mr6[7]      : VRefDQ Training Enable
+  mr6_A7 =                        "0"; # // mr6[7]      : VRefDQ Training Enable
   mr6_A6 =                        "0"; # // mr6[6]      : VRefDQ Training range
   mr6_A5_A0 =                "011001"; # // mr6[5:0]    : VRefDQ Training value
 
