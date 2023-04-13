@@ -1,0 +1,49 @@
+# This memory map requires the full width of the data bus to be used. 
+# This memory map is for the Micron MT40A512M8 device:
+# - Density : 4G bits
+# - Organization : 32M words x 8 bits x 16 banks
+#  - Bank Address:   BA0 ~ BA1
+#  - Bank Group:     BG0 ~ BG1
+#  - Row Address:    A0 ~ A14
+#  - Column Address: A0 ~ A9
+#  - Page size:      1 KB
+# You can use this for other devices with the same organization:
+#  - Alliance AS4C512M8D4 
+# It will also work with inline ECC enabled
+---
+addrmap0:
+  ADDRMAP_CS_BIT0: 31
+addrmap1:
+  ADDRMAP_BANK_B0: 6
+  ADDRMAP_BANK_B1: 18
+  ADDRMAP_BANK_B2: 63
+addrmap2:
+  ADDRMAP_COL_B2: 0
+  ADDRMAP_COL_B3: 1
+  ADDRMAP_COL_B4: 1
+  ADDRMAP_COL_B5: 1
+addrmap3:
+  ADDRMAP_COL_B6: 3
+  ADDRMAP_COL_B7: 19
+  ADDRMAP_COL_B8: 19
+  ADDRMAP_COL_B9: 19
+addrmap4:
+  ADDRMAP_COL_B10: 31
+  ADDRMAP_COL_B11: 31
+addrmap5:
+  ADDRMAP_ROW_B0: 4
+  ADDRMAP_ROW_B1: 4
+  ADDRMAP_ROW_B2_10: 4
+  ADDRMAP_ROW_B11: 5
+addrmap6:
+  ADDRMAP_ROW_B12: 5
+  ADDRMAP_ROW_B13: 5
+  ADDRMAP_ROW_B14: 5
+  ADDRMAP_ROW_B15: 15
+  LPDDR3_6GB_12GB: 0
+addrmap7:
+  ADDRMAP_ROW_B16: 15
+  ADDRMAP_ROW_B17: 15
+addrmap8:
+  ADDRMAP_BG_B0: 1
+  ADDRMAP_BG_B1: 4

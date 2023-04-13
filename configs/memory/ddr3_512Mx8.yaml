@@ -1,0 +1,49 @@
+# This memory map is for the ISSI IS43TR85120AL device:
+# - Density : 4G bits
+# - Organization : 64M words x 8 bits x 8 banks
+#  - Bank Address:   BA0 ~ BA2
+#  - Bank Group:     none (DDR3)
+#  - Row Address:    A0 ~ A15
+#  - Column Address: A0 ~ A9
+#  - Page size:      1 KB
+# You can use this for other devices with the same organization:
+#  - Alliance AS4C512M8D3LC 
+#  - Micron MT41K512M8
+# This memory map will also work with inline ECC enabled
+---
+addrmap0:
+  ADDRMAP_CS_BIT0: 31
+addrmap1:
+  ADDRMAP_BANK_B0: 1
+  ADDRMAP_BANK_B1: 4
+  ADDRMAP_BANK_B2: 4
+addrmap2:
+  ADDRMAP_COL_B2: 0
+  ADDRMAP_COL_B3: 1
+  ADDRMAP_COL_B4: 1
+  ADDRMAP_COL_B5: 1
+addrmap3:
+  ADDRMAP_COL_B6: 3
+  ADDRMAP_COL_B7: 19
+  ADDRMAP_COL_B8: 19
+  ADDRMAP_COL_B9: 19
+addrmap4:
+  ADDRMAP_COL_B10: 31
+  ADDRMAP_COL_B11: 31
+addrmap5:
+  ADDRMAP_ROW_B0: 4
+  ADDRMAP_ROW_B1: 4
+  ADDRMAP_ROW_B2_10: 4
+  ADDRMAP_ROW_B11: 4
+addrmap6:
+  ADDRMAP_ROW_B12: 4
+  ADDRMAP_ROW_B13: 4
+  ADDRMAP_ROW_B14: 4
+  ADDRMAP_ROW_B15: 4
+  LPDDR3_6GB_12GB: 0
+addrmap7:
+  ADDRMAP_ROW_B16: 15
+  ADDRMAP_ROW_B17: 15
+addrmap8:
+  ADDRMAP_BG_B0: 63
+  ADDRMAP_BG_B1: 63
