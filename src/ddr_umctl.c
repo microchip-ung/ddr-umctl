@@ -186,6 +186,7 @@ static void set_mrx_phy(const struct ddr_config *cfg)
 static void set_static_phy(const struct ddr_config *cfg)
 {
 	bool ddr4 = !!(cfg->main.mstr & MSTR_DDR4);
+	int bus_divider, bus_width = cfg->info.bus_width;
 
 	/* Configure IO's according to mode */
 	mmio_clrsetbits_32(DDR_PHY_PGCR1,
@@ -195,7 +196,12 @@ static void set_static_phy(const struct ddr_config *cfg)
 	 * initialization */
 	mmio_clrbits_32(DDR_PHY_DSGCR, DSGCR_PUREN);
 	/* Enable data lanes according to configured bus width */
-	switch (cfg->info.bus_width) {
+	bus_divider = FIELD_GET(MSTR_DATA_BUS_WIDTH, cfg->main.mstr);
+	if (bus_divider == 1) /* Half width */
+		bus_width /= 2;
+	if (bus_divider == 2) /* Quarter width */
+		bus_width /= 4;
+	switch (bus_width) {
 	case 32:
 		/* Add full 32 bit lanes */
 		mmio_setbits_32(DDR_PHY_DX0GCR0, DX0GCR0_DXEN);
@@ -220,7 +226,8 @@ static void set_static_phy(const struct ddr_config *cfg)
 		mmio_clrbits_32(DDR_PHY_DX3GCR0, DX3GCR0_DXEN);
 		break;
 	default:
-		PANIC("Unsupported bus width: %d\n", cfg->info.bus_width);
+		PANIC("Unsupported bus width: %d / BIT(%d) = %d\n",
+		      cfg->info.bus_width, bus_divider, bus_width);
 		break;
 	}
 	/* Disable ECC lane according to config */
