@@ -179,6 +179,8 @@ def generate(file)
             params[:speed_grade] = ddr3_find_speed_grade(params[:clock_speed])
             $l.debug "Found speed grade #{params[:speed_grade]} for speed #{params[:clock_speed]}"
         end
+        # Default values
+        params[:rtt_nom_ddr] = "60ohm" unless params[:rtt_nom_ddr]
         params = ddr3(params)
     when "DDR4"
         if !params[:speed_grade]

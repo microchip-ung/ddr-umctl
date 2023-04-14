@@ -738,16 +738,35 @@ end
     $l.debug "mr0_bits is .......... #{mr0_bits}"
     $l.debug "reg_ddrc_mr is ....... #{params[:reg_ddrc_mr]}"
 
+
+    case params[:rtt_nom_ddr]
+    when "disabled"
+        rtt_nom = 0
+    when "60ohm"
+        rtt_nom = 1
+    when "120ohm"
+        rtt_nom = 2
+    when "40ohm"
+        rtt_nom = 3
+    when "20ohm"
+        rtt_nom = 4
+    when "30ohm"
+        rtt_nom = 5
+    else
+        raise "Unsupported rtt_nom: #{params[:rtt_nom_ddr]}"
+    end
+    rtt_nom = rtt_nom.to_s(2).rjust(5, "0")
+
     ########################################
     ## MODE Register 1
     ########################################
     mr1_A15_A11 =             "00000" ; # // mr1[15:11]: TDQS and output buffer enable
-    mr1_A10_A8 =                "000" ; # // mr1[10:8] : RTT_NOM
+    mr1_A10_A8 =        rtt_nom[0..2] ; # // mr1[10:8] : RTT_NOM
     mr1_A7 =                      "0" ; # // mr1[7]    : Write Leveling Enable
-    mr1_A6 =                      "0" ; # // mr1[6]    : RTT_NOM
+    mr1_A6 =               rtt_nom[3] ; # // mr1[6]    : RTT_NOM
     mr1_A5 =                      "0" ; # // mr1[5]    : Output Driver Impedance control
     mr1_A4_A3 =                  "00" ; # // mr1[4:3]  : Additive Latency
-    mr1_A2 =                      "0" ; # // mr1[2]    : RTT nom
+    mr1_A2 =               rtt_nom[4] ; # // mr1[2]    : RTT nom
     mr1_A1 =                      "0" ; # // mr1[1]    : Output Driver Impedance control
     mr1_A0 =                      "0" ; # // mr1[0]    : 0 = DLL enable, 1 = DLL disable
 
