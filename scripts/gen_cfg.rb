@@ -305,17 +305,19 @@ def generate(file)
             reg.set("MSTR", "DEVICE_CONFIG", devc)
         end
     end
-    if ($soc.bus_width % 16) == 0 && params[:enable_half_bus]
+    if params[:enable_half_bus]
+        raise "Platform needs 16 or 32 bits data bus to support half mode" if ($soc.bus_width % 16) != 0
         $l.debug "Configuring half bus width"
         reg.set("MSTR", "DATA_BUS_WIDTH", 1)
-        if params[:mem_type] == "DDR4"
-            # pccfg
-            # For optimum utilization of SDRAM, Burst length expansion mode is
-            # enabled in case of Half bus width mode and UMCTL2_PARTIAL_WR =
-            # 1, as per recommendation given in the uMCTL2 data book v2.70a
-            # (pg. no. 122).
-            reg.set("PCCFG", "BL_EXP_MODE", 1)
-        end
+        # *Must* use BL_EXP_MODE=1 on DDR4
+        reg.set("PCCFG", "BL_EXP_MODE", 1) if params[:mem_type] == "DDR4"
+    end
+    if params[:enable_quarter_bus]
+        raise "Platform needs 32 bits data bus to support quarter mode" if ($soc.bus_width % 32) != 0
+        $l.debug "Configuring quarter bus width"
+        reg.set("MSTR", "DATA_BUS_WIDTH", 2)
+        # *Must* use BL_EXP_MODE=1 on DDR4
+        reg.set("PCCFG", "BL_EXP_MODE", 1) if params[:mem_type] == "DDR4"
     end
     # pwrctl
     # rfshctl0
@@ -551,7 +553,7 @@ def generate(file)
     file_basename = File.basename(file, ".*")
 
     params[:version] = file_basename + " " +
-                       Time.now.utc.strftime("%Y-%m-%d-%H:%M:%S") + " " +
+                       Time.now.strftime("%Y-%m-%d-%H:%M:%S") + " " +
                        %x( git describe --always --dirty --tags ).chop
 
     info = { 'version'   => params[:version],
