@@ -395,7 +395,7 @@ static int DRAM_initialization(bool init_by_pub)
 {
 	uint32_t init_flags = init_by_pub ? PIR_DRAMRST | PIR_DRAMINIT : PIR_CTLDINIT;
 
-	/* write PHY initialization register for PUB SDRAM initialization */
+	/* write PHY initialization register for PUB/UMCTL SDRAM initialization */
 	return ddr_phy_init(init_flags, PHY_TIMEOUT_US_1S);
 }
 
