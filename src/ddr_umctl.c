@@ -391,10 +391,12 @@ static int PHY_initialization(void)
 	return ddr_phy_init(PIR_ZCAL | PIR_PLLINIT | PIR_DCAL | PIR_PHYRST, PHY_TIMEOUT_US_1S);
 }
 
-static int DRAM_initialization_by_memctrl(void)
+static int DRAM_initialization(bool init_by_pub)
 {
-	/* write PHY initialization register for SDRAM initialization */
-	return ddr_phy_init(PIR_CTLDINIT, PHY_TIMEOUT_US_1S);
+	uint32_t init_flags = init_by_pub ? PIR_DRAMRST | PIR_DRAMINIT : PIR_CTLDINIT;
+
+	/* write PHY initialization register for PUB SDRAM initialization */
+	return ddr_phy_init(init_flags, PHY_TIMEOUT_US_1S);
 }
 
 static void sw_done_start(void)
@@ -626,7 +628,8 @@ int ddr_init(const struct ddr_config *cfg)
 	if (PHY_initialization())
 		PANIC("PHY initization failed\n");
 
-	if (DRAM_initialization_by_memctrl())
+	/* Init DRAM (by PUB) */
+	if (DRAM_initialization(true))
 		PANIC("DDR initization failed\n");
 
 	/* Start quasi-dynamic programming */
