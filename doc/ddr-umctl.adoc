@@ -136,7 +136,7 @@ The current state of the clock speed is described below.
 
 | sparx5 | 2500 \| 2000 \| 1667 \| 1250 | NB: DDR4 will only work at 1667 Mhz
 | lan966x | 1200 | Fixed clock
-| lan969x | 2400 | Fixed clock
+| lan969x | 2400 \| 2133\| 1866 \| 1600 | Default should be 2400 Mhz
 
 |===
 
