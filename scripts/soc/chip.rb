@@ -29,7 +29,7 @@ class Config
         @soc = soc
         @groups = YAML::load_file(file)
         zap = soc.only_ddr3 ? @@ddr4 : @@ddr3
-        zap += %w(SBRCTL) if soc.ecc_inline
+        zap += %w(SBRCTL) unless soc.ecc_sideband
         # Zap unwanted regs
         @groups.each do |g|
             zap.each do |reg|
@@ -74,8 +74,8 @@ class Chip
         when "lan966x"
             @bus_width = 16
             @only_ddr3 = true
-            @ecc_sideband = false
-            @ecc_inline = true
+            @ecc_sideband = false # Not intended for actual use - but *does* have it
+            @ecc_inline = false
         when "lan969x"
             @bus_width = 16
             @only_ddr3 = false

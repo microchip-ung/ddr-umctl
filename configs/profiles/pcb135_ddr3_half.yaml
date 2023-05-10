@@ -1,15 +1,16 @@
 ---
 # SoC platform
-:platform:		lan966x
+:platform:		sparx5
 # Total Memory Size (in Mbytes)
 :mem_size_mbytes:	1024
 :mem_type:		DDR3
-:device_bus_width:	x16
+:device_bus_width:	x8
 :active_ranks:		1
 :ecc_mode:		0
-:mem_profile:		ddr3_512Mx16_2B
-:_2T_mode:		0
+:enable_half_bus:	true
+:mem_profile:		ddr3_512Mx8_2B
+:_2T_mode:		1
 # DDR Clock of platform (Data Bus)
-:clock_speed:		1200
+:clock_speed:		1667
 # Board ODT setup etc
-:board:			lan966x_ref
+:board:			pcb135

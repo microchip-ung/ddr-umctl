@@ -2,14 +2,15 @@
 # SoC platform
 :platform:		sparx5
 # Total Memory Size (in Mbytes)
-:mem_size_mbytes:	2048
+:mem_size_mbytes:	1024
 :mem_type:		DDR4
 # Density of the individual DDR chips used (DDR4 only)
 :configured_density:	4G
 :device_bus_width:	x8
-:active_ranks:		0x1
-:ecc_mode:		4
-:mem_profile:		ddr4_512Mx8_fullbus
+:active_ranks:		1
+:ecc_mode:		0
+:enable_half_bus:	true
+:mem_profile:		ddr4_512Mx8_halfbus
 :_2T_mode:		0
 # DDR Clock of platform (Data Bus)
 :clock_speed:		1667
