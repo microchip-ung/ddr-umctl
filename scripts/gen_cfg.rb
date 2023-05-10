@@ -314,13 +314,6 @@ def generate(file)
         # *Must* use BL_EXP_MODE=1 on DDR4
         reg.set("PCCFG", "BL_EXP_MODE", 1) if params[:mem_type] == "DDR4"
     end
-    if params[:enable_quarter_bus]
-        raise "Platform needs 32 bits data bus to support quarter mode" if ($soc.bus_width % 32) != 0
-        $l.debug "Configuring quarter bus width"
-        reg.set("MSTR", "DATA_BUS_WIDTH", 2)
-        # *Must* use BL_EXP_MODE=1 on DDR4
-        reg.set("PCCFG", "BL_EXP_MODE", 1) if params[:mem_type] == "DDR4"
-    end
     # pwrctl
     # rfshctl0
     case params[:platform]

@@ -1,4 +1,4 @@
-# This memory map is for half-bus or quarter-bus mode.
+# This memory map is for half-bus mode.
 # This memory map is for the Micron MT40A512M8 device:
 # - Density : 4G bits
 # - Organization : 32M words x 8 bits x 16 banks
