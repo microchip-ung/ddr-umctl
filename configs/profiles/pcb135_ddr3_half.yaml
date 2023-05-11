@@ -9,7 +9,7 @@
 :ecc_mode:		0
 :enable_half_bus:	true
 :mem_profile:		ddr3_512Mx8_2B
-:_2T_mode:		1
+:_2T_mode:		0
 # DDR Clock of platform (Data Bus)
 :clock_speed:		1667
 # Board ODT setup etc
