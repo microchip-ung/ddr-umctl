@@ -88,6 +88,7 @@ available:
 | ecc_mode | 0 \| 4 | The ECC mode to employ. ECC mode `0` implies ECC is disabled, mode `4` is "sec/ded over 1 beat"
 | mem_profile | string | The filename of a file defining DDR memory address generation. See later.
 | _2T_mode | boolean | Whether `2T` timing should be used
+| rtt_nom | disabled \| 20ohm \| 30ohm \| 40ohm \| 60ohm \| 120ohm | Rtt_nom termination impedance. `60ohm` is default.
 | board | string | The filename of file containing board specific tuning parameters. See later.
 
 |===
