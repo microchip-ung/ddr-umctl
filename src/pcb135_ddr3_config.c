@@ -8,7 +8,7 @@
 
 const struct ddr_config pcb135_ddr3_ddr_config = {
 	.info = {
-		.name = "pcb135_ddr3 2023-04-14-15:27:53 3374f09751e3-dirty",
+		.name = "pcb135_ddr3 2023-05-11-13:14:35 00b78c400f6f-dirty",
 		.speed = 1667,
 		.size = 0x80000000,
 		.bus_width = 32,
@@ -29,7 +29,7 @@ const struct ddr_config pcb135_ddr3_ddr_config = {
 		.init5 = 0x000b0004,
 		.init6 = 0x00000000,
 		.init7 = 0x00000000,
-		.mstr = 0x01040401,
+		.mstr = 0x01040001,
 		.pccfg = 0x00000000,
 		.pwrctl = 0x00000000,
 		.rfshctl0 = 0x00210020,
@@ -38,8 +38,8 @@ const struct ddr_config pcb135_ddr3_ddr_config = {
 	},
 
 	.timing = {
-		.dramtmg0 = 0x0f111011,
-		.dramtmg1 = 0x00030517,
+		.dramtmg0 = 0x0e0c1010,
+		.dramtmg1 = 0x00030417,
 		.dramtmg12 = 0x00000010,
 		.dramtmg2 = 0x0305050b,
 		.dramtmg3 = 0x0050400c,
@@ -53,9 +53,9 @@ const struct ddr_config pcb135_ddr3_ddr_config = {
 
 	.mapping = {
 		.addrmap0 = 0x0000001f,
-		.addrmap1 = 0x00181818,
-		.addrmap2 = 0x00000000,
-		.addrmap3 = 0x00000000,
+		.addrmap1 = 0x00040401,
+		.addrmap2 = 0x01010100,
+		.addrmap3 = 0x13131303,
 		.addrmap4 = 0x00001f1f,
 		.addrmap5 = 0x04040404,
 		.addrmap6 = 0x04040404,
@@ -64,7 +64,7 @@ const struct ddr_config pcb135_ddr3_ddr_config = {
 	},
 
 	.phy = {
-		.dcr = 0x1000040b,
+		.dcr = 0x0000040b,
 		.dsgcr = 0x0064401b,
 		.dtcr0 = 0x8000b0cf,
 		.dtcr1 = 0x00010237,
@@ -78,8 +78,8 @@ const struct ddr_config pcb135_ddr3_ddr_config = {
 	},
 
 	.phy_timing = {
-		.dtpr0 = 0x06200d08,
-		.dtpr1 = 0x28210304,
+		.dtpr0 = 0x05200d08,
+		.dtpr1 = 0x28180304,
 		.dtpr2 = 0x000600fd,
 		.dtpr3 = 0x02000101,
 		.dtpr4 = 0x00f30817,

@@ -1,6 +1,6 @@
 ---
 info:
-  version: lan969x 2023-04-14-15:27:52 3374f09751e3-dirty
+  version: lan969x 2023-05-11-13:14:34 00b78c400f6f-dirty
   speed: 2400
   mem_size_mb: 896
   bus_width: 16
@@ -39,13 +39,13 @@ config:
   odtcfg: 0x07000610
   addrmap0: 0x0000001f
   addrmap1: 0x003f0505
-  addrmap2: 0x00000000
+  addrmap2: 0x01010100
   addrmap3: 0x13131303
   addrmap4: 0x00001f1f
   addrmap5: 0x04040404
   addrmap6: 0x04040404
   addrmap7: 0x00000f0f
-  addrmap8: 0x00003f04
+  addrmap8: 0x00003f01
   dxccr: 0x00c01884
   dsgcr: 0x0064401b
   dcr: 0x0000040c
