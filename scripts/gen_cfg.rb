@@ -181,6 +181,7 @@ def generate(file)
         end
         # Default values
         params[:rtt_nom_ddr] = "60ohm" unless params[:rtt_nom_ddr]
+        params[:drive_strength] = "40ohm" unless params[:drive_strength]
         params = ddr3(params)
     when "DDR4"
         if !params[:speed_grade]
@@ -191,6 +192,9 @@ def generate(file)
         params[:write_crc_en] = 1
         # Always enable CA parity on DDR4
         params[:ca_parity_mode] = 1
+        # Default values
+        params[:odt_nom_ddr] = "40ohm" unless params[:odt_nom_ddr]
+        params[:drive_strength] = "34ohm" unless params[:drive_strength]
         params = ddr4(params)
     else
         raise "Unsupported memory type: #{params[:mem_type]}"

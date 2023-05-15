@@ -738,7 +738,6 @@ end
     $l.debug "mr0_bits is .......... #{mr0_bits}"
     $l.debug "reg_ddrc_mr is ....... #{params[:reg_ddrc_mr]}"
 
-
     case params[:rtt_nom_ddr]
     when "disabled"
         rtt_nom = 0
@@ -757,6 +756,16 @@ end
     end
     rtt_nom = rtt_nom.to_s(2).rjust(5, "0")
 
+    case params[:drive_strength]
+    when "40ohm"
+        odic = 0
+    when "34ohm"
+        odic = 1
+    else
+        raise "Unsupported drive_strength: #{params[:drive_strength]}, valid = {40ohm, 34ohm}"
+    end
+    odic = odic.to_s(2).rjust(2, "0")
+
     ########################################
     ## MODE Register 1
     ########################################
@@ -764,10 +773,10 @@ end
     mr1_A10_A8 =        rtt_nom[0..2] ; # // mr1[10:8] : RTT_NOM
     mr1_A7 =                      "0" ; # // mr1[7]    : Write Leveling Enable
     mr1_A6 =               rtt_nom[3] ; # // mr1[6]    : RTT_NOM
-    mr1_A5 =                      "0" ; # // mr1[5]    : Output Driver Impedance control
+    mr1_A5 =                  odic[1] ; # // mr1[5]    : Output Driver Impedance control
     mr1_A4_A3 =                  "00" ; # // mr1[4:3]  : Additive Latency
     mr1_A2 =               rtt_nom[4] ; # // mr1[2]    : RTT nom
-    mr1_A1 =                      "0" ; # // mr1[1]    : Output Driver Impedance control
+    mr1_A1 =                  odic[0] ; # // mr1[1]    : Output Driver Impedance control
     mr1_A0 =                      "0" ; # // mr1[0]    : 0 = DLL enable, 1 = DLL disable
 
     mr1_bits = mr1_A15_A11 + mr1_A10_A8 + mr1_A7 + mr1_A6 + mr1_A5 + mr1_A4_A3 + mr1_A2 + mr1_A1 + mr1_A0

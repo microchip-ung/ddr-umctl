@@ -82,13 +82,16 @@ available:
 | clock_speed | integer | The clock speed of the DDR data bus. See later.
 | mem_size | integer | Total Memory Size (in Mbytes)
 | mem_type | DDR3 \| DDR4 | The DDR memory type of the equipped DDR devices.
-| device_bus_width | x8 \| x16 | Bus width of the equipped DDR devices. `x8` support is experimental.
+| device_bus_width | x8 \| x16 | Bus width of the equipped DDR devices.
 | enable_half_bus | boolean | Configures the memory topology to use only half of the SoC data bus width
 | active_ranks | integer | The number of (active) ranks in the memory topology.
 | ecc_mode | 0 \| 4 | The ECC mode to employ. ECC mode `0` implies ECC is disabled, mode `4` is "sec/ded over 1 beat"
 | mem_profile | string | The filename of a file defining DDR memory address generation. See later.
 | _2T_mode | boolean | Whether `2T` timing should be used
-| rtt_nom | disabled \| 20ohm \| 30ohm \| 40ohm \| 60ohm \| 120ohm | Rtt_nom termination impedance. `60ohm` is default.
+| drive_strength | 34ohm \| 40ohm | DDR3: Output driver impedance control - DIC. `40ohm` is default. 
+| drive_strength | 34ohm \| 48ohm | DDR4: Output driver impedance - ODI. `34ohm` is default. 
+| rtt_nom | disabled \| 20ohm \| 30ohm \| 40ohm \| 60ohm \| 120ohm | DDR3: Rtt_nom termination impedance. `60ohm` is default.
+| odt_nom | disabled \| 34ohm \| 40ohm \| 48ohm \| 60ohm \| 80ohm \| 120ohm \| 240ohm | DDR4: Odt_nom - Data bus termination. `48ohm` is default.
 | board | string | The filename of file containing board specific tuning parameters. See later.
 
 |===

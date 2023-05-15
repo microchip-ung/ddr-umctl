@@ -723,12 +723,44 @@ end
   ########################################
   ## MODE Register 1
   ########################################
+
+  case params[:odt_nom_ddr]
+  when "disabled"
+      odt_nom = 0
+  when "60ohm"
+      odt_nom = 1
+  when "120ohm"
+      odt_nom = 2
+  when "40ohm"
+      odt_nom = 3
+  when "240ohm"
+      odt_nom = 4
+  when "48ohm"
+      odt_nom = 5
+  when "80ohm"
+      odt_nom = 6
+  when "34ohm"
+      odt_nom = 7
+  else
+      raise "Unsupported odt_nom: #{params[:odt_nom_ddr]}"
+  end
+  odt_nom = odt_nom.to_s(2).rjust(3, "0")
+
+  case params[:drive_strength]
+  when "34ohm"
+      odic = "00"
+  when "48ohm"
+      odic = "01"
+  else
+      raise "Unsupported drive_strength: #{params[:drive_strength]}, valid = {40ohm, 34ohm}"
+  end
+
   mr1_A15_A11 =                "00000" ; # // mr1[15:11]:
-  mr1_A10_A8 =                   "101" ; # // mr1[10:8] : RTT_NOM
+  mr1_A10_A8 =                 odt_nom ; # // mr1[10:8] : ODT_NOM
   mr1_A7 =                         "0" ; # // mr1[7]    : Write Leveling Enable
   mr1_A6_A5 =                     "00" ; # // mr1[6:5]  : RFU
   mr1_A4_A3 =                mr1_AL ; # // mr1[4:3]  : Additive Latency
-  mr1_A2_A1 =                     "00" ; # // mr1[2:1]  : Output Driver Impedance control
+  mr1_A2_A1 =                     odic ; # // mr1[2:1]  : Output Driver Impedance control
   mr1_A0 =                         "1" ; # // mr1[0]    : 0 = DLL disable, 1 = DLL enable
 
   mr1_bits =                  mr1_A15_A11 + mr1_A10_A8 + mr1_A7 + mr1_A6_A5 + mr1_A4_A3 + mr1_A2_A1 + mr1_A0
