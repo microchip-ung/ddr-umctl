@@ -193,7 +193,7 @@ def generate(file)
         # Always enable CA parity on DDR4
         params[:ca_parity_mode] = 1
         # Default values
-        params[:odt_nom_ddr] = "40ohm" unless params[:odt_nom_ddr]
+        params[:odt_nom_ddr] = "48ohm" unless params[:odt_nom_ddr]
         params[:drive_strength] = "34ohm" unless params[:drive_strength]
         params = ddr4(params)
     else

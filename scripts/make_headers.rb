@@ -21,6 +21,15 @@ top = __dir__ + "/../include"
         File.write(outfile, content)
     end
 
+    %w(ddr_js).each do|f|
+        STDERR.puts "Generating file #{f}"
+        renderer = ERB.new(File.read(__dir__ + "/templates/#{f}.erb"), nil, '-')
+        content = renderer.result(binding)
+        outfile = "#{top}/#{p}/#{f}.js"
+        FileUtils.mkdir_p(File.dirname(outfile))
+        File.write(outfile, content)
+    end
+
     renderer = ERB.new(File.read(__dir__ + "/templates/ddr_reg.erb"), nil, '-')
     outfile = top + "/" + p + "/ddr_reg.h"
     STDERR.puts "Generating file #{outfile}"

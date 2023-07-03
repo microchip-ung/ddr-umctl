@@ -1,0 +1,35 @@
+/*
+ * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+const ddr_cfg_<%= p %> = new Map([
+ ["info", ["version", "speed", "mem_size_mb", "bus_width"]],
+<%- soc.config.groups.each do |rg| -%>
+ ["<%= rg[:name] -%>", [<%- rg[:regs].sort.each do |rname| -%>
+ "<%= rname.downcase -%>", <%- end -%> ] ],
+<%- end -%>
+]);
+
+const ddr_regs_<%= p %> = new Map([
+<%- soc.config.groups.each do |rg| -%>
+ <%- rg[:regs].sort.each do |rname| -%>
+ <%- reg = soc.find(rname)[2] -%>
+ ["<%= rname.downcase -%>", {
+  help: "<%= reg[:doc] -%>",
+  fields: new Map([
+<%- reg[:fields].each do |fld| -%>
+ ["<%= fld[:name] -%>",
+  {
+	pos: <%= fld[:pos] -%>,
+	width: <%= fld[:width] -%>,
+	type: "<%= fld[:type] -%>",
+	default: <%= fld[:default] -%>,
+	help: "<%= fld[:doc].gsub(/"/, '\\"') -%>",
+  }],
+<%- end -%>
+  ])} ],
+ <%- end -%>
+<%- end -%>
+]);
