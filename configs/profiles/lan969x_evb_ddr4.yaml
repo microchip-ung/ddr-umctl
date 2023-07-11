@@ -8,7 +8,7 @@
 :configured_density:	8G
 :device_bus_width:	x16
 :active_ranks:		1
-:ecc_mode:		0
+:ecc_mode:		4
 :mem_profile:		ddr4_512Mx16_fullbus_2B
 :_2T_mode:		0
 # DDR Clock of platform (Data Bus)
