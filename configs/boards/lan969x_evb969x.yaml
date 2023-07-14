@@ -1,0 +1,18 @@
+---
+:params:
+  :odt_nom_ddr: 60ohm
+  :drive_strength: 48ohm
+:registers:
+  zq0pr:
+    - PU_ODT_ONLY: 0
+    - ZPROG_ASYM_DRV_PD: 11
+    - ZPROG_ASYM_DRV_PU: 11
+  zq1pr:
+    - PU_ODT_ONLY: 1
+    - ZPROG_PU_ODT_ONLY: 7
+    - ZPROG_ASYM_DRV_PU: 11
+  zq2pr:
+    - PU_ODT_ONLY: 1
+    - ZPROG_PU_ODT_ONLY: 7
+    - ZPROG_ASYM_DRV_PU: 11
+    - ZPROG_ASYM_DRV_PD: 11

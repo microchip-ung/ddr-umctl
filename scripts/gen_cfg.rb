@@ -68,10 +68,9 @@ def apply_reg_settings(what, reg, r, f, v)
     reg.set(r, f, v)
 end
 
-def apply_settings(file, what, reg)
-    data = YAML::load_file(file)
-    $l.debug "#{what}: Read #{file}"
-    data.each do |rname, flds|
+def apply_settings(overrides, what, reg)
+    $l.debug "#{what}: Have #{overrides}"
+    overrides.each do |rname, flds|
         r = rname.upcase
         if flds.is_a?(Array)
             flds.each do |t|
@@ -161,10 +160,45 @@ OptionParser.new do |opts|
     end
 end.order!
 
+def load_config(what, fname, params)
+    overrides = {}
+    if !File.readable?(fname)
+        raise "#{fname}: Not readable"
+    end
+    data = YAML::load_file(fname)
+    # New or old style board config?
+    if data[:params]
+        data[:params].each do|k,v|
+            $l.debug "#{what}: param: #{k} = #{v}"
+            params[k] = v;
+        end
+        if data[:registers]
+            overrides = data[:registers]
+        end
+    else
+        # Old style board file
+        overrides = data
+    end
+    return overrides
+end
+
 def generate(file)
 
     # Load platform/memory parameters
     params = YAML::load_file(file)
+    mem_overrides = {}
+
+    # Board file
+    if params[:board]
+        fname = __dir__ + "/../configs/boards/#{params[:board]}.yaml"
+        brd_overrides = load_config("board", fname, params)
+    end
+
+    # Memory profile
+    if params[:mem_profile]
+        fname = __dir__ + "/../configs/memory/#{params[:mem_profile]}.yaml"
+        mem_overrides = load_config("memory", fname, params)
+    end
 
     $l.debug "params = #{params}"
 
@@ -199,6 +233,10 @@ def generate(file)
     else
         raise "Unsupported memory type: #{params[:mem_type]}"
     end
+
+    # Defaults
+    params[:_2T_mode] = 0 unless params[:_2T_mode]
+    params[:ecc_mode] = 0 unless params[:ecc_mode]
 
     # Calculate derived settings
     params = ddr_process(params)
@@ -538,12 +576,12 @@ def generate(file)
                   "TRC"		=> params[:tRCc],
               })
 
-    if params[:board]
-        apply_settings(__dir__ + "/../configs/boards/#{params[:board]}.yaml", "Board override", reg)
+    if brd_overrides
+        apply_settings(brd_overrides, "Board override", reg)
     end
 
-    if params[:mem_profile]
-        apply_settings(__dir__ + "/../configs/memory/#{params[:mem_profile]}.yaml", "Memory setup", reg)
+    if mem_overrides
+        apply_settings(mem_overrides, "Memory setup", reg)
     end
 
     # Feed the chicken and go home
