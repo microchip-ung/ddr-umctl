@@ -66,7 +66,7 @@ end
 
 class Chip
 
-    attr_reader :chip, :config, :name, :bus_width, :only_ddr3, :ecc_sideband, :ecc_inline
+    attr_reader :chip, :config, :diag, :name, :bus_width, :only_ddr3, :ecc_sideband, :ecc_inline
 
     def initialize(chipname)
         @name = chipname
@@ -91,6 +91,7 @@ class Chip
         end
         @chip = SoC.new(chipname)
         @config = Config.new(self, __dir__ + "/ddr_config.yaml")
+        @diag = Diag.new(self)
     end
 
     def find(regname)
@@ -105,6 +106,20 @@ class Chip
             end
         end
         return nil
+    end
+
+    def find_all(regexp)
+        matches = Hash.new
+        @chip.targets.each do|t|
+            t[:groups].each do|g|
+                g[:registers].each do|r|
+                    if r[:name].match(regexp)
+                        matches[r[:name]] = @chip.regaddr(t,g,r)
+                    end
+                end
+            end
+        end
+        return matches
     end
 
     def fields(regname)
@@ -163,6 +178,24 @@ class Chip
             end
         end
         return nil
+    end
+
+end
+
+class Diag
+
+    attr_reader :soc, :regs
+
+    def initialize(soc)
+        @soc = soc
+        @regs = Hash.new
+        lanes = (soc.bus_width / 8) - 1
+        dxpref = "dx[0..#{lanes}]"
+        @regs = @regs.merge(soc.find_all(/#{dxpref}gsr\d/i))
+        @regs = @regs.merge(soc.find_all(/#{dxpref}lcdlr\d/i))
+        @regs = @regs.merge(soc.find_all(/#{dxpref}gtr\d/i))
+        @regs = @regs.merge(soc.find_all(/vtdr/i))
+        @regs = @regs.merge(soc.find_all(/zq[012]/i))
     end
 
 end

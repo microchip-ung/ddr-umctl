@@ -33,3 +33,9 @@ const ddr_regs_<%= p %> = new Map([
  <%- end -%>
 <%- end -%>
 ]);
+
+const ddr_diag_regs_<%= p %> = new Map([
+<%- soc.diag.regs.each do |r, a| -%>
+ ["<%= r.downcase -%>", <%= sprintf("0x%08x", a) -%>],
+<%- end -%>
+]);
