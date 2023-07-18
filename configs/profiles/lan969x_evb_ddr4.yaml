@@ -11,6 +11,6 @@
 :ecc_mode:		4
 :mem_profile:		ddr4_512Mx16_fullbus_2B
 # DDR Clock of platform (Data Bus)
-:clock_speed:		1866
+:clock_speed:		2400
 # Board ODT setup etc
-#:board:			lan969x_evb969x
+:board:			lan969x_evb969x

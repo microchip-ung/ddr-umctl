@@ -1,18 +1,17 @@
 ---
 :params:
-  :odt_nom_ddr: 60ohm
-  :drive_strength: 48ohm
+  # NB: Default value
+  :odt_nom_ddr: 48ohm
+  # NB: Default value
+  :drive_strength: 34ohm
 :registers:
-  zq0pr:
-    - PU_ODT_ONLY: 0
-    - ZPROG_ASYM_DRV_PD: 11
-    - ZPROG_ASYM_DRV_PU: 11
   zq1pr:
+    - ZPROG_ASYM_DRV_PU: 7
+    - ZPROG_ASYM_DRV_PD: 7
     - PU_ODT_ONLY: 1
-    - ZPROG_PU_ODT_ONLY: 7
-    - ZPROG_ASYM_DRV_PU: 11
+    - DRV_ZDEN: 1
   zq2pr:
+    - ZPROG_ASYM_DRV_PU: 7
+    - ZPROG_ASYM_DRV_PD: 7
     - PU_ODT_ONLY: 1
-    - ZPROG_PU_ODT_ONLY: 7
-    - ZPROG_ASYM_DRV_PU: 11
-    - ZPROG_ASYM_DRV_PD: 11
+    - DRV_ZDEN: 1
