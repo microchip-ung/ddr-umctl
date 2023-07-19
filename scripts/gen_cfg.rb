@@ -167,10 +167,12 @@ def load_config(what, fname, params)
     end
     data = YAML::load_file(fname)
     # New or old style board config?
-    if data[:params]
-        data[:params].each do|k,v|
-            $l.debug "#{what}: param: #{k} = #{v}"
-            params[k] = v;
+    if data[:params] || data[:registers]
+        if data[:params]
+            data[:params].each do|k,v|
+                $l.debug "#{what}: param: #{k} = #{v}"
+                params[k] = v;
+            end
         end
         if data[:registers]
             overrides = data[:registers]
