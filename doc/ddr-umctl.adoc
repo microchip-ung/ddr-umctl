@@ -197,23 +197,29 @@ addrmap8:
 
 === Memory profile parameter _board_
 
-In order to control memory settings relating to `ODT` and general
-board tuning, this file can be used to define *all* parameters where a
-specific is needed which is different from the default or by this tool
-calculated value. As such, this file can be used to override specific
-parameters.
+This file may containg both overall parameters (as in the main config
+file), as well as register value overrides.
 
-.Board file example (_lan966x_)
+The two types of data is kept in the `:params` and `:registers`
+sections of a YAML file.
+
+In order to control memory settings relating to `ODT` and general
+board tuning, the `:registers` section can be used to define *all*
+parameters where a specific is needed which is different from the
+default or by this tool calculated value. As such, these values can be
+used to override specific parameters.
+
+.Board file example (_lan969x_evb969x.yaml_)
 [source]
-dfitmg0:
-  - DFI_T_CTRL_DELAY: 4
-  - DFI_RDDATA_USE_DFI_PHY_CLK: 0
-  - DFI_T_RDDATA_EN: 3
-  - DFI_WRDATA_USE_DFI_PHY_CLK: 0
-  - DFI_TPHY_WRDATA: 1
-  - DFI_TPHY_WRLAT: 2
-mr1:
-  - RTT_2: 1
+ :params:
+  # NB: Default value
+  :odt_nom_ddr: 48ohm
+  # NB: Default value
+  :drive_strength: 34ohm
+:registers:
+  zq1pr:
+    - ZPROG_ASYM_DRV_PD: 7
+    - PU_ODT_ONLY: 1
 
 All supported registers and sub-fields can be defined. See the full
 list of supported registers below.
