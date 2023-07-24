@@ -4,11 +4,12 @@
 # Total Memory Size (in Mbytes)
 :mem_size_mbytes:	1024
 :mem_type:		DDR3
-:device_bus_width:	x16
+:device_bus_width:	x8
 :active_ranks:		1
 :ecc_mode:		0
-:mem_profile:		ddr3_512Mx16_2B
+:mem_profile:		ddr3_512Mx8_2B
 :_2T_mode:		0
 # DDR Clock of platform (Data Bus)
-:clock_speed:		1866
+:clock_speed:		1600
 # Board ODT setup etc
+:board:			lan969x_svb969x
