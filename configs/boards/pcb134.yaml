@@ -1,4 +1,8 @@
 ---
+:params:
+  :_2T_mode:		0
+  :odt_nom_ddr:		60ohm
+  :drive_strength:	34ohm
 :registers:
   zqcr:
     - ASYM_DRV_EN: 1
@@ -6,10 +10,16 @@
     - DIS_NON_LIN_COMP: 0
   zq0pr:
     - ZQDIV: 9
+    - ZPROG_PU_ODT_ONLY: 7
+    - ZPROG_ASYM_DRV_PD: 9
   zq1pr:
     - ZQDIV: 43
-    - ZPROG_ASYM_DRV_PD: 15
+    - ZPROG_PU_ODT_ONLY: 7
+    - ZPROG_ASYM_DRV_PD: 9
+    - ZPROG_ASYM_DRV_PU: 11
   zq2pr:
     - ZQDIV: 43
-    - ZPROG_ASYM_DRV_PD: 15
+    - ZPROG_PU_ODT_ONLY: 7
+    - ZPROG_ASYM_DRV_PD: 9
+    - ZPROG_ASYM_DRV_PU: 11
 
