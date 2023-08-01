@@ -1,10 +1,8 @@
 ---
 :params:
-  :odt_nom_ddr: 60ohm
+  :rtt_nom_ddr: 40ohm
   :drive_strength: 34ohm
 :registers:
-  init3:
-    - EMR: 70
   zq0pr:
     - PU_ODT_ONLY: 0
     - ZPROG_ASYM_DRV_PD: 13
