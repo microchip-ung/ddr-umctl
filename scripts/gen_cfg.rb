@@ -171,7 +171,7 @@ def load_config(what, fname, params)
         if data[:params]
             data[:params].each do|k,v|
                 $l.debug "#{what}: param: #{k} = #{v}"
-                params[k] = v;
+                params[k.to_sym] = v;
             end
         end
         if data[:registers]
