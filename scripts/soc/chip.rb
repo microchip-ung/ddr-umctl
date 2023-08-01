@@ -45,7 +45,7 @@ class Config
                 if a
                     @chip_registers[r] = a[2]
                 else
-                    STDERR.puts "Unknown reg #{r}, skipping"
+                    # STDERR.puts "Unknown reg #{r}, skipping"
                     delete << r
                 end
             end
