@@ -29,18 +29,18 @@ class RegSettings
         return f[field]
     end
 
-    def set(reg, field, value)
+    def set(reg, field, value, warn = true)
         $l.debug "Set field: #{reg}.#{field} = #{value}"
         if @settings.has_key?(reg)
             @settings[reg][field] = value
         else
-            $l.error "Trying to set value #{reg}.#{field} in unknown register"
+            $l.error "Trying to set value #{reg}.#{field} in unknown register" if warn
         end
     end
 
-    def set_h(reg, fields)
+    def set_h(reg, fields, warn = true)
         fields.each do |field, value|
-            set(reg, field, value)
+            set(reg, field, value, warn)
         end
     end
 
@@ -65,7 +65,7 @@ def apply_reg_settings(what, reg, r, f, v)
     else
         $l.debug "#{r}: #{what} #{f} => #{v}"
     end
-    reg.set(r, f, v)
+    reg.set(r, f, v, !/^ADDRMAP[78]$/.match(r))
 end
 
 def apply_settings(overrides, what, reg)
@@ -524,9 +524,9 @@ def generate(file)
     # zq2pr
     # zqcr
     if ((params[:tCK_min] * 2) <= 2000)
-        reg.set("ZQCR", "PGWAIT", 7)
+        reg.set("ZQCR", "PGWAIT", 7, false)
     else
-        reg.set("ZQCR", "PGWAIT", 6)
+        reg.set("ZQCR", "PGWAIT", 6, false)
     end
     # ptr0
     reg.set("PTR0", "TPLLGS", params[:tpllgs]) #[format "%.0f" [expr int(4000/$params(ctl_clk_period))]] ; # 4 us
@@ -563,20 +563,20 @@ def generate(file)
         reg.set("DTPR2", "TCKE", params[:tCKEc] + 1)
     end
     # dtpr3
-    reg.set("DTPR3", "TDLLK", params[:tDLLKc])
+    reg.set("DTPR3", "TDLLK", params[:tDLLKc], false)
     # dtpr4
     if params[:mem_type] == "DDR4"
-        reg.set("DTPR4", "TXP", params[:tXPc])
+        reg.set("DTPR4", "TXP", params[:tXPc], false)
     else
-        reg.set("DTPR4", "TXP", params[:tXPDLLc])
+        reg.set("DTPR4", "TXP", params[:tXPDLLc], false)
     end
-    reg.set("DTPR4", "TRFC", params[:tRFCc])
+    reg.set("DTPR4", "TRFC", params[:tRFCc], false)
     # dtpr5
     reg.set_h("DTPR5", {
                   "TWTR"		=> params[:tWTRc],
                   "TRCD"		=> params[:tRCDc],
                   "TRC"		=> params[:tRCc],
-              })
+              }, false)
 
     if brd_overrides
         apply_settings(brd_overrides, "Board override", reg)
