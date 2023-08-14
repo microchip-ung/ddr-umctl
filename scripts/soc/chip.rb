@@ -74,8 +74,8 @@ class Chip
         when "lan966x"
             @bus_width = 16
             @only_ddr3 = true
-            @ecc_sideband = false # Not intended for actual use - but *does* have it
-            @ecc_inline = false
+            @ecc_sideband = false
+            @ecc_inline = true
         when "lan969x"
             @bus_width = 16
             @only_ddr3 = false

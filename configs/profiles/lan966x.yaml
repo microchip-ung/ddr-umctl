@@ -6,7 +6,7 @@
 :mem_type:		DDR3
 :device_bus_width:	x16
 :active_ranks:		1
-:ecc_mode:		0
+:ecc_mode:		4
 :mem_profile:		ddr3_512Mx16_2B
 :_2T_mode:		0
 # DDR Clock of platform (Data Bus)
