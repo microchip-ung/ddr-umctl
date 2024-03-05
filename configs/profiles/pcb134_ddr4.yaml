@@ -11,6 +11,6 @@
 :ecc_mode:		4
 :mem_profile:		ddr4_512Mx8_fullbus
 # DDR Clock of platform (Data Bus)
-:clock_speed:		2000
+:clock_speed:		1667
 # Board ODT setup etc
 :board:			pcb134
