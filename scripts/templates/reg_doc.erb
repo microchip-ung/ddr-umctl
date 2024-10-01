@@ -20,8 +20,10 @@
 
 |===
 
-Register fields below are given including start and end bits. The
-value following in parenthesis is the default value.
+Register fields below use standard notation to show what bits are used in the
+register in question.
+If a default value other than "all zeros" applies to the register field,
+then it follows in parenthesis in decimal form.
 
 <%- conf_regs.sort.each do |r| -%>
 === <%= r %>
@@ -47,7 +49,8 @@ Applies to: <%- cfg.each do |p, k| -%>
    <%- f = fields[p].find{|h| h[:name] == fname} -%>
     <%- if f -%>
 
-^| bit <%= f[:width] == 1 ? f[:pos] : sprintf("%d..%d", f[:width] - 1, f[:pos]) -%> (<%= f[:default] -%>)
+^| <%= f[:width] == 1 ? [f[:pos]] : sprintf("[%d..%d]", f[:width] + f[:pos] - 1, f[:pos]) -%>
+<%= f[:default] != 0 ? sprintf(" (%d)", f[:default]) : "" -%>
 
     <%- else -%>
 
