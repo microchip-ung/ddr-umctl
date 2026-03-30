@@ -165,7 +165,7 @@ def load_config(what, fname, params)
     if !File.readable?(fname)
         raise "#{fname}: Not readable"
     end
-    data = YAML::load_file(fname)
+    data = YAML.safe_load_file(fname, permitted_classes: [Symbol])
     # New or old style board config?
     if data[:params] || data[:registers]
         if data[:params]
@@ -187,7 +187,7 @@ end
 def generate(file)
 
     # Load platform/memory parameters
-    params = YAML::load_file(file)
+    params = YAML.safe_load_file(file, permitted_classes: [Symbol])
     mem_overrides = {}
 
     # Board file

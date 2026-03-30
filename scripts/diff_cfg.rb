@@ -61,9 +61,9 @@ if ARGV.length != 2
 end
 
 f1 = ARGV.shift
-cfg1 = f1 == "-" ? YAML::load(STDIN.read) : YAML::load_file(f1)
+cfg1 = f1 == "-" ? YAML.safe_load(STDIN.read, permitted_classes: [Symbol]) : YAML.safe_load_file(f1, permitted_classes: [Symbol])
 f2 = ARGV.shift
-cfg2 = f2 == "-" ? YAML::load(STDIN.read) : YAML::load_file(f2)
+cfg2 = f2 == "-" ? YAML.safe_load(STDIN.read, permitted_classes: [Symbol]) : YAML.safe_load_file(f2, permitted_classes: [Symbol])
 
 # Prepare default values, registers, etc.
 platform = $option[:platform] ? $option[:platform] : cfg1['info']['platform']

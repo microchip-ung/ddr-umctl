@@ -5,7 +5,7 @@ class SoC
     attr_reader :targets
 
     def initialize(name)
-        @targets = YAML::load_file(__dir__ + "/#{name}.yaml")
+        @targets = YAML.safe_load_file(__dir__ + "/#{name}.yaml", permitted_classes: [Symbol])
     end
 
     def regaddr(t, g, r)
@@ -27,7 +27,7 @@ class Config
 
     def initialize(soc, file)
         @soc = soc
-        @groups = YAML::load_file(file)
+        @groups = YAML.safe_load_file(file, permitted_classes: [Symbol])
         zap = soc.only_ddr3 ? @@ddr4 : @@ddr3
         zap += %w(SBRCTL) unless soc.ecc_sideband
         # Zap unwanted regs

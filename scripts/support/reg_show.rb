@@ -69,7 +69,7 @@ $soc = Chip.new($option[:platform])
 regs = Hash.new
 if ARGV.length == 1 && File.exists?(ARGV[0])
     file = ARGV.shift
-    data = YAML::load_file(file)
+    data = YAML.safe_load_file(file, permitted_classes: [Symbol])
     data.each do |reg, value|
         regs[reg] = show_reg($soc, reg.upcase, value)
     end
