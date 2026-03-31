@@ -135,7 +135,7 @@ class Chip
         return nil unless flds
         names.each do |fname|
             f = flds.select{|h| h[:name] == fname}
-            return fname if f
+            return fname if !f.empty?
         end
         raise "#{rname}: No matching alternatives for #{names}"
         return nil

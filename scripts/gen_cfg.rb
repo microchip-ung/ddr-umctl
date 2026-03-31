@@ -372,21 +372,21 @@ def generate(file)
     # dramtmg0
     if params[:mem_type] == "DDR4"
         if params[:write_preamble] == 1
-            wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc] + 2 ) / 2.0).to_i() + params[:_2T_mode]
+            wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc] + 2 ) / 2.0).ceil() + params[:_2T_mode]
         else
             if params[:write_crc] == 1 && params[:dm_en] == 1
-                wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc_CRC_DM] + 2 ) / 2.0).to_i() + params[:_2T_mode]
+                wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc_CRC_DM] + 2 ) / 2.0).ceil() + params[:_2T_mode]
             else
-                wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc]) / 2.0).to_i() + params[:_2T_mode]
+                wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc]) / 2.0).ceil() + params[:_2T_mode]
             end
         end
     else
-        wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc]) / 2.0).to_i() + params[:_2T_mode]
+        wr2pre = ((params[:WL] + (params[:BL] / 2.0).to_i() + params[:tWRc]) / 2.0).ceil() + params[:_2T_mode]
     end
     reg.set_h("DRAMTMG0", {
                   "WR2PRE"		=> wr2pre,
                   "T_FAW"		=> (params[:tFAWc] / 2.0).ceil(),
-                  "T_RAS_MIN"		=> (params[:tRASc_min] / 2.0).to_i() + params[:_2T_mode],
+                  "T_RAS_MIN"		=> (params[:tRASc_min] / 2.0).ceil() + params[:_2T_mode],
                   "T_RAS_MAX"		=> ((params[:tRASc_max] - 1) / (2.0 * 1024)).to_i(),
               })
     #  dramtmg1
@@ -400,7 +400,7 @@ def generate(file)
     else
         reg.set("DRAMTMG1", "T_XP", (params[:tXPc] / 2.0).ceil())
     end
-    reg.set("DRAMTMG1", "RD2PRE", ((params[:AL] + params[:tRTPc]) / 2.0).to_i() + params[:_2T_mode])
+    reg.set("DRAMTMG1", "RD2PRE", ((params[:AL] + params[:tRTPc]) / 2.0).ceil() + params[:_2T_mode])
     # dramtmg12
     # dramtmg2
     if params[:mem_type] == "DDR4"
@@ -430,7 +430,7 @@ def generate(file)
     # dramtmg4
     reg.set_h("DRAMTMG4", {
                   "T_RCD"		=> ((params[:tRCDc] - params[:AL]) / 2.0).ceil(),
-                  "T_RP"		=> (params[:tRPc] / 2.0).floor() + 1,
+                  "T_RP"		=> (params[:tRPc] / 2.0).ceil(),
                   "T_CCD"		=> val_tCCD,
                   "T_RRD"		=> val_tRRD,
               })
@@ -455,11 +455,11 @@ def generate(file)
     if params[:mem_type] == "DDR4"
         reg.set_h("DRAMTMG9", {
                       "DDR4_WR_PREAMBLE"	=> params[:write_preamble],
-                      "T_CCD_S"		=> ((params[:tCCDc_S] + 1) / 2.0).ceil(),
+                      "T_CCD_S"		=> (params[:tCCDc_S] / 2.0).ceil(),
                       "T_RRD_S"		=> (params[:tRRDc_S] / 2.0).ceil(),
                   })
         if params[:write_crc] == 1 && params[:dm_en] == 1
-            reg.set("DRAMTMG0", "WR2RD_S", ((params[:CWLc] + params[:tPLc] + (params[:BL] / 2.0).to_i()  + params[:tWTRc_S_CRC_DM] + params[:write_preamble]) / 2.0).ceil())
+            reg.set("DRAMTMG9", "WR2RD_S", ((params[:CWLc] + params[:tPLc] + (params[:BL] / 2.0).to_i()  + params[:tWTRc_S_CRC_DM] + params[:write_preamble]) / 2.0).ceil())
         else
             reg.set("DRAMTMG9", "WR2RD_S", ((params[:CWLc] + params[:tPLc] + (params[:BL] / 2.0).to_i() + params[:tWTRc_S] + params[:write_preamble]) / 2.0).ceil())
         end
@@ -486,7 +486,7 @@ def generate(file)
     if params[:mem_type] == "DDR4"
         reg.set("RFSHTMG", fname, (params[:tREFIc] / (2.0 * 32)).to_i()) # tRFEI (7.8 us) ((7800000 / itck) / (2 * 32))
     else
-        reg.set("RFSHTMG", fname, 0x82) # tRFEI (7.8 us) ((7800000 / 2) / itck * 32) where itck = 938 ps
+        reg.set("RFSHTMG", fname, (params[:tREFIc] / (2.0 * 32)).to_i()) # tREFI (3.9 us rowhammer) ((3900000 / itck) / (2 * 32))
     end
     reg.set("RFSHTMG", "T_RFC_MIN", (params[:tRFCc] / 2.0).ceil())
     # addrmap*
