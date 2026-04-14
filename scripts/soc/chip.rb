@@ -130,6 +130,12 @@ class Chip
         return nil
     end
 
+    def has_field?(regname, fieldname)
+        flds = fields(regname)
+        return false unless flds
+        flds.any? { |f| f[:name].upcase == fieldname.upcase }
+    end
+
     def get_field_alternative(regname, names)
         flds = fields(regname)
         return nil unless flds

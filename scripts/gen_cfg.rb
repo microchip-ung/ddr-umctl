@@ -32,6 +32,10 @@ class RegSettings
     def set(reg, field, value, warn = true)
         $l.debug "Set field: #{reg}.#{field} = #{value}"
         if @settings.has_key?(reg)
+            creg = @soc.config.chip_registers[reg]
+            if creg && !creg[:fields].any? { |f| f[:name].upcase == field }
+                raise "#{reg}.#{field}: Unknown field"
+            end
             @settings[reg][field] = value
         else
             $l.error "Trying to set value #{reg}.#{field} in unknown register" if warn
@@ -65,7 +69,11 @@ def apply_reg_settings(what, reg, r, f, v)
     else
         $l.debug "#{r}: #{what} #{f} => #{v}"
     end
-    reg.set(r, f, v, !/^ADDRMAP[78]$/.match(r))
+    begin
+        reg.set(r, f, v, !/^ADDRMAP[78]$/.match(r))
+    rescue RuntimeError => e
+        $l.debug "#{r}: Skipping field #{f} from #{what}: not present on this platform"
+    end
 end
 
 def apply_settings(overrides, what, reg)
@@ -338,9 +346,14 @@ def generate(file)
         reg.set("INIT7", "MR6", params[:reg_ddrc_mr6])
     end
     # mstr
+    if params[:mem_type] == "DDR3"
+        reg.set("MSTR", "DDR3", 1)
+        reg.set("MSTR", "DDR4", 0) if $soc.has_field?("MSTR", "DDR4")
+    elsif params[:mem_type] == "DDR4"
+        reg.set("MSTR", "DDR4", 1)
+        reg.set("MSTR", "DDR3", 0) if $soc.has_field?("MSTR", "DDR3")
+    end
     reg.set_h("MSTR", {
-                  "DDR3"			=> params[:mem_type] == "DDR3" ? 1 : 0,
-                  "DDR4"			=> params[:mem_type] == "DDR4" ? 1 : 0,
                   "ACTIVE_RANKS"		=> params[:active_ranks],
                   "EN_2T_TIMING_MODE"	=> params[:_2T_mode],
               })
@@ -492,7 +505,7 @@ def generate(file)
     # addrmap*
     # - Defined by memory type profile
     # dxccr
-    if params[:active_ranks] == 1
+    if params[:active_ranks] == 1 && $soc.has_field?("DXCCR", "RKLOOP")
         reg.set("DXCCR", "RKLOOP", 0) # Not needed if only 1 rank
     end
     # dsgcr
