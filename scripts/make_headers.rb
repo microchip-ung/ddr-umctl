@@ -14,7 +14,7 @@ top = __dir__ + "/../include"
     soc = Chip.new(p)
     %w(ddr_config ddr_reg ddr_xlist).each do|f|
         STDERR.puts "Generating file #{f}"
-        renderer = ERB.new(File.read(__dir__ + "/templates/#{f}.erb"), nil, '-')
+        renderer = ERB.new(File.read(__dir__ + "/templates/#{f}.erb"), trim_mode: '-')
         content = renderer.result(binding)
         outfile = "#{top}/#{p}/#{f}.h"
         FileUtils.mkdir_p(File.dirname(outfile))
@@ -23,14 +23,14 @@ top = __dir__ + "/../include"
 
     %w(ddr_js).each do|f|
         STDERR.puts "Generating file #{f}"
-        renderer = ERB.new(File.read(__dir__ + "/templates/#{f}.erb"), nil, '-')
+        renderer = ERB.new(File.read(__dir__ + "/templates/#{f}.erb"), trim_mode: '-')
         content = renderer.result(binding)
         outfile = "#{top}/#{p}/#{f}.js"
         FileUtils.mkdir_p(File.dirname(outfile))
         File.write(outfile, content)
     end
 
-    renderer = ERB.new(File.read(__dir__ + "/templates/ddr_reg.erb"), nil, '-')
+    renderer = ERB.new(File.read(__dir__ + "/templates/ddr_reg.erb"), trim_mode: '-')
     outfile = top + "/" + p + "/ddr_reg.h"
     STDERR.puts "Generating file #{outfile}"
     ddr_reg = renderer.result(binding)

@@ -39,6 +39,6 @@ ARGV.each do |file|
     data = YAML.safe_load_file(file, permitted_classes: [Symbol])
     # Prepare default values, registers, etc.
     $soc = Chip.new(data["info"]["platform"])
-    renderer = ERB.new(File.read(__dir__ + "/templates/#{$option[:format]}.erb"), nil, '-')
+    renderer = ERB.new(File.read(__dir__ + "/templates/#{$option[:format]}.erb"), trim_mode: '-')
     puts renderer.result(binding)
 end

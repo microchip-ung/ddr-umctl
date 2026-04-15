@@ -602,7 +602,7 @@ def generate(file)
              'platform'  => $soc.name,
            }
     data = { 'info' => info, 'config' => reg_values.transform_keys(&:downcase) }
-    renderer = ERB.new(File.read(__dir__ + "/templates/#{$option[:format]}.erb"), nil, '-')
+    renderer = ERB.new(File.read(__dir__ + "/templates/#{$option[:format]}.erb"), trim_mode: '-')
     puts renderer.result(binding)
 end
 

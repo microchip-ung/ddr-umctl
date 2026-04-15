@@ -79,5 +79,5 @@ info = { 'version'   => "Extracted from #{log}",
          'platform'  => $soc.name,
        }
 data = { 'info' => info, 'config' => reg_values.transform_keys(&:downcase) }
-renderer = ERB.new(File.read(__dir__ + "/../templates/yaml.erb"), nil, '-')
+renderer = ERB.new(File.read(__dir__ + "/../templates/yaml.erb"), trim_mode: '-')
 puts renderer.result(binding)

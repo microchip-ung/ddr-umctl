@@ -59,7 +59,7 @@ cfg.each do |p, k|
     conf_regs |= k.keys
 end
 
-renderer = ERB.new(File.read(__dir__ + "/templates/reg_doc.erb"), nil, '-')
+renderer = ERB.new(File.read(__dir__ + "/templates/reg_doc.erb"), trim_mode: '-')
 outfile = "doc/registers.adoc"
 STDERR.puts "Generating file #{outfile}"
 ddr_reg = renderer.result(binding)
