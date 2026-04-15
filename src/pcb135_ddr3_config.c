@@ -8,7 +8,7 @@
 
 const struct ddr_config pcb135_ddr3_ddr_config = {
 	.info = {
-		.name = "pcb135_ddr3 2023-05-11-13:14:35 00b78c400f6f-dirty",
+		.name = "pcb135_ddr3 2026-04-15-16:06:53 96fb6d231259-dirty",
 		.speed = 1667,
 		.size = 0x80000000,
 		.bus_width = 32,
@@ -48,14 +48,14 @@ const struct ddr_config pcb135_ddr3_ddr_config = {
 		.dramtmg8 = 0x03030804,
 		.dramtmg9 = 0x0004040d,
 		.odtcfg = 0x06000610,
-		.rfshtmg = 0x0062007a,
+		.rfshtmg = 0x0038007a,
 	},
 
 	.mapping = {
 		.addrmap0 = 0x0000001f,
-		.addrmap1 = 0x00040401,
-		.addrmap2 = 0x01010100,
-		.addrmap3 = 0x13131303,
+		.addrmap1 = 0x00181818,
+		.addrmap2 = 0x00000000,
+		.addrmap3 = 0x00000000,
 		.addrmap4 = 0x00001f1f,
 		.addrmap5 = 0x04040404,
 		.addrmap6 = 0x04040404,
