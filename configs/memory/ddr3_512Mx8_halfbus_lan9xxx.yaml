@@ -1,0 +1,66 @@
+# WARNING: This address map has NOT been tested on hardware. It is assumed
+# to be correct based on uMCTL2 databook table 2-105 (lan969x) and
+# table 2-89 (lan966x).
+# This memory map is for DDR3 half-bus mode (8-bit effective bus) with
+# inline ECC on lan969x and lan966x. The suggested mapping is identical
+# for both platforms.
+# Derived from uMCTL2 v3.91a table 2-105 (lan969x) and
+#             uMCTL2 v3.40a table 2-89  (lan966x).
+# MEMC_BURST_LENGTH=16 is required; lan966x has no support for BL=8.
+# Uses bank rotation: BA0 and BA1 placed at the lowest HIF bits (2 and 3)
+# for maximum bank interleaving (analogous to 4 Bank Group rotation in DDR4).
+# BL_EXP_MODE (PCCFG bit 8) must be enabled; required for half-bus DDR3
+# with MEMC_BURST_LENGTH=16.
+# This memory map is for the ISSI IS43TR85120AL device:
+# - Density : 4G bits
+# - Organization : 64M words x 8 bits x 8 banks
+#  - Bank Address:   BA0 ~ BA2 (3 bank address bits, no bank groups)
+#  - Row Address:    A0 ~ A15 (16-bit row; ROW_B15 is active, not disabled)
+#  - Column Address: A0 ~ A9 (A10 = Auto Precharge, A12 = BC#)
+#  - Page size:      1 KB
+# You can use this for other devices with the same organization.
+# COL_B9 is disabled (31): in half-bus mode COL_B9 maps to A11 which does
+# not exist on this 10-bit column device.
+# COL_B7=19 and COL_B8=19 are inline ECC 'x' values (valid range per
+# databook: "0 to 7, x, and 31; x indicates a valid value in the inline
+# ECC configuration"). With highest valid HIF=27: COL_B8 x=27-8=19,
+# COL_B7 x=26-7=19. These are the required mappings for the highest 3
+# column address bits to the highest 3 valid HIF bits (uMCTL2 v3.91a).
+# Note: ADDRMAP7 and ADDRMAP8 are excluded on lan966x (DDR3-only platform);
+# these entries are silently ignored when generating lan966x configs.
+---
+addrmap0:
+  ADDRMAP_CS_BIT0: 31
+addrmap1:
+  ADDRMAP_BANK_B0: 0
+  ADDRMAP_BANK_B1: 0
+  ADDRMAP_BANK_B2: 3
+addrmap2:
+  ADDRMAP_COL_B2: 6
+  ADDRMAP_COL_B3: 22
+  ADDRMAP_COL_B4: 0
+  ADDRMAP_COL_B5: 0
+addrmap3:
+  ADDRMAP_COL_B6: 0
+  ADDRMAP_COL_B7: 19
+  ADDRMAP_COL_B8: 19
+  ADDRMAP_COL_B9: 31
+addrmap4:
+  ADDRMAP_COL_B10: 31
+  ADDRMAP_COL_B11: 31
+addrmap5:
+  ADDRMAP_ROW_B0: 3
+  ADDRMAP_ROW_B1: 3
+  ADDRMAP_ROW_B2_10: 3
+  ADDRMAP_ROW_B11: 3
+addrmap6:
+  ADDRMAP_ROW_B12: 3
+  ADDRMAP_ROW_B13: 3
+  ADDRMAP_ROW_B14: 3
+  ADDRMAP_ROW_B15: 3
+addrmap7:
+  ADDRMAP_ROW_B16: 15
+  ADDRMAP_ROW_B17: 15
+addrmap8:
+  ADDRMAP_BG_B0: 63
+  ADDRMAP_BG_B1: 63
