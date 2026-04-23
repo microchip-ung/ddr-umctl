@@ -8,9 +8,8 @@
 #  - Row Address:    A0 ~ A14
 #  - Column Address: A0 ~ A9
 #  - Page size:      1 KB
-# Compared to ddr4_512Mx8_halfbus.yaml, this layout places column bits
-# at low HIF addresses (3-9) and moves bank/BG bits to higher HIF bits
-# (25-27), which is more suitable for ECC testing.
+# This layout places column bits at low HIF addresses (3-9) and bank/BG
+# bits at higher HIF bits (25-27), which is suitable for ECC testing.
 # You can use this for other devices with the same organization:
 #  - Alliance AS4C512M8D4 
 ---
