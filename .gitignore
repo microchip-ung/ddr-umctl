@@ -1,6 +1,7 @@
 # Ignore miscellaneous files
 *.patch
 *~
+CLAUDE.local.md
 
 # Ignore build directory
 build/
